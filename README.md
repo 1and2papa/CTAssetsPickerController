@@ -4,6 +4,16 @@ CTAssetsPickerViewController is an iOS view controller that allows picking multi
 
 ![Screenshot](https://raw.github.com/chiunam/CTAssetsPickerViewController/master/Screenshot.png "Screenshot")
 
+## Features
+1. Picking multiple photos and videos from user's library.
+2. Filtering assets to pick only photos or videos.
+3. Limiting maximum number of assets to be picked.
+4. Average 5x fps.
+5. Conforming UIAccessibility Protocol.
+
+## Minimum Requirement
+Xcode 5 and iOS 6.
+
 ## Adding to Project
 
 1. Drag `CTAssetsPickerViewController` folder in your project.
