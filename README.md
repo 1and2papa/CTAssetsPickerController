@@ -1,6 +1,6 @@
 # CTAssetsPickerController
 
-CTAssetsPickerController is an iOS view controller that allows picking multiple photos and videos from user's photo library. The usage and look-and-feel just similar to UIImagePickerController. It uses **ARC** and requires **AssetsLibrary** framework.
+CTAssetsPickerController is an iOS controller that allows picking multiple photos and videos from user's photo library. The usage and look-and-feel just similar to UIImagePickerController. It uses **ARC** and requires **AssetsLibrary** framework.
 
 ![Screenshot](https://raw.github.com/chiunam/CTAssetsPickerController/master/Screenshot.png "Screenshot")
 
@@ -42,6 +42,11 @@ If you only want to pick photos or videos, create an `ALAssetsFilter` and assign
 ```` objective-c
 picker.assetsFilter = [ALAssetsFilter allPhotos]; // Only pick photos.
 ````    
+
+Hide the cancel button if you present the view controller in `UIPopoverController`.
+```` objective-c
+picker.showsCancelButton = NO;
+````
 
 ### Implement CTAssetsPickerControllerDelegate
 

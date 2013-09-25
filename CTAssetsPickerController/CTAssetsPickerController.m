@@ -33,6 +33,7 @@
 #define IS_IOS7             ([[[UIDevice currentDevice] systemVersion] compare:@"7.0" options:NSNumericSearch] != NSOrderedAscending)
 #define kThumbnailLength    78.0f
 #define kThumbnailSize      CGSizeMake(kThumbnailLength, kThumbnailLength)
+#define kPopoverContentSize CGSizeMake(320, 480)
 
 
 #pragma mark - Interfaces
@@ -131,6 +132,10 @@
     {
         _maximumNumberOfSelection   = NSIntegerMax;
         _assetsFilter               = [ALAssetsFilter allAssets];
+        _showsCancelButton          = YES;
+        
+        if ([self respondsToSelector:@selector(setContentSizeForViewInPopover:)])
+            [self setContentSizeForViewInPopover:kPopoverContentSize];
     }
     
     return self;
@@ -160,7 +165,8 @@
 {
     if (self = [super initWithStyle:UITableViewStylePlain])
     {
-        //
+        if ([self respondsToSelector:@selector(setContentSizeForViewInPopover:)])
+            [self setContentSizeForViewInPopover:kPopoverContentSize];
     }
     
     return self;
@@ -186,11 +192,16 @@
 
 - (void)setupButtons
 {
-    self.navigationItem.rightBarButtonItem =
-    [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", nil)
-                                     style:UIBarButtonItemStylePlain
-                                    target:self
-                                    action:@selector(dismiss:)];
+    CTAssetsPickerController *picker = (CTAssetsPickerController *)self.navigationController;
+    
+    if (picker.showsCancelButton)
+    {
+        self.navigationItem.rightBarButtonItem =
+        [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", nil)
+                                         style:UIBarButtonItemStylePlain
+                                        target:self
+                                        action:@selector(dismiss:)];
+    }
 }
 
 - (void)localize
@@ -482,6 +493,9 @@
         [self.collectionView registerClass:[CTAssetsSupplementaryView class]
                 forSupplementaryViewOfKind:UICollectionElementKindSectionFooter
                        withReuseIdentifier:kAssetsSupplementaryViewIdentifier];
+        
+        if ([self respondsToSelector:@selector(setContentSizeForViewInPopover:)])
+            [self setContentSizeForViewInPopover:kPopoverContentSize];
     }
     
     return self;
