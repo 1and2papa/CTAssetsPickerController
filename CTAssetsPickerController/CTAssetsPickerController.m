@@ -1,6 +1,6 @@
 
 /*
- CTAssetsPickerViewController.m
+ CTAssetsPickerController.m
  
  The MIT License (MIT)
  
@@ -27,7 +27,7 @@
  */
 
 
-#import "CTAssetsPickerViewController.h"
+#import "CTAssetsPickerController.h"
 #import "NSDate+TimeInterval.h"
 
 #define IS_IOS7             ([[[UIDevice currentDevice] systemVersion] compare:@"7.0" options:NSNumericSearch] != NSOrderedAscending)
@@ -37,7 +37,7 @@
 
 #pragma mark - Interfaces
 
-@interface CTAssetsPickerViewController ()
+@interface CTAssetsPickerController ()
 
 @end
 
@@ -118,10 +118,10 @@
 
 
 
-#pragma mark - CTAssetsPickerViewController
+#pragma mark - CTAssetsPickerController
 
 
-@implementation CTAssetsPickerViewController
+@implementation CTAssetsPickerController
 
 - (id)init
 {
@@ -208,7 +208,7 @@
     else
         [self.groups removeAllObjects];
     
-    CTAssetsPickerViewController *picker = (CTAssetsPickerViewController *)self.navigationController;
+    CTAssetsPickerController *picker = (CTAssetsPickerController *)self.navigationController;
     ALAssetsFilter *assetsFilter = picker.assetsFilter;
     
     ALAssetsLibraryGroupsEnumerationResultsBlock resultsBlock = ^(ALAssetsGroup *group, BOOL *stop) {
@@ -405,7 +405,7 @@
 
 - (void)dismiss:(id)sender
 {
-    CTAssetsPickerViewController *picker = (CTAssetsPickerViewController *)self.navigationController;
+    CTAssetsPickerController *picker = (CTAssetsPickerController *)self.navigationController;
     
     if ([picker.delegate respondsToSelector:@selector(assetsPickerControllerDidCancel:)])
         [picker.delegate assetsPickerControllerDidCancel:picker];
@@ -594,7 +594,7 @@
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    CTAssetsPickerViewController *vc = (CTAssetsPickerViewController *)self.navigationController;
+    CTAssetsPickerController *vc = (CTAssetsPickerController *)self.navigationController;
     
     return ([collectionView indexPathsForSelectedItems].count < vc.maximumNumberOfSelection);
 }
@@ -664,10 +664,10 @@
         [assets addObject:[self.assets objectAtIndex:indexPath.item]];
     }
     
-    CTAssetsPickerViewController *picker = (CTAssetsPickerViewController *)self.navigationController;
+    CTAssetsPickerController *picker = (CTAssetsPickerController *)self.navigationController;
     
-    if ([picker.delegate respondsToSelector:@selector(assetsPickerViewController:didFinishPickingAssets:)])
-        [picker.delegate assetsPickerViewController:picker didFinishPickingAssets:assets];
+    if ([picker.delegate respondsToSelector:@selector(assetsPickerController:didFinishPickingAssets:)])
+        [picker.delegate assetsPickerController:picker didFinishPickingAssets:assets];
     
     [picker.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
 }

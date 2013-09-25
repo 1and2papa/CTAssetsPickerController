@@ -17,10 +17,10 @@
 		ADE31DA017EFF08C008958B8 /* CTMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE31D9F17EFF08C008958B8 /* CTMasterViewController.m */; };
 		ADE31DA517EFF08C008958B8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADE31DA417EFF08C008958B8 /* Images.xcassets */; };
 		ADE31DC217EFF159008958B8 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADE31DC117EFF159008958B8 /* AssetsLibrary.framework */; };
-		ADE31DCA17EFF225008958B8 /* CTAssetsPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE31DC517EFF225008958B8 /* CTAssetsPickerViewController.m */; };
-		ADE31DCB17EFF225008958B8 /* NSDate+TimeInterval.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE31DC717EFF225008958B8 /* NSDate+TimeInterval.m */; };
-		ADE31DD717F11F2F008958B8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADE31DD617F11F2F008958B8 /* Images.xcassets */; };
 		ADE31DDA17F12FB4008958B8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = ADE31DDC17F12FB4008958B8 /* Localizable.strings */; };
+		ADF20BD617F2737400E97692 /* CTAssetsPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADF20BD217F2737300E97692 /* CTAssetsPickerController.m */; };
+		ADF20BD717F2737400E97692 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADF20BD317F2737400E97692 /* Images.xcassets */; };
+		ADF20BD817F2737400E97692 /* NSDate+TimeInterval.m in Sources */ = {isa = PBXBuildFile; fileRef = ADF20BD517F2737400E97692 /* NSDate+TimeInterval.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,13 +39,13 @@
 		ADE31D9F17EFF08C008958B8 /* CTMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CTMasterViewController.m; sourceTree = "<group>"; };
 		ADE31DA417EFF08C008958B8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		ADE31DC117EFF159008958B8 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
-		ADE31DC417EFF225008958B8 /* CTAssetsPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CTAssetsPickerViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		ADE31DC517EFF225008958B8 /* CTAssetsPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CTAssetsPickerViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		ADE31DC617EFF225008958B8 /* NSDate+TimeInterval.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+TimeInterval.h"; sourceTree = "<group>"; };
-		ADE31DC717EFF225008958B8 /* NSDate+TimeInterval.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+TimeInterval.m"; sourceTree = "<group>"; };
-		ADE31DD617F11F2F008958B8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		ADE31DDD17F13073008958B8 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = file; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		ADE31DDF17F13084008958B8 /* en */ = {isa = PBXFileReference; lastKnownFileType = file; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		ADE31DDD17F13073008958B8 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		ADE31DDF17F13084008958B8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		ADF20BD117F2737300E97692 /* CTAssetsPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CTAssetsPickerController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		ADF20BD217F2737300E97692 /* CTAssetsPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CTAssetsPickerController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		ADF20BD317F2737400E97692 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		ADF20BD417F2737400E97692 /* NSDate+TimeInterval.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+TimeInterval.h"; sourceTree = "<group>"; };
+		ADF20BD517F2737400E97692 /* NSDate+TimeInterval.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+TimeInterval.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,7 +66,7 @@
 		ADE31D7D17EFF08C008958B8 = {
 			isa = PBXGroup;
 			children = (
-				ADE31DC317EFF225008958B8 /* CTAssetsPickerViewController */,
+				ADF20BD017F2737300E97692 /* CTAssetsPickerController */,
 				ADE31D8F17EFF08C008958B8 /* CTAssetsPickerDemo */,
 				ADE31D8817EFF08C008958B8 /* Frameworks */,
 				ADE31D8717EFF08C008958B8 /* Products */,
@@ -118,16 +118,16 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		ADE31DC317EFF225008958B8 /* CTAssetsPickerViewController */ = {
+		ADF20BD017F2737300E97692 /* CTAssetsPickerController */ = {
 			isa = PBXGroup;
 			children = (
-				ADE31DC417EFF225008958B8 /* CTAssetsPickerViewController.h */,
-				ADE31DC517EFF225008958B8 /* CTAssetsPickerViewController.m */,
-				ADE31DC617EFF225008958B8 /* NSDate+TimeInterval.h */,
-				ADE31DC717EFF225008958B8 /* NSDate+TimeInterval.m */,
-				ADE31DD617F11F2F008958B8 /* Images.xcassets */,
+				ADF20BD117F2737300E97692 /* CTAssetsPickerController.h */,
+				ADF20BD217F2737300E97692 /* CTAssetsPickerController.m */,
+				ADF20BD317F2737400E97692 /* Images.xcassets */,
+				ADF20BD417F2737400E97692 /* NSDate+TimeInterval.h */,
+				ADF20BD517F2737400E97692 /* NSDate+TimeInterval.m */,
 			);
-			path = CTAssetsPickerViewController;
+			path = CTAssetsPickerController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -186,7 +186,7 @@
 			files = (
 				ADE31DDA17F12FB4008958B8 /* Localizable.strings in Resources */,
 				ADE31DA517EFF08C008958B8 /* Images.xcassets in Resources */,
-				ADE31DD717F11F2F008958B8 /* Images.xcassets in Resources */,
+				ADF20BD717F2737400E97692 /* Images.xcassets in Resources */,
 				ADE31D9417EFF08C008958B8 /* InfoPlist.strings in Resources */,
 				ADE31D9D17EFF08C008958B8 /* Main.storyboard in Resources */,
 			);
@@ -199,11 +199,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ADE31DCB17EFF225008958B8 /* NSDate+TimeInterval.m in Sources */,
-				ADE31DCA17EFF225008958B8 /* CTAssetsPickerViewController.m in Sources */,
 				ADE31D9617EFF08C008958B8 /* main.m in Sources */,
+				ADF20BD617F2737400E97692 /* CTAssetsPickerController.m in Sources */,
 				ADE31D9A17EFF08C008958B8 /* CTAppDelegate.m in Sources */,
 				ADE31DA017EFF08C008958B8 /* CTMasterViewController.m in Sources */,
+				ADF20BD817F2737400E97692 /* NSDate+TimeInterval.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

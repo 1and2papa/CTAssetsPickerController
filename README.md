@@ -1,8 +1,8 @@
-# CTAssetsPickerViewController
+# CTAssetsPickerController
 
-CTAssetsPickerViewController is an iOS view controller that allows picking multiple photos and videos from user's photo library. The usage and look-and-feel just similar to UIImagePickerController. It uses **ARC** and requires **AssetsLibrary** framework.
+CTAssetsPickerController is an iOS view controller that allows picking multiple photos and videos from user's photo library. The usage and look-and-feel just similar to UIImagePickerController. It uses **ARC** and requires **AssetsLibrary** framework.
 
-![Screenshot](https://raw.github.com/chiunam/CTAssetsPickerViewController/master/Screenshot.png "Screenshot")
+![Screenshot](https://raw.github.com/chiunam/CTAssetsPickerController/master/Screenshot.png "Screenshot")
 
 ## Features
 1. Picking multiple photos and videos from user's library.
@@ -16,17 +16,17 @@ Xcode 5 and iOS 6.
 
 ## Adding to Project
 
-1. Drag `CTAssetsPickerViewController` folder in your project.
+1. Drag `CTAssetsPickerController` folder in your project.
 2. Add `AssetsLibrary.framework`.
 
 ## Usage
 
 See the Demo Xcode project for details.
 
-### Create and present CTAssetsPickerViewController
+### Create and present CTAssetsPickerController
 
 ```` objective-c
-CTAssetsPickerViewController *picker = [[CTAssetsPickerViewController alloc] init];
+CTAssetsPickerController *picker = [[CTAssetsPickerController alloc] init];
 picker.delegate = self;
 [self presentViewController:picker animated:YES completion:NULL];
 ````
@@ -43,21 +43,21 @@ If you only want to pick photos or videos, create an `ALAssetsFilter` and assign
 picker.assetsFilter = [ALAssetsFilter allPhotos]; // Only pick photos.
 ````    
 
-### Implement CTAssetsPickerViewControllerDelegate
+### Implement CTAssetsPickerControllerDelegate
 
 *didFinishPickingAssets*
 ```` objective-c
-- (void)assetsPickerViewController:(CTAssetsPickerViewController *)picker didFinishPickingAssets:(NSArray *)assets
+- (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets
 // assets contains ALAsset objects.
 ````
 
 *didCancel (Optional)*
 ```` objective-c
-- (void)assetsPickerControllerDidCancel:(CTAssetsPickerViewController *)picker;
+- (void)assetsPickerControllerDidCancel:(CTAssetsPickerController *)picker;
 ````
 
 ## Note
-CTAssetsPickerViewController does not compress the picked photos and videos. You can process the picked assets via the `defaultRepresentation` property.
+CTAssetsPickerController does not compress the picked photos and videos. You can process the picked assets via the `defaultRepresentation` property.
 
 For example, you can create `UIImage` from picked assets like this:-
 

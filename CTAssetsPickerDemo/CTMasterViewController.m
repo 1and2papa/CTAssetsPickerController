@@ -27,11 +27,11 @@
  */
  
 
-#import "CTAssetsPickerViewController.h"
+#import "CTAssetsPickerController.h"
 #import "CTMasterViewController.h"
 
 
-@interface CTMasterViewController () <UINavigationControllerDelegate, CTAssetsPickerViewControllerDelegate>
+@interface CTMasterViewController () <UINavigationControllerDelegate, CTAssetsPickerControllerDelegate>
 
 @property (nonatomic, strong) NSMutableArray *assets;
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
@@ -92,7 +92,7 @@
     if (!self.assets)
         self.assets = [[NSMutableArray alloc] init];
 
-    CTAssetsPickerViewController *picker = [[CTAssetsPickerViewController alloc] init];
+    CTAssetsPickerController *picker = [[CTAssetsPickerController alloc] init];
     picker.maximumNumberOfSelection = 10;
     picker.assetsFilter = [ALAssetsFilter allAssets];
     picker.delegate = self;
@@ -129,7 +129,7 @@
 
 #pragma mark - Assets Picker Delegate
 
-- (void)assetsPickerViewController:(CTAssetsPickerViewController *)picker didFinishPickingAssets:(NSArray *)assets
+- (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets
 {
     [self.tableView beginUpdates];
     [self.tableView insertRowsAtIndexPaths:[self indexPathOfNewlyAddedAssets:assets]

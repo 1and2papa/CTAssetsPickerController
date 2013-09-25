@@ -1,6 +1,6 @@
 
 /*
- CTAssetsPickerViewController.h
+ CTAssetsPickerController.h
  
  The MIT License (MIT)
  
@@ -32,13 +32,13 @@
 
 
 
-@protocol CTAssetsPickerViewControllerDelegate;
+@protocol CTAssetsPickerControllerDelegate;
 
 /// A view controller that allows picking multiple photos and videos from user's photo library.
-@interface CTAssetsPickerViewController : UINavigationController
+@interface CTAssetsPickerController : UINavigationController
 
 /// The assets picker’s delegate object.
-@property (nonatomic, weak) id <UINavigationControllerDelegate, CTAssetsPickerViewControllerDelegate> delegate;
+@property (nonatomic, weak) id <UINavigationControllerDelegate, CTAssetsPickerControllerDelegate> delegate;
 
 /// Set the ALAssetsFilter to filter the picker contents. 
 @property (nonatomic, strong) ALAssetsFilter *assetsFilter;
@@ -50,16 +50,16 @@
 
 
 /**
- The CTAssetsPickerViewControllerDelegate protocol defines methods that your delegate object must implement to interact with the assets picker interface. The methods of this protocol notify your delegate when the user finish picking photos or videos, or cancels the picker operation.
+ The CTAssetsPickerControllerDelegate protocol defines methods that your delegate object must implement to interact with the assets picker interface. The methods of this protocol notify your delegate when the user finish picking photos or videos, or cancels the picker operation.
  */
-@protocol CTAssetsPickerViewControllerDelegate <NSObject>
+@protocol CTAssetsPickerControllerDelegate <NSObject>
 
 /**
  Tells the delegate that the user finish picking photos or videos.
  @param picker The controller object managing the assets picker interface.
  @param assets An array containing picked ALAsset objects
  */
-- (void)assetsPickerViewController:(CTAssetsPickerViewController *)picker didFinishPickingAssets:(NSArray *)assets;
+- (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets;
 
 @optional
 
@@ -67,6 +67,6 @@
  Tells the delegate that the user cancelled the pick operation.
  @param picker The controller object managing the assets picker interface.
  */
-- (void)assetsPickerControllerDidCancel:(CTAssetsPickerViewController *)picker;
+- (void)assetsPickerControllerDidCancel:(CTAssetsPickerController *)picker;
 
 @end
