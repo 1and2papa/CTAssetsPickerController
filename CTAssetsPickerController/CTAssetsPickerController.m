@@ -437,22 +437,14 @@
 {
     self.assetsGroup            = assetsGroup;
     
-    self.imageView.image        = [UIImage imageWithCGImage:assetsGroup.posterImage];
+    CGImageRef posterImage      = assetsGroup.posterImage;
+    size_t height               = CGImageGetHeight(posterImage);
+    float scale                 = height / kThumbnailLength;
+    
+    self.imageView.image        = [UIImage imageWithCGImage:posterImage scale:scale orientation:UIImageOrientationUp];
     self.textLabel.text         = [assetsGroup valueForProperty:ALAssetsGroupPropertyName];
     self.detailTextLabel.text   = [NSString stringWithFormat:@"%d", [assetsGroup numberOfAssets]];
     self.accessoryType          = UITableViewCellAccessoryDisclosureIndicator;
-}
-
-- (void)layoutSubviews
-{
-    [super layoutSubviews];
-    
-    CGRect rect = self.imageView.bounds;
-    
-    rect.size.width  *= 0.85;
-    rect.size.height *= 0.85;
-    
-    self.imageView.bounds = rect;
 }
 
 - (NSString *)accessibilityLabel
