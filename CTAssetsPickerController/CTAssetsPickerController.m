@@ -486,6 +486,9 @@
                 forSupplementaryViewOfKind:UICollectionElementKindSectionFooter
                        withReuseIdentifier:kAssetsSupplementaryViewIdentifier];
         
+        if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)])
+            [self setEdgesForExtendedLayout:UIRectEdgeNone];
+        
         if ([self respondsToSelector:@selector(setContentSizeForViewInPopover:)])
             [self setContentSizeForViewInPopover:kPopoverContentSize];
     }
