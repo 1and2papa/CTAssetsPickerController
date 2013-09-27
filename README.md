@@ -14,14 +14,45 @@ CTAssetsPickerController is an iOS controller that allows picking multiple photo
 ## Minimum Requirement
 Xcode 5 and iOS 6.
 
-## Adding to Project
+## Installation
 
-1. Drag `CTAssetsPickerController` folder in your project.
+### via CocoaPods
+Install CocoaPods if you do not have it:-
+````
+$ [sudo] gem install cocoapods
+$ pod setup
+````
+Create Podfile:-
+````
+$ edit Podfile
+platform :ios, '6.0'
+pod 'CTAssetsPickerController',  '~> 1.0.3'
+$ pod install
+````
+Use the Xcode workspace instead of the project from now on.
+
+### via Git Submodules
+
+````
+$ git submodule add http://github.com/chiunam/CTAssetsPickerController
+````
+1. Drag `CTAssetsPickerController` folder in your project and add to your targets.
 2. Add `AssetsLibrary.framework`.
 
 ## Usage
 
 See the Demo Xcode project for details.
+
+### Import header
+
+If using CocoaPods:-
+```` objective-c
+#import <CTAssetsPickerController.h>
+````
+If using Submodules:-
+```` objective-c
+#import "CTAssetsPickerController.h"
+````
 
 ### Create and present CTAssetsPickerController
 
@@ -43,7 +74,7 @@ If you only want to pick photos or videos, create an `ALAssetsFilter` and assign
 picker.assetsFilter = [ALAssetsFilter allPhotos]; // Only pick photos.
 ````    
 
-Hide the cancel button if you present the view controller in `UIPopoverController`.
+Hide the cancel button if you present the picker in `UIPopoverController`.
 ```` objective-c
 picker.showsCancelButton = NO;
 ````
