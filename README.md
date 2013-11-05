@@ -79,6 +79,12 @@ Hide the cancel button if you present the picker in `UIPopoverController`.
 picker.showsCancelButton = NO;
 ````
 
+Show empty photo albums in `UIPopoverController`.
+```` objective-c
+picker.showsEmptyGroups = YES;
+````
+
+
 ### Implement CTAssetsPickerControllerDelegate
 
 *didFinishPickingAssets*

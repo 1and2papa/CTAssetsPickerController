@@ -133,6 +133,7 @@
         _maximumNumberOfSelection   = NSIntegerMax;
         _assetsFilter               = [ALAssetsFilter allAssets];
         _showsCancelButton          = YES;
+        _showsEmptyGroups           = NO;
         
         if ([self respondsToSelector:@selector(setContentSizeForViewInPopover:)])
             [self setContentSizeForViewInPopover:kPopoverContentSize];
@@ -228,7 +229,7 @@
         {
             [group setAssetsFilter:assetsFilter];
             
-            if (group.numberOfAssets > 0)
+            if (group.numberOfAssets > 0 || picker.showsEmptyGroups)
                 [self.groups addObject:group];
             
         }
