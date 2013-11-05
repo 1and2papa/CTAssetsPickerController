@@ -53,6 +53,9 @@
  */
 @property (nonatomic, assign) BOOL showsCancelButton;
 
+// Set YES if you need to show all the groups (even they are empty)
+@property (nonatomic, assign, readwrite) BOOL showEmptyGroups;
+
 @end
 
 

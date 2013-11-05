@@ -228,7 +228,7 @@
         {
             [group setAssetsFilter:assetsFilter];
             
-            if (group.numberOfAssets > 0)
+            if (group.numberOfAssets > 0 || picker.showEmptyGroups)
                 [self.groups addObject:group];
             
         }
