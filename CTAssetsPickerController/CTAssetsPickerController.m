@@ -399,7 +399,7 @@
 
 #pragma mark - Table view delegate
 
-- (float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return kThumbnailLength + 12;
 }
@@ -443,7 +443,7 @@
     
     self.imageView.image        = [UIImage imageWithCGImage:posterImage scale:scale orientation:UIImageOrientationUp];
     self.textLabel.text         = [assetsGroup valueForProperty:ALAssetsGroupPropertyName];
-    self.detailTextLabel.text   = [NSString stringWithFormat:@"%d", [assetsGroup numberOfAssets]];
+    self.detailTextLabel.text   = [NSString stringWithFormat:@"%ld", (long)[assetsGroup numberOfAssets]];
     self.accessoryType          = UITableViewCellAccessoryDisclosureIndicator;
 }
 
@@ -451,7 +451,7 @@
 {
     NSString *label = [self.assetsGroup valueForProperty:ALAssetsGroupPropertyName];
     
-    return [label stringByAppendingFormat:NSLocalizedString(@"%d Photos", nil), [self.assetsGroup numberOfAssets]];
+    return [label stringByAppendingFormat:NSLocalizedString(@"%ld Photos", nil), (long)[self.assetsGroup numberOfAssets]];
 }
 
 @end
@@ -650,15 +650,15 @@
     NSString *format;
     
     if (photosSelected && videoSelected)
-        format = NSLocalizedString(@"%d Items Selected", nil);
+        format = NSLocalizedString(@"%ld Items Selected", nil);
     
     else if (photosSelected)
-        format = (indexPaths.count > 1) ? NSLocalizedString(@"%d Photos Selected", nil) : NSLocalizedString(@"%d Photo Selected", nil);
+        format = (indexPaths.count > 1) ? NSLocalizedString(@"%ld Photos Selected", nil) : NSLocalizedString(@"%ld Photo Selected", nil);
 
     else if (videoSelected)
-        format = (indexPaths.count > 1) ? NSLocalizedString(@"%d Videos Selected", nil) : NSLocalizedString(@"%d Video Selected", nil);
+        format = (indexPaths.count > 1) ? NSLocalizedString(@"%ld Videos Selected", nil) : NSLocalizedString(@"%ld Video Selected", nil);
     
-    self.title = [NSString stringWithFormat:format, indexPaths.count];
+    self.title = [NSString stringWithFormat:format, (long)indexPaths.count];
 }
 
 
@@ -849,11 +849,11 @@ static UIColor *selectedColor;
     NSString *title;
     
     if (numberOfVideos == 0)
-        title = [NSString stringWithFormat:NSLocalizedString(@"%d Photos", nil), numberOfPhotos];
+        title = [NSString stringWithFormat:NSLocalizedString(@"%ld Photos", nil), (long)numberOfPhotos];
     else if (numberOfPhotos == 0)
-        title = [NSString stringWithFormat:NSLocalizedString(@"%d Videos", nil), numberOfVideos];
+        title = [NSString stringWithFormat:NSLocalizedString(@"%ld Videos", nil), (long)numberOfVideos];
     else
-        title = [NSString stringWithFormat:NSLocalizedString(@"%d Photos, %d Videos", nil), numberOfPhotos, numberOfVideos];
+        title = [NSString stringWithFormat:NSLocalizedString(@"%ld Photos, %ld Videos", nil), (long)numberOfPhotos, (long)numberOfVideos];
     
     self.sectionLabel.text = title;
 }

@@ -7,6 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AD843C1A1806AC5000AF28F9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE31D9517EFF08C008958B8 /* main.m */; };
+		AD843C1B1806AC5000AF28F9 /* CTAssetsPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADF20BD217F2737300E97692 /* CTAssetsPickerController.m */; };
+		AD843C1C1806AC5000AF28F9 /* CTAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE31D9917EFF08C008958B8 /* CTAppDelegate.m */; };
+		AD843C1D1806AC5000AF28F9 /* CTMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE31D9F17EFF08C008958B8 /* CTMasterViewController.m */; };
+		AD843C1E1806AC5000AF28F9 /* NSDate+TimeInterval.m in Sources */ = {isa = PBXBuildFile; fileRef = ADF20BD517F2737400E97692 /* NSDate+TimeInterval.m */; };
+		AD843C201806AC5000AF28F9 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADE31DC117EFF159008958B8 /* AssetsLibrary.framework */; };
+		AD843C211806AC5000AF28F9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADE31D8B17EFF08C008958B8 /* CoreGraphics.framework */; };
+		AD843C221806AC5000AF28F9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADE31D8D17EFF08C008958B8 /* UIKit.framework */; };
+		AD843C231806AC5000AF28F9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADE31D8917EFF08C008958B8 /* Foundation.framework */; };
+		AD843C251806AC5000AF28F9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = ADE31DDC17F12FB4008958B8 /* Localizable.strings */; };
+		AD843C261806AC5000AF28F9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADE31DA417EFF08C008958B8 /* Images.xcassets */; };
+		AD843C271806AC5000AF28F9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADF20BD317F2737400E97692 /* Images.xcassets */; };
+		AD843C281806AC5000AF28F9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = ADE31D9217EFF08C008958B8 /* InfoPlist.strings */; };
+		AD843C291806AC5000AF28F9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ADE31D9B17EFF08C008958B8 /* Main.storyboard */; };
 		ADE31D8A17EFF08C008958B8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADE31D8917EFF08C008958B8 /* Foundation.framework */; };
 		ADE31D8C17EFF08C008958B8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADE31D8B17EFF08C008958B8 /* CoreGraphics.framework */; };
 		ADE31D8E17EFF08C008958B8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADE31D8D17EFF08C008958B8 /* UIKit.framework */; };
@@ -24,6 +38,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AD843C2D1806AC5000AF28F9 /* CTAssetsPickerDemo-64bit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CTAssetsPickerDemo-64bit.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD843C2F1806AC9800AF28F9 /* CTAssetsPickerDemo-64bit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "CTAssetsPickerDemo-64bit-Info.plist"; sourceTree = "<group>"; };
 		ADE31D8617EFF08C008958B8 /* CTAssetsPickerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CTAssetsPickerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADE31D8917EFF08C008958B8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		ADE31D8B17EFF08C008958B8 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -49,6 +65,17 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		AD843C1F1806AC5000AF28F9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AD843C201806AC5000AF28F9 /* AssetsLibrary.framework in Frameworks */,
+				AD843C211806AC5000AF28F9 /* CoreGraphics.framework in Frameworks */,
+				AD843C221806AC5000AF28F9 /* UIKit.framework in Frameworks */,
+				AD843C231806AC5000AF28F9 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		ADE31D8317EFF08C008958B8 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -77,6 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				ADE31D8617EFF08C008958B8 /* CTAssetsPickerDemo.app */,
+				AD843C2D1806AC5000AF28F9 /* CTAssetsPickerDemo-64bit.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -110,6 +138,7 @@
 		ADE31D9017EFF08C008958B8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				AD843C2F1806AC9800AF28F9 /* CTAssetsPickerDemo-64bit-Info.plist */,
 				ADE31D9117EFF08C008958B8 /* CTAssetsPickerDemo-Info.plist */,
 				ADE31D9217EFF08C008958B8 /* InfoPlist.strings */,
 				ADE31D9517EFF08C008958B8 /* main.m */,
@@ -133,6 +162,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		AD843C181806AC5000AF28F9 /* CTAssetsPickerDemo-64bit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AD843C2A1806AC5000AF28F9 /* Build configuration list for PBXNativeTarget "CTAssetsPickerDemo-64bit" */;
+			buildPhases = (
+				AD843C191806AC5000AF28F9 /* Sources */,
+				AD843C1F1806AC5000AF28F9 /* Frameworks */,
+				AD843C241806AC5000AF28F9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "CTAssetsPickerDemo-64bit";
+			productName = CTAssetsPickerDemo;
+			productReference = AD843C2D1806AC5000AF28F9 /* CTAssetsPickerDemo-64bit.app */;
+			productType = "com.apple.product-type.application";
+		};
 		ADE31D8517EFF08C008958B8 /* CTAssetsPickerDemo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = ADE31DBB17EFF08C008958B8 /* Build configuration list for PBXNativeTarget "CTAssetsPickerDemo" */;
@@ -175,11 +221,24 @@
 			projectRoot = "";
 			targets = (
 				ADE31D8517EFF08C008958B8 /* CTAssetsPickerDemo */,
+				AD843C181806AC5000AF28F9 /* CTAssetsPickerDemo-64bit */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		AD843C241806AC5000AF28F9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AD843C251806AC5000AF28F9 /* Localizable.strings in Resources */,
+				AD843C261806AC5000AF28F9 /* Images.xcassets in Resources */,
+				AD843C271806AC5000AF28F9 /* Images.xcassets in Resources */,
+				AD843C281806AC5000AF28F9 /* InfoPlist.strings in Resources */,
+				AD843C291806AC5000AF28F9 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		ADE31D8417EFF08C008958B8 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -195,6 +254,18 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		AD843C191806AC5000AF28F9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AD843C1A1806AC5000AF28F9 /* main.m in Sources */,
+				AD843C1B1806AC5000AF28F9 /* CTAssetsPickerController.m in Sources */,
+				AD843C1C1806AC5000AF28F9 /* CTAppDelegate.m in Sources */,
+				AD843C1D1806AC5000AF28F9 /* CTMasterViewController.m in Sources */,
+				AD843C1E1806AC5000AF28F9 /* NSDate+TimeInterval.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		ADE31D8217EFF08C008958B8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -238,6 +309,34 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		AD843C2B1806AC5000AF28F9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CTAssetsPickerDemo/CTAssetsPickerDemo-Prefix.pch";
+				INFOPLIST_FILE = "CTAssetsPickerDemo/CTAssetsPickerDemo-64bit-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_NAME = "CTAssetsPickerDemo-64bit";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		AD843C2C1806AC5000AF28F9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CTAssetsPickerDemo/CTAssetsPickerDemo-Prefix.pch";
+				INFOPLIST_FILE = "CTAssetsPickerDemo/CTAssetsPickerDemo-64bit-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_NAME = "CTAssetsPickerDemo-64bit";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
 		ADE31DB917EFF08C008958B8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -341,6 +440,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		AD843C2A1806AC5000AF28F9 /* Build configuration list for PBXNativeTarget "CTAssetsPickerDemo-64bit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AD843C2B1806AC5000AF28F9 /* Debug */,
+				AD843C2C1806AC5000AF28F9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		ADE31D8117EFF08C008958B8 /* Build configuration list for PBXProject "CTAssetsPickerDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

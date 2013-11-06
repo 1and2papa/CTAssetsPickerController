@@ -143,7 +143,7 @@
 {
     NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
     
-    for (int i = self.assets.count; i < self.assets.count + assets.count ; i++)
+    for (NSUInteger i = self.assets.count; i < self.assets.count + assets.count ; i++)
         [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
     
     return indexPaths;
