@@ -97,6 +97,7 @@
 @property (nonatomic, copy) NSString *type;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, strong) UIImage *videoImage;
+@property (nonatomic, assign) BOOL disabled;
 
 @end
 
@@ -134,6 +135,7 @@
         _assetsFilter               = [ALAssetsFilter allAssets];
         _showsCancelButton          = YES;
         _showsEmptyGroups           = NO;
+        _selectionFilter                  = [NSPredicate predicateWithValue:YES];
         
         if ([self respondsToSelector:@selector(setContentSizeForViewInPopover:)])
             [self setContentSizeForViewInPopover:kPopoverContentSize];
@@ -228,7 +230,6 @@
         if (group)
         {
             [group setAssetsFilter:assetsFilter];
-            
             if (group.numberOfAssets > 0 || picker.showsEmptyGroups)
                 [self.groups addObject:group];
             
@@ -579,11 +580,13 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = kAssetsViewCellIdentifier;
-    
+    CTAssetsPickerController *picker = (CTAssetsPickerController *)self.navigationController;
+
     CTAssetsViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
 
-    [cell bind:[self.assets objectAtIndex:indexPath.row]];
-    
+    ALAsset* asset = [self.assets objectAtIndex:indexPath.row];
+    [cell bind:asset];
+    cell.disabled = ! [picker.selectionFilter evaluateWithObject:asset];
     return cell;
 }
 
@@ -605,8 +608,10 @@
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     CTAssetsPickerController *vc = (CTAssetsPickerController *)self.navigationController;
-    
-    return ([collectionView indexPathsForSelectedItems].count < vc.maximumNumberOfSelection);
+    ALAsset* asset = [self.assets objectAtIndex:indexPath.row];
+    BOOL selectable = [vc.selectionFilter evaluateWithObject:asset];
+
+    return (selectable && [collectionView indexPathsForSelectedItems].count < vc.maximumNumberOfSelection);
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -697,6 +702,7 @@ static UIImage *videoIcon;
 static UIColor *titleColor;
 static UIImage *checkedIcon;
 static UIColor *selectedColor;
+static UIColor *disabledColor;
 
 + (void)initialize
 {
@@ -706,6 +712,7 @@ static UIColor *selectedColor;
     titleColor      = [UIColor whiteColor];
     checkedIcon     = [UIImage imageNamed:(!IS_IOS7) ? @"CTAssetsPickerChecked~iOS6" : @"CTAssetsPickerChecked"];
     selectedColor   = [UIColor colorWithWhite:1 alpha:0.3];
+    disabledColor   = [UIColor colorWithWhite:1 alpha:0.9];
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -778,7 +785,14 @@ static UIColor *selectedColor;
         [videoIcon drawAtPoint:CGPointMake(2, startPoint.y + (titleHeight - videoIcon.size.height) / 2)];
     }
     
-    if (self.selected)
+    if (self.disabled)
+    {
+        CGContextRef context    = UIGraphicsGetCurrentContext();
+		CGContextSetFillColorWithColor(context, disabledColor.CGColor);
+		CGContextFillRect(context, rect);
+    }
+    
+    else if (self.selected)
     {
         CGContextRef context    = UIGraphicsGetCurrentContext();
 		CGContextSetFillColorWithColor(context, selectedColor.CGColor);
