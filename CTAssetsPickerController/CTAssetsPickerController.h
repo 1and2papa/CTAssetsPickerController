@@ -54,7 +54,7 @@
 @property (nonatomic, assign) BOOL showsCancelButton;
 
 /**
- Determines whether or not the empty group is visible in the picker
+ Determines whether or not empty photo groups are visible in the picker
  @discussion Empty photo groups are hidden by default. To show empty groups, set this property’s value to YES.
  */
 @property (nonatomic, assign, readwrite) BOOL showsEmptyGroups;
