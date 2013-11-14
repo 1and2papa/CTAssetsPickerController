@@ -532,6 +532,8 @@
 - (void)setupAssets
 {
     self.title = [self.assetsGroup valueForProperty:ALAssetsGroupPropertyName];
+    self.numberOfPhotos = 0;
+    self.numberOfVideos = 0;
     
     if (!self.assets)
         self.assets = [[NSMutableArray alloc] init];
