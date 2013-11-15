@@ -95,6 +95,17 @@
     CTAssetsPickerController *picker = [[CTAssetsPickerController alloc] init];
     picker.maximumNumberOfSelection = 10;
     picker.assetsFilter = [ALAssetsFilter allAssets];
+    
+    // only allow video clips if they are at least 5s
+    picker.selectionFilter = [NSPredicate predicateWithBlock:^BOOL(ALAsset* asset, NSDictionary *bindings) {
+        if ([[asset valueForProperty:ALAssetPropertyType] isEqual:ALAssetTypeVideo]) {
+            NSTimeInterval duration = [[asset valueForProperty:ALAssetPropertyDuration] doubleValue];
+            return duration >= 5;
+        } else {
+            return YES;
+        }
+    }];
+    
     picker.delegate = self;
     
     [self presentViewController:picker animated:YES completion:NULL];
