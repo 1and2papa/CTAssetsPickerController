@@ -46,8 +46,8 @@
 /// The maximum number of assets to be picked.
 @property (nonatomic, assign) NSInteger maximumNumberOfSelection;
 
-// A predicate which must be true for each asset to be selectable
-@property (nonatomic, strong) NSPredicate* selectionFilter;
+/// A predicate which must be true for each asset to be selectable
+@property (nonatomic, strong) NSPredicate *selectionFilter;
 
 /**
  Determines whether or not the cancel button is visible in the picker

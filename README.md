@@ -74,6 +74,20 @@ If you only want to pick photos or videos, create an `ALAssetsFilter` and assign
 picker.assetsFilter = [ALAssetsFilter allPhotos]; // Only pick photos.
 ````    
 
+If you only want to pick assets that meet certain criteria, create an `NSPredicate` and assign to `selectionFilter`.
+Assets that does not match the predicate will not be selectable.
+```` objective-c
+// only allow video clips if they are at least 5s
+picker.selectionFilter = [NSPredicate predicateWithBlock:^BOOL(ALAsset* asset, NSDictionary *bindings) {
+    if ([[asset valueForProperty:ALAssetPropertyType] isEqual:ALAssetTypeVideo]) {
+        NSTimeInterval duration = [[asset valueForProperty:ALAssetPropertyDuration] doubleValue];
+        return duration >= 5;
+    } else {
+        return YES;
+    }
+}];
+````    
+
 Hide the cancel button if you present the picker in `UIPopoverController`.
 ```` objective-c
 picker.showsCancelButton = NO;
