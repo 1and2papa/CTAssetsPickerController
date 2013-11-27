@@ -40,6 +40,8 @@
 
 @interface CTAssetsPickerController ()
 
+@property (nonatomic, copy) NSArray *indexPathsForSelectedItems;
+
 @end
 
 
@@ -613,16 +615,28 @@
     ALAsset* asset = [self.assets objectAtIndex:indexPath.row];
     BOOL selectable = [vc.selectionFilter evaluateWithObject:asset];
 
-    return (selectable && [collectionView indexPathsForSelectedItems].count < vc.maximumNumberOfSelection);
+    return (selectable && collectionView.indexPathsForSelectedItems.count < vc.maximumNumberOfSelection);
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    CTAssetsPickerController *vc = (CTAssetsPickerController *)self.navigationController;
+    vc.indexPathsForSelectedItems = collectionView.indexPathsForSelectedItems;
+    
+    if ([vc.delegate respondsToSelector:@selector(assetsPickerController:didSelectItemAtIndexPath:)])
+        [vc.delegate assetsPickerController:vc didSelectItemAtIndexPath:indexPath];
+    
     [self setTitleWithSelectedIndexPaths:collectionView.indexPathsForSelectedItems];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    CTAssetsPickerController *vc = (CTAssetsPickerController *)self.navigationController;
+    vc.indexPathsForSelectedItems = collectionView.indexPathsForSelectedItems;
+    
+    if ([vc.delegate respondsToSelector:@selector(assetsPickerController:didDeselectItemAtIndexPath:)])
+        [vc.delegate assetsPickerController:vc didDeselectItemAtIndexPath:indexPath];
+
     [self setTitleWithSelectedIndexPaths:collectionView.indexPathsForSelectedItems];
 }
 
