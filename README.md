@@ -103,13 +103,24 @@ picker.showsEmptyGroups = YES;
 
 *didFinishPickingAssets*
 ```` objective-c
-- (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets
+- (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets;
 // assets contains ALAsset objects.
 ````
 
 *didCancel (Optional)*
 ```` objective-c
 - (void)assetsPickerControllerDidCancel:(CTAssetsPickerController *)picker;
+````
+
+*didSelectItemAtIndexPath (Optional)*
+```` objective-c
+- (void)assetsPickerController:(CTAssetsPickerController *)picker didSelectItemAtIndexPath:(NSIndexPath *)indexPath;
+// picker.indexPathsForSelectedItems contains indexPaths for selected items
+````
+
+*didDeselectItemAtIndexPath (Optional)*
+```` objective-c
+- (void)assetsPickerController:(CTAssetsPickerController *)picker didDeselectItemAtIndexPath:(NSIndexPath *)indexPath;
 ````
 
 ## Note
