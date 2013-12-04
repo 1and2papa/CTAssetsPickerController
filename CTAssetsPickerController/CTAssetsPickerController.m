@@ -748,7 +748,11 @@ static UIColor *disabledColor;
     self.asset  = asset;
     self.image  = [UIImage imageWithCGImage:asset.thumbnail];
     self.type   = [asset valueForProperty:ALAssetPropertyType];
-    self.title  = [NSDate timeDescriptionOfTimeInterval:[[asset valueForProperty:ALAssetPropertyDuration] doubleValue]];
+    
+    if ([self.type isEqual:ALAssetTypeVideo])
+    {
+        self.title = [NSDate timeDescriptionOfTimeInterval:[[asset valueForProperty:ALAssetPropertyDuration] doubleValue]];
+    }
 }
 
 - (void)setSelected:(BOOL)selected
