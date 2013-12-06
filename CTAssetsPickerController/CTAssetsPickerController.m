@@ -184,6 +184,11 @@
     [self setupGroup];
 }
 
+#pragma mark - Rotation
+
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    self.tableView.tableHeaderView.frame = self.view.bounds;
+}
 
 #pragma mark - Setup
 
@@ -291,15 +296,19 @@
 
 - (void)showNotAllowed
 {
+    self.edgesForExtendedLayout = UIRectEdgeLeft | UIRectEdgeRight | UIRectEdgeBottom;
     self.title              = nil;
     
-    UIView *lockedView      = [[UIView alloc] initWithFrame:self.view.bounds];
-    UIImageView *locked     = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CTAssetsPickerLocked"]];
+    UIImageView *padlock     = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CTAssetsPickerLocked"]];
+    padlock.translatesAutoresizingMaskIntoConstraints = NO;
     
-    
-    CGRect rect             = CGRectInset(self.view.bounds, 8, 8);
-    UILabel *title          = [[UILabel alloc] initWithFrame:rect];
-    UILabel *message        = [[UILabel alloc] initWithFrame:rect];
+    UILabel *title          = [UILabel new];
+    title.translatesAutoresizingMaskIntoConstraints = NO;
+    title.preferredMaxLayoutWidth = 304.0f;
+
+    UILabel *message        = [UILabel new];
+    message.translatesAutoresizingMaskIntoConstraints = NO;
+    message.preferredMaxLayoutWidth = 304.0f;
     
     title.text              = NSLocalizedString(@"This app does not have access to your photos or videos.", nil);
     title.font              = [UIFont boldSystemFontOfSize:17.0];
@@ -315,34 +324,40 @@
     
     [title sizeToFit];
     [message sizeToFit];
+
+    UIView* centerView = [UIView new];
+    centerView.translatesAutoresizingMaskIntoConstraints = NO;
+    [centerView addSubview:padlock];
+    [centerView addSubview:title];
+    [centerView addSubview:message];
     
-    locked.center           = CGPointMake(lockedView.center.x, lockedView.center.y - 40);
-    title.center            = locked.center;
-    message.center          = locked.center;
+    NSDictionary* viewsDictionary = NSDictionaryOfVariableBindings(padlock, title, message);
+
+    [centerView addConstraint:[NSLayoutConstraint constraintWithItem:padlock attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:centerView attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
+    [centerView addConstraint:[NSLayoutConstraint constraintWithItem:title attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:padlock attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
+    [centerView addConstraint:[NSLayoutConstraint constraintWithItem:message attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:padlock attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
+    [centerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[padlock]-[title]-[message]|" options:0 metrics:nil views:viewsDictionary]];
+
+    UITableViewCell* cellView      = [UITableViewCell new];
+    [cellView addSubview:centerView];
+    [cellView addConstraint:[NSLayoutConstraint constraintWithItem:centerView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:cellView attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
+    [cellView addConstraint:[NSLayoutConstraint constraintWithItem:centerView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:cellView attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0.0f]];
     
-    rect                    = title.frame;
-    rect.origin.y           = locked.frame.origin.y + locked.frame.size.height + 20;
-    title.frame             = rect;
-    
-    rect                    = message.frame;
-    rect.origin.y           = title.frame.origin.y + title.frame.size.height + 10;
-    message.frame           = rect;
-    
-    [lockedView addSubview:locked];
-    [lockedView addSubview:title];
-    [lockedView addSubview:message];
-    
-    self.tableView.tableHeaderView  = lockedView;
-    self.tableView.scrollEnabled    = NO;
+    self.tableView.tableHeaderView = cellView;
+    self.tableView.scrollEnabled = NO;
+    self.tableView.tableHeaderView.frame = self.view.bounds;
 }
 
 - (void)showNoAssets
 {
-    UIView *noAssetsView    = [[UIView alloc] initWithFrame:self.view.bounds];
+    self.edgesForExtendedLayout = UIRectEdgeLeft | UIRectEdgeRight | UIRectEdgeBottom;
 
-    CGRect rect             = CGRectInset(self.view.bounds, 10, 10);
-    UILabel *title          = [[UILabel alloc] initWithFrame:rect];
-    UILabel *message        = [[UILabel alloc] initWithFrame:rect];
+    UILabel *title          = [UILabel new];
+    title.translatesAutoresizingMaskIntoConstraints = NO;
+    title.preferredMaxLayoutWidth = 304.0f;
+    UILabel *message        = [UILabel new];
+    message.translatesAutoresizingMaskIntoConstraints = NO;
+    message.preferredMaxLayoutWidth = 304.0f;
     
     title.text              = NSLocalizedString(@"No Photos or Videos", nil);
     title.font              = [UIFont systemFontOfSize:26.0];
@@ -359,14 +374,25 @@
     [title sizeToFit];
     [message sizeToFit];
     
-    title.center            = CGPointMake(noAssetsView.center.x, noAssetsView.center.y - 10 - title.frame.size.height / 2);
-    message.center          = CGPointMake(noAssetsView.center.x, noAssetsView.center.y + 10 + message.frame.size.height / 2);
+    UIView* centerView = [UIView new];
+    centerView.translatesAutoresizingMaskIntoConstraints = NO;
+    [centerView addSubview:title];
+    [centerView addSubview:message];
+
+    NSDictionary* viewsDictionary = NSDictionaryOfVariableBindings(title, message);
     
-    [noAssetsView addSubview:title];
-    [noAssetsView addSubview:message];
+    [centerView addConstraint:[NSLayoutConstraint constraintWithItem:title attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:centerView attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
+    [centerView addConstraint:[NSLayoutConstraint constraintWithItem:message attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:title attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
+    [centerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[title]-[message]|" options:0 metrics:nil views:viewsDictionary]];
+
+    UITableViewCell* cellView      = [UITableViewCell new];
+    [cellView addSubview:centerView];
+    [cellView addConstraint:[NSLayoutConstraint constraintWithItem:centerView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:cellView attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
+    [cellView addConstraint:[NSLayoutConstraint constraintWithItem:centerView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:cellView attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0.0f]];
     
-    self.tableView.tableHeaderView  = noAssetsView;
-    self.tableView.scrollEnabled    = NO;
+    self.tableView.tableHeaderView = cellView;
+    self.tableView.scrollEnabled = NO;
+    self.tableView.tableHeaderView.frame = self.view.bounds;
 }
 
 
