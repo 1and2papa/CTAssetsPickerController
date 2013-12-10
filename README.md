@@ -14,14 +14,45 @@ CTAssetsPickerController is an iOS controller that allows picking multiple photo
 ## Minimum Requirement
 Xcode 5 and iOS 6.
 
-## Adding to Project
+## Installation
 
-1. Drag `CTAssetsPickerController` folder in your project.
+### via CocoaPods
+Install CocoaPods if you do not have it:-
+````
+$ [sudo] gem install cocoapods
+$ pod setup
+````
+Create Podfile:-
+````
+$ edit Podfile
+platform :ios, '6.0'
+pod 'CTAssetsPickerController',  '~> 1.2.0'
+$ pod install
+````
+Use the Xcode workspace instead of the project from now on.
+
+### via Git Submodules
+
+````
+$ git submodule add http://github.com/chiunam/CTAssetsPickerController
+````
+1. Drag `CTAssetsPickerController` folder in your project and add to your targets.
 2. Add `AssetsLibrary.framework`.
 
 ## Usage
 
 See the Demo Xcode project for details.
+
+### Import header
+
+If using CocoaPods:-
+```` objective-c
+#import <CTAssetsPickerController.h>
+````
+If using Submodules:-
+```` objective-c
+#import "CTAssetsPickerController.h"
+````
 
 ### Create and present CTAssetsPickerController
 
@@ -43,22 +74,53 @@ If you only want to pick photos or videos, create an `ALAssetsFilter` and assign
 picker.assetsFilter = [ALAssetsFilter allPhotos]; // Only pick photos.
 ````    
 
-Hide the cancel button if you present the view controller in `UIPopoverController`.
+If you only want to pick assets that meet certain criteria, create an `NSPredicate` and assign to `selectionFilter`.
+Assets that does not match the predicate will not be selectable.
+```` objective-c
+// only allow video clips if they are at least 5s
+picker.selectionFilter = [NSPredicate predicateWithBlock:^BOOL(ALAsset* asset, NSDictionary *bindings) {
+    if ([[asset valueForProperty:ALAssetPropertyType] isEqual:ALAssetTypeVideo]) {
+        NSTimeInterval duration = [[asset valueForProperty:ALAssetPropertyDuration] doubleValue];
+        return duration >= 5;
+    } else {
+        return YES;
+    }
+}];
+````    
+
+Hide the cancel button if you present the picker in `UIPopoverController`.
 ```` objective-c
 picker.showsCancelButton = NO;
 ````
+
+Show empty photo albums in the picker.
+```` objective-c
+picker.showsEmptyGroups = YES;
+````
+
 
 ### Implement CTAssetsPickerControllerDelegate
 
 *didFinishPickingAssets*
 ```` objective-c
-- (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets
+- (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets;
 // assets contains ALAsset objects.
 ````
 
 *didCancel (Optional)*
 ```` objective-c
 - (void)assetsPickerControllerDidCancel:(CTAssetsPickerController *)picker;
+````
+
+*didSelectItemAtIndexPath (Optional)*
+```` objective-c
+- (void)assetsPickerController:(CTAssetsPickerController *)picker didSelectItemAtIndexPath:(NSIndexPath *)indexPath;
+// picker.indexPathsForSelectedItems contains indexPaths for selected items
+````
+
+*didDeselectItemAtIndexPath (Optional)*
+```` objective-c
+- (void)assetsPickerController:(CTAssetsPickerController *)picker didDeselectItemAtIndexPath:(NSIndexPath *)indexPath;
 ````
 
 ## Note

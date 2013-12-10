@@ -43,8 +43,14 @@
 /// Set the ALAssetsFilter to filter the picker contents. 
 @property (nonatomic, strong) ALAssetsFilter *assetsFilter;
 
+/// The index paths for the selected items.
+@property (nonatomic, copy, readonly) NSArray *indexPathsForSelectedItems;
+
 /// The maximum number of assets to be picked.
 @property (nonatomic, assign) NSInteger maximumNumberOfSelection;
+
+/// A predicate which must be true for each asset to be selectable
+@property (nonatomic, strong) NSPredicate *selectionFilter;
 
 /**
  Determines whether or not the cancel button is visible in the picker
@@ -52,6 +58,12 @@
  set this property’s value to NO.
  */
 @property (nonatomic, assign) BOOL showsCancelButton;
+
+/**
+ Determines whether or not empty photo groups are visible in the picker
+ @discussion Empty photo groups are hidden by default. To show empty groups, set this property’s value to YES.
+ */
+@property (nonatomic, assign, readwrite) BOOL showsEmptyGroups;
 
 @end
 
@@ -64,7 +76,7 @@
 /**
  Tells the delegate that the user finish picking photos or videos.
  @param picker The controller object managing the assets picker interface.
- @param assets An array containing picked ALAsset objects
+ @param assets An array containing picked ALAsset objects.
  */
 - (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets;
 
@@ -75,5 +87,21 @@
  @param picker The controller object managing the assets picker interface.
  */
 - (void)assetsPickerControllerDidCancel:(CTAssetsPickerController *)picker;
+
+
+/**
+ Tells the delegate that the item at the specified index path was selected.
+ @param picker The controller object managing the assets picker interface.
+ @param indexPath The index path of the asset that was selected.
+ */
+- (void)assetsPickerController:(CTAssetsPickerController *)picker didSelectItemAtIndexPath:(NSIndexPath *)indexPath;
+
+
+/**
+ Tells the delegate that the item at the specified path was deselected.
+ @param picker The controller object managing the assets picker interface.
+ @param indexPath The index path of the asset that was deselected.
+ */
+- (void)assetsPickerController:(CTAssetsPickerController *)picker didDeselectItemAtIndexPath:(NSIndexPath *)indexPath;
 
 @end
