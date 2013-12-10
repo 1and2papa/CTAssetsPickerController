@@ -66,6 +66,7 @@
 
 @interface CTAssetsViewController ()
 
+@property (nonatomic, strong) UICollectionViewFlowLayout *layout;
 @property (nonatomic, strong) NSMutableArray *assets;
 @property (nonatomic, assign) NSInteger numberOfPhotos;
 @property (nonatomic, assign) NSInteger numberOfVideos;
@@ -506,14 +507,24 @@
 
 - (id)init
 {
-    UICollectionViewFlowLayout *layout  = [[UICollectionViewFlowLayout alloc] init];
-    layout.itemSize                     = kThumbnailSize;
-    layout.sectionInset                 = UIEdgeInsetsMake(9.0, 0, 0, 0);
-    layout.minimumInteritemSpacing      = 2.0;
-    layout.minimumLineSpacing           = 2.0;
-    layout.footerReferenceSize          = CGSizeMake(0, 44.0);
+    self.layout                         = [[UICollectionViewFlowLayout alloc] init];
+    self.layout.itemSize                = kThumbnailSize;
+    self.layout.footerReferenceSize     = CGSizeMake(0, 44.0);
     
-    if (self = [super initWithCollectionViewLayout:layout])
+    if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation))
+    {
+        self.layout.sectionInset            = UIEdgeInsetsMake(9.0, 2.0, 0, 2.0);
+        self.layout.minimumInteritemSpacing = 3.0;
+        self.layout.minimumLineSpacing      = 3.0;
+    }
+    else
+    {
+        self.layout.sectionInset            = UIEdgeInsetsMake(9.0, 0, 0, 0);
+        self.layout.minimumInteritemSpacing = 2.0;
+        self.layout.minimumLineSpacing      = 2.0;
+    }
+    
+    if (self = [super initWithCollectionViewLayout:self.layout])
     {
         self.collectionView.allowsMultipleSelection = YES;
         
@@ -546,6 +557,28 @@
     [super viewWillAppear:animated];
     [self setupAssets];    
 }
+
+
+#pragma mark - Rotation
+
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation))
+    {
+        self.layout.sectionInset            = UIEdgeInsetsMake(9.0, 2.0, 0, 2.0);
+        self.layout.minimumInteritemSpacing = 3.0;
+        self.layout.minimumLineSpacing      = 3.0;
+    }
+    else
+    {
+        self.layout.sectionInset            = UIEdgeInsetsMake(9.0, 0, 0, 0);
+        self.layout.minimumInteritemSpacing = 2.0;
+        self.layout.minimumLineSpacing      = 2.0;
+    }
+    
+    [self.collectionView setCollectionViewLayout:self.layout animated:YES];
+}
+
 
 
 
