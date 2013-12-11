@@ -138,7 +138,7 @@
         _assetsFilter               = [ALAssetsFilter allAssets];
         _showsCancelButton          = YES;
         _showsEmptyGroups           = NO;
-        _selectionFilter                  = [NSPredicate predicateWithValue:YES];
+        _selectionFilter            = [NSPredicate predicateWithValue:YES];
         
         if ([self respondsToSelector:@selector(setContentSizeForViewInPopover:)])
             [self setContentSizeForViewInPopover:kPopoverContentSize];
@@ -189,15 +189,18 @@
 
 #pragma mark - Rotation
 
-- (BOOL)shouldAutorotate {
+- (BOOL)shouldAutorotate
+{
     return YES;
 }
 
-- (NSUInteger)supportedInterfaceOrientations {
+- (NSUInteger)supportedInterfaceOrientations
+{
     return UIInterfaceOrientationMaskAllButUpsideDown;
 }
 
-- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
     self.tableView.tableHeaderView.frame = self.view.bounds;
 }
 
@@ -248,7 +251,6 @@
             [group setAssetsFilter:assetsFilter];
             if (group.numberOfAssets > 0 || picker.showsEmptyGroups)
                 [self.groups addObject:group];
-            
         }
         else
         {
@@ -307,10 +309,12 @@
 
 - (void)showNotAllowed
 {
-    self.edgesForExtendedLayout = UIRectEdgeLeft | UIRectEdgeRight | UIRectEdgeBottom;
+    if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)])
+        [self setEdgesForExtendedLayout:UIRectEdgeLeft | UIRectEdgeRight | UIRectEdgeBottom];
+
     self.title              = nil;
     
-    UIImageView *padlock     = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CTAssetsPickerLocked"]];
+    UIImageView *padlock    = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CTAssetsPickerLocked"]];
     padlock.translatesAutoresizingMaskIntoConstraints = NO;
     
     UILabel *title          = [UILabel new];
@@ -349,20 +353,24 @@
     [centerView addConstraint:[NSLayoutConstraint constraintWithItem:message attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:padlock attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
     [centerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[padlock]-[title]-[message]|" options:0 metrics:nil views:viewsDictionary]];
 
-    UITableViewCell* cellView      = [UITableViewCell new];
-    [cellView addSubview:centerView];
-    [cellView addConstraint:[NSLayoutConstraint constraintWithItem:centerView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:cellView attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
-    [cellView addConstraint:[NSLayoutConstraint constraintWithItem:centerView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:cellView attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0.0f]];
+    UIView *headerView = [UIView new];
+    [headerView addSubview:centerView];
+    [headerView addConstraint:[NSLayoutConstraint constraintWithItem:centerView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:headerView attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
+    [headerView addConstraint:[NSLayoutConstraint constraintWithItem:centerView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:headerView attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0.0f]];
     
-    self.tableView.tableHeaderView = cellView;
-    self.tableView.scrollEnabled = NO;
-    self.tableView.tableHeaderView.frame = self.view.bounds;
+    CGRect bounds       = self.view.bounds;
+    bounds.size.height += bounds.origin.y;
+    headerView.frame    = bounds;
+    
+    self.tableView.tableHeaderView  = headerView;
+    self.tableView.scrollEnabled    = NO;
 }
 
 - (void)showNoAssets
 {
-    self.edgesForExtendedLayout = UIRectEdgeLeft | UIRectEdgeRight | UIRectEdgeBottom;
-
+    if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)])
+        [self setEdgesForExtendedLayout:UIRectEdgeLeft | UIRectEdgeRight | UIRectEdgeBottom];
+    
     UILabel *title          = [UILabel new];
     title.translatesAutoresizingMaskIntoConstraints = NO;
     title.preferredMaxLayoutWidth = 304.0f;
@@ -385,25 +393,28 @@
     [title sizeToFit];
     [message sizeToFit];
     
-    UIView* centerView = [UIView new];
+    UIView *centerView = [UIView new];
     centerView.translatesAutoresizingMaskIntoConstraints = NO;
     [centerView addSubview:title];
     [centerView addSubview:message];
 
-    NSDictionary* viewsDictionary = NSDictionaryOfVariableBindings(title, message);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(title, message);
     
     [centerView addConstraint:[NSLayoutConstraint constraintWithItem:title attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:centerView attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
     [centerView addConstraint:[NSLayoutConstraint constraintWithItem:message attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:title attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
     [centerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[title]-[message]|" options:0 metrics:nil views:viewsDictionary]];
-
-    UITableViewCell* cellView      = [UITableViewCell new];
-    [cellView addSubview:centerView];
-    [cellView addConstraint:[NSLayoutConstraint constraintWithItem:centerView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:cellView attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
-    [cellView addConstraint:[NSLayoutConstraint constraintWithItem:centerView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:cellView attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0.0f]];
     
-    self.tableView.tableHeaderView = cellView;
-    self.tableView.scrollEnabled = NO;
-    self.tableView.tableHeaderView.frame = self.view.bounds;
+    UIView *headerView = [UIView new];
+    [headerView addSubview:centerView];
+    [headerView addConstraint:[NSLayoutConstraint constraintWithItem:centerView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:headerView attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
+    [headerView addConstraint:[NSLayoutConstraint constraintWithItem:centerView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:headerView attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0.0f]];
+
+    CGRect bounds       = self.view.bounds;
+    bounds.size.height += bounds.origin.y;
+    headerView.frame    = bounds;
+    
+    self.tableView.tableHeaderView  = headerView;
+    self.tableView.scrollEnabled    = NO;
 }
 
 
