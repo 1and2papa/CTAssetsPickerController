@@ -187,6 +187,7 @@
     [self setupGroup];
 }
 
+
 #pragma mark - Rotation
 
 - (BOOL)shouldAutorotate
@@ -199,10 +200,6 @@
     return UIInterfaceOrientationMaskAllButUpsideDown;
 }
 
-- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
-{
-    self.tableView.tableHeaderView.frame = self.view.bounds;
-}
 
 #pragma mark - Setup
 
@@ -340,30 +337,25 @@
     [title sizeToFit];
     [message sizeToFit];
 
-    UIView* centerView = [UIView new];
+    UIView *centerView = [UIView new];
     centerView.translatesAutoresizingMaskIntoConstraints = NO;
     [centerView addSubview:padlock];
     [centerView addSubview:title];
     [centerView addSubview:message];
     
-    NSDictionary* viewsDictionary = NSDictionaryOfVariableBindings(padlock, title, message);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(padlock, title, message);
 
     [centerView addConstraint:[NSLayoutConstraint constraintWithItem:padlock attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:centerView attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
     [centerView addConstraint:[NSLayoutConstraint constraintWithItem:title attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:padlock attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
     [centerView addConstraint:[NSLayoutConstraint constraintWithItem:message attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:padlock attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
     [centerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[padlock]-[title]-[message]|" options:0 metrics:nil views:viewsDictionary]];
 
-    UIView *headerView = [UIView new];
-    [headerView addSubview:centerView];
-    [headerView addConstraint:[NSLayoutConstraint constraintWithItem:centerView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:headerView attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
-    [headerView addConstraint:[NSLayoutConstraint constraintWithItem:centerView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:headerView attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0.0f]];
+    UIView *backgroundView = [UIView new];
+    [backgroundView addSubview:centerView];
+    [backgroundView addConstraint:[NSLayoutConstraint constraintWithItem:centerView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:backgroundView attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
+    [backgroundView addConstraint:[NSLayoutConstraint constraintWithItem:centerView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:backgroundView attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0.0f]];
     
-    CGRect bounds       = self.view.bounds;
-    bounds.size.height += bounds.origin.y;
-    headerView.frame    = bounds;
-    
-    self.tableView.tableHeaderView  = headerView;
-    self.tableView.scrollEnabled    = NO;
+    self.tableView.backgroundView = backgroundView;
 }
 
 - (void)showNoAssets
@@ -404,17 +396,12 @@
     [centerView addConstraint:[NSLayoutConstraint constraintWithItem:message attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:title attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
     [centerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[title]-[message]|" options:0 metrics:nil views:viewsDictionary]];
     
-    UIView *headerView = [UIView new];
-    [headerView addSubview:centerView];
-    [headerView addConstraint:[NSLayoutConstraint constraintWithItem:centerView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:headerView attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
-    [headerView addConstraint:[NSLayoutConstraint constraintWithItem:centerView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:headerView attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0.0f]];
-
-    CGRect bounds       = self.view.bounds;
-    bounds.size.height += bounds.origin.y;
-    headerView.frame    = bounds;
+    UIView *backgroundView = [UIView new];
+    [backgroundView addSubview:centerView];
+    [backgroundView addConstraint:[NSLayoutConstraint constraintWithItem:centerView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:backgroundView attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
+    [backgroundView addConstraint:[NSLayoutConstraint constraintWithItem:centerView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:backgroundView attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0.0f]];
     
-    self.tableView.tableHeaderView  = headerView;
-    self.tableView.scrollEnabled    = NO;
+    self.tableView.backgroundView = backgroundView;
 }
 
 
