@@ -134,7 +134,7 @@
     
     if (self = [super initWithRootViewController:groupViewController])
     {
-        _maximumNumberOfSelection   = NSIntegerMax;
+        _maximumNumberOfSelections  = NSIntegerMax;
         _assetsFilter               = [ALAssetsFilter allAssets];
         _showsCancelButton          = YES;
         _showsEmptyGroups           = NO;
@@ -680,7 +680,7 @@
     ALAsset* asset = [self.assets objectAtIndex:indexPath.row];
     BOOL selectable = [vc.selectionFilter evaluateWithObject:asset];
 
-    return (selectable && collectionView.indexPathsForSelectedItems.count < vc.maximumNumberOfSelection);
+    return (selectable && collectionView.indexPathsForSelectedItems.count < vc.maximumNumberOfSelections);
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath

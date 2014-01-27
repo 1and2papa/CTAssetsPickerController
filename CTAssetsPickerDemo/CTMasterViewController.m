@@ -92,7 +92,7 @@
         self.assets = [[NSMutableArray alloc] init];
 
     CTAssetsPickerController *picker = [[CTAssetsPickerController alloc] init];
-    picker.maximumNumberOfSelection = 10;
+    picker.maximumNumberOfSelections = 10;
     picker.assetsFilter = [ALAssetsFilter allAssets];
     
     // only allow video clips if they are at least 5s

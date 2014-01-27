@@ -34,33 +34,50 @@
 
 @protocol CTAssetsPickerControllerDelegate;
 
-/// A controller that allows picking multiple photos and videos from user's photo library.
+/**
+ A controller that allows picking multiple photos and videos from user's photo library.
+ */
 @interface CTAssetsPickerController : UINavigationController
 
-/// The assets picker’s delegate object.
+/**
+ The assets picker’s delegate object.
+ */
 @property (nonatomic, weak) id <UINavigationControllerDelegate, CTAssetsPickerControllerDelegate> delegate;
 
-/// Set the ALAssetsFilter to filter the picker contents. 
+/**
+ Set the ALAssetsFilter to filter the picker contents.
+ */
 @property (nonatomic, strong) ALAssetsFilter *assetsFilter;
 
-/// The index paths for the selected items.
+/**
+ The index paths for the selected items.
+ */
 @property (nonatomic, copy, readonly) NSArray *indexPathsForSelectedItems;
 
-/// The maximum number of assets to be picked.
-@property (nonatomic, assign) NSInteger maximumNumberOfSelection;
+/**
+The maximum number of assets to be picked. Deprecated. Use maximumNumberOfSelections instead.
+ */
+@property (nonatomic, assign) NSInteger maximumNumberOfSelection DEPRECATED_ATTRIBUTE;
 
-/// A predicate which must be true for each asset to be selectable
+/**
+ The maximum number of assets to be picked.
+ */
+@property (nonatomic, assign) NSInteger maximumNumberOfSelections;
+
+/**
+ A predicate which must be true for each asset to be selectable.
+ */
 @property (nonatomic, strong) NSPredicate *selectionFilter;
 
 /**
- Determines whether or not the cancel button is visible in the picker
+ Determines whether or not the cancel button is visible in the picker.
  @discussion The cancel button is visible by default. To hide the cancel button, (e.g. presenting the picker in UIPopoverController)
  set this property’s value to NO.
  */
 @property (nonatomic, assign) BOOL showsCancelButton;
 
 /**
- Determines whether or not empty photo groups are visible in the picker
+ Determines whether or not empty photo groups are visible in the picker.
  @discussion Empty photo groups are hidden by default. To show empty groups, set this property’s value to YES.
  */
 @property (nonatomic, assign, readwrite) BOOL showsEmptyGroups;
