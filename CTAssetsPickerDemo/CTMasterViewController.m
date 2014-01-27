@@ -75,7 +75,6 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)clearAssets:(id)sender
@@ -108,7 +107,7 @@
     
     picker.delegate = self;
     
-    [self presentViewController:picker animated:YES completion:NULL];
+    [self presentViewController:picker animated:YES completion:nil];
 }
 
 
@@ -126,7 +125,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
     ALAsset *asset = [self.assets objectAtIndex:indexPath.row];
@@ -142,6 +140,8 @@
 
 - (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets
 {
+    [picker.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    
     [self.tableView beginUpdates];
     [self.tableView insertRowsAtIndexPaths:[self indexPathOfNewlyAddedAssets:assets]
                           withRowAnimation:UITableViewRowAnimationBottom];

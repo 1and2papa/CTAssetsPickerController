@@ -70,6 +70,10 @@
 
 /**
  The CTAssetsPickerControllerDelegate protocol defines methods that your delegate object must implement to interact with the assets picker interface. The methods of this protocol notify your delegate when the user finish picking photos or videos, or cancels the picker operation.
+ 
+ @discussion The delegate methods are responsible for dismissing the picker when the operation completes. To dismiss the picker, call the dismissViewControllerAnimated:completion: method of the presenting controller responsible for displaying CTAssetsPickerController object.
+ 
+ @discussion The picked photos and videos can be processed by accessing the defaultRepresentation property. It returns a ALAssetRepresentation object which encapsulates one of the representations of ALAsset object.
  */
 @protocol CTAssetsPickerControllerDelegate <NSObject>
 

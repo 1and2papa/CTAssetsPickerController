@@ -458,7 +458,7 @@
     if ([picker.delegate respondsToSelector:@selector(assetsPickerControllerDidCancel:)])
         [picker.delegate assetsPickerControllerDidCancel:picker];
     
-    [picker.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
+    [picker.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
@@ -764,8 +764,6 @@
     
     if ([picker.delegate respondsToSelector:@selector(assetsPickerController:didFinishPickingAssets:)])
         [picker.delegate assetsPickerController:picker didFinishPickingAssets:assets];
-    
-    [picker.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
 }
 
 @end
