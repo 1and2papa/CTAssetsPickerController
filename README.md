@@ -18,22 +18,22 @@ Xcode 5 and iOS 6.
 
 ### via CocoaPods
 Install CocoaPods if you do not have it:-
-````
+````bash
 $ [sudo] gem install cocoapods
 $ pod setup
 ````
 Create Podfile:-
-````
+````bash
 $ edit Podfile
 platform :ios, '6.0'
-pod 'CTAssetsPickerController',  '~> 1.3.0'
+pod 'CTAssetsPickerController',  '~> 1.4.0'
 $ pod install
 ````
 Use the Xcode workspace instead of the project from now on.
 
 ### via Git Submodules
 
-````
+````bash
 $ git submodule add http://github.com/chiunam/CTAssetsPickerController
 ````
 1. Drag `CTAssetsPickerController` folder in your project and add to your targets.
@@ -59,14 +59,14 @@ If using Submodules:-
 ```` objective-c
 CTAssetsPickerController *picker = [[CTAssetsPickerController alloc] init];
 picker.delegate = self;
-[self presentViewController:picker animated:YES completion:NULL];
+[self presentViewController:picker animated:YES completion:nil];
 ````
 
 ### Customization
 You can set max number of selection to limit the assets to be picked.
 
 ```` objective-c
-picker.maximumNumberOfSelection = 10;
+picker.maximumNumberOfSelections = 10;
 ````
 
 If you only want to pick photos or videos, create an `ALAssetsFilter` and assign to `assetsFilter`.
@@ -101,24 +101,30 @@ picker.showsEmptyGroups = YES;
 
 ### Implement CTAssetsPickerControllerDelegate
 
-*didFinishPickingAssets*
+The delegate methods are responsible for dismissing the picker when the operation completes. To dismiss the picker, call the [dismissViewControllerAnimated:completion:](https://developer.apple.com/library/ios/documentation/uikit/reference/UIViewController_Class/Reference/Reference.html#//apple_ref/occ/instm/UIViewController/dismissViewControllerAnimated:completion:) method of the presenting controller responsible for displaying CTAssetsPickerController object. Please refer to the demo app.
+
+#### didFinishPickingAssets
+Tells the delegate that the user finish picking photos or videos.
 ```` objective-c
 - (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets;
 // assets contains ALAsset objects.
 ````
 
-*didCancel (Optional)*
+#### didCancel (Optional)
+Tells the delegate that the user cancelled the pick operation.
 ```` objective-c
 - (void)assetsPickerControllerDidCancel:(CTAssetsPickerController *)picker;
 ````
 
-*didSelectItemAtIndexPath (Optional)*
+#### didSelectItemAtIndexPath (Optional)
+Tells the delegate that the item at the specified index path was selected.
 ```` objective-c
 - (void)assetsPickerController:(CTAssetsPickerController *)picker didSelectItemAtIndexPath:(NSIndexPath *)indexPath;
 // picker.indexPathsForSelectedItems contains indexPaths for selected items
 ````
 
-*didDeselectItemAtIndexPath (Optional)*
+#### didDeselectItemAtIndexPath (Optional)
+Tells the delegate that the item at the specified path was deselected.
 ```` objective-c
 - (void)assetsPickerController:(CTAssetsPickerController *)picker didDeselectItemAtIndexPath:(NSIndexPath *)indexPath;
 ````
