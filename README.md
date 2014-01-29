@@ -129,6 +129,19 @@ Tells the delegate that the item at the specified path was deselected.
 - (void)assetsPickerController:(CTAssetsPickerController *)picker didDeselectItemAtIndexPath:(NSIndexPath *)indexPath;
 ````
 
+#### didHighlightItemAtIndexPath (Optional)
+Tells the delegate that the item at the specified index path was highlighted.
+```` objective-c
+- (void)assetsPickerController:(CTAssetsPickerController *)picker didHighlightItemAtIndexPath:(NSIndexPath *)indexPath;
+````
+
+#### didUnhighlightItemAtIndexPath (Optional)
+Tells the delegate that the highlight was removed from the item at the specified index path.
+```` objective-c
+- (void)assetsPickerController:(CTAssetsPickerController *)picker didUnhighlightItemAtIndexPath:(NSIndexPath *)indexPath;
+````
+
+
 ## Note
 CTAssetsPickerController does not compress the picked photos and videos. You can process the picked assets via the `defaultRepresentation` property.
 
