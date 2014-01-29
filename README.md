@@ -26,7 +26,7 @@ Create Podfile:-
 ````bash
 $ edit Podfile
 platform :ios, '6.0'
-pod 'CTAssetsPickerController',  '~> 1.4.0'
+pod 'CTAssetsPickerController',  '~> 1.5.0'
 $ pod install
 ````
 Use the Xcode workspace instead of the project from now on.
