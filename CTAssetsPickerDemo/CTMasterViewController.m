@@ -31,10 +31,13 @@
 #import "CTMasterViewController.h"
 
 
-@interface CTMasterViewController () <UINavigationControllerDelegate, CTAssetsPickerControllerDelegate>
+@interface CTMasterViewController ()
+<UINavigationControllerDelegate, CTAssetsPickerControllerDelegate,
+UIPopoverControllerDelegate>
 
-@property (nonatomic, strong) NSMutableArray *assets;
+@property (nonatomic, copy) NSArray *assets;
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
+@property (nonatomic, strong) UIPopoverController *popover;
 
 @end
 
@@ -59,7 +62,7 @@
     
 
     UIBarButtonItem *addButton =
-    [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Add", nil)
+    [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Pick", nil)
                                      style:UIBarButtonItemStylePlain
                                     target:self
                                     action:@selector(pickAssets:)];
@@ -81,7 +84,7 @@
 {
     if (self.assets)
     {
-        [self.assets removeAllObjects];
+        self.assets = nil;
         [self.tableView reloadData];
     }
 }
@@ -92,22 +95,25 @@
         self.assets = [[NSMutableArray alloc] init];
 
     CTAssetsPickerController *picker = [[CTAssetsPickerController alloc] init];
-    picker.maximumNumberOfSelections = 10;
-    picker.assetsFilter = [ALAssetsFilter allAssets];
+    picker.assetsFilter         = [ALAssetsFilter allAssets];
+    picker.showsCancelButton    = (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad);
+    picker.delegate             = self;
+    picker.selectedAssets       = [NSMutableArray arrayWithArray:self.assets];
     
-    // only allow video clips if they are at least 5s
-    picker.selectionFilter = [NSPredicate predicateWithBlock:^BOOL(ALAsset* asset, NSDictionary *bindings) {
-        if ([[asset valueForProperty:ALAssetPropertyType] isEqual:ALAssetTypeVideo]) {
-            NSTimeInterval duration = [[asset valueForProperty:ALAssetPropertyDuration] doubleValue];
-            return duration >= 5;
-        } else {
-            return YES;
-        }
-    }];
-    
-    picker.delegate = self;
-    
-    [self presentViewController:picker animated:YES completion:nil];
+    // iPad
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    {
+        self.popover = [[UIPopoverController alloc] initWithContentViewController:picker];
+        self.popover.delegate = self;
+        
+        [self.popover presentPopoverFromBarButtonItem:sender
+                             permittedArrowDirections:UIPopoverArrowDirectionAny
+                                             animated:YES];
+    }
+    else
+    {
+        [self presentViewController:picker animated:YES completion:nil];
+    }
 }
 
 
@@ -136,28 +142,68 @@
 }
 
 
+#pragma mark - Popover Controller Delegate
+
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
+{
+    self.popover = nil;
+}
+
+
 #pragma mark - Assets Picker Delegate
 
 - (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets
 {
-    [picker.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    if (self.popover != nil)
+        [self.popover dismissPopoverAnimated:YES];
+    else
+        [picker.presentingViewController dismissViewControllerAnimated:YES completion:nil];
     
-    [self.tableView beginUpdates];
-    [self.tableView insertRowsAtIndexPaths:[self indexPathOfNewlyAddedAssets:assets]
-                          withRowAnimation:UITableViewRowAnimationBottom];
-    
-    [self.assets addObjectsFromArray:assets];
-    [self.tableView endUpdates];
+    self.assets = [NSMutableArray arrayWithArray:assets];
+    [self.tableView reloadData];
 }
 
-- (NSArray *)indexPathOfNewlyAddedAssets:(NSArray *)assets
+- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldEnableAssetForSelection:(ALAsset *)asset
 {
-    NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
+    // Enable video clips if they are at least 5s
+    if ([[asset valueForProperty:ALAssetPropertyType] isEqual:ALAssetTypeVideo])
+    {
+        NSTimeInterval duration = [[asset valueForProperty:ALAssetPropertyDuration] doubleValue];
+        return lround(duration) >= 5;
+    }
+    else
+    {
+        return YES;
+    }
+}
+
+- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldSelectAsset:(ALAsset *)asset
+{
+    if (picker.selectedAssets.count >= 10)
+    {
+        UIAlertView *alertView =
+        [[UIAlertView alloc] initWithTitle:@"Attention"
+                                   message:@"Please select not more than 10 assets"
+                                  delegate:nil
+                         cancelButtonTitle:nil
+                         otherButtonTitles:@"OK", nil];
+        
+        [alertView show];
+    }
     
-    for (NSUInteger i = self.assets.count; i < self.assets.count + assets.count ; i++)
-        [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+    if (!asset.defaultRepresentation)
+    {
+        UIAlertView *alertView =
+        [[UIAlertView alloc] initWithTitle:@"Attention"
+                                   message:@"Your asset has not yet been downloaded to your device"
+                                  delegate:nil
+                         cancelButtonTitle:nil
+                         otherButtonTitles:@"OK", nil];
+        
+        [alertView show];
+    }
     
-    return indexPaths;
+    return (picker.selectedAssets.count < 10 && asset.defaultRepresentation != nil);
 }
 
 @end
