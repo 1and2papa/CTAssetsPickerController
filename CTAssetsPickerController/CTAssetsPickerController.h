@@ -35,50 +35,52 @@
 @protocol CTAssetsPickerControllerDelegate;
 
 /**
- A controller that allows picking multiple photos and videos from user's photo library.
+ *  A controller that allows picking multiple photos and videos from user's photo library.
  */
 @interface CTAssetsPickerController : UINavigationController
 
 /**
- The assets picker’s delegate object.
+ *  The assets picker’s delegate object.
  */
 @property (nonatomic, weak) id <UINavigationControllerDelegate, CTAssetsPickerControllerDelegate> delegate;
 
 /**
- Set the ALAssetsFilter to filter the picker contents.
+ *  Set the ALAssetsFilter to filter the picker contents.
  */
 @property (nonatomic, strong) ALAssetsFilter *assetsFilter;
 
 /**
- The index paths for the selected items.
+ *  The index paths for the selected items.
  */
 @property (nonatomic, copy, readonly) NSArray *indexPathsForSelectedItems;
 
 /**
-The maximum number of assets to be picked. Deprecated. Use maximumNumberOfSelections instead.
+ *  The maximum number of assets to be picked. Deprecated. Use maximumNumberOfSelections instead.
  */
 @property (nonatomic, assign) NSInteger maximumNumberOfSelection DEPRECATED_ATTRIBUTE;
 
 /**
- The maximum number of assets to be picked.
+ *  The maximum number of assets to be picked.
  */
 @property (nonatomic, assign) NSInteger maximumNumberOfSelections;
 
 /**
- A predicate which must be true for each asset to be selectable.
+ *  A predicate which must be true for each asset to be selectable.
  */
 @property (nonatomic, strong) NSPredicate *selectionFilter;
 
 /**
- Determines whether or not the cancel button is visible in the picker.
- @discussion The cancel button is visible by default. To hide the cancel button, (e.g. presenting the picker in UIPopoverController)
- set this property’s value to NO.
+ *  Determines whether or not the cancel button is visible in the picker.
+ *
+ *  @discussion The cancel button is visible by default. To hide the cancel button, (e.g. presenting the picker in UIPopoverController)
+ *              set this property’s value to NO.
  */
 @property (nonatomic, assign) BOOL showsCancelButton;
 
 /**
- Determines whether or not empty photo groups are visible in the picker.
- @discussion Empty photo groups are hidden by default. To show empty groups, set this property’s value to YES.
+ *  Determines whether or not empty photo groups are visible in the picker.
+ *
+ *  @discussion Empty photo groups are hidden by default. To show empty groups, set this property’s value to YES.
  */
 @property (nonatomic, assign, readwrite) BOOL showsEmptyGroups;
 
@@ -86,43 +88,72 @@ The maximum number of assets to be picked. Deprecated. Use maximumNumberOfSelect
 
 
 /**
- The CTAssetsPickerControllerDelegate protocol defines methods that your delegate object must implement to interact with the assets picker interface. The methods of this protocol notify your delegate when the user finish picking photos or videos, or cancels the picker operation.
- 
- @discussion The delegate methods are responsible for dismissing the picker when the operation completes. To dismiss the picker, call the dismissViewControllerAnimated:completion: method of the presenting controller responsible for displaying CTAssetsPickerController object.
- 
- @discussion The picked photos and videos can be processed by accessing the defaultRepresentation property. It returns a ALAssetRepresentation object which encapsulates one of the representations of ALAsset object.
+ *  The CTAssetsPickerControllerDelegate protocol defines methods that your delegate object must implement to interact with the assets picker interface.
+ *  The methods of this protocol notify your delegate when the user finish picking photos or videos, or cancels the picker operation.
+ *
+ *  @discussion The delegate methods are responsible for dismissing the picker when the operation completes.
+ *              To dismiss the picker, call the dismissViewControllerAnimated:completion: method of the presenting controller
+ *              responsible for displaying CTAssetsPickerController object.
+ *
+ *  @discussion The picked photos and videos can be processed by accessing the defaultRepresentation property.
+ *              It returns a ALAssetRepresentation object which encapsulates one of the representations of ALAsset object.
  */
 @protocol CTAssetsPickerControllerDelegate <NSObject>
 
+
 /**
- Tells the delegate that the user finish picking photos or videos.
- @param picker The controller object managing the assets picker interface.
- @param assets An array containing picked ALAsset objects.
+ *  Tells the delegate that the user finish picking photos or videos.
+ *
+ *  @param picker The controller object managing the assets picker interface.
+ *  @param assets An array containing picked ALAsset objects.
  */
 - (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets;
 
 @optional
 
+
 /**
- Tells the delegate that the user cancelled the pick operation.
- @param picker The controller object managing the assets picker interface.
+ *  Tells the delegate that the user cancelled the pick operation.
+ *
+ *  @param picker The controller object managing the assets picker interface.
  */
 - (void)assetsPickerControllerDidCancel:(CTAssetsPickerController *)picker;
 
 
 /**
- Tells the delegate that the item at the specified index path was selected.
- @param picker The controller object managing the assets picker interface.
- @param indexPath The index path of the asset that was selected.
+ *  Tells the delegate that the item at the specified index path was selected.
+ *
+ *  @param picker    The controller object managing the assets picker interface.
+ *  @param indexPath The index path of the asset that was selected.
  */
 - (void)assetsPickerController:(CTAssetsPickerController *)picker didSelectItemAtIndexPath:(NSIndexPath *)indexPath;
 
 
 /**
- Tells the delegate that the item at the specified path was deselected.
- @param picker The controller object managing the assets picker interface.
- @param indexPath The index path of the asset that was deselected.
+ *  Tells the delegate that the item at the specified path was deselected.
+ *
+ *  @param picker    The controller object managing the assets picker interface.
+ *  @param indexPath The index path of the asset that was deselected.
  */
 - (void)assetsPickerController:(CTAssetsPickerController *)picker didDeselectItemAtIndexPath:(NSIndexPath *)indexPath;
+
+
+/**
+ *  Tells the delegate that the item at the specified index path was highlighted.
+ *
+ *  @param picker    The controller object managing the assets picker interface.
+ *  @param indexPath The index path of the asset that was highlighted.
+ */
+- (void)assetsPickerController:(CTAssetsPickerController *)picker didHighlightItemAtIndexPath:(NSIndexPath *)indexPath;
+
+
+/**
+ *  Tells the delegate that the highlight was removed from the item at the specified index path.
+ *
+ *  @param picker    The controller object managing the assets picker interface.
+ *  @param indexPath The index path of the cell that had its highlight removed.
+ */
+- (void)assetsPickerController:(CTAssetsPickerController *)picker didUnhighlightItemAtIndexPath:(NSIndexPath *)indexPath;
+
 
 @end
