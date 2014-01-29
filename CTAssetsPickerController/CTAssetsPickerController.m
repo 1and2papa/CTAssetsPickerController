@@ -556,6 +556,12 @@
     [self setupAssets];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self resetIndexPathsOfSelectedItem];
+}
+
 
 #pragma mark - Rotation
 
@@ -631,6 +637,12 @@
     };
     
     [self.assetsGroup enumerateAssetsUsingBlock:resultsBlock];
+}
+
+- (void)resetIndexPathsOfSelectedItem
+{
+    CTAssetsPickerController *vc = (CTAssetsPickerController *)self.navigationController;
+    vc.indexPathsForSelectedItems = nil;
 }
 
 
