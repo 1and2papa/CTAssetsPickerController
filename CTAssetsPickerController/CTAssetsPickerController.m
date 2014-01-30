@@ -538,7 +538,8 @@
     self.layout.itemSize                = kThumbnailSize;
     self.layout.footerReferenceSize     = CGSizeMake(0, 44.0);
     
-    if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation))
+    if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation) &&
+        (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad))
     {
         self.layout.sectionInset            = UIEdgeInsetsMake(9.0, 2.0, 0, 2.0);
         self.layout.minimumInteritemSpacing = 3.0;
