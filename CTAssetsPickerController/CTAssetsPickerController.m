@@ -145,8 +145,7 @@
         _showsCancelButton          = YES;
         _showsEmptyGroups           = NO;
         
-        if ([self respondsToSelector:@selector(setContentSizeForViewInPopover:)])
-            [self setContentSizeForViewInPopover:kPopoverContentSize];
+        self.preferredContentSize   = kPopoverContentSize;
     }
     
     return self;
@@ -289,8 +288,7 @@
 {
     if (self = [super initWithStyle:UITableViewStylePlain])
     {
-        if ([self respondsToSelector:@selector(setContentSizeForViewInPopover:)])
-            [self setContentSizeForViewInPopover:kPopoverContentSize];
+        self.preferredContentSize = kPopoverContentSize;
     }
     
     return self;
@@ -563,9 +561,8 @@
         [self.collectionView registerClass:[CTAssetsSupplementaryView class]
                 forSupplementaryViewOfKind:UICollectionElementKindSectionFooter
                        withReuseIdentifier:kAssetsSupplementaryViewIdentifier];
-        
-        if ([self respondsToSelector:@selector(setContentSizeForViewInPopover:)])
-            [self setContentSizeForViewInPopover:kPopoverContentSize];
+
+        self.preferredContentSize = kPopoverContentSize;
     }
     
     self.selectedAssets = [[NSMutableArray alloc] init];
