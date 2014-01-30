@@ -93,6 +93,7 @@
 
     CTAssetsPickerController *picker = [[CTAssetsPickerController alloc] init];
     picker.assetsFilter     = [ALAssetsFilter allAssets];
+    picker.showsEmptyGroups = YES;
     picker.delegate         = self;
     
     [self presentViewController:picker animated:YES completion:nil];

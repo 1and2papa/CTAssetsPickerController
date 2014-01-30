@@ -42,13 +42,16 @@
 
 @property (nonatomic, copy) NSArray *selectedAssets;
 
+- (UIView *)notAllowedView;
+- (UIView *)noAssetsView;
+
 @end
+
 
 
 @interface CTAssetsGroupViewController : UITableViewController
 
 @end
-
 
 @interface CTAssetsGroupViewController()
 
@@ -56,6 +59,7 @@
 @property (nonatomic, strong) NSMutableArray *groups;
 
 @end
+
 
 
 @interface CTAssetsViewController : UICollectionViewController
@@ -75,6 +79,7 @@
 @end
 
 
+
 @interface CTAssetsGroupViewCell : UITableViewCell
 
 - (void)bind:(ALAssetsGroup *)assetsGroup;
@@ -86,6 +91,7 @@
 @property (nonatomic, strong) ALAssetsGroup *assetsGroup;
 
 @end
+
 
 
 @interface CTAssetsViewCell : UICollectionViewCell
@@ -106,6 +112,7 @@
 @end
 
 
+
 @interface CTAssetsSupplementaryView : UICollectionReusableView
 
 @property (nonatomic, strong) UILabel *sectionLabel;
@@ -113,7 +120,6 @@
 - (void)setNumberOfPhotos:(NSInteger)numberOfPhotos numberOfVideos:(NSInteger)numberOfVideos;
 
 @end
-
 
 @interface CTAssetsSupplementaryView ()
 
@@ -155,6 +161,99 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+}
+
+- (UIView *)notAllowedView
+{
+    UIImageView *padlock    = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CTAssetsPickerLocked"]];
+    padlock.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    UILabel *title          = [[UILabel alloc] init];
+    title.translatesAutoresizingMaskIntoConstraints = NO;
+    title.preferredMaxLayoutWidth = 304.0f;
+    
+    UILabel *message        = [[UILabel alloc] init];
+    message.translatesAutoresizingMaskIntoConstraints = NO;
+    message.preferredMaxLayoutWidth = 304.0f;
+    
+    title.text              = NSLocalizedString(@"This app does not have access to your photos or videos.", nil);
+    title.font              = [UIFont boldSystemFontOfSize:17.0];
+    title.textColor         = [UIColor colorWithRed:129.0/255.0 green:136.0/255.0 blue:148.0/255.0 alpha:1];
+    title.textAlignment     = NSTextAlignmentCenter;
+    title.numberOfLines     = 5;
+    
+    message.text            = NSLocalizedString(@"You can enable access in Privacy Settings.", nil);
+    message.font            = [UIFont systemFontOfSize:14.0];
+    message.textColor       = [UIColor colorWithRed:129.0/255.0 green:136.0/255.0 blue:148.0/255.0 alpha:1];
+    message.textAlignment   = NSTextAlignmentCenter;
+    message.numberOfLines   = 5;
+    
+    [title sizeToFit];
+    [message sizeToFit];
+    
+    UIView *centerView = [[UIView alloc] init];
+    centerView.translatesAutoresizingMaskIntoConstraints = NO;
+    [centerView addSubview:padlock];
+    [centerView addSubview:title];
+    [centerView addSubview:message];
+    
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(padlock, title, message);
+    
+    [centerView addConstraint:[NSLayoutConstraint constraintWithItem:padlock attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:centerView attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
+    [centerView addConstraint:[NSLayoutConstraint constraintWithItem:title attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:padlock attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
+    [centerView addConstraint:[NSLayoutConstraint constraintWithItem:message attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:padlock attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
+    [centerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[padlock]-[title]-[message]|" options:0 metrics:nil views:viewsDictionary]];
+    
+    UIView *view = [[UIView alloc] init];
+    [view addSubview:centerView];
+    [view addConstraint:[NSLayoutConstraint constraintWithItem:centerView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:view attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
+    [view addConstraint:[NSLayoutConstraint constraintWithItem:centerView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:view attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0.0f]];
+
+    return view;
+}
+
+- (UIView *)noAssetsView
+{
+    UILabel *title          = [[UILabel alloc] init];
+    title.translatesAutoresizingMaskIntoConstraints = NO;
+    title.preferredMaxLayoutWidth = 304.0f;
+    
+    UILabel *message        = [[UILabel alloc] init];
+    message.translatesAutoresizingMaskIntoConstraints = NO;
+    message.preferredMaxLayoutWidth = 304.0f;
+    
+    title.text              = NSLocalizedString(@"No Photos or Videos", nil);
+    title.font              = [UIFont systemFontOfSize:26.0];
+    title.textColor         = [UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1];
+    title.textAlignment     = NSTextAlignmentCenter;
+    title.numberOfLines     = 5;
+    
+    message.text            = NSLocalizedString(@"You can sync photos and videos onto your iPhone using iTunes.", nil);
+    message.font            = [UIFont systemFontOfSize:18.0];
+    message.textColor       = [UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1];
+    message.textAlignment   = NSTextAlignmentCenter;
+    message.numberOfLines   = 5;
+    
+    [title sizeToFit];
+    [message sizeToFit];
+    
+    UIView *centerView = [[UIView alloc] init];
+    centerView.translatesAutoresizingMaskIntoConstraints = NO;
+    [centerView addSubview:title];
+    [centerView addSubview:message];
+    
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(title, message);
+    
+    [centerView addConstraint:[NSLayoutConstraint constraintWithItem:title attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:centerView attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
+    [centerView addConstraint:[NSLayoutConstraint constraintWithItem:message attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:title attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
+    [centerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[title]-[message]|" options:0 metrics:nil views:viewsDictionary]];
+    
+    UIView *view = [[UIView alloc] init];
+    [view addSubview:centerView];
+    [view addConstraint:[NSLayoutConstraint constraintWithItem:centerView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:view attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
+    [view addConstraint:[NSLayoutConstraint constraintWithItem:centerView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:view attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0.0f]];
+    
+    return view;
 }
 
 @end
@@ -241,8 +340,8 @@
     CTAssetsPickerController *picker = (CTAssetsPickerController *)self.navigationController;
     ALAssetsFilter *assetsFilter = picker.assetsFilter;
     
-    ALAssetsLibraryGroupsEnumerationResultsBlock resultsBlock = ^(ALAssetsGroup *group, BOOL *stop) {
-        
+    ALAssetsLibraryGroupsEnumerationResultsBlock resultsBlock = ^(ALAssetsGroup *group, BOOL *stop)
+    {
         if (group)
         {
             [group setAssetsFilter:assetsFilter];
@@ -256,10 +355,9 @@
     };
     
     
-    ALAssetsLibraryAccessFailureBlock failureBlock = ^(NSError *error) {
-        
+    ALAssetsLibraryAccessFailureBlock failureBlock = ^(NSError *error)
+    {
         [self showNotAllowed];
-        
     };
     
     // Enumerate Camera roll first
@@ -282,10 +380,10 @@
 
 - (void)reloadData
 {
-    if (self.groups.count == 0)
+    if (self.groups.count > 0)
+        [self.tableView reloadData];
+    else
         [self showNoAssets];
-    
-    [self.tableView reloadData];
 }
 
 
@@ -295,7 +393,8 @@
 {
     static dispatch_once_t pred = 0;
     static ALAssetsLibrary *library = nil;
-    dispatch_once(&pred, ^{
+    dispatch_once(&pred,^
+    {
         library = [[ALAssetsLibrary alloc] init];
     });
     return library;
@@ -309,53 +408,9 @@
     if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)])
         [self setEdgesForExtendedLayout:UIRectEdgeLeft | UIRectEdgeRight | UIRectEdgeBottom];
     
-    self.title              = nil;
-    
-    UIImageView *padlock    = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CTAssetsPickerLocked"]];
-    padlock.translatesAutoresizingMaskIntoConstraints = NO;
-    
-    UILabel *title          = [UILabel new];
-    title.translatesAutoresizingMaskIntoConstraints = NO;
-    title.preferredMaxLayoutWidth = 304.0f;
-    
-    UILabel *message        = [UILabel new];
-    message.translatesAutoresizingMaskIntoConstraints = NO;
-    message.preferredMaxLayoutWidth = 304.0f;
-    
-    title.text              = NSLocalizedString(@"This app does not have access to your photos or videos.", nil);
-    title.font              = [UIFont boldSystemFontOfSize:17.0];
-    title.textColor         = [UIColor colorWithRed:129.0/255.0 green:136.0/255.0 blue:148.0/255.0 alpha:1];
-    title.textAlignment     = NSTextAlignmentCenter;
-    title.numberOfLines     = 5;
-    
-    message.text            = NSLocalizedString(@"You can enable access in Privacy Settings.", nil);
-    message.font            = [UIFont systemFontOfSize:14.0];
-    message.textColor       = [UIColor colorWithRed:129.0/255.0 green:136.0/255.0 blue:148.0/255.0 alpha:1];
-    message.textAlignment   = NSTextAlignmentCenter;
-    message.numberOfLines   = 5;
-    
-    [title sizeToFit];
-    [message sizeToFit];
-    
-    UIView *centerView = [UIView new];
-    centerView.translatesAutoresizingMaskIntoConstraints = NO;
-    [centerView addSubview:padlock];
-    [centerView addSubview:title];
-    [centerView addSubview:message];
-    
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(padlock, title, message);
-    
-    [centerView addConstraint:[NSLayoutConstraint constraintWithItem:padlock attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:centerView attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
-    [centerView addConstraint:[NSLayoutConstraint constraintWithItem:title attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:padlock attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
-    [centerView addConstraint:[NSLayoutConstraint constraintWithItem:message attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:padlock attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
-    [centerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[padlock]-[title]-[message]|" options:0 metrics:nil views:viewsDictionary]];
-    
-    UIView *backgroundView = [UIView new];
-    [backgroundView addSubview:centerView];
-    [backgroundView addConstraint:[NSLayoutConstraint constraintWithItem:centerView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:backgroundView attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
-    [backgroundView addConstraint:[NSLayoutConstraint constraintWithItem:centerView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:backgroundView attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0.0f]];
-    
-    self.tableView.backgroundView = backgroundView;
+    CTAssetsPickerController *picker = (CTAssetsPickerController *)self.navigationController;
+    self.title                       = nil;
+    self.tableView.backgroundView    = [picker notAllowedView];
 }
 
 - (void)showNoAssets
@@ -363,45 +418,8 @@
     if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)])
         [self setEdgesForExtendedLayout:UIRectEdgeLeft | UIRectEdgeRight | UIRectEdgeBottom];
     
-    UILabel *title          = [UILabel new];
-    title.translatesAutoresizingMaskIntoConstraints = NO;
-    title.preferredMaxLayoutWidth = 304.0f;
-    UILabel *message        = [UILabel new];
-    message.translatesAutoresizingMaskIntoConstraints = NO;
-    message.preferredMaxLayoutWidth = 304.0f;
-    
-    title.text              = NSLocalizedString(@"No Photos or Videos", nil);
-    title.font              = [UIFont systemFontOfSize:26.0];
-    title.textColor         = [UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1];
-    title.textAlignment     = NSTextAlignmentCenter;
-    title.numberOfLines     = 5;
-    
-    message.text            = NSLocalizedString(@"You can sync photos and videos onto your iPhone using iTunes.", nil);
-    message.font            = [UIFont systemFontOfSize:18.0];
-    message.textColor       = [UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1];
-    message.textAlignment   = NSTextAlignmentCenter;
-    message.numberOfLines   = 5;
-    
-    [title sizeToFit];
-    [message sizeToFit];
-    
-    UIView *centerView = [UIView new];
-    centerView.translatesAutoresizingMaskIntoConstraints = NO;
-    [centerView addSubview:title];
-    [centerView addSubview:message];
-    
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(title, message);
-    
-    [centerView addConstraint:[NSLayoutConstraint constraintWithItem:title attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:centerView attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
-    [centerView addConstraint:[NSLayoutConstraint constraintWithItem:message attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:title attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
-    [centerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[title]-[message]|" options:0 metrics:nil views:viewsDictionary]];
-    
-    UIView *backgroundView = [UIView new];
-    [backgroundView addSubview:centerView];
-    [backgroundView addConstraint:[NSLayoutConstraint constraintWithItem:centerView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:backgroundView attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
-    [backgroundView addConstraint:[NSLayoutConstraint constraintWithItem:centerView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:backgroundView attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0.0f]];
-    
-    self.tableView.backgroundView = backgroundView;
+    CTAssetsPickerController *picker = (CTAssetsPickerController *)self.navigationController;
+    self.tableView.backgroundView    = [picker noAssetsView];
 }
 
 
@@ -615,8 +633,8 @@
     else
         [self.assets removeAllObjects];
     
-    ALAssetsGroupEnumerationResultsBlock resultsBlock = ^(ALAsset *asset, NSUInteger index, BOOL *stop) {
-        
+    ALAssetsGroupEnumerationResultsBlock resultsBlock = ^(ALAsset *asset, NSUInteger index, BOOL *stop)
+    {
         if (asset)
         {
             [self.assets addObject:asset];
@@ -628,18 +646,15 @@
             if ([type isEqual:ALAssetTypeVideo])
                 self.numberOfVideos ++;
         }
-        
-        else if (self.assets.count > 0)
+        else
         {
-            [self.collectionView reloadData];
-            [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:self.assets.count-1 inSection:0]
-                                        atScrollPosition:UICollectionViewScrollPositionTop
-                                                animated:YES];
+            [self reloadData];
         }
     };
     
     [self.assetsGroup enumerateAssetsUsingBlock:resultsBlock];
 }
+
 
 
 #pragma mark - Selected Assets
@@ -653,6 +668,34 @@
     else
         picker.selectedAssets = nil;
 }
+
+
+#pragma mark - Reload Data
+
+- (void)reloadData
+{
+    if (self.assets.count > 0)
+    {
+        [self.collectionView reloadData];
+        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:self.assets.count-1 inSection:0]
+                                    atScrollPosition:UICollectionViewScrollPositionTop
+                                            animated:YES];
+    }
+    else
+    {
+        [self showNoAssets];
+    }
+}
+
+
+#pragma mark - No assets
+
+- (void)showNoAssets
+{
+    CTAssetsPickerController *picker    = (CTAssetsPickerController *)self.navigationController;
+    self.collectionView.backgroundView  = [picker noAssetsView];
+}
+
 
 #pragma mark - Collection View Data Source
 
@@ -691,8 +734,9 @@
     
     CTAssetsSupplementaryView *view =
     [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:viewIdentifiert forIndexPath:indexPath];
-    
-    [view setNumberOfPhotos:self.numberOfPhotos numberOfVideos:self.numberOfVideos];
+
+    if (self.assets.count > 0)
+        [view setNumberOfPhotos:self.numberOfPhotos numberOfVideos:self.numberOfVideos];
     
     return view;
 }
