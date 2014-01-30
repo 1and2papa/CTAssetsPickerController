@@ -1055,6 +1055,17 @@ static UIColor *disabledColor;
         _sectionLabel.textAlignment = NSTextAlignmentCenter;
         
         [self addSubview:_sectionLabel];
+        
+        self.translatesAutoresizingMaskIntoConstraints          = NO;
+        _sectionLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:_sectionLabel
+                                                         attribute:NSLayoutAttributeCenterX
+                                                         relatedBy:NSLayoutRelationEqual
+                                                            toItem:self
+                                                         attribute:NSLayoutAttributeCenterX
+                                                        multiplier:1.0f
+                                                          constant:0.0f]];
     }
     
     return self;
