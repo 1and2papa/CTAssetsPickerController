@@ -31,10 +31,13 @@
 #import "CTMasterViewController.h"
 
 
-@interface CTMasterViewController () <UINavigationControllerDelegate, CTAssetsPickerControllerDelegate>
+@interface CTMasterViewController ()
+<UINavigationControllerDelegate, CTAssetsPickerControllerDelegate,
+UIPopoverControllerDelegate>
 
 @property (nonatomic, strong) NSMutableArray *assets;
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
+@property (nonatomic, strong) UIPopoverController *popover;
 
 @end
 
@@ -92,11 +95,25 @@
         self.assets = [[NSMutableArray alloc] init];
 
     CTAssetsPickerController *picker = [[CTAssetsPickerController alloc] init];
-    picker.assetsFilter     = [ALAssetsFilter allAssets];
-    picker.showsEmptyGroups = YES;
-    picker.delegate         = self;
+    picker.assetsFilter         = [ALAssetsFilter allAssets];
+    picker.showsCancelButton    = (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad);
+    picker.showsEmptyGroups     = YES;
+    picker.delegate             = self;
     
-    [self presentViewController:picker animated:YES completion:nil];
+    // iPad
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    {
+        self.popover = [[UIPopoverController alloc] initWithContentViewController:picker];
+        self.popover.delegate = self;
+        
+        [self.popover presentPopoverFromBarButtonItem:sender
+                             permittedArrowDirections:UIPopoverArrowDirectionAny
+                                             animated:YES];
+    }
+    else
+    {
+        [self presentViewController:picker animated:YES completion:nil];
+    }
 }
 
 
@@ -135,11 +152,22 @@
 }
 
 
+#pragma mark - Popover Controller Delegate
+
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
+{
+    self.popover = nil;
+}
+
+
 #pragma mark - Assets Picker Delegate
 
 - (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets
 {
-    [picker.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    if (self.popover != nil)
+        [self.popover dismissPopoverAnimated:YES];
+    else
+        [picker.presentingViewController dismissViewControllerAnimated:YES completion:nil];
     
     [self.tableView beginUpdates];
     [self.tableView insertRowsAtIndexPaths:[self indexPathOfNewlyAddedAssets:assets]

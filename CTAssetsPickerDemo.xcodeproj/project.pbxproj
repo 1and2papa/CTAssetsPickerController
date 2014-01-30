@@ -24,7 +24,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		AD843C2F1806AC9800AF28F9 /* CTAssetsPickerDemo-64bit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "CTAssetsPickerDemo-64bit-Info.plist"; sourceTree = "<group>"; };
 		ADE31D8617EFF08C008958B8 /* CTAssetsPickerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CTAssetsPickerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADE31D8917EFF08C008958B8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		ADE31D8B17EFF08C008958B8 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -111,7 +110,6 @@
 		ADE31D9017EFF08C008958B8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				AD843C2F1806AC9800AF28F9 /* CTAssetsPickerDemo-64bit-Info.plist */,
 				ADE31D9117EFF08C008958B8 /* CTAssetsPickerDemo-Info.plist */,
 				ADE31D9217EFF08C008958B8 /* InfoPlist.strings */,
 				ADE31D9517EFF08C008958B8 /* main.m */,
@@ -320,8 +318,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CTAssetsPickerDemo/CTAssetsPickerDemo-Prefix.pch";
 				INFOPLIST_FILE = "CTAssetsPickerDemo/CTAssetsPickerDemo-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -334,8 +332,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CTAssetsPickerDemo/CTAssetsPickerDemo-Prefix.pch";
 				INFOPLIST_FILE = "CTAssetsPickerDemo/CTAssetsPickerDemo-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
