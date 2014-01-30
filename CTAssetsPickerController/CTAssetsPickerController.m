@@ -425,9 +425,6 @@
 
 - (void)showNotAllowed
 {
-    if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)])
-        [self setEdgesForExtendedLayout:UIRectEdgeLeft | UIRectEdgeRight | UIRectEdgeBottom];
-    
     CTAssetsPickerController *picker = (CTAssetsPickerController *)self.navigationController;
     self.title                       = nil;
     self.tableView.backgroundView    = [picker notAllowedView];
@@ -435,9 +432,6 @@
 
 - (void)showNoAssets
 {
-    if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)])
-        [self setEdgesForExtendedLayout:UIRectEdgeLeft | UIRectEdgeRight | UIRectEdgeBottom];
-    
     CTAssetsPickerController *picker = (CTAssetsPickerController *)self.navigationController;
     self.tableView.backgroundView    = [picker noAssetsView];
 }
@@ -570,9 +564,6 @@
         [self.collectionView registerClass:[CTAssetsSupplementaryView class]
                 forSupplementaryViewOfKind:UICollectionElementKindSectionFooter
                        withReuseIdentifier:kAssetsSupplementaryViewIdentifier];
-        
-        if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)])
-            [self setEdgesForExtendedLayout:UIRectEdgeNone];
         
         if ([self respondsToSelector:@selector(setContentSizeForViewInPopover:)])
             [self setContentSizeForViewInPopover:kPopoverContentSize];
@@ -712,9 +703,6 @@
 
 - (void)showNoAssets
 {
-    if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)])
-        [self setEdgesForExtendedLayout:UIRectEdgeLeft | UIRectEdgeRight | UIRectEdgeBottom];
-    
     CTAssetsPickerController *picker    = (CTAssetsPickerController *)self.navigationController;
     self.collectionView.backgroundView  = [picker noAssetsView];
 }
