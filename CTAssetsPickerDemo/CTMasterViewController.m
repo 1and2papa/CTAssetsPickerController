@@ -92,20 +92,8 @@
         self.assets = [[NSMutableArray alloc] init];
 
     CTAssetsPickerController *picker = [[CTAssetsPickerController alloc] init];
-    picker.maximumNumberOfSelections = 10;
-    picker.assetsFilter = [ALAssetsFilter allAssets];
-    
-    // only allow video clips if they are at least 5s
-    picker.selectionFilter = [NSPredicate predicateWithBlock:^BOOL(ALAsset* asset, NSDictionary *bindings) {
-        if ([[asset valueForProperty:ALAssetPropertyType] isEqual:ALAssetTypeVideo]) {
-            NSTimeInterval duration = [[asset valueForProperty:ALAssetPropertyDuration] doubleValue];
-            return duration >= 5;
-        } else {
-            return YES;
-        }
-    }];
-    
-    picker.delegate = self;
+    picker.assetsFilter     = [ALAssetsFilter allAssets];
+    picker.delegate         = self;
     
     [self presentViewController:picker animated:YES completion:nil];
 }
@@ -135,6 +123,16 @@
     return cell;
 }
 
+- (NSArray *)indexPathOfNewlyAddedAssets:(NSArray *)assets
+{
+    NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
+    
+    for (NSUInteger i = self.assets.count; i < self.assets.count + assets.count ; i++)
+        [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+    
+    return indexPaths;
+}
+
 
 #pragma mark - Assets Picker Delegate
 
@@ -150,14 +148,38 @@
     [self.tableView endUpdates];
 }
 
-- (NSArray *)indexPathOfNewlyAddedAssets:(NSArray *)assets
+- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldEnableAssetForSelection:(ALAsset *)asset
 {
-    NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
+    // Enable video clips if they are at least 5s
+    NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(ALAsset *asset, NSDictionary *bindings)
+    {
+        if ([[asset valueForProperty:ALAssetPropertyType] isEqual:ALAssetTypeVideo])
+        {
+            NSTimeInterval duration = [[asset valueForProperty:ALAssetPropertyDuration] doubleValue];
+            return ceil(duration) >= 5;
+        }
+        else
+        {
+            return YES;
+        }
+    }];
     
-    for (NSUInteger i = self.assets.count; i < self.assets.count + assets.count ; i++)
-        [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+    return [predicate evaluateWithObject:asset];
+}
+
+- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldSelectAsset:(ALAsset *)asset
+{
+    if (picker.selectedAssets.count >= 10)
+    {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Attention"
+                                                            message:@"Please select not more than 10 assets"
+                                                           delegate:nil
+                                                  cancelButtonTitle:nil
+                                                  otherButtonTitles:@"OK", nil];
+        [alertView show];
+    }
     
-    return indexPaths;
+    return (picker.selectedAssets.count < 10);
 }
 
 @end

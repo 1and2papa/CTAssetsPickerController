@@ -57,18 +57,6 @@
 @property (nonatomic, copy, readonly) NSArray *selectedAssets;
 
 /**
- *  The maximum number of assets to be selected.
- */
-@property (nonatomic, assign) NSInteger maximumNumberOfSelections;
-
-/**
- *  Set the `ALAssetsFilter` to filter selectable assets.
- *
- *  @discussion The predicate which return `YES` for each asset to be selectable. Unselectable assets is dimmed in color.
- */
-@property (nonatomic, strong) NSPredicate *selectionFilter;
-
-/**
  *  Determines whether or not the cancel button is visible in the picker.
  *
  *  @discussion The cancel button is visible by default. To hide the cancel button, (e.g. presenting the picker in `UIPopoverController`)
@@ -122,10 +110,34 @@
 - (void)assetsPickerControllerDidCancel:(CTAssetsPickerController *)picker;
 
 
+/**
+ *  @name Enabling Assets for Selection
+ */
+
+/**
+ *  Ask the delegate if the specified asset should be enabled for selection.
+ *
+ *  @param picker The controller object managing the assets picker interface.
+ *  @param asset  The asset to be enabled.
+ *
+ *  @return `YES` if the asset should be enabled or `NO` if it should not.
+ */
+- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldEnableAssetForSelection:(ALAsset *)asset;
+
 
 /**
  *  @name Managing the Selected Assets
  */
+
+/**
+ *  Asks the delegate if the specified asset should be selected.
+ *
+ *  @param picker The controller object managing the assets picker interface.
+ *  @param asset  The asset to be selected.
+ *
+ *  @return `YES` if the asset should be selected or `NO` if it should not.
+ */
+- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldSelectAsset:(ALAsset *)asset;
 
 /**
  *  Tells the delegate that the asset was selected.
@@ -135,6 +147,15 @@
  */
 - (void)assetsPickerController:(CTAssetsPickerController *)picker didSelectAsset:(ALAsset *)asset;
 
+/**
+ *  Asks the delegate if the specified asset should be deselected.
+ *
+ *  @param picker The controller object managing the assets picker interface.
+ *  @param asset  The asset to be deselected.
+ *
+ *  @return `YES` if the asset should be deselected or `NO` if it should not.
+ */
+- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldDeselectAsset:(ALAsset *)asset;
 
 /**
  *  Tells the delegate that the item at the specified path was deselected.
@@ -149,6 +170,9 @@
 /**
  *  @name Managing Asset Highlighting
  */
+
+
+- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldHighlightAsset:(ALAsset *)asset;
 
 /**
  *  Tells the delegate that asset was highlighted.
