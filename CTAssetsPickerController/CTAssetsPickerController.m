@@ -163,6 +163,19 @@
     [super didReceiveMemoryWarning];
 }
 
+
+#pragma mark - Not Allowed / No Assets Views
+
+- (NSString *)deviceModel
+{
+    return [[UIDevice currentDevice] model];
+}
+
+- (BOOL)isCameraDeviceAvailable
+{
+    return [UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear];
+}
+
 - (UIView *)notAllowedView
 {
     UIImageView *padlock    = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CTAssetsPickerLocked"]];
@@ -228,7 +241,14 @@
     title.textAlignment     = NSTextAlignmentCenter;
     title.numberOfLines     = 5;
     
-    message.text            = NSLocalizedString(@"You can sync photos and videos onto your iPhone using iTunes.", nil);
+    NSString *format        = nil;
+    
+    if ([self isCameraDeviceAvailable])
+        format = NSLocalizedString(@"You can take photos and videos using the camera, or sync photos and videos onto your %@\nusing iTunes.", nil);
+    else
+        format = NSLocalizedString(@"You can sync photos and videos onto your %@ using iTunes.", nil);
+    
+    message.text            = [NSString stringWithFormat:format, [self deviceModel]];
     message.font            = [UIFont systemFontOfSize:18.0];
     message.textColor       = [UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1];
     message.textAlignment   = NSTextAlignmentCenter;
@@ -463,7 +483,7 @@
 {
     CTAssetsViewController *vc = [[CTAssetsViewController alloc] init];
     vc.assetsGroup = [self.groups objectAtIndex:indexPath.row];
-    
+
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -692,6 +712,9 @@
 
 - (void)showNoAssets
 {
+    if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)])
+        [self setEdgesForExtendedLayout:UIRectEdgeLeft | UIRectEdgeRight | UIRectEdgeBottom];
+    
     CTAssetsPickerController *picker    = (CTAssetsPickerController *)self.navigationController;
     self.collectionView.backgroundView  = [picker noAssetsView];
 }
