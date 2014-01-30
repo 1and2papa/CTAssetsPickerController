@@ -97,7 +97,6 @@ UIPopoverControllerDelegate>
     CTAssetsPickerController *picker = [[CTAssetsPickerController alloc] init];
     picker.assetsFilter         = [ALAssetsFilter allAssets];
     picker.showsCancelButton    = (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad);
-    picker.showsEmptyGroups     = YES;
     picker.delegate             = self;
     
     // iPad
@@ -175,6 +174,13 @@ UIPopoverControllerDelegate>
     
     [self.assets addObjectsFromArray:assets];
     [self.tableView endUpdates];
+}
+
+- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldShowAssetsGroup:(ALAssetsGroup *)group
+{
+    // Do not show photo stream
+    NSInteger type = [[group valueForProperty:ALAssetsGroupPropertyType] integerValue];
+    return (type != ALAssetsGroupPhotoStream);
 }
 
 - (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldEnableAssetForSelection:(ALAsset *)asset

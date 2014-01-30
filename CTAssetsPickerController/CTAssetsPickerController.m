@@ -143,7 +143,6 @@
         _assetsFilter               = [ALAssetsFilter allAssets];
         _selectedAssets             = nil;
         _showsCancelButton          = YES;
-        _showsEmptyGroups           = NO;
         
         self.preferredContentSize   = kPopoverContentSize;
     }
@@ -362,8 +361,16 @@
         if (group)
         {
             [group setAssetsFilter:assetsFilter];
-            if (group.numberOfAssets > 0 || picker.showsEmptyGroups)
+            
+            if ([picker.delegate respondsToSelector:@selector(assetsPickerController:shouldShowAssetsGroup:)])
+            {
+                if ([picker.delegate assetsPickerController:picker shouldShowAssetsGroup:group])
+                    [self.groups addObject:group];
+            }
+            else
+            {
                 [self.groups addObject:group];
+            }
         }
         else
         {

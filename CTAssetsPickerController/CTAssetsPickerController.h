@@ -64,13 +64,6 @@
  */
 @property (nonatomic, assign) BOOL showsCancelButton;
 
-/**
- *  Determines whether or not empty photo groups are visible in the picker.
- *
- *  @discussion Empty photo groups are hidden by default. To show empty groups, set this property’s value to `YES`.
- */
-@property (nonatomic, assign) BOOL showsEmptyGroups;
-
 @end
 
 
@@ -108,6 +101,21 @@
  *  @param picker The controller object managing the assets picker interface.
  */
 - (void)assetsPickerControllerDidCancel:(CTAssetsPickerController *)picker;
+
+
+/**
+ *  @name Enabling Assets Group to Show
+ */
+
+/**
+ *  Ask the delegate if the specified assets group should be shown.
+ *
+ *  @param picker The controller object managing the assets picker interface.
+ *  @param group  The assets group to be shown.
+ *
+ *  @return `YES` if the assets group should be shown or `NO` if it should not.
+ */
+- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldShowAssetsGroup:(ALAssetsGroup *)group;
 
 
 /**
