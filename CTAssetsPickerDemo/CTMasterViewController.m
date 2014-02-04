@@ -186,20 +186,15 @@ UIPopoverControllerDelegate>
 - (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldEnableAssetForSelection:(ALAsset *)asset
 {
     // Enable video clips if they are at least 5s
-    NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(ALAsset *asset, NSDictionary *bindings)
+    if ([[asset valueForProperty:ALAssetPropertyType] isEqual:ALAssetTypeVideo])
     {
-        if ([[asset valueForProperty:ALAssetPropertyType] isEqual:ALAssetTypeVideo])
-        {
-            NSTimeInterval duration = [[asset valueForProperty:ALAssetPropertyDuration] doubleValue];
-            return ceil(duration) >= 5;
-        }
-        else
-        {
-            return YES;
-        }
-    }];
-    
-    return [predicate evaluateWithObject:asset];
+        NSTimeInterval duration = [[asset valueForProperty:ALAssetPropertyDuration] doubleValue];
+        return lround(duration) >= 5;
+    }
+    else
+    {
+        return YES;
+    }
 }
 
 - (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldSelectAsset:(ALAsset *)asset
