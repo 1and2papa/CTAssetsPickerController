@@ -104,7 +104,7 @@
 
 
 /**
- *  @name Enabling Assets Group to Show
+ *  @name Enabling Assets Group
  */
 
 /**
@@ -179,7 +179,14 @@
  *  @name Managing Asset Highlighting
  */
 
-
+/**
+ *  Asks the delegate if the specified asset should be highlighted.
+ *
+ *  @param picker The controller object managing the assets picker interface.
+ *  @param asset  The asset to be highlighted.
+ *
+ *  @return `YES` if the asset should be highlighted or `NO` if it should not.
+ */
 - (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldHighlightAsset:(ALAsset *)asset;
 
 /**

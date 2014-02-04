@@ -362,15 +362,13 @@
         {
             [group setAssetsFilter:assetsFilter];
             
+            BOOL showGroup = YES;
+            
             if ([picker.delegate respondsToSelector:@selector(assetsPickerController:shouldShowAssetsGroup:)])
-            {
-                if ([picker.delegate assetsPickerController:picker shouldShowAssetsGroup:group])
-                    [self.groups addObject:group];
-            }
-            else
-            {
+                showGroup = [picker.delegate assetsPickerController:picker shouldShowAssetsGroup:group];
+
+            if (showGroup)
                 [self.groups addObject:group];
-            }
         }
         else
         {
