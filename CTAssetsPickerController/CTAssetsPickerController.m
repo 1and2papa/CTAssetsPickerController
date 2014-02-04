@@ -988,15 +988,16 @@ static UIColor *disabledColor;
         
         CGContextDrawLinearGradient(context, gradient, startPoint, endPoint, kCGGradientDrawsBeforeStartLocation);
         
+        CGSize titleSize        = [self.title sizeWithAttributes:@{NSFontAttributeName : titleFont}];
+        CGRect titleRect        = CGRectMake(rect.size.width - titleSize.width - 2, startPoint.y + (titleHeight - 12) / 2, titleSize.width, titleHeight);
         
-        CGSize titleSize        = [self.title sizeWithFont:titleFont];
-        [titleColor set];
-        [self.title drawAtPoint:CGPointMake(rect.size.width - titleSize.width - 2 , startPoint.y + (titleHeight - 12) / 2)
-                       forWidth:kThumbnailLength
-                       withFont:titleFont
-                       fontSize:12
-                  lineBreakMode:NSLineBreakByTruncatingTail
-             baselineAdjustment:UIBaselineAdjustmentAlignCenters];
+        NSMutableParagraphStyle *titleStyle = [[NSMutableParagraphStyle alloc] init];
+        titleStyle.lineBreakMode = NSLineBreakByTruncatingTail;
+        
+        [self.title drawInRect:titleRect
+                withAttributes:@{NSFontAttributeName : titleFont,
+                                 NSForegroundColorAttributeName : titleColor,
+                                 NSParagraphStyleAttributeName : titleStyle}];
         
         [videoIcon drawAtPoint:CGPointMake(2, startPoint.y + (titleHeight - videoIcon.size.height) / 2)];
     }
