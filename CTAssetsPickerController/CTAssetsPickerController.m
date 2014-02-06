@@ -871,6 +871,8 @@ static UIColor *disabledColor;
         
         CGContextDrawLinearGradient(context, gradient, startPoint, endPoint, kCGGradientDrawsBeforeStartLocation);
         
+        CGGradientRelease(gradient);
+        CGColorSpaceRelease(baseSpace);
         
         CGSize titleSize        = [self.title sizeWithFont:titleFont];
         [titleColor set];
