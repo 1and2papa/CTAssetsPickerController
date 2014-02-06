@@ -985,6 +985,9 @@ static UIColor *disabledColor;
         CGPoint endPoint        = CGPointMake(CGRectGetMidX(rect), CGRectGetMaxY(rect));
         
         CGContextDrawLinearGradient(context, gradient, startPoint, endPoint, kCGGradientDrawsBeforeStartLocation);
+
+        CGColorSpaceRelease(baseSpace);
+        CGGradientRelease(gradient);
         
         CGSize titleSize        = [self.title sizeWithAttributes:@{NSFontAttributeName : titleFont}];
         CGRect titleRect        = CGRectMake(rect.size.width - titleSize.width - 2, startPoint.y + (titleHeight - 12) / 2, titleSize.width, titleHeight);
