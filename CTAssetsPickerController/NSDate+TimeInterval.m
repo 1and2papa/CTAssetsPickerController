@@ -50,7 +50,7 @@
 + (NSString *)timeDescriptionOfTimeInterval:(NSTimeInterval)timeInterval
 {
     NSDateComponents *components = [self.class componetsWithTimeInterval:timeInterval];
-    NSInteger roundedSeconds = lround(timeInterval - (components.hour * 60) - (components.minute * 60 * 60));
+    NSInteger roundedSeconds = lround(timeInterval - (components.hour * 60 * 60) - (components.minute * 60));
 
     if (components.hour > 0)
     {
