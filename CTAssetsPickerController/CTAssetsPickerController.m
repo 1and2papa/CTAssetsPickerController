@@ -300,7 +300,14 @@
     [self setupButtons];
     [self localize];
     [self setupGroup];
+    [self addNotificationObserver];
 }
+
+- (void)dealloc
+{
+    [self removeNotificationObserver];
+}
+
 
 
 #pragma mark - Rotation
@@ -398,6 +405,28 @@
 }
 
 
+#pragma mark - Assets Library Changed Notifications
+
+- (void)addNotificationObserver
+{
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self
+               selector:@selector(assetsLibraryChanged:)
+                   name:ALAssetsLibraryChangedNotification
+                 object:nil];
+}
+
+- (void)removeNotificationObserver
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)assetsLibraryChanged:(NSNotification *)notification
+{
+    [self performSelectorOnMainThread:@selector(setupGroup) withObject:nil waitUntilDone:NO];
+}
+
+
 #pragma mark - Reload Data
 
 - (void)reloadData
@@ -437,7 +466,6 @@
     CTAssetsPickerController *picker = (CTAssetsPickerController *)self.navigationController;
     self.tableView.backgroundView    = [picker noAssetsView];
 }
-
 
 
 #pragma mark - Table view data source
@@ -587,6 +615,7 @@
 {
     [super viewWillAppear:animated];
     [self setupAssets];
+    [self addNotificationObserver];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -595,6 +624,7 @@
     
     [self setSelectedAssets:nil];
     [self updateSelectedAssets];
+    [self removeNotificationObserver];
 }
 
 
@@ -680,6 +710,28 @@
         picker.selectedAssets = [NSArray arrayWithArray:self.selectedAssets];
     else
         picker.selectedAssets = nil;
+}
+
+
+#pragma mark - Assets Library Changed Notifications
+
+- (void)addNotificationObserver
+{
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self
+               selector:@selector(assetsLibraryChanged:)
+                   name:ALAssetsLibraryChangedNotification
+                 object:nil];
+}
+
+- (void)removeNotificationObserver
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)assetsLibraryChanged:(NSNotification *)notification
+{
+    [self performSelectorOnMainThread:@selector(setupAssets) withObject:nil waitUntilDone:NO];
 }
 
 
