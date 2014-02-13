@@ -790,46 +790,42 @@
 
 #pragma mark - Update Title
 
-- (void)updateTitle
+- (NSPredicate *)predicateOfAssetType:(NSString *)type
 {
-    NSArray *selectedIndexPaths = self.collectionView.indexPathsForSelectedItems;
+    return [NSPredicate predicateWithBlock:^BOOL(ALAsset *asset, NSDictionary *bindings) {
+        return [[asset valueForProperty:ALAssetPropertyType] isEqual:type];
+    }];
+}
+
+- (NSString *)titleFormatForSelectedAssets
+{
+    NSPredicate *photoPredicate = [self predicateOfAssetType:ALAssetTypePhoto];
+    NSPredicate *videoPredicate = [self predicateOfAssetType:ALAssetTypeVideo];
     
-    // Reset title to group name
-    if (selectedIndexPaths.count == 0)
-    {
-        self.title = [self.assetsGroup valueForProperty:ALAssetsGroupPropertyName];
-        return;
-    }
-    
-    BOOL photosSelected = NO;
-    BOOL videoSelected  = NO;
-    
-    for (NSIndexPath *indexPath in selectedIndexPaths)
-    {
-        ALAsset *asset = [self.assets objectAtIndex:indexPath.item];
-        
-        if ([[asset valueForProperty:ALAssetPropertyType] isEqual:ALAssetTypePhoto])
-            photosSelected  = YES;
-        
-        if ([[asset valueForProperty:ALAssetPropertyType] isEqual:ALAssetTypeVideo])
-            videoSelected   = YES;
-        
-        if (photosSelected && videoSelected)
-            break;
-    }
+    BOOL photoSelected = ([self.selectedAssets filteredArrayUsingPredicate:photoPredicate].count > 0);
+    BOOL videoSelected = ([self.selectedAssets filteredArrayUsingPredicate:videoPredicate].count > 0);
     
     NSString *format;
     
-    if (photosSelected && videoSelected)
+    if (photoSelected && videoSelected)
         format = NSLocalizedString(@"%ld Items Selected", nil);
     
-    else if (photosSelected)
-        format = (selectedIndexPaths.count > 1) ? NSLocalizedString(@"%ld Photos Selected", nil) : NSLocalizedString(@"%ld Photo Selected", nil);
+    else if (photoSelected)
+        format = (self.selectedAssets.count > 1) ? NSLocalizedString(@"%ld Photos Selected", nil) : NSLocalizedString(@"%ld Photo Selected", nil);
     
     else if (videoSelected)
-        format = (selectedIndexPaths.count > 1) ? NSLocalizedString(@"%ld Videos Selected", nil) : NSLocalizedString(@"%ld Video Selected", nil);
+        format = (self.selectedAssets.count > 1) ? NSLocalizedString(@"%ld Videos Selected", nil) : NSLocalizedString(@"%ld Video Selected", nil);
     
-    self.title = [NSString stringWithFormat:format, (long)selectedIndexPaths.count];
+    return format;
+}
+
+- (void)updateTitle
+{
+    // Reset title to group name
+    if (self.selectedAssets.count == 0)
+        self.title = [self.assetsGroup valueForProperty:ALAssetsGroupPropertyName];
+    else
+        self.title = [NSString stringWithFormat:[self titleFormatForSelectedAssets], (long)self.selectedAssets.count];
 }
 
 
@@ -1163,11 +1159,10 @@ static UIColor *disabledColor;
 {
     ALAssetRepresentation *representation = self.asset.defaultRepresentation;
     
-    NSMutableArray *labels          = [[NSMutableArray alloc] init];
-    NSString *type                  = [self.asset valueForProperty:ALAssetPropertyType];
-    NSDate *date                    = [self.asset valueForProperty:ALAssetPropertyDate];
-    CGSize dimension                = representation.dimensions;
-    
+    NSMutableArray *labels  = [[NSMutableArray alloc] init];
+    NSString *type          = [self.asset valueForProperty:ALAssetPropertyType];
+    NSDate *date            = [self.asset valueForProperty:ALAssetPropertyDate];
+    CGSize dimension        = representation.dimensions;
     
     // Type
     if ([type isEqual:ALAssetTypeVideo])
@@ -1192,7 +1187,6 @@ static UIColor *disabledColor;
     
     return [labels componentsJoinedByString:@", "];
 }
-
 
 @end
 
