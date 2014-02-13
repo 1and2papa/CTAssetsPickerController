@@ -75,6 +75,13 @@
 @property (nonatomic, assign) NSInteger numberOfPhotos;
 @property (nonatomic, assign) NSInteger numberOfVideos;
 
+// KVO - selectedAssets
+- (NSUInteger)countOfSelectedAssets;
+- (id)objectInSelectedAssetsAtIndex:(NSUInteger)index;
+- (void)insertObject:(id)object inSelectedAssetsAtIndex:(NSUInteger)index;
+- (void)removeObjectFromSelectedAssetsAtIndex:(NSUInteger)index;
+- (void)replaceObjectInSelectedAssetsAtIndex:(NSUInteger)index withObject:(ALAsset *)object;
+
 @end
 
 
@@ -278,6 +285,7 @@
 
 
 
+
 #pragma mark - CTAssetsGroupViewController
 
 @implementation CTAssetsGroupViewController
@@ -307,7 +315,6 @@
 {
     [self removeNotificationObserver];
 }
-
 
 
 #pragma mark - Rotation
@@ -383,7 +390,6 @@
         }
     };
     
-    
     ALAssetsLibraryAccessFailureBlock failureBlock = ^(NSError *error)
     {
         [self showNotAllowed];
@@ -405,7 +411,7 @@
 }
 
 
-#pragma mark - Assets Library Changed Notifications
+#pragma mark - Notifications
 
 - (void)addNotificationObserver
 {
@@ -420,6 +426,9 @@
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+
+
+#pragma mark - Assets Library Changed
 
 - (void)assetsLibraryChanged:(NSNotification *)notification
 {
@@ -511,6 +520,7 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+
 #pragma mark - Actions
 
 - (void)dismiss:(id)sender
@@ -524,6 +534,8 @@
 }
 
 @end
+
+
 
 
 
@@ -554,6 +566,7 @@
 }
 
 @end
+
 
 
 
@@ -599,7 +612,10 @@
         self.preferredContentSize = kPopoverContentSize;
     }
     
-    self.selectedAssets = [[NSMutableArray alloc] init];
+    _selectedAssets = [[NSMutableArray alloc] init];
+    
+    [self addKeyValueObserver];
+    [self addNotificationObserver];
     
     return self;
 }
@@ -615,15 +631,17 @@
 {
     [super viewWillAppear:animated];
     [self setupAssets];
-    [self addNotificationObserver];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
-    
-    [self setSelectedAssets:nil];
-    [self updateSelectedAssets];
+    [super viewWillDisappear:animated];
+    [self removeAllSelectedAssets];
+}
+
+- (void)dealloc
+{
+    [self removeKeyValueObserver];
     [self removeNotificationObserver];
 }
 
@@ -699,13 +717,128 @@
 }
 
 
+#pragma mark - Key-Value Observers
 
-#pragma mark - Selected Assets
+- (void)addKeyValueObserver
+{
+    [self addObserver:self
+           forKeyPath:@"selectedAssets"
+              options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
+              context:nil];
+}
 
-- (void)updateSelectedAssets
+- (void)removeKeyValueObserver
+{
+    [self removeObserver:self forKeyPath:@"selectedAssets"];
+}
+
+
+#pragma mark - Key-Value Proxies
+
+- (void)addAssetToSelectedAssets:(ALAsset *)asset
+{
+    [self insertObject:asset inSelectedAssetsAtIndex:self.selectedAssets.count];
+}
+
+- (void)removeAssetFromSelectedAssets:(ALAsset *)asset
+{
+    [self removeObjectFromSelectedAssetsAtIndex:[self.selectedAssets indexOfObject:asset]];
+}
+
+- (void)removeAllSelectedAssets
+{
+    self.selectedAssets = [[NSMutableArray alloc] init];
+}
+
+
+#pragma mark - Key-Value Observing
+
+- (NSUInteger)countOfSelectedAssets
+{
+    return self.selectedAssets.count;
+}
+
+- (id)objectInSelectedAssetsAtIndex:(NSUInteger)index
+{
+    return [self.selectedAssets objectAtIndex:index];
+}
+
+- (void)insertObject:(id)object inSelectedAssetsAtIndex:(NSUInteger)index
+{
+    [self.selectedAssets insertObject:object atIndex:index];
+}
+
+- (void)removeObjectFromSelectedAssetsAtIndex:(NSUInteger)index
+{
+    [self.selectedAssets removeObjectAtIndex:index];
+}
+
+- (void)replaceObjectInSelectedAssetsAtIndex:(NSUInteger)index withObject:(ALAsset *)object
+{
+    [self.selectedAssets replaceObjectAtIndex:index withObject:object];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if ([keyPath isEqual:@"selectedAssets"])
+    {
+        [self updateTitle];
+        [self updatePickerSelectedAssets];
+    }
+}
+
+
+#pragma mark - Update Title
+
+- (void)updateTitle
+{
+    NSArray *selectedIndexPaths = self.collectionView.indexPathsForSelectedItems;
+    
+    // Reset title to group name
+    if (selectedIndexPaths.count == 0)
+    {
+        self.title = [self.assetsGroup valueForProperty:ALAssetsGroupPropertyName];
+        return;
+    }
+    
+    BOOL photosSelected = NO;
+    BOOL videoSelected  = NO;
+    
+    for (NSIndexPath *indexPath in selectedIndexPaths)
+    {
+        ALAsset *asset = [self.assets objectAtIndex:indexPath.item];
+        
+        if ([[asset valueForProperty:ALAssetPropertyType] isEqual:ALAssetTypePhoto])
+            photosSelected  = YES;
+        
+        if ([[asset valueForProperty:ALAssetPropertyType] isEqual:ALAssetTypeVideo])
+            videoSelected   = YES;
+        
+        if (photosSelected && videoSelected)
+            break;
+    }
+    
+    NSString *format;
+    
+    if (photosSelected && videoSelected)
+        format = NSLocalizedString(@"%ld Items Selected", nil);
+    
+    else if (photosSelected)
+        format = (selectedIndexPaths.count > 1) ? NSLocalizedString(@"%ld Photos Selected", nil) : NSLocalizedString(@"%ld Photo Selected", nil);
+    
+    else if (videoSelected)
+        format = (selectedIndexPaths.count > 1) ? NSLocalizedString(@"%ld Videos Selected", nil) : NSLocalizedString(@"%ld Video Selected", nil);
+    
+    self.title = [NSString stringWithFormat:format, (long)selectedIndexPaths.count];
+}
+
+
+#pragma mark - Update Picker's Selected Assets
+
+- (void)updatePickerSelectedAssets
 {
     CTAssetsPickerController *picker = (CTAssetsPickerController *)self.navigationController;
-
+    
     if (self.selectedAssets.count > 0)
         picker.selectedAssets = [NSArray arrayWithArray:self.selectedAssets];
     else
@@ -713,7 +846,7 @@
 }
 
 
-#pragma mark - Assets Library Changed Notifications
+#pragma mark - Notifications
 
 - (void)addNotificationObserver
 {
@@ -728,6 +861,9 @@
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+
+
+#pragma mark - Assets Library Changed
 
 - (void)assetsLibraryChanged:(NSNotification *)notification
 {
@@ -823,13 +959,10 @@
     CTAssetsPickerController *picker = (CTAssetsPickerController *)self.navigationController;
     ALAsset *asset = [self.assets objectAtIndex:indexPath.row];
     
-    [self.selectedAssets addObject:asset];
-    [self updateSelectedAssets];
+    [self addAssetToSelectedAssets:asset];
     
     if ([picker.delegate respondsToSelector:@selector(assetsPickerController:didSelectAsset:)])
         [picker.delegate assetsPickerController:picker didSelectAsset:asset];
-    
-    [self setTitleWithSelectedIndexPaths:collectionView.indexPathsForSelectedItems];
 }
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldDeselectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -847,14 +980,11 @@
 {
     CTAssetsPickerController *picker = (CTAssetsPickerController *)self.navigationController;
     ALAsset *asset = [self.assets objectAtIndex:indexPath.row];
-    
-    [self.selectedAssets removeObject:asset];
-    [self updateSelectedAssets];
+
+    [self removeAssetFromSelectedAssets:asset];
     
     if ([picker.delegate respondsToSelector:@selector(assetsPickerController:didDeselectAsset:)])
         [picker.delegate assetsPickerController:picker didDeselectAsset:asset];
-    
-    [self setTitleWithSelectedIndexPaths:collectionView.indexPathsForSelectedItems];
 }
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath
@@ -887,49 +1017,6 @@
 }
 
 
-#pragma mark - Title
-
-- (void)setTitleWithSelectedIndexPaths:(NSArray *)indexPaths
-{
-    // Reset title to group name
-    if (indexPaths.count == 0)
-    {
-        self.title = [self.assetsGroup valueForProperty:ALAssetsGroupPropertyName];
-        return;
-    }
-    
-    BOOL photosSelected = NO;
-    BOOL videoSelected  = NO;
-    
-    for (NSIndexPath *indexPath in indexPaths)
-    {
-        ALAsset *asset = [self.assets objectAtIndex:indexPath.item];
-        
-        if ([[asset valueForProperty:ALAssetPropertyType] isEqual:ALAssetTypePhoto])
-            photosSelected  = YES;
-        
-        if ([[asset valueForProperty:ALAssetPropertyType] isEqual:ALAssetTypeVideo])
-            videoSelected   = YES;
-        
-        if (photosSelected && videoSelected)
-            break;
-    }
-    
-    NSString *format;
-    
-    if (photosSelected && videoSelected)
-        format = NSLocalizedString(@"%ld Items Selected", nil);
-    
-    else if (photosSelected)
-        format = (indexPaths.count > 1) ? NSLocalizedString(@"%ld Photos Selected", nil) : NSLocalizedString(@"%ld Photo Selected", nil);
-    
-    else if (videoSelected)
-        format = (indexPaths.count > 1) ? NSLocalizedString(@"%ld Videos Selected", nil) : NSLocalizedString(@"%ld Video Selected", nil);
-    
-    self.title = [NSString stringWithFormat:format, (long)indexPaths.count];
-}
-
-
 #pragma mark - Actions
 
 - (void)finishPickingAssets:(id)sender
@@ -948,6 +1035,8 @@
 }
 
 @end
+
+
 
 
 
@@ -1007,7 +1096,6 @@ static UIColor *disabledColor;
 
 
 // Draw everything to improve scrolling responsiveness
-
 - (void)drawRect:(CGRect)rect
 {
     // Image
@@ -1107,6 +1195,9 @@ static UIColor *disabledColor;
 
 
 @end
+
+
+
 
 
 #pragma mark - CTAssetsSupplementaryView
