@@ -69,7 +69,6 @@
 
 @interface CTAssetsViewController ()
 
-@property (nonatomic, strong) UICollectionViewFlowLayout *layout;
 @property (nonatomic, strong) NSMutableArray *assets;
 @property (nonatomic, strong) NSMutableArray *selectedAssets;
 @property (nonatomic, assign) NSInteger numberOfPhotos;
@@ -580,25 +579,9 @@
 
 - (id)init
 {
-    self.layout                         = [[UICollectionViewFlowLayout alloc] init];
-    self.layout.itemSize                = kThumbnailSize;
-    self.layout.footerReferenceSize     = CGSizeMake(0, 44.0);
+    UICollectionViewFlowLayout *layout = [self collectionViewFlowLayoutOfOrientation:self.interfaceOrientation];
     
-    if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation) &&
-        (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad))
-    {
-        self.layout.sectionInset            = UIEdgeInsetsMake(9.0, 2.0, 0, 2.0);
-        self.layout.minimumInteritemSpacing = 3.0;
-        self.layout.minimumLineSpacing      = 3.0;
-    }
-    else
-    {
-        self.layout.sectionInset            = UIEdgeInsetsMake(9.0, 0, 0, 0);
-        self.layout.minimumInteritemSpacing = 2.0;
-        self.layout.minimumLineSpacing      = 2.0;
-    }
-    
-    if (self = [super initWithCollectionViewLayout:self.layout])
+    if (self = [super initWithCollectionViewLayout:layout])
     {
         self.collectionView.allowsMultipleSelection = YES;
         
@@ -650,20 +633,8 @@
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-    if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation))
-    {
-        self.layout.sectionInset            = UIEdgeInsetsMake(9.0, 2.0, 0, 2.0);
-        self.layout.minimumInteritemSpacing = 3.0;
-        self.layout.minimumLineSpacing      = 3.0;
-    }
-    else
-    {
-        self.layout.sectionInset            = UIEdgeInsetsMake(9.0, 0, 0, 0);
-        self.layout.minimumInteritemSpacing = 2.0;
-        self.layout.minimumLineSpacing      = 2.0;
-    }
-    
-    [self.collectionView setCollectionViewLayout:self.layout animated:YES];
+    UICollectionViewFlowLayout *layout = [self collectionViewFlowLayoutOfOrientation:toInterfaceOrientation];
+    [self.collectionView setCollectionViewLayout:layout animated:YES];
 }
 
 
@@ -714,6 +685,31 @@
     };
     
     [self.assetsGroup enumerateAssetsUsingBlock:resultsBlock];
+}
+
+
+#pragma mark - Collection View Layout
+
+- (UICollectionViewFlowLayout *)collectionViewFlowLayoutOfOrientation:(UIInterfaceOrientation)orientation
+{
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    layout.itemSize             = kThumbnailSize;
+    layout.footerReferenceSize  = CGSizeMake(0, 44.0);
+    
+    if (UIInterfaceOrientationIsLandscape(orientation) && (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad))
+    {
+        layout.sectionInset            = UIEdgeInsetsMake(9.0, 2.0, 0, 2.0);
+        layout.minimumInteritemSpacing = 3.0;
+        layout.minimumLineSpacing      = 3.0;
+    }
+    else
+    {
+        layout.sectionInset            = UIEdgeInsetsMake(9.0, 0, 0, 0);
+        layout.minimumInteritemSpacing = 2.0;
+        layout.minimumLineSpacing      = 2.0;
+    }
+    
+    return layout;
 }
 
 
