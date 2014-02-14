@@ -1151,38 +1151,46 @@ static UIColor *disabledColor;
 }
 
 
+#pragma mark - Accessibility Label
+
 - (NSString *)accessibilityLabel
 {
-    ALAssetRepresentation *representation = self.asset.defaultRepresentation;
-    
     NSMutableArray *labels  = [[NSMutableArray alloc] init];
-    NSString *type          = [self.asset valueForProperty:ALAssetPropertyType];
-    NSDate *date            = [self.asset valueForProperty:ALAssetPropertyDate];
-    CGSize dimension        = representation.dimensions;
     
-    // Type
-    if ([type isEqual:ALAssetTypeVideo])
-        [labels addObject:NSLocalizedString(@"Video", nil)];
-    else
-        [labels addObject:NSLocalizedString(@"Photo", nil)];
+    [labels addObject:[self typeLabel]];
+    [labels addObject:[self orientationLabel]];
+    [labels addObject:[self dateLabel]];
     
-    // Orientation
-    if (dimension.height >= dimension.width)
-        [labels addObject:NSLocalizedString(@"Portrait", nil)];
-    else
-        [labels addObject:NSLocalizedString(@"Landscape", nil)];
+    return [labels componentsJoinedByString:@", "];
+}
+
+- (NSString *)typeLabel
+{
+    NSString *type = [self.asset valueForProperty:ALAssetPropertyType];
+    NSString *key  = ([type isEqual:ALAssetTypeVideo]) ? @"Video" : @"Photo";
+    return NSLocalizedString(key, nil);
+}
+
+- (NSString *)orientationLabel
+{
+    CGSize dimension = self.asset.defaultRepresentation.dimensions;
+    NSString *key    = (dimension.height >= dimension.width) ? @"Portrait" : @"Landscape";
+    return NSLocalizedString(key, nil);
+}
+
+- (NSString *)dateLabel
+{
+    NSDate *date = [self.asset valueForProperty:ALAssetPropertyDate];
     
-    // Date
     NSDateFormatter *df             = [[NSDateFormatter alloc] init];
     df.locale                       = [NSLocale currentLocale];
     df.dateStyle                    = NSDateFormatterMediumStyle;
     df.timeStyle                    = NSDateFormatterShortStyle;
     df.doesRelativeDateFormatting   = YES;
     
-    [labels addObject:[df stringFromDate:date]];
-    
-    return [labels componentsJoinedByString:@", "];
+    return [df stringFromDate:date];
 }
+
 
 @end
 
