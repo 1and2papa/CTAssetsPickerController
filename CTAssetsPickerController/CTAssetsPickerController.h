@@ -130,7 +130,7 @@
  *
  *  @return `YES` if the asset should be enabled or `NO` if it should not.
  */
-- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldEnableAssetForSelection:(ALAsset *)asset;
+- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldEnableAsset:(ALAsset *)asset;
 
 
 /**

@@ -110,7 +110,7 @@
 @property (nonatomic, copy) NSString *type;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, strong) UIImage *videoImage;
-@property (nonatomic, assign) BOOL disabled;
+@property (nonatomic, assign, getter = isEnabled) BOOL enabled;
 
 @end
 
@@ -397,12 +397,14 @@
         {
             [group setAssetsFilter:assetsFilter];
             
-            BOOL showGroup = YES;
+            BOOL shouldShowGroup;
             
             if ([picker.delegate respondsToSelector:@selector(assetsPickerController:shouldShowAssetsGroup:)])
-                showGroup = [picker.delegate assetsPickerController:picker shouldShowAssetsGroup:group];
+                shouldShowGroup = [picker.delegate assetsPickerController:picker shouldShowAssetsGroup:group];
+            else
+                shouldShowGroup = YES;
 
-            if (showGroup)
+            if (shouldShowGroup)
                 [self.groups addObject:group];
         }
         else
@@ -921,10 +923,10 @@
     
     ALAsset *asset  = [self.assets objectAtIndex:indexPath.row];
     
-    if ([picker.delegate respondsToSelector:@selector(assetsPickerController:shouldEnableAssetForSelection:)])
-        cell.disabled = ![picker.delegate assetsPickerController:picker shouldEnableAssetForSelection:asset];
+    if ([picker.delegate respondsToSelector:@selector(assetsPickerController:shouldEnableAsset:)])
+        cell.enabled = [picker.delegate assetsPickerController:picker shouldEnableAsset:asset];
     else
-        cell.disabled = NO;
+        cell.enabled = YES;
     
     [cell bind:asset];
     
@@ -951,7 +953,11 @@
     CTAssetsPickerController *picker = (CTAssetsPickerController *)self.navigationController;
     ALAsset *asset = [self.assets objectAtIndex:indexPath.row];
     
-    if ([picker.delegate respondsToSelector:@selector(assetsPickerController:shouldSelectAsset:)])
+    CTAssetsViewCell *cell = (CTAssetsViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    
+    if (!cell.isEnabled)
+        return NO;
+    else if ([picker.delegate respondsToSelector:@selector(assetsPickerController:shouldSelectAsset:)])
         return [picker.delegate assetsPickerController:picker shouldSelectAsset:asset];
     else
         return YES;
@@ -1074,6 +1080,7 @@ static UIColor *disabledColor;
         self.opaque                 = YES;
         self.isAccessibilityElement = YES;
         self.accessibilityTraits    = UIAccessibilityTraitImage;
+        self.enabled                = YES;
     }
     
     return self;
@@ -1107,7 +1114,7 @@ static UIColor *disabledColor;
     if ([self.type isEqual:ALAssetTypeVideo])
         [self drawVideoMetaInRect:rect];
     
-    if (self.disabled)
+    if (!self.isEnabled)
         [self drawDisabledViewInRect:rect];
     
     else if (self.selected)
