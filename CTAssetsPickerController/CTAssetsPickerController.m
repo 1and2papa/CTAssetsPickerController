@@ -179,104 +179,128 @@
     return [UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear];
 }
 
-- (UIView *)notAllowedView
+- (UIImageView *)padlockImageView
 {
-    UIImageView *padlock    = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CTAssetsPickerLocked"]];
+    UIImageView *padlock = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CTAssetsPickerLocked"]];
     padlock.translatesAutoresizingMaskIntoConstraints = NO;
     
-    UILabel *title          = [[UILabel alloc] init];
-    title.translatesAutoresizingMaskIntoConstraints = NO;
-    title.preferredMaxLayoutWidth = 304.0f;
-    
-    UILabel *message        = [[UILabel alloc] init];
-    message.translatesAutoresizingMaskIntoConstraints = NO;
-    message.preferredMaxLayoutWidth = 304.0f;
-    
-    title.text              = NSLocalizedString(@"This app does not have access to your photos or videos.", nil);
-    title.font              = [UIFont boldSystemFontOfSize:17.0];
-    title.textColor         = [UIColor colorWithRed:129.0/255.0 green:136.0/255.0 blue:148.0/255.0 alpha:1];
-    title.textAlignment     = NSTextAlignmentCenter;
-    title.numberOfLines     = 5;
-    
-    message.text            = NSLocalizedString(@"You can enable access in Privacy Settings.", nil);
-    message.font            = [UIFont systemFontOfSize:14.0];
-    message.textColor       = [UIColor colorWithRed:129.0/255.0 green:136.0/255.0 blue:148.0/255.0 alpha:1];
-    message.textAlignment   = NSTextAlignmentCenter;
-    message.numberOfLines   = 5;
-    
-    [title sizeToFit];
-    [message sizeToFit];
-    
-    UIView *centerView = [[UIView alloc] init];
-    centerView.translatesAutoresizingMaskIntoConstraints = NO;
-    [centerView addSubview:padlock];
-    [centerView addSubview:title];
-    [centerView addSubview:message];
-    
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(padlock, title, message);
-    
-    [centerView addConstraint:[NSLayoutConstraint constraintWithItem:padlock attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:centerView attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
-    [centerView addConstraint:[NSLayoutConstraint constraintWithItem:title attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:padlock attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
-    [centerView addConstraint:[NSLayoutConstraint constraintWithItem:message attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:padlock attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
-    [centerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[padlock]-20-[title]-[message]|" options:0 metrics:nil views:viewsDictionary]];
-    
-    UIView *view = [[UIView alloc] init];
-    [view addSubview:centerView];
-    [view addConstraint:[NSLayoutConstraint constraintWithItem:centerView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:view attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
-    [view addConstraint:[NSLayoutConstraint constraintWithItem:centerView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:view attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0.0f]];
-
-    return view;
+    return padlock;
 }
 
-- (UIView *)noAssetsView
+- (NSString *)noAssetsMessage
 {
-    UILabel *title          = [[UILabel alloc] init];
-    title.translatesAutoresizingMaskIntoConstraints = NO;
-    title.preferredMaxLayoutWidth = 304.0f;
-    
-    UILabel *message        = [[UILabel alloc] init];
-    message.translatesAutoresizingMaskIntoConstraints = NO;
-    message.preferredMaxLayoutWidth = 304.0f;
-    
-    title.text              = NSLocalizedString(@"No Photos or Videos", nil);
-    title.font              = [UIFont systemFontOfSize:26.0];
-    title.textColor         = [UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1];
-    title.textAlignment     = NSTextAlignmentCenter;
-    title.numberOfLines     = 5;
-    
-    NSString *format        = nil;
+    NSString *format;
     
     if ([self isCameraDeviceAvailable])
         format = NSLocalizedString(@"You can take photos and videos using the camera, or sync photos and videos onto your %@\nusing iTunes.", nil);
     else
         format = NSLocalizedString(@"You can sync photos and videos onto your %@ using iTunes.", nil);
     
-    message.text            = [NSString stringWithFormat:format, [self deviceModel]];
-    message.font            = [UIFont systemFontOfSize:18.0];
-    message.textColor       = [UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1];
-    message.textAlignment   = NSTextAlignmentCenter;
-    message.numberOfLines   = 5;
+    return [NSString stringWithFormat:format, [self deviceModel]];
+}
+
+- (UILabel *)specialViewLabelWithFont:(UIFont *)font color:(UIColor *)color text:(NSString *)text
+{
+    UILabel *label = [[UILabel alloc] init];
+    label.translatesAutoresizingMaskIntoConstraints = NO;
+    label.preferredMaxLayoutWidth = 304.0f;
+    label.textAlignment = NSTextAlignmentCenter;
+    label.numberOfLines = 5;
+    label.font          = font;
+    label.textColor     = color;
+    label.text          = text;
     
-    [title sizeToFit];
-    [message sizeToFit];
+    [label sizeToFit];
     
+    return label;
+}
+
+- (UIView *)centerViewWithViews:(NSArray *)views
+{
     UIView *centerView = [[UIView alloc] init];
     centerView.translatesAutoresizingMaskIntoConstraints = NO;
-    [centerView addSubview:title];
-    [centerView addSubview:message];
     
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(title, message);
+    for (UIView *view in views)
+    {
+        [centerView addSubview:view];
+        [centerView addConstraint:[self horizontallyAlignedConstraintWithItem:view toItem:centerView]];
+    }
     
-    [centerView addConstraint:[NSLayoutConstraint constraintWithItem:title attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:centerView attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
-    [centerView addConstraint:[NSLayoutConstraint constraintWithItem:message attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:title attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
-    [centerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[title]-[message]|" options:0 metrics:nil views:viewsDictionary]];
-    
+    return centerView;
+}
+
+- (UIView *)specialViewWithCenterView:(UIView *)centerView
+{
     UIView *view = [[UIView alloc] init];
     [view addSubview:centerView];
-    [view addConstraint:[NSLayoutConstraint constraintWithItem:centerView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:view attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
-    [view addConstraint:[NSLayoutConstraint constraintWithItem:centerView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:view attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0.0f]];
+    
+    [view addConstraint:[self horizontallyAlignedConstraintWithItem:centerView toItem:view]];
+    [view addConstraint:[self verticallyAlignedConstraintWithItem:centerView toItem:view]];
     
     return view;
+}
+
+- (NSLayoutConstraint *)horizontallyAlignedConstraintWithItem:(id)view1 toItem:(id)view2
+{
+    return [NSLayoutConstraint constraintWithItem:view1
+                                        attribute:NSLayoutAttributeCenterX
+                                        relatedBy:NSLayoutRelationEqual
+                                           toItem:view2
+                                        attribute:NSLayoutAttributeCenterX
+                                       multiplier:1.0f
+                                         constant:0.0f];
+}
+
+- (NSLayoutConstraint *)verticallyAlignedConstraintWithItem:(id)view1 toItem:(id)view2
+{
+    return [NSLayoutConstraint constraintWithItem:view1
+                                        attribute:NSLayoutAttributeCenterY
+                                        relatedBy:NSLayoutRelationEqual
+                                           toItem:view2
+                                        attribute:NSLayoutAttributeCenterY
+                                       multiplier:1.0f
+                                         constant:0.0f];
+}
+
+- (UIView *)notAllowedView
+{
+    UIImageView *padlock = [self padlockImageView];
+    
+    UILabel *title =
+    [self specialViewLabelWithFont:[UIFont boldSystemFontOfSize:17.0]
+                             color:[UIColor colorWithRed:129.0/255.0 green:136.0/255.0 blue:148.0/255.0 alpha:1]
+                              text:NSLocalizedString(@"This app does not have access to your photos or videos.", nil)];
+    UILabel *message =
+    [self specialViewLabelWithFont:[UIFont systemFontOfSize:14.0]
+                             color:[UIColor colorWithRed:129.0/255.0 green:136.0/255.0 blue:148.0/255.0 alpha:1]
+                              text:NSLocalizedString(@"You can enable access in Privacy Settings.", nil)];
+    
+    UIView *centerView = [self centerViewWithViews:@[padlock, title, message]];
+    
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(padlock, title, message);
+    [centerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[padlock]-20-[title]-[message]|" options:0 metrics:nil views:viewsDictionary]];
+    
+    return [self specialViewWithCenterView:centerView];
+}
+
+- (UIView *)noAssetsView
+{
+    UILabel *title =
+    [self specialViewLabelWithFont:[UIFont systemFontOfSize:26.0]
+                             color:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1]
+                              text:NSLocalizedString(@"No Photos or Videos", nil)];
+    
+    UILabel *message =
+    [self specialViewLabelWithFont:[UIFont systemFontOfSize:18.0]
+                             color:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1]
+                              text:[self noAssetsMessage]];
+    
+    UIView *centerView = [self centerViewWithViews:@[title, message]];
+    
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(title, message);
+    [centerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[title]-[message]|" options:0 metrics:nil views:viewsDictionary]];
+
+    return [self specialViewWithCenterView:centerView];
 }
 
 @end
@@ -493,10 +517,9 @@
     static NSString *CellIdentifier = @"Cell";
     
     CTAssetsGroupViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
     if (cell == nil)
-    {
         cell = [[CTAssetsGroupViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-    }
     
     [cell bind:[self.groups objectAtIndex:indexPath.row]];
     
