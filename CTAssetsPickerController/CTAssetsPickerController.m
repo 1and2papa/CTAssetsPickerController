@@ -71,8 +71,6 @@
 
 @property (nonatomic, strong) NSMutableArray *assets;
 @property (nonatomic, strong) NSMutableArray *selectedAssets;
-@property (nonatomic, assign) NSInteger numberOfPhotos;
-@property (nonatomic, assign) NSInteger numberOfVideos;
 
 // KVO - selectedAssets
 - (NSUInteger)countOfSelectedAssets;
@@ -120,9 +118,9 @@
 
 @interface CTAssetsSupplementaryView : UICollectionReusableView
 
-@property (nonatomic, strong) UILabel *sectionLabel;
+@property (nonatomic, strong) UILabel *label;
 
-- (void)setNumberOfPhotos:(NSInteger)numberOfPhotos numberOfVideos:(NSInteger)numberOfVideos;
+- (void)bind:(NSArray *)assets;
 
 @end
 
@@ -680,8 +678,6 @@
 - (void)setupAssets
 {
     self.title = [self.assetsGroup valueForProperty:ALAssetsGroupPropertyName];
-    self.numberOfPhotos = 0;
-    self.numberOfVideos = 0;
     
     if (!self.assets)
         self.assets = [[NSMutableArray alloc] init];
@@ -693,13 +689,6 @@
         if (asset)
         {
             [self.assets addObject:asset];
-            
-            NSString *type = [asset valueForProperty:ALAssetPropertyType];
-            
-            if ([type isEqual:ALAssetTypePhoto])
-                self.numberOfPhotos ++;
-            if ([type isEqual:ALAssetTypeVideo])
-                self.numberOfVideos ++;
         }
         else
         {
@@ -948,9 +937,8 @@
     
     CTAssetsSupplementaryView *view =
     [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:viewIdentifiert forIndexPath:indexPath];
-
-    if (self.assets.count > 0)
-        [view setNumberOfPhotos:self.numberOfPhotos numberOfVideos:self.numberOfVideos];
+    
+    [view bind:self.assets];
     
     return view;
 }
@@ -1242,16 +1230,11 @@ static UIColor *disabledColor;
 {
     if (self = [super initWithFrame:frame])
     {
-        _sectionLabel               = [[UILabel alloc] initWithFrame:CGRectInset(self.bounds, 8.0, 8.0)];
-        _sectionLabel.font          = [UIFont systemFontOfSize:18.0];
-        _sectionLabel.textAlignment = NSTextAlignmentCenter;
+        _label = [self supplementaryLabel];
+        [self addSubview:_label];
         
-        [self addSubview:_sectionLabel];
-        
-        self.translatesAutoresizingMaskIntoConstraints          = NO;
-        _sectionLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        
-        [self addConstraint:[NSLayoutConstraint constraintWithItem:_sectionLabel
+        self.translatesAutoresizingMaskIntoConstraints = NO;
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:_label
                                                          attribute:NSLayoutAttributeCenterX
                                                          relatedBy:NSLayoutRelationEqual
                                                             toItem:self
@@ -1263,18 +1246,34 @@ static UIColor *disabledColor;
     return self;
 }
 
-- (void)setNumberOfPhotos:(NSInteger)numberOfPhotos numberOfVideos:(NSInteger)numberOfVideos
+- (UILabel *)supplementaryLabel
 {
-    NSString *title;
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectInset(self.bounds, 8.0, 8.0)];
+    label.font = [UIFont systemFontOfSize:18.0];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    return label;
+}
+
+- (void)bind:(NSArray *)assets
+{
+    NSInteger numberOfVideos = [assets filteredArrayUsingPredicate:[self predicateOfAssetType:ALAssetTypeVideo]].count;
+    NSInteger numberOfPhotos = [assets filteredArrayUsingPredicate:[self predicateOfAssetType:ALAssetTypePhoto]].count;
     
     if (numberOfVideos == 0)
-        title = [NSString stringWithFormat:NSLocalizedString(@"%ld Photos", nil), (long)numberOfPhotos];
+        self.label.text  = [NSString stringWithFormat:NSLocalizedString(@"%ld Photos", nil), (long)numberOfPhotos];
     else if (numberOfPhotos == 0)
-        title = [NSString stringWithFormat:NSLocalizedString(@"%ld Videos", nil), (long)numberOfVideos];
+        self.label.text  = [NSString stringWithFormat:NSLocalizedString(@"%ld Videos", nil), (long)numberOfVideos];
     else
-        title = [NSString stringWithFormat:NSLocalizedString(@"%ld Photos, %ld Videos", nil), (long)numberOfPhotos, (long)numberOfVideos];
-    
-    self.sectionLabel.text = title;
+        self.label.text  = [NSString stringWithFormat:NSLocalizedString(@"%ld Photos, %ld Videos", nil), (long)numberOfPhotos, (long)numberOfVideos];
+}
+
+- (NSPredicate *)predicateOfAssetType:(NSString *)type
+{
+    return [NSPredicate predicateWithBlock:^BOOL(ALAsset *asset, NSDictionary *bindings) {
+        return [[asset valueForProperty:ALAssetPropertyType] isEqual:type];
+    }];
 }
 
 @end
