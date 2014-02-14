@@ -6,6 +6,20 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		AD7BE8DE18AE0BA200DDC440 /* Documentation */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = AD7BE8E118AE0BA200DDC440 /* Build configuration list for PBXAggregateTarget "Documentation" */;
+			buildPhases = (
+				AD7BE8E218AE0BA700DDC440 /* Appledoc */,
+			);
+			dependencies = (
+			);
+			name = Documentation;
+			productName = Documentation;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		ADE31D8A17EFF08C008958B8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADE31D8917EFF08C008958B8 /* Foundation.framework */; };
 		ADE31D8C17EFF08C008958B8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADE31D8B17EFF08C008958B8 /* CoreGraphics.framework */; };
@@ -175,6 +189,7 @@
 			projectRoot = "";
 			targets = (
 				ADE31D8517EFF08C008958B8 /* CTAssetsPickerDemo */,
+				AD7BE8DE18AE0BA200DDC440 /* Documentation */,
 			);
 		};
 /* End PBXProject section */
@@ -193,6 +208,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		AD7BE8E218AE0BA700DDC440 /* Appledoc */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Appledoc;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "APPLEDOC=`which appledoc`;\nif [ $APPLEDOC ]; then\n$APPLEDOC \\\n--project-name \"CTAssetsPickerController\" \\\n--project-company \"Clement T\" \\\n--company-id \"t.clement\" \\\n--no-repeat-first-par \\\n--no-warn-invalid-crossref \\\n--exit-threshold 2 \\\n--install-docset \\\n--docset-platform-family \"iphoneos\" \\\n\"${PROJECT_DIR}\"\nfi;";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		ADE31D8217EFF08C008958B8 /* Sources */ = {
@@ -238,6 +270,20 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		AD7BE8DF18AE0BA200DDC440 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		AD7BE8E018AE0BA200DDC440 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		ADE31DB917EFF08C008958B8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -341,6 +387,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		AD7BE8E118AE0BA200DDC440 /* Build configuration list for PBXAggregateTarget "Documentation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AD7BE8DF18AE0BA200DDC440 /* Debug */,
+				AD7BE8E018AE0BA200DDC440 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		ADE31D8117EFF08C008958B8 /* Build configuration list for PBXProject "CTAssetsPickerDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

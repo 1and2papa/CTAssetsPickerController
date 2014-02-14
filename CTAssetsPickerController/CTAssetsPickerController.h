@@ -68,15 +68,17 @@
 
 
 /**
- *  The CTAssetsPickerControllerDelegate protocol defines methods that your delegate object must implement to interact with the assets picker interface.
+ *  The `CTAssetsPickerControllerDelegate` protocol defines methods that allow you to to interact with the assets picker interface
+ *  and manage the selection and highlighting of assets in the picker.
+ *
  *  The methods of this protocol notify your delegate when the user selects, highlights, finish picking assets, or cancels the picker operation.
  *
- *  @discussion The delegate methods are responsible for dismissing the picker when the operation completes.
- *              To dismiss the picker, call the `dismissViewControllerAnimated:completion:` method of the presenting controller
- *              responsible for displaying `CTAssetsPickerController` object.
+ *  The delegate methods are responsible for dismissing the picker when the operation completes.
+ *  To dismiss the picker, call the `dismissViewControllerAnimated:completion:` method of the presenting controller
+ *  responsible for displaying `CTAssetsPickerController` object.
  *
- *  @discussion The picked assets can be processed by accessing the `defaultRepresentation` property.
- *              It returns an `ALAssetRepresentation` object which encapsulates one of the representations of `ALAsset` object.
+ *  The picked assets can be processed by accessing the `defaultRepresentation` property.
+ *  It returns an `ALAssetRepresentation` object which encapsulates one of the representations of `ALAsset` object.
  */
 @protocol CTAssetsPickerControllerDelegate <NSObject>
 
