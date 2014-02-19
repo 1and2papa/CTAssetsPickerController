@@ -171,6 +171,8 @@
 {
     if (self = [super initWithStyle:UITableViewStylePlain])
     {
+        self.title = @"Photos";
+        
         if ([self respondsToSelector:@selector(setContentSizeForViewInPopover:)])
             [self setContentSizeForViewInPopover:kPopoverContentSize];
     }
@@ -225,7 +227,7 @@
 
 - (void)localize
 {
-    self.title = NSLocalizedString(@"Photos", nil);
+    self.title = NSLocalizedString(self.title, nil);
 }
 
 - (void)setupGroup
