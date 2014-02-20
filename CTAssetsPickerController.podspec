@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "CTAssetsPickerController"
-  s.version      = "1.6.0"
+  s.version      = "1.6.1"
   s.summary      = "iOS control that allows picking multiple photos and videos from user's photo library."
 
   s.description  = <<-DESC
@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
   s.author       = { "Clement T" => "chiunam@gmail.com" }
   s.platform     = :ios, '6.0'
-  s.source       = { :git => "https://github.com/chiunam/CTAssetsPickerController.git", :tag => "v1.6.0" }
+  s.source       = { :git => "https://github.com/chiunam/CTAssetsPickerController.git", :tag => "v1.6.1" }
   s.source_files = "CTAssetsPickerController/*.{h,m}"
   s.resource     = "CTAssetsPickerController/Images.xcassets/*/*.png"
   s.framework    = "AssetsLibrary"
