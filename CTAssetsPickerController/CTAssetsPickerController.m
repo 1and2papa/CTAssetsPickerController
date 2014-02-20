@@ -139,9 +139,14 @@
         _showsCancelButton          = YES;
         _showsEmptyGroups           = NO;
         _selectionFilter            = [NSPredicate predicateWithValue:YES];
-        
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
+        if ([self respondsToSelector:@selector(setPreferredContentSize:)])
+            [self setPreferredContentSize:kPopoverContentSize];
+#else
         if ([self respondsToSelector:@selector(setContentSizeForViewInPopover:)])
             [self setContentSizeForViewInPopover:kPopoverContentSize];
+#endif
+        
     }
     
     return self;
@@ -172,9 +177,13 @@
     if (self = [super initWithStyle:UITableViewStylePlain])
     {
         self.title = @"Photos";
-        
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
+        if ([self respondsToSelector:@selector(setPreferredContentSize:)])
+            [self setPreferredContentSize:kPopoverContentSize];
+#else
         if ([self respondsToSelector:@selector(setContentSizeForViewInPopover:)])
             [self setContentSizeForViewInPopover:kPopoverContentSize];
+#endif
     }
     
     return self;
@@ -538,8 +547,13 @@
         if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)])
             [self setEdgesForExtendedLayout:UIRectEdgeNone];
         
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
+        if ([self respondsToSelector:@selector(setPreferredContentSize:)])
+            [self setPreferredContentSize:kPopoverContentSize];
+#else
         if ([self respondsToSelector:@selector(setContentSizeForViewInPopover:)])
             [self setContentSizeForViewInPopover:kPopoverContentSize];
+#endif
     }
     
     return self;
@@ -887,15 +901,27 @@ static UIColor *disabledColor;
         
         CGGradientRelease(gradient);
         CGColorSpaceRelease(baseSpace);
-        
-        CGSize titleSize        = [self.title sizeWithFont:titleFont];
+    
         [titleColor set];
+        
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
+        NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+        paragraphStyle.lineBreakMode = NSLineBreakByTruncatingTail;
+
+        CGSize titleSize        = [self.title sizeWithAttributes:@{ NSFontAttributeName:titleFont }];
+        [self.title drawInRect:CGRectMake(rect.size.width - titleSize.width - 2 , startPoint.y + (titleHeight - 12) / 2, kThumbnailLength, MAXFLOAT)
+                withAttributes:@{ NSFontAttributeName:titleFont, NSParagraphStyleAttributeName:paragraphStyle }];
+#else
+        CGSize titleSize        = [self.title sizeWithFont:titleFont];
         [self.title drawAtPoint:CGPointMake(rect.size.width - titleSize.width - 2 , startPoint.y + (titleHeight - 12) / 2)
                        forWidth:kThumbnailLength
                        withFont:titleFont
                        fontSize:12
                   lineBreakMode:NSLineBreakByTruncatingTail
              baselineAdjustment:UIBaselineAdjustmentAlignCenters];
+#endif
+        
+        
         
         [videoIcon drawAtPoint:CGPointMake(2, startPoint.y + (titleHeight - videoIcon.size.height) / 2)];
     }
