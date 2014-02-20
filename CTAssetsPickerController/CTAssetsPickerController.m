@@ -375,7 +375,12 @@
 
 - (void)localize
 {
-    self.title = NSLocalizedString(@"Photos", nil);
+    CTAssetsPickerController *picker = (CTAssetsPickerController *)self.navigationController;
+    
+    if (!picker.title)
+        self.title = NSLocalizedString(@"Photos", nil);
+    else
+        self.title = picker.title;
 }
 
 - (void)setupGroup
