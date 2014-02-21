@@ -1114,6 +1114,8 @@ static UIColor *disabledColor;
 
 - (void)drawRect:(CGRect)rect
 {
+    [super drawRect:rect];
+    
     [self drawThumbnailInRect:rect];
 
     if ([self.type isEqual:ALAssetTypeVideo])
@@ -1128,7 +1130,7 @@ static UIColor *disabledColor;
 
 - (void)drawThumbnailInRect:(CGRect)rect
 {
-    [self.image drawInRect:CGRectMake(0, 0, kThumbnailLength, kThumbnailLength)];
+    [self.image drawInRect:rect];
 }
 
 - (void)drawVideoMetaInRect:(CGRect)rect
