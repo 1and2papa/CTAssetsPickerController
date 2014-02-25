@@ -54,7 +54,7 @@
  *
  *  @discussion It contains selected `ALAsset` objects. The order of the objects is the selection order.
  */
-@property (nonatomic, copy, readonly) NSArray *selectedAssets;
+@property (nonatomic, copy) NSMutableArray *selectedAssets;
 
 /**
  *  Determines whether or not the cancel button is visible in the picker.
@@ -63,6 +63,25 @@
  *              set this property’s value to `NO`.
  */
 @property (nonatomic, assign) BOOL showsCancelButton;
+
+
+/**
+ *  @name Managing Selections
+ */
+
+/**
+ *  Selects an asset in the picker.
+ *
+ *  @param asset The asset to be selected.
+ */
+- (void)selectAsset:(ALAsset *)asset;
+
+/**
+ *  Deselects an asset in the picker.
+ *
+ *  @param asset The asset to be deselected.
+ */
+- (void)deselectAsset:(ALAsset *)asset;
 
 @end
 
@@ -207,6 +226,19 @@
  *  @param indexPath The asset that had its highlight removed.
  */
 - (void)assetsPickerController:(CTAssetsPickerController *)picker didUnhighlightAsset:(ALAsset *)asset;
+
+
+
+/**
+ *  @name Notifications
+ */
+
+/**
+ *  Sent when the assets selected or deselected
+ *
+ *  The notification’s `object` is an `NSArray` object of selected assets
+ */
+extern NSString * const CTAssetsPickerSelectedAssetsChangedNotification;
 
 
 @end
