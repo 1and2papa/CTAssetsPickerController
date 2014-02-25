@@ -54,7 +54,7 @@
  *
  *  @discussion It contains selected `ALAsset` objects. The order of the objects is the selection order.
  */
-@property (nonatomic, copy) NSMutableArray *selectedAssets;
+@property (nonatomic, strong) NSMutableArray *selectedAssets;
 
 /**
  *  Determines whether or not the cancel button is visible in the picker.

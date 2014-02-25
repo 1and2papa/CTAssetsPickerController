@@ -35,7 +35,7 @@
 <UINavigationControllerDelegate, CTAssetsPickerControllerDelegate,
 UIPopoverControllerDelegate>
 
-@property (nonatomic, strong) NSMutableArray *assets;
+@property (nonatomic, copy) NSArray *assets;
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
 @property (nonatomic, strong) UIPopoverController *popover;
 
@@ -62,7 +62,7 @@ UIPopoverControllerDelegate>
     
 
     UIBarButtonItem *addButton =
-    [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Add", nil)
+    [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Pick", nil)
                                      style:UIBarButtonItemStylePlain
                                     target:self
                                     action:@selector(pickAssets:)];
@@ -84,7 +84,7 @@ UIPopoverControllerDelegate>
 {
     if (self.assets)
     {
-        [self.assets removeAllObjects];
+        self.assets = nil;
         [self.tableView reloadData];
     }
 }
@@ -98,6 +98,7 @@ UIPopoverControllerDelegate>
     picker.assetsFilter         = [ALAssetsFilter allAssets];
     picker.showsCancelButton    = (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad);
     picker.delegate             = self;
+    picker.selectedAssets       = [NSMutableArray arrayWithArray:self.assets];
     
     // iPad
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
@@ -140,16 +141,6 @@ UIPopoverControllerDelegate>
     return cell;
 }
 
-- (NSArray *)indexPathOfNewlyAddedAssets:(NSArray *)assets
-{
-    NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
-    
-    for (NSUInteger i = self.assets.count; i < self.assets.count + assets.count ; i++)
-        [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
-    
-    return indexPaths;
-}
-
 
 #pragma mark - Popover Controller Delegate
 
@@ -168,19 +159,8 @@ UIPopoverControllerDelegate>
     else
         [picker.presentingViewController dismissViewControllerAnimated:YES completion:nil];
     
-    [self.tableView beginUpdates];
-    [self.tableView insertRowsAtIndexPaths:[self indexPathOfNewlyAddedAssets:assets]
-                          withRowAnimation:UITableViewRowAnimationBottom];
-    
-    [self.assets addObjectsFromArray:assets];
-    [self.tableView endUpdates];
-}
-
-- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldShowAssetsGroup:(ALAssetsGroup *)group
-{
-    // Do not show photo stream
-    NSInteger type = [[group valueForProperty:ALAssetsGroupPropertyType] integerValue];
-    return (type != ALAssetsGroupPhotoStream);
+    self.assets = [NSMutableArray arrayWithArray:assets];
+    [self.tableView reloadData];
 }
 
 - (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldEnableAssetForSelection:(ALAsset *)asset
@@ -209,7 +189,17 @@ UIPopoverControllerDelegate>
         [alertView show];
     }
     
-    return (picker.selectedAssets.count < 10);
+    if (!asset.defaultRepresentation)
+    {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Attention"
+                                                            message:@"Your asset has not yet been downloaded to your device"
+                                                           delegate:nil
+                                                  cancelButtonTitle:nil
+                                                  otherButtonTitles:@"OK", nil];
+        [alertView show];
+    }
+    
+    return (picker.selectedAssets.count < 10 && asset.defaultRepresentation != nil);
 }
 
 @end
