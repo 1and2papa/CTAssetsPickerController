@@ -679,7 +679,20 @@ static const CGSize kPopoverContentSize = {320, 480};
 
 - (void)assetsLibraryChanged:(NSNotification *)notification
 {
-    [self performSelectorOnMainThread:@selector(setupGroup) withObject:nil waitUntilDone:NO];
+    // Reload all groups
+    if (notification.userInfo == nil)
+        [self performSelectorOnMainThread:@selector(setupGroup) withObject:nil waitUntilDone:NO];
+    
+    // Reload current view controller if needed
+    if (notification.userInfo.count > 0)
+    {
+        NSSet *updated  = [notification.userInfo objectForKey:ALAssetLibraryUpdatedAssetGroupsKey];
+        NSSet *inserted = [notification.userInfo objectForKey:ALAssetLibraryInsertedAssetGroupsKey];
+        NSSet *deleted  = [notification.userInfo objectForKey:ALAssetLibraryDeletedAssetGroupsKey];
+
+        if (updated || inserted || deleted )
+            [self performSelectorOnMainThread:@selector(setupGroup) withObject:nil waitUntilDone:NO];
+    }
 }
 
 
@@ -980,7 +993,22 @@ NSString * const CTAssetsSupplementaryViewIdentifier = @"CTAssetsSupplementaryVi
 
 - (void)assetsLibraryChanged:(NSNotification *)notification
 {
-    [self performSelectorOnMainThread:@selector(setupAssets) withObject:nil waitUntilDone:NO];
+    // Reload all assets
+    if (notification.userInfo == nil)
+        [self performSelectorOnMainThread:@selector(setupAssets) withObject:nil waitUntilDone:NO];
+    
+    // Reload current view controller if needed
+    if (notification.userInfo.count > 0)
+    {
+        NSSet *urls = [notification.userInfo objectForKey:ALAssetLibraryUpdatedAssetGroupsKey];
+        NSURL *url  = [self.assetsGroup valueForProperty:ALAssetsGroupPropertyURL];
+        
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF == %@", url];
+        NSArray *updated = [urls.allObjects filteredArrayUsingPredicate:predicate];
+
+        if (updated.count > 0)
+            [self performSelectorOnMainThread:@selector(setupAssets) withObject:nil waitUntilDone:NO];
+    }
 }
 
 
@@ -1003,7 +1031,9 @@ NSString * const CTAssetsSupplementaryViewIdentifier = @"CTAssetsSupplementaryVi
     if (self.assets.count > 0)
     {
         [self.collectionView reloadData];
-        [self.collectionView setContentOffset:CGPointMake(0, self.collectionViewLayout.collectionViewContentSize.height)];
+
+        if (CGPointEqualToPoint(self.collectionView.contentOffset, CGPointZero))
+            [self.collectionView setContentOffset:CGPointMake(0, self.collectionViewLayout.collectionViewContentSize.height)];
     }
     else
     {
