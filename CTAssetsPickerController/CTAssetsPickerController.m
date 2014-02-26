@@ -29,12 +29,11 @@
 
 #import "CTAssetsPickerController.h"
 
-#define kThumbnailLength    78.0f
-#define kThumbnailSize      CGSizeMake(kThumbnailLength, kThumbnailLength)
-#define kPopoverContentSize CGSizeMake(320, 480)
-
-
 NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPickerSelectedAssetsChangedNotification";
+
+static const CGFloat kThumbnailLength = 78.0f;
+static const CGSize kThumbnailSize = {kThumbnailLength, kThumbnailLength};
+static const CGSize kPopoverContentSize = {320, 480};
 
 
 #pragma mark - Interfaces
@@ -796,7 +795,7 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
     CGImageRef posterImage      = assetsGroup.posterImage;
     size_t height               = CGImageGetHeight(posterImage);
     float scale                 = height / kThumbnailLength;
-    
+
     self.imageView.image        = [UIImage imageWithCGImage:posterImage scale:scale orientation:UIImageOrientationUp];
     self.textLabel.text         = [assetsGroup valueForProperty:ALAssetsGroupPropertyName];
     self.detailTextLabel.text   = [NSString stringWithFormat:@"%ld", (long)[assetsGroup numberOfAssets]];
@@ -818,8 +817,8 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
 
 #pragma mark - CTAssetsViewController
 
-#define kAssetsViewCellIdentifier           @"AssetsViewCellIdentifier"
-#define kAssetsSupplementaryViewIdentifier  @"AssetsSupplementaryViewIdentifier"
+NSString * const CTAssetsViewCellIdentifier = @"CTAssetsViewCellIdentifier";
+NSString * const CTAssetsSupplementaryViewIdentifier = @"CTAssetsSupplementaryViewIdentifier";
 
 @implementation CTAssetsViewController
 
@@ -832,11 +831,11 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
         self.collectionView.allowsMultipleSelection = YES;
         
         [self.collectionView registerClass:[CTAssetsViewCell class]
-                forCellWithReuseIdentifier:kAssetsViewCellIdentifier];
+                forCellWithReuseIdentifier:CTAssetsViewCellIdentifier];
         
         [self.collectionView registerClass:[CTAssetsSupplementaryView class]
                 forSupplementaryViewOfKind:UICollectionElementKindSectionFooter
-                       withReuseIdentifier:kAssetsSupplementaryViewIdentifier];
+                       withReuseIdentifier:CTAssetsSupplementaryViewIdentifier];
 
         self.preferredContentSize = kPopoverContentSize;
     }
@@ -1035,9 +1034,9 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = kAssetsViewCellIdentifier;
-    
-    CTAssetsViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+    CTAssetsViewCell *cell =
+    [collectionView dequeueReusableCellWithReuseIdentifier:CTAssetsViewCellIdentifier
+                                              forIndexPath:indexPath];
     
     ALAsset *asset = [self.assets objectAtIndex:indexPath.row];
     
@@ -1062,10 +1061,10 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *viewIdentifiert = kAssetsSupplementaryViewIdentifier;
-    
     CTAssetsSupplementaryView *view =
-    [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:viewIdentifiert forIndexPath:indexPath];
+    [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter
+                                       withReuseIdentifier:CTAssetsSupplementaryViewIdentifier
+                                              forIndexPath:indexPath];
     
     [view bind:self.assets];
     
