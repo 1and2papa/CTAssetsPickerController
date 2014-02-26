@@ -449,6 +449,24 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
 }
 
 
+#pragma mark - Actions
+
+- (void)dismiss:(id)sender
+{
+    if ([self.delegate respondsToSelector:@selector(assetsPickerControllerDidCancel:)])
+        [self.delegate assetsPickerControllerDidCancel:self];
+    
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+- (void)finishPickingAssets:(id)sender
+{
+    if ([self.delegate respondsToSelector:@selector(assetsPickerController:didFinishPickingAssets:)])
+        [self.delegate assetsPickerController:self didFinishPickingAssets:self.selectedAssets];
+}
+
+
 @end
 
 
@@ -514,12 +532,18 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
     
     if (picker.showsCancelButton)
     {
-        self.navigationItem.rightBarButtonItem =
+        self.navigationItem.leftBarButtonItem =
         [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", nil)
                                          style:UIBarButtonItemStylePlain
-                                        target:self
+                                        target:picker
                                         action:@selector(dismiss:)];
     }
+    
+    self.navigationItem.rightBarButtonItem =
+    [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", nil)
+                                     style:UIBarButtonItemStylePlain
+                                    target:picker
+                                    action:@selector(finishPickingAssets:)];
 }
 
 - (void)setupToolbar
@@ -722,18 +746,6 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
 }
 
 
-#pragma mark - Actions
-
-- (void)dismiss:(id)sender
-{
-    CTAssetsPickerController *picker = (CTAssetsPickerController *)self.navigationController;
-    
-    if ([picker.delegate respondsToSelector:@selector(assetsPickerControllerDidCancel:)])
-        [picker.delegate assetsPickerControllerDidCancel:picker];
-    
-    [picker.presentingViewController dismissViewControllerAnimated:YES completion:nil];
-}
-
 @end
 
 
@@ -840,10 +852,12 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
 
 - (void)setupButtons
 {
+    CTAssetsPickerController *picker = (CTAssetsPickerController *)self.navigationController;
+    
     self.navigationItem.rightBarButtonItem =
     [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", nil)
                                      style:UIBarButtonItemStylePlain
-                                    target:self
+                                    target:picker
                                     action:@selector(finishPickingAssets:)];
 }
 
@@ -1109,16 +1123,6 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
         [picker.delegate assetsPickerController:picker didUnhighlightAsset:asset];
 }
 
-
-#pragma mark - Actions
-
-- (void)finishPickingAssets:(id)sender
-{
-    CTAssetsPickerController *picker = (CTAssetsPickerController *)self.navigationController;
-    
-    if ([picker.delegate respondsToSelector:@selector(assetsPickerController:didFinishPickingAssets:)])
-        [picker.delegate assetsPickerController:picker didFinishPickingAssets:picker.selectedAssets];
-}
 
 @end
 
