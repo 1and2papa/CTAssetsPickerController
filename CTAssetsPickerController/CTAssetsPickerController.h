@@ -52,15 +52,17 @@
 /**
  *  The selected assets.
  *
- *  @discussion It contains selected `ALAsset` objects. The order of the objects is the selection order.
+ *  It contains selected `ALAsset` objects. The order of the objects is the selection order.
+ *  
+ *  You can use this property to select assets initially when presenting the picker.
  */
 @property (nonatomic, strong) NSMutableArray *selectedAssets;
 
 /**
  *  Determines whether or not the cancel button is visible in the picker.
  *
- *  @discussion The cancel button is visible by default. To hide the cancel button, (e.g. presenting the picker in `UIPopoverController`)
- *              set this property’s value to `NO`.
+ *  The cancel button is visible by default. To hide the cancel button, (e.g. presenting the picker in `UIPopoverController`)
+ *  set this property’s value to `NO`.
  */
 @property (nonatomic, assign) BOOL showsCancelButton;
 

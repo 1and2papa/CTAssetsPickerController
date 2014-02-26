@@ -9,11 +9,11 @@ CTAssetsPickerController is an iOS controller that allows picking multiple photo
 ![Screenshot](https://raw.github.com/chiunam/CTAssetsPickerController/master/Screenshot.png "Screenshot")
 
 ## Features
-1. Picking multiple photos and videos from user's library.
-2. Filtering assets to pick only photos or videos.
-3. Limiting maximum number of assets to be picked.
-4. Average 5x fps.
-5. Conforming UIAccessibility Protocol.
+1. Picks multiple photos and videos across albums from user's library.
+2. Filters assets for picking only photos or videos.
+3. Provides delegate methods for customization.
+4. Achieves average 5x fps.
+5. Conforms UIAccessibility Protocol.
 
 
 ## What's new
@@ -21,11 +21,16 @@ CTAssetsPickerController is an iOS controller that allows picking multiple photo
 ### 2.0.0
 * Rename the delegate methods to more sensible one
 * Replace certain properties with delegate methods in order to provide more flexibility
+* Selected assets are preserved across albums
+* Move title of selected assets to toolbar
 * Show "no assets" view on empty albums
 * Make "no assets" message to be more graceful, reflecting the device's model and camera feature
 * Update padlock image to iOS 7 style
 * Monitor ALAssetsLibraryChangedNotification and reload corresponding view controllers
 * Use KVO to monitor the change of selected assets
+* Add: Selected assets property
+* Add: Selected assets changed notification
+* Add: Selection methods
 * Add: iPad demo
 * Add: Appledoc documentation
 * Fix: Footer is not centre aligned after rotation
@@ -39,7 +44,7 @@ Xcode 5 and iOS 7.
 
 ## Installation
 
-### via CocoaPods
+### via [CocoaPods](http://cocoapods.org)
 
 ````bash
 $ edit Podfile
@@ -47,6 +52,7 @@ platform :ios, '7.0'
 pod 'CTAssetsPickerController',  '~> 2.0.0'
 $ pod install
 ````
+* Use the Xcode workspace instead of the project.
 
 ### via Git Submodules
 
@@ -56,9 +62,9 @@ $ git submodule add http://github.com/chiunam/CTAssetsPickerController
 1. Drag `CTAssetsPickerController` folder in your project and add to your targets.
 2. Add `AssetsLibrary.framework`.
 
-## Usage
+## Simple Uses
 
-See the Demo Xcode project and Appledoc for the details.
+See the demo project and [documentation](#documentation) for the details.
 
 ### Import header
 
@@ -74,23 +80,22 @@ picker.delegate = self;
 [self presentViewController:picker animated:YES completion:nil];
 ````
 
-### Implement CTAssetsPickerControllerDelegate
+### Implement didFinishPickingAssets delegate
 
-The delegate methods are responsible for dismissing the picker when the operation completes. To dismiss the picker, call the [dismissViewControllerAnimated:completion:](https://developer.apple.com/library/ios/documentation/uikit/reference/UIViewController_Class/Reference/Reference.html#//apple_ref/occ/instm/UIViewController/dismissViewControllerAnimated:completion:) method of the presenting controller responsible for displaying CTAssetsPickerController object. Please refer to the demo app.
+The delegate methods are responsible for dismissing the picker when the operation completes. To dismiss the picker, call the [dismissViewControllerAnimated:completion:](https://developer.apple.com/library/ios/documentation/uikit/reference/UIViewController_Class/Reference/Reference.html#//apple_ref/occ/instm/UIViewController/dismissViewControllerAnimated:completion:) method of the presenting controller responsible for displaying `CTAssetsPickerController` object. Please refer to the demo app.
 
-#### Finish picking photos or videos.
 ```` objective-c
 - (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets;
 // assets contains ALAsset objects.
 ````
 
-## Customization
+## Advanced Uses
 
-Please refer to the documentation or header file for the complete list of properties and delegate methods.
+Customization can be done by setting properties or implementating delegate methods. This section describes common customizations. Please refer to the [documentation](#documentation) or [header file](https://github.com/chiunam/CTAssetsPickerController/blob/master/CTAssetsPickerController/CTAssetsPickerController.h) for the complete list of properties and delegate methods.
 
 ### Properties
 
-If you only want to pick photos or videos, create an `ALAssetsFilter` and assign to `assetsFilter`.
+Pick only photos or videos by creating an `ALAssetsFilter` and assigning it to `assetsFilter`.
 ```` objective-c
 picker.assetsFilter = [ALAssetsFilter allPhotos]; // Only pick photos.
 ````
@@ -100,14 +105,19 @@ Hide cancel button if you present the picker in `UIPopoverController`.
 picker.showsCancelButton = NO;
 ````
 
-Override the picker's title.
+Override picker's title.
 ```` objective-c
 picker.title = @"Pick photos";
 ````
 
-### CTAssetsPickerControllerDelegate
+Set initially selected assets by assigning an `NSMutableArray` to `selectedAssets`.
+```` objective-c
+picker.selectedAssets = [NSMutableArray arrayWithArray:@[asset1, asset2, asset3, ...]];
+````
 
-Limit the number of assets to be picked:-
+### Delegate Methods
+
+Limit the number of assets to be picked.
 ```` objective-c
 - (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldSelectAsset:(ALAsset *)asset
 {
@@ -116,7 +126,7 @@ Limit the number of assets to be picked:-
 }
 ````
 
-Enable only certain assets to be selected:-
+Enable only certain assets to be selected.
 ```` objective-c
 - (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldEnableAssetForSelection:(ALAsset *)asset
 {
@@ -126,6 +136,7 @@ Enable only certain assets to be selected:-
         NSTimeInterval duration = [[asset valueForProperty:ALAssetPropertyDuration] doubleValue];
         return lround(duration) >= 5;
     }
+    // Photos are always enabled
     else
     {
         return YES;
@@ -133,9 +144,9 @@ Enable only certain assets to be selected:-
 }
 ````
 
-Show only certain albums (i.e.assets group):-
+Show only certain albums.
 
-*Assets stored on iCloud (photo stream) may not displayed and picked properly if they have not downloaded to the device. You may disable them by implementing the following delegate.*
+Assets stored on iCloud (photo stream) may not be displayed and picked properly if they have not downloaded to the device. You may hide iCloud albums by implementing the following delegate.
 
 ```` objective-c
 - (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldShowAssetsGroup:(ALAssetsGroup *)group
@@ -145,6 +156,35 @@ Show only certain albums (i.e.assets group):-
     return (type != ALAssetsGroupPhotoStream);
 }
 ````
+
+Show alert on selection.
+
+Or show an alert when user try to select empty assets
+
+```` objective-c
+- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldSelectAsset:(ALAsset *)asset
+{
+    // Show alert when user try to select assets that have not been downloaded
+    if (!asset.defaultRepresentation)
+    {
+        UIAlertView *alertView =
+        [[UIAlertView alloc] initWithTitle:@"Attention"
+                                   message:@"Your asset has not yet been downloaded to your device"
+                                  delegate:nil
+                         cancelButtonTitle:nil
+                         otherButtonTitles:@"OK", nil];
+
+        [alertView show];
+    }
+
+    return (asset.defaultRepresentation != nil);
+}
+````
+
+### Notifications
+
+An `NSNotification` object named `CTAssetsPickerSelectedAssetsChangedNotification` will be sent when user select or deselect assets. You may add your observer to monitor the change of selection.
+
 
 ## Documentation
 If you have [Appledoc](https://github.com/tomaz/appledoc) installed, you can install the documentation by running the `Documentation` target of the demo project.

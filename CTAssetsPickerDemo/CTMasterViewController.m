@@ -181,21 +181,25 @@ UIPopoverControllerDelegate>
 {
     if (picker.selectedAssets.count >= 10)
     {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Attention"
-                                                            message:@"Please select not more than 10 assets"
-                                                           delegate:nil
-                                                  cancelButtonTitle:nil
-                                                  otherButtonTitles:@"OK", nil];
+        UIAlertView *alertView =
+        [[UIAlertView alloc] initWithTitle:@"Attention"
+                                   message:@"Please select not more than 10 assets"
+                                  delegate:nil
+                         cancelButtonTitle:nil
+                         otherButtonTitles:@"OK", nil];
+        
         [alertView show];
     }
     
     if (!asset.defaultRepresentation)
     {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Attention"
-                                                            message:@"Your asset has not yet been downloaded to your device"
-                                                           delegate:nil
-                                                  cancelButtonTitle:nil
-                                                  otherButtonTitles:@"OK", nil];
+        UIAlertView *alertView =
+        [[UIAlertView alloc] initWithTitle:@"Attention"
+                                   message:@"Your asset has not yet been downloaded to your device"
+                                  delegate:nil
+                         cancelButtonTitle:nil
+                         otherButtonTitles:@"OK", nil];
+        
         [alertView show];
     }
     
