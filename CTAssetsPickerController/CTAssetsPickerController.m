@@ -1221,13 +1221,11 @@ static UIColor *disabledColor;
 - (void)bind:(ALAsset *)asset
 {
     self.asset  = asset;
-    self.image  = [UIImage imageWithCGImage:asset.thumbnail];
     self.type   = [asset valueForProperty:ALAssetPropertyType];
+    self.image  = (asset.thumbnail == NULL) ? [UIImage imageNamed:@"CTAssetsPickerEmpty"] : [UIImage imageWithCGImage:asset.thumbnail];
     
     if ([self.type isEqual:ALAssetTypeVideo])
-    {
         self.title = [NSDate timeDescriptionOfTimeInterval:[[asset valueForProperty:ALAssetPropertyDuration] doubleValue]];
-    }
 }
 
 - (void)setSelected:(BOOL)selected
