@@ -505,6 +505,14 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
 }
 
 
+#pragma mark - Accessor
+
+- (CTAssetsPickerController *)picker
+{
+    return (CTAssetsPickerController *)self.navigationController;
+}
+
+
 #pragma mark - Rotation
 
 - (BOOL)shouldAutorotate
@@ -528,38 +536,33 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
 
 - (void)setupButtons
 {
-    CTAssetsPickerController *picker = (CTAssetsPickerController *)self.navigationController;
-    
-    if (picker.showsCancelButton)
+    if (self.picker.showsCancelButton)
     {
         self.navigationItem.leftBarButtonItem =
         [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", nil)
                                          style:UIBarButtonItemStylePlain
-                                        target:picker
+                                        target:self.picker
                                         action:@selector(dismiss:)];
     }
     
     self.navigationItem.rightBarButtonItem =
     [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", nil)
                                      style:UIBarButtonItemStylePlain
-                                    target:picker
+                                    target:self.picker
                                     action:@selector(finishPickingAssets:)];
 }
 
 - (void)setupToolbar
 {
-    CTAssetsPickerController *picker = (CTAssetsPickerController *)self.navigationController;
-    self.toolbarItems = picker.toolbarItems;
+    self.toolbarItems = self.picker.toolbarItems;
 }
 
 - (void)localize
 {
-    CTAssetsPickerController *picker = (CTAssetsPickerController *)self.navigationController;
-    
-    if (!picker.title)
+    if (!self.picker.title)
         self.title = NSLocalizedString(@"Photos", nil);
     else
-        self.title = picker.title;
+        self.title = self.picker.title;
 }
 
 - (void)setupGroup
@@ -572,8 +575,7 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
     else
         [self.groups removeAllObjects];
     
-    CTAssetsPickerController *picker = (CTAssetsPickerController *)self.navigationController;
-    ALAssetsFilter *assetsFilter = picker.assetsFilter;
+    ALAssetsFilter *assetsFilter = self.picker.assetsFilter;
     
     ALAssetsLibraryGroupsEnumerationResultsBlock resultsBlock = ^(ALAssetsGroup *group, BOOL *stop)
     {
@@ -583,8 +585,8 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
             
             BOOL shouldShowGroup;
             
-            if ([picker.delegate respondsToSelector:@selector(assetsPickerController:shouldShowAssetsGroup:)])
-                shouldShowGroup = [picker.delegate assetsPickerController:picker shouldShowAssetsGroup:group];
+            if ([self.picker.delegate respondsToSelector:@selector(assetsPickerController:shouldShowAssetsGroup:)])
+                shouldShowGroup = [self.picker.delegate assetsPickerController:self.picker shouldShowAssetsGroup:group];
             else
                 shouldShowGroup = YES;
 
@@ -654,11 +656,10 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
 - (void)selectedAssetsChanged:(NSNotification *)notification
 {
     NSArray *selectedAssets = (NSArray *)notification.object;
-    CTAssetsPickerController *picker = (CTAssetsPickerController *)self.navigationController;
     
-    [[self.toolbarItems objectAtIndex:1] setTitle:picker.toolbarTitle];
+    [[self.toolbarItems objectAtIndex:1] setTitle:self.picker.toolbarTitle];
     
-    [picker setToolbarHidden:(selectedAssets.count == 0) animated:YES];
+    [self.picker setToolbarHidden:(selectedAssets.count == 0) animated:YES];
 }
 
 
@@ -691,15 +692,13 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
 
 - (void)showNotAllowed
 {
-    CTAssetsPickerController *picker = (CTAssetsPickerController *)self.navigationController;
-    self.title                       = nil;
-    self.tableView.backgroundView    = [picker notAllowedView];
+    self.title = nil;
+    self.tableView.backgroundView = [self.picker notAllowedView];
 }
 
 - (void)showNoAssets
 {
-    CTAssetsPickerController *picker = (CTAssetsPickerController *)self.navigationController;
-    self.tableView.backgroundView    = [picker noAssetsView];
+    self.tableView.backgroundView = [self.picker noAssetsView];
 }
 
 
@@ -834,6 +833,14 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
 }
 
 
+#pragma mark - Accessor
+
+- (CTAssetsPickerController *)picker
+{
+    return (CTAssetsPickerController *)self.navigationController;
+}
+
+
 #pragma mark - Rotation
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
@@ -852,19 +859,16 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
 
 - (void)setupButtons
 {
-    CTAssetsPickerController *picker = (CTAssetsPickerController *)self.navigationController;
-    
     self.navigationItem.rightBarButtonItem =
     [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", nil)
                                      style:UIBarButtonItemStylePlain
-                                    target:picker
+                                    target:self.picker
                                     action:@selector(finishPickingAssets:)];
 }
 
 - (void)setupToolbar
 {
-    CTAssetsPickerController *picker = (CTAssetsPickerController *)self.navigationController;
-    self.toolbarItems = picker.toolbarItems;
+    self.toolbarItems = self.picker.toolbarItems;
 }
 
 - (void)setupAssets
@@ -956,11 +960,10 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
 - (void)selectedAssetsChanged:(NSNotification *)notification
 {
     NSArray *selectedAssets = (NSArray *)notification.object;
-    CTAssetsPickerController *picker = (CTAssetsPickerController *)self.navigationController;
     
-    [[self.toolbarItems objectAtIndex:1] setTitle:picker.toolbarTitle];
+    [[self.toolbarItems objectAtIndex:1] setTitle:self.picker.toolbarTitle];
     
-    [picker setToolbarHidden:(selectedAssets.count == 0) animated:YES];
+    [self.picker setToolbarHidden:(selectedAssets.count == 0) animated:YES];
 }
 
 
@@ -986,8 +989,7 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
 
 - (void)showNoAssets
 {
-    CTAssetsPickerController *picker    = (CTAssetsPickerController *)self.navigationController;
-    self.collectionView.backgroundView  = [picker noAssetsView];
+    self.collectionView.backgroundView = [self.picker noAssetsView];
 }
 
 
@@ -1006,21 +1008,20 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = kAssetsViewCellIdentifier;
-    CTAssetsPickerController *picker = (CTAssetsPickerController *)self.navigationController;
     
     CTAssetsViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
     
     ALAsset *asset = [self.assets objectAtIndex:indexPath.row];
     
-    if ([picker.delegate respondsToSelector:@selector(assetsPickerController:shouldEnableAsset:)])
-        cell.enabled = [picker.delegate assetsPickerController:picker shouldEnableAsset:asset];
+    if ([self.picker.delegate respondsToSelector:@selector(assetsPickerController:shouldEnableAsset:)])
+        cell.enabled = [self.picker.delegate assetsPickerController:self.picker shouldEnableAsset:asset];
     else
         cell.enabled = YES;
     
     // FIXME
     // Setting `selected` property blocks further deselection.
     // Have to call selectItemAtIndexPath too. ( ref: http://stackoverflow.com/a/17812116/1648333 )
-    if ([picker.selectedAssets containsObject:asset])
+    if ([self.picker.selectedAssets containsObject:asset])
     {
         cell.selected = YES;
         [collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
@@ -1048,79 +1049,72 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    CTAssetsPickerController *picker = (CTAssetsPickerController *)self.navigationController;
     ALAsset *asset = [self.assets objectAtIndex:indexPath.row];
     
     CTAssetsViewCell *cell = (CTAssetsViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     
     if (!cell.isEnabled)
         return NO;
-    else if ([picker.delegate respondsToSelector:@selector(assetsPickerController:shouldSelectAsset:)])
-        return [picker.delegate assetsPickerController:picker shouldSelectAsset:asset];
+    else if ([self.picker.delegate respondsToSelector:@selector(assetsPickerController:shouldSelectAsset:)])
+        return [self.picker.delegate assetsPickerController:self.picker shouldSelectAsset:asset];
     else
         return YES;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    CTAssetsPickerController *picker = (CTAssetsPickerController *)self.navigationController;
     ALAsset *asset = [self.assets objectAtIndex:indexPath.row];
     
-    [picker selectAsset:asset];
+    [self.picker selectAsset:asset];
     
-    if ([picker.delegate respondsToSelector:@selector(assetsPickerController:didSelectAsset:)])
-        [picker.delegate assetsPickerController:picker didSelectAsset:asset];
+    if ([self.picker.delegate respondsToSelector:@selector(assetsPickerController:didSelectAsset:)])
+        [self.picker.delegate assetsPickerController:self.picker didSelectAsset:asset];
 }
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldDeselectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    CTAssetsPickerController *picker = (CTAssetsPickerController *)self.navigationController;
     ALAsset *asset = [self.assets objectAtIndex:indexPath.row];
     
-    if ([picker.delegate respondsToSelector:@selector(assetsPickerController:shouldDeselectAsset:)])
-        return [picker.delegate assetsPickerController:picker shouldDeselectAsset:asset];
+    if ([self.picker.delegate respondsToSelector:@selector(assetsPickerController:shouldDeselectAsset:)])
+        return [self.picker.delegate assetsPickerController:self.picker shouldDeselectAsset:asset];
     else
         return YES;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    CTAssetsPickerController *picker = (CTAssetsPickerController *)self.navigationController;
     ALAsset *asset = [self.assets objectAtIndex:indexPath.row];
 
-    [picker deselectAsset:asset];
+    [self.picker deselectAsset:asset];
     
-    if ([picker.delegate respondsToSelector:@selector(assetsPickerController:didDeselectAsset:)])
-        [picker.delegate assetsPickerController:picker didDeselectAsset:asset];
+    if ([self.picker.delegate respondsToSelector:@selector(assetsPickerController:didDeselectAsset:)])
+        [self.picker.delegate assetsPickerController:self.picker didDeselectAsset:asset];
 }
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    CTAssetsPickerController *picker = (CTAssetsPickerController *)self.navigationController;
     ALAsset *asset = [self.assets objectAtIndex:indexPath.row];
 
-    if ([picker.delegate respondsToSelector:@selector(assetsPickerController:shouldHighlightAsset:)])
-        return [picker.delegate assetsPickerController:picker shouldHighlightAsset:asset];
+    if ([self.picker.delegate respondsToSelector:@selector(assetsPickerController:shouldHighlightAsset:)])
+        return [self.picker.delegate assetsPickerController:self.picker shouldHighlightAsset:asset];
     else
         return YES;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didHighlightItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    CTAssetsPickerController *picker = (CTAssetsPickerController *)self.navigationController;
     ALAsset *asset = [self.assets objectAtIndex:indexPath.row];
     
-    if ([picker.delegate respondsToSelector:@selector(assetsPickerController:didHighlightAsset:)])
-        [picker.delegate assetsPickerController:picker didHighlightAsset:asset];
+    if ([self.picker.delegate respondsToSelector:@selector(assetsPickerController:didHighlightAsset:)])
+        [self.picker.delegate assetsPickerController:self.picker didHighlightAsset:asset];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didUnhighlightItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    CTAssetsPickerController *picker = (CTAssetsPickerController *)self.navigationController;
     ALAsset *asset = [self.assets objectAtIndex:indexPath.row];
     
-    if ([picker.delegate respondsToSelector:@selector(assetsPickerController:didUnhighlightAsset:)])
-        [picker.delegate assetsPickerController:picker didUnhighlightAsset:asset];
+    if ([self.picker.delegate respondsToSelector:@selector(assetsPickerController:didUnhighlightAsset:)])
+        [self.picker.delegate assetsPickerController:self.picker didUnhighlightAsset:asset];
 }
 
 
@@ -1234,8 +1228,8 @@ static UIColor *disabledColor;
     CGColorSpaceRelease(baseSpace);
     CGGradientRelease(gradient);
     
-    CGSize titleSize        = [self.title sizeWithAttributes:@{NSFontAttributeName : titleFont}];
-    CGRect titleRect        = CGRectMake(rect.size.width - titleSize.width - 2, startPoint.y + (titleHeight - 12) / 2, titleSize.width, titleHeight);
+    CGSize titleSize = [self.title sizeWithAttributes:@{NSFontAttributeName : titleFont}];
+    CGRect titleRect = CGRectMake(rect.size.width - titleSize.width - 2, startPoint.y + (titleHeight - 12) / 2, titleSize.width, titleHeight);
     
     NSMutableParagraphStyle *titleStyle = [[NSMutableParagraphStyle alloc] init];
     titleStyle.lineBreakMode = NSLineBreakByTruncatingTail;
@@ -1257,7 +1251,7 @@ static UIColor *disabledColor;
 
 - (void)drawSelectedViewInRect:(CGRect)rect
 {
-    CGContextRef context    = UIGraphicsGetCurrentContext();
+    CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetFillColorWithColor(context, selectedColor.CGColor);
     CGContextFillRect(context, rect);
     
@@ -1269,7 +1263,7 @@ static UIColor *disabledColor;
 
 - (NSString *)accessibilityLabel
 {
-    NSMutableArray *labels  = [[NSMutableArray alloc] init];
+    NSMutableArray *labels = [[NSMutableArray alloc] init];
     
     [labels addObject:[self typeLabel]];
     [labels addObject:[self orientationLabel]];
@@ -1352,11 +1346,11 @@ static UIColor *disabledColor;
     NSInteger numberOfPhotos = [assets filteredArrayUsingPredicate:[self predicateOfAssetType:ALAssetTypePhoto]].count;
     
     if (numberOfVideos == 0)
-        self.label.text  = [NSString stringWithFormat:NSLocalizedString(@"%ld Photos", nil), (long)numberOfPhotos];
+        self.label.text = [NSString stringWithFormat:NSLocalizedString(@"%ld Photos", nil), (long)numberOfPhotos];
     else if (numberOfPhotos == 0)
-        self.label.text  = [NSString stringWithFormat:NSLocalizedString(@"%ld Videos", nil), (long)numberOfVideos];
+        self.label.text = [NSString stringWithFormat:NSLocalizedString(@"%ld Videos", nil), (long)numberOfVideos];
     else
-        self.label.text  = [NSString stringWithFormat:NSLocalizedString(@"%ld Photos, %ld Videos", nil), (long)numberOfPhotos, (long)numberOfVideos];
+        self.label.text = [NSString stringWithFormat:NSLocalizedString(@"%ld Photos, %ld Videos", nil), (long)numberOfPhotos, (long)numberOfVideos];
 }
 
 - (NSPredicate *)predicateOfAssetType:(NSString *)type
