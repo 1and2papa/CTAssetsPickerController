@@ -34,7 +34,6 @@
 		ADE31DDA17F12FB4008958B8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = ADE31DDC17F12FB4008958B8 /* Localizable.strings */; };
 		ADF20BD617F2737400E97692 /* CTAssetsPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADF20BD217F2737300E97692 /* CTAssetsPickerController.m */; };
 		ADF20BD717F2737400E97692 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADF20BD317F2737400E97692 /* Images.xcassets */; };
-		ADF20BD817F2737400E97692 /* NSDate+TimeInterval.m in Sources */ = {isa = PBXBuildFile; fileRef = ADF20BD517F2737400E97692 /* NSDate+TimeInterval.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,8 +57,6 @@
 		ADF20BD117F2737300E97692 /* CTAssetsPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CTAssetsPickerController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		ADF20BD217F2737300E97692 /* CTAssetsPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CTAssetsPickerController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		ADF20BD317F2737400E97692 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		ADF20BD417F2737400E97692 /* NSDate+TimeInterval.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+TimeInterval.h"; sourceTree = "<group>"; };
-		ADF20BD517F2737400E97692 /* NSDate+TimeInterval.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+TimeInterval.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,8 +135,6 @@
 				ADF20BD117F2737300E97692 /* CTAssetsPickerController.h */,
 				ADF20BD217F2737300E97692 /* CTAssetsPickerController.m */,
 				ADF20BD317F2737400E97692 /* Images.xcassets */,
-				ADF20BD417F2737400E97692 /* NSDate+TimeInterval.h */,
-				ADF20BD517F2737400E97692 /* NSDate+TimeInterval.m */,
 			);
 			path = CTAssetsPickerController;
 			sourceTree = "<group>";
@@ -235,7 +230,6 @@
 				ADF20BD617F2737400E97692 /* CTAssetsPickerController.m in Sources */,
 				ADE31D9A17EFF08C008958B8 /* CTAppDelegate.m in Sources */,
 				ADE31DA017EFF08C008958B8 /* CTMasterViewController.m in Sources */,
-				ADF20BD817F2737400E97692 /* NSDate+TimeInterval.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
