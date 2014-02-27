@@ -40,6 +40,8 @@ static const CGSize kPopoverContentSize = {320, 480};
 
 @interface CTAssetsPickerController ()
 
+@property (nonatomic, strong) ALAssetsLibrary *assetsLibrary;
+
 @end
 
 
@@ -50,7 +52,6 @@ static const CGSize kPopoverContentSize = {320, 480};
 
 @interface CTAssetsGroupViewController()
 
-@property (nonatomic, strong) ALAssetsLibrary *assetsLibrary;
 @property (nonatomic, strong) NSMutableArray *groups;
 
 @end
@@ -135,6 +136,19 @@ static const CGSize kPopoverContentSize = {320, 480};
 @end
 
 
+@implementation ALAssetsGroup (isEqual)
+
+- (BOOL)isEqual:(id)object
+{
+    if (![object isKindOfClass:[ALAssetsGroup class]])
+        return NO;
+    
+    return ([[self valueForProperty:ALAssetsGroupPropertyURL] isEqual:[object valueForProperty:ALAssetsGroupPropertyURL]]);
+}
+
+@end
+
+
 @implementation NSDate (TimeInterval)
 
 + (NSDateComponents *)componetsWithTimeInterval:(NSTimeInterval)timeInterval
@@ -182,11 +196,12 @@ static const CGSize kPopoverContentSize = {320, 480};
     
     if (self = [super initWithRootViewController:groupViewController])
     {
-        _assetsFilter               = [ALAssetsFilter allAssets];
-        _selectedAssets             = [[NSMutableArray alloc] init];
-        _showsCancelButton          = YES;
-        
-        self.preferredContentSize   = kPopoverContentSize;
+        _assetsLibrary      = [self.class defaultAssetsLibrary];
+        _assetsFilter       = [ALAssetsFilter allAssets];
+        _selectedAssets     = [[NSMutableArray alloc] init];
+        _showsCancelButton  = YES;
+
+        self.preferredContentSize = kPopoverContentSize;
         
         [self addKeyValueObserver];
     }
@@ -207,6 +222,20 @@ static const CGSize kPopoverContentSize = {320, 480};
 - (void)dealloc
 {
     [self removeKeyValueObserver];
+}
+
+
+#pragma mark - ALAssetsLibrary
+
++ (ALAssetsLibrary *)defaultAssetsLibrary
+{
+    static dispatch_once_t pred = 0;
+    static ALAssetsLibrary *library = nil;
+    dispatch_once(&pred,^
+                  {
+                      library = [[ALAssetsLibrary alloc] init];
+                  });
+    return library;
 }
 
 
@@ -599,9 +628,6 @@ static const CGSize kPopoverContentSize = {320, 480};
 
 - (void)setupGroup
 {
-    if (!self.assetsLibrary)
-        self.assetsLibrary = [self.class defaultAssetsLibrary];
-    
     if (!self.groups)
         self.groups = [[NSMutableArray alloc] init];
     else
@@ -637,18 +663,18 @@ static const CGSize kPopoverContentSize = {320, 480};
     };
     
     // Enumerate Camera roll first
-    [self.assetsLibrary enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos
-                                      usingBlock:resultsBlock
-                                    failureBlock:failureBlock];
+    [self.picker.assetsLibrary enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos
+                                             usingBlock:resultsBlock
+                                           failureBlock:failureBlock];
     
     // Then all other groups
     NSUInteger type =
     ALAssetsGroupLibrary | ALAssetsGroupAlbum | ALAssetsGroupEvent |
     ALAssetsGroupFaces | ALAssetsGroupPhotoStream;
     
-    [self.assetsLibrary enumerateGroupsWithTypes:type
-                                      usingBlock:resultsBlock
-                                    failureBlock:failureBlock];
+    [self.picker.assetsLibrary enumerateGroupsWithTypes:type
+                                             usingBlock:resultsBlock
+                                           failureBlock:failureBlock];
 }
 
 
@@ -683,16 +709,91 @@ static const CGSize kPopoverContentSize = {320, 480};
     if (notification.userInfo == nil)
         [self performSelectorOnMainThread:@selector(setupGroup) withObject:nil waitUntilDone:NO];
     
-    // Reload current view controller if needed
+    // Reload effected assets groups
     if (notification.userInfo.count > 0)
     {
-        NSSet *updated  = [notification.userInfo objectForKey:ALAssetLibraryUpdatedAssetGroupsKey];
-        NSSet *inserted = [notification.userInfo objectForKey:ALAssetLibraryInsertedAssetGroupsKey];
-        NSSet *deleted  = [notification.userInfo objectForKey:ALAssetLibraryDeletedAssetGroupsKey];
-
-        if (updated || inserted || deleted )
-            [self performSelectorOnMainThread:@selector(setupGroup) withObject:nil waitUntilDone:NO];
+        [self performChangeForUserInfo:notification.userInfo
+                                   key:ALAssetLibraryUpdatedAssetGroupsKey
+                                action:@selector(updateAssetsGroupForURL:)];
+        
+        [self performChangeForUserInfo:notification.userInfo
+                                   key:ALAssetLibraryInsertedAssetGroupsKey
+                                action:@selector(insertAssetsGroupForURL:)];
+        
+        [self performChangeForUserInfo:notification.userInfo
+                                   key:ALAssetLibraryDeletedAssetGroupsKey
+                                action:@selector(deleteAssetsGroupForURL:)];
     }
+}
+
+
+#pragma mark - Reload Assets Group
+
+- (void)performChangeForUserInfo:(NSDictionary *)userInfo key:(NSString *)key action:(SEL)selector
+{
+    NSSet *URLs = [userInfo objectForKey:key];
+    
+    for (NSURL *URL in URLs.allObjects)
+        [self performSelectorOnMainThread:selector withObject:URL waitUntilDone:NO];
+    
+}
+
+- (NSUInteger)indexOfAssetsGroupWithURL:(NSURL *)URL
+{
+    NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(ALAssetsGroup *group, NSDictionary *bindings){
+        return [[group valueForProperty:ALAssetsGroupPropertyURL] isEqual:URL];
+    }];
+    
+    return [self.groups indexOfObject:[self.groups filteredArrayUsingPredicate:predicate].firstObject];
+}
+
+- (void)updateAssetsGroupForURL:(NSURL *)URL
+{
+    ALAssetsLibraryGroupResultBlock resultBlock = ^(ALAssetsGroup *group){
+        
+        NSUInteger index = [self.groups indexOfObject:group];
+        
+        if (index != NSNotFound)
+        {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+
+            [self.groups replaceObjectAtIndex:index withObject:group];
+            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
+        
+    };
+    
+    [self.picker.assetsLibrary groupForURL:URL resultBlock:resultBlock failureBlock:nil];
+}
+
+- (void)insertAssetsGroupForURL:(NSURL *)URL
+{
+    ALAssetsLibraryGroupResultBlock resultBlock = ^(ALAssetsGroup *group){
+        
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.groups.count inSection:0];
+        
+        [self.tableView beginUpdates];
+        
+        [self.groups addObject:group];
+        [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        
+        [self.tableView endUpdates];
+    };
+    
+    [self.picker.assetsLibrary groupForURL:URL resultBlock:resultBlock failureBlock:nil];
+}
+
+- (void)deleteAssetsGroupForURL:(NSURL *)URL
+{
+    NSUInteger index = [self indexOfAssetsGroupWithURL:URL];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+    
+    [self.tableView beginUpdates];
+    
+    [self.groups removeObjectAtIndex:index];
+    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    
+    [self.tableView endUpdates];
 }
 
 
@@ -716,20 +817,6 @@ static const CGSize kPopoverContentSize = {320, 480};
         [self.tableView reloadData];
     else
         [self showNoAssets];
-}
-
-
-#pragma mark - ALAssetsLibrary
-
-+ (ALAssetsLibrary *)defaultAssetsLibrary
-{
-    static dispatch_once_t pred = 0;
-    static ALAssetsLibrary *library = nil;
-    dispatch_once(&pred,^
-    {
-        library = [[ALAssetsLibrary alloc] init];
-    });
-    return library;
 }
 
 
@@ -928,13 +1015,9 @@ NSString * const CTAssetsSupplementaryViewIdentifier = @"CTAssetsSupplementaryVi
     ALAssetsGroupEnumerationResultsBlock resultsBlock = ^(ALAsset *asset, NSUInteger index, BOOL *stop)
     {
         if (asset)
-        {
             [self.assets addObject:asset];
-        }
         else
-        {
             [self reloadData];
-        }
     };
     
     [self.assetsGroup enumerateAssetsUsingBlock:resultsBlock];
@@ -997,19 +1080,26 @@ NSString * const CTAssetsSupplementaryViewIdentifier = @"CTAssetsSupplementaryVi
     if (notification.userInfo == nil)
         [self performSelectorOnMainThread:@selector(setupAssets) withObject:nil waitUntilDone:NO];
     
-    // Reload current view controller if needed
+    // Reload effected assets groups
     if (notification.userInfo.count > 0)
-    {
-        NSSet *urls = [notification.userInfo objectForKey:ALAssetLibraryUpdatedAssetGroupsKey];
-        NSURL *url  = [self.assetsGroup valueForProperty:ALAssetsGroupPropertyURL];
-        
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF == %@", url];
-        NSArray *updated = [urls.allObjects filteredArrayUsingPredicate:predicate];
-
-        if (updated.count > 0)
-            [self performSelectorOnMainThread:@selector(setupAssets) withObject:nil waitUntilDone:NO];
-    }
+        [self updateAssetsGroupForUserInfo:notification.userInfo];
 }
+
+
+#pragma mark - Reload Assets Group
+
+- (void)updateAssetsGroupForUserInfo:(NSDictionary *)userInfo
+{
+    NSSet *URLs = [userInfo objectForKey:ALAssetLibraryUpdatedAssetGroupsKey];
+    NSURL *URL  = [self.assetsGroup valueForProperty:ALAssetsGroupPropertyURL];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF == %@", URL];
+    NSArray *updated = [URLs.allObjects filteredArrayUsingPredicate:predicate];
+    
+    if (updated.count > 0)
+        [self performSelectorOnMainThread:@selector(setupAssets) withObject:nil waitUntilDone:NO];
+}
+
 
 
 #pragma mark - Selected Assets Changed
