@@ -127,7 +127,7 @@ static const CGSize kPopoverContentSize = {320, 480};
 
 - (BOOL)isEqual:(id)object
 {
-    if (![object isKindOfClass:[ALAsset class]])
+    if (![object isKindOfClass:ALAsset.class])
         return NO;
     
     return ([[self valueForProperty:ALAssetPropertyAssetURL] isEqual:[object valueForProperty:ALAssetPropertyAssetURL]]);
@@ -140,7 +140,7 @@ static const CGSize kPopoverContentSize = {320, 480};
 
 - (BOOL)isEqual:(id)object
 {
-    if (![object isKindOfClass:[ALAssetsGroup class]])
+    if (![object isKindOfClass:ALAssetsGroup.class])
         return NO;
     
     return ([[self valueForProperty:ALAssetsGroupPropertyURL] isEqual:[object valueForProperty:ALAssetsGroupPropertyURL]]);
@@ -255,7 +255,19 @@ static const CGSize kPopoverContentSize = {320, 480};
 }
 
 
-#pragma mark - Key-Value Observing
+#pragma mark - Key-Value Change Notifications
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if ([keyPath isEqual:@"selectedAssets"])
+    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:CTAssetsPickerSelectedAssetsChangedNotification
+                                                            object:[object valueForKey:keyPath]];
+    }
+}
+
+
+#pragma mark - Indexed Accessors
 
 - (NSUInteger)countOfSelectedAssets
 {
@@ -282,21 +294,12 @@ static const CGSize kPopoverContentSize = {320, 480};
     [self.selectedAssets replaceObjectAtIndex:index withObject:object];
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-    if ([keyPath isEqual:@"selectedAssets"])
-    {
-        [[NSNotificationCenter defaultCenter] postNotificationName:CTAssetsPickerSelectedAssetsChangedNotification
-                                                            object:[object valueForKey:keyPath]];
-    }
-}
-
 
 #pragma mark - Select / Deselect Asset
 
 - (void)selectAsset:(ALAsset *)asset
 {
-    [self insertObject:asset inSelectedAssetsAtIndex:[self countOfSelectedAssets]];
+    [self insertObject:asset inSelectedAssetsAtIndex:self.countOfSelectedAssets];
 }
 
 - (void)deselectAsset:(ALAsset *)asset
@@ -334,7 +337,7 @@ static const CGSize kPopoverContentSize = {320, 480};
     else
         format = NSLocalizedString(@"You can sync photos and videos onto your %@ using iTunes.", nil);
     
-    return [NSString stringWithFormat:format, [self deviceModel]];
+    return [NSString stringWithFormat:format, self.deviceModel];
 }
 
 - (UILabel *)specialViewLabelWithFont:(UIFont *)font color:(UIColor *)color text:(NSString *)text
@@ -482,7 +485,7 @@ static const CGSize kPopoverContentSize = {320, 480};
 - (UIBarButtonItem *)titleButtonItem
 {
     UIBarButtonItem *title =
-    [[UIBarButtonItem alloc] initWithTitle:[self toolbarTitle]
+    [[UIBarButtonItem alloc] initWithTitle:self.toolbarTitle
                                      style:UIBarButtonItemStylePlain
                                     target:nil
                                     action:nil];
@@ -538,7 +541,6 @@ static const CGSize kPopoverContentSize = {320, 480};
 
 @implementation CTAssetsGroupViewController
 
-
 - (id)init
 {
     if (self = [super initWithStyle:UITableViewStylePlain])
@@ -566,7 +568,7 @@ static const CGSize kPopoverContentSize = {320, 480};
 }
 
 
-#pragma mark - Accessor
+#pragma mark - Accessors
 
 - (CTAssetsPickerController *)picker
 {
@@ -712,30 +714,29 @@ static const CGSize kPopoverContentSize = {320, 480};
     // Reload effected assets groups
     if (notification.userInfo.count > 0)
     {
-        [self performChangeForUserInfo:notification.userInfo
-                                   key:ALAssetLibraryUpdatedAssetGroupsKey
-                                action:@selector(updateAssetsGroupForURL:)];
+        [self reloadAssetsGroupForUserInfo:notification.userInfo
+                                       key:ALAssetLibraryUpdatedAssetGroupsKey
+                                    action:@selector(updateAssetsGroupForURL:)];
         
-        [self performChangeForUserInfo:notification.userInfo
-                                   key:ALAssetLibraryInsertedAssetGroupsKey
-                                action:@selector(insertAssetsGroupForURL:)];
+        [self reloadAssetsGroupForUserInfo:notification.userInfo
+                                       key:ALAssetLibraryInsertedAssetGroupsKey
+                                    action:@selector(insertAssetsGroupForURL:)];
         
-        [self performChangeForUserInfo:notification.userInfo
-                                   key:ALAssetLibraryDeletedAssetGroupsKey
-                                action:@selector(deleteAssetsGroupForURL:)];
+        [self reloadAssetsGroupForUserInfo:notification.userInfo
+                                       key:ALAssetLibraryDeletedAssetGroupsKey
+                                    action:@selector(deleteAssetsGroupForURL:)];
     }
 }
 
 
 #pragma mark - Reload Assets Group
 
-- (void)performChangeForUserInfo:(NSDictionary *)userInfo key:(NSString *)key action:(SEL)selector
+- (void)reloadAssetsGroupForUserInfo:(NSDictionary *)userInfo key:(NSString *)key action:(SEL)selector
 {
     NSSet *URLs = [userInfo objectForKey:key];
     
     for (NSURL *URL in URLs.allObjects)
         [self performSelectorOnMainThread:selector withObject:URL waitUntilDone:NO];
-    
 }
 
 - (NSUInteger)indexOfAssetsGroupWithURL:(NSURL *)URL
@@ -760,7 +761,6 @@ static const CGSize kPopoverContentSize = {320, 480};
             [self.groups replaceObjectAtIndex:index withObject:group];
             [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         }
-        
     };
     
     [self.picker.assetsLibrary groupForURL:URL resultBlock:resultBlock failureBlock:nil];
@@ -863,19 +863,13 @@ static const CGSize kPopoverContentSize = {320, 480};
 
 #pragma mark - Table view delegate
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return kThumbnailLength + 12;
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CTAssetsViewController *vc = [[CTAssetsViewController alloc] init];
     vc.assetsGroup = [self.groups objectAtIndex:indexPath.row];
 
-    [self.navigationController pushViewController:vc animated:YES];
+    [self.picker pushViewController:vc animated:YES];
 }
-
 
 @end
 
@@ -898,7 +892,7 @@ static const CGSize kPopoverContentSize = {320, 480};
 
     self.imageView.image        = [UIImage imageWithCGImage:posterImage scale:scale orientation:UIImageOrientationUp];
     self.textLabel.text         = [assetsGroup valueForProperty:ALAssetsGroupPropertyName];
-    self.detailTextLabel.text   = [NSString stringWithFormat:@"%ld", (long)[assetsGroup numberOfAssets]];
+    self.detailTextLabel.text   = [NSString stringWithFormat:@"%ld", (long)assetsGroup.numberOfAssets];
     self.accessoryType          = UITableViewCellAccessoryDisclosureIndicator;
 }
 
@@ -906,7 +900,7 @@ static const CGSize kPopoverContentSize = {320, 480};
 {
     NSString *label = [self.assetsGroup valueForProperty:ALAssetsGroupPropertyName];
     
-    return [label stringByAppendingFormat:NSLocalizedString(@"%ld Photos", nil), (long)[self.assetsGroup numberOfAssets]];
+    return [label stringByAppendingFormat:NSLocalizedString(@"%ld Photos", nil), (long)self.assetsGroup.numberOfAssets];
 }
 
 @end
@@ -917,10 +911,10 @@ static const CGSize kPopoverContentSize = {320, 480};
 
 #pragma mark - CTAssetsViewController
 
+@implementation CTAssetsViewController
+
 NSString * const CTAssetsViewCellIdentifier = @"CTAssetsViewCellIdentifier";
 NSString * const CTAssetsSupplementaryViewIdentifier = @"CTAssetsSupplementaryViewIdentifier";
-
-@implementation CTAssetsViewController
 
 - (id)init
 {
@@ -930,10 +924,10 @@ NSString * const CTAssetsSupplementaryViewIdentifier = @"CTAssetsSupplementaryVi
     {
         self.collectionView.allowsMultipleSelection = YES;
         
-        [self.collectionView registerClass:[CTAssetsViewCell class]
+        [self.collectionView registerClass:CTAssetsViewCell.class
                 forCellWithReuseIdentifier:CTAssetsViewCellIdentifier];
         
-        [self.collectionView registerClass:[CTAssetsSupplementaryView class]
+        [self.collectionView registerClass:CTAssetsSupplementaryView.class
                 forSupplementaryViewOfKind:UICollectionElementKindSectionFooter
                        withReuseIdentifier:CTAssetsSupplementaryViewIdentifier];
 
@@ -965,7 +959,7 @@ NSString * const CTAssetsSupplementaryViewIdentifier = @"CTAssetsSupplementaryVi
 }
 
 
-#pragma mark - Accessor
+#pragma mark - Accessors
 
 - (CTAssetsPickerController *)picker
 {
@@ -1082,21 +1076,22 @@ NSString * const CTAssetsSupplementaryViewIdentifier = @"CTAssetsSupplementaryVi
     
     // Reload effected assets groups
     if (notification.userInfo.count > 0)
-        [self updateAssetsGroupForUserInfo:notification.userInfo];
+        [self reloadAssetsGroupForUserInfo:notification.userInfo];
 }
 
 
 #pragma mark - Reload Assets Group
 
-- (void)updateAssetsGroupForUserInfo:(NSDictionary *)userInfo
+- (void)reloadAssetsGroupForUserInfo:(NSDictionary *)userInfo
 {
     NSSet *URLs = [userInfo objectForKey:ALAssetLibraryUpdatedAssetGroupsKey];
     NSURL *URL  = [self.assetsGroup valueForProperty:ALAssetsGroupPropertyURL];
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF == %@", URL];
-    NSArray *updated = [URLs.allObjects filteredArrayUsingPredicate:predicate];
+    NSArray *matchedGroups = [URLs.allObjects filteredArrayUsingPredicate:predicate];
     
-    if (updated.count > 0)
+    // Reload assets if current assets group is updated
+    if (matchedGroups.count > 0)
         [self performSelectorOnMainThread:@selector(setupAssets) withObject:nil waitUntilDone:NO];
 }
 
@@ -1165,7 +1160,7 @@ NSString * const CTAssetsSupplementaryViewIdentifier = @"CTAssetsSupplementaryVi
     else
         cell.enabled = YES;
     
-    // FIXME
+    // XXX
     // Setting `selected` property blocks further deselection.
     // Have to call selectItemAtIndexPath too. ( ref: http://stackoverflow.com/a/17812116/1648333 )
     if ([self.picker.selectedAssets containsObject:asset])
@@ -1275,8 +1270,7 @@ NSString * const CTAssetsSupplementaryViewIdentifier = @"CTAssetsSupplementaryVi
 
 @implementation CTAssetsViewCell
 
-static UIFont *titleFont = nil;
-
+static UIFont *titleFont;
 static CGFloat titleHeight;
 static UIImage *videoIcon;
 static UIColor *titleColor;
