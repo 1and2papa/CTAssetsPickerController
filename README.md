@@ -28,6 +28,7 @@ CTAssetsPickerController is an iOS controller that allows picking multiple photo
 * Update padlock image to iOS 7 style
 * Monitor ALAssetsLibraryChangedNotification and reload corresponding view controllers
 * Use KVO to monitor the change of selected assets
+* Add: Empty assets placeholder image
 * Add: Selected assets property
 * Add: Selected assets changed notification
 * Add: Selection methods
@@ -37,6 +38,9 @@ CTAssetsPickerController is an iOS controller that allows picking multiple photo
 * Fix: Collection view layout issue on iPad landscape mode
 * Fix: Collection view not scrolling to bottom on load
 * Refactor certain methods
+
+#### Note
+CTAssetsPickerController has dropped support for iOS 6. To use this control with iOS 6, you might consider to checkout the obsolete branch [1.x.x](https://github.com/chiunam/CTAssetsPickerController/tree/1.x.x), which developement has been ceased.
 
 
 ## Minimum Requirement
