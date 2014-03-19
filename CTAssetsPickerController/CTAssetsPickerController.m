@@ -255,15 +255,33 @@ static const CGSize kPopoverContentSize = {320, 480};
 }
 
 
-#pragma mark - Key-Value Change Notifications
+#pragma mark - Key-Value Changed
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if ([keyPath isEqual:@"selectedAssets"])
     {
-        [[NSNotificationCenter defaultCenter] postNotificationName:CTAssetsPickerSelectedAssetsChangedNotification
-                                                            object:[object valueForKey:keyPath]];
+        [self toggleDoneButton];
+        [self postNotification:[object valueForKey:keyPath]];
     }
+}
+
+
+#pragma mark - Toggle Button
+
+- (void)toggleDoneButton
+{
+    for (UIViewController *viewController in self.viewControllers)
+        viewController.navigationItem.rightBarButtonItem.enabled = (self.selectedAssets.count > 0);
+}
+
+
+#pragma mark - Post Notification
+
+- (void)postNotification:(id)sender
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:CTAssetsPickerSelectedAssetsChangedNotification
+                                                        object:sender];
 }
 
 
@@ -610,9 +628,11 @@ static const CGSize kPopoverContentSize = {320, 480};
     
     self.navigationItem.rightBarButtonItem =
     [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", nil)
-                                     style:UIBarButtonItemStylePlain
+                                     style:UIBarButtonItemStyleDone
                                     target:self.picker
                                     action:@selector(finishPickingAssets:)];
+    
+    self.navigationItem.rightBarButtonItem.enabled = (self.picker.selectedAssets.count > 0);
 }
 
 - (void)setupToolbar
@@ -943,12 +963,12 @@ NSString * const CTAssetsSupplementaryViewIdentifier = @"CTAssetsSupplementaryVi
 {
     [super viewDidLoad];
     [self setupViews];
-    [self setupButtons];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self setupButtons];
     [self setupToolbar];
     [self setupAssets];
 }
@@ -987,9 +1007,11 @@ NSString * const CTAssetsSupplementaryViewIdentifier = @"CTAssetsSupplementaryVi
 {
     self.navigationItem.rightBarButtonItem =
     [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", nil)
-                                     style:UIBarButtonItemStylePlain
+                                     style:UIBarButtonItemStyleDone
                                     target:self.picker
                                     action:@selector(finishPickingAssets:)];
+    
+    self.navigationItem.rightBarButtonItem.enabled = (self.picker.selectedAssets.count > 0);
 }
 
 - (void)setupToolbar
