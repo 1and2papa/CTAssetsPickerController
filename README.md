@@ -1,10 +1,10 @@
 # CTAssetsPickerController
 
-CTAssetsPickerController 2.0.0 released! It has newly re-design delegate methods, fixed serveral issues and improved usability. Please see [What's new](#whats-new) for the details.
+CTAssetsPickerController v2 released! It has newly re-design delegate methods, fixed serveral issues and improved usability. Please see [What's new](#whats-new) for the details.
 
 ## Introduction
 
-CTAssetsPickerController is an iOS controller that allows picking multiple photos and videos from user's photo library. The usage and look-and-feel just similar to UIImagePickerController. It uses **ARC** and requires **AssetsLibrary** framework.
+CTAssetsPickerController is an iOS controller that allows picking multiple photos and videos from user's photo library. The usage and look-and-feel are just similar to UIImagePickerController. It uses **ARC** and requires **AssetsLibrary** framework.
 
 ![Screenshot](https://raw.github.com/chiunam/CTAssetsPickerController/master/Screenshot.png "Screenshot")
 
@@ -95,31 +95,41 @@ The delegate methods are responsible for dismissing the picker when the operatio
 
 ## Advanced Uses
 
-Customization can be done by setting properties or implementating delegate methods. This section describes common customizations. Please refer to the [documentation](#documentation) or [header file](https://github.com/chiunam/CTAssetsPickerController/blob/master/CTAssetsPickerController/CTAssetsPickerController.h) for the complete list of properties and delegate methods.
+Customization can be done by setting properties or implementating delegate methods. This section describes common customizations. Please refer to the [documentation](#documentation) for the complete list of properties and delegate methods.
 
 ### Properties
+
+**Filter picker contents**
 
 Pick only photos or videos by creating an `ALAssetsFilter` and assigning it to `assetsFilter`.
 ```` objective-c
 picker.assetsFilter = [ALAssetsFilter allPhotos]; // Only pick photos.
 ````
 
+**Hide cancel button**
+
 Hide cancel button if you present the picker in `UIPopoverController`.
 ```` objective-c
 picker.showsCancelButton = NO;
 ````
 
-Override picker's title.
+**Override picker's title**
+
+Override title of the albums selection screen.
 ```` objective-c
 picker.title = @"Pick photos";
 ````
 
-Set initially selected assets by assigning an `NSMutableArray` to `selectedAssets`.
+**Set initially selected assets**
+
+Set selected assets by assigning an `NSMutableArray` to `selectedAssets`.
 ```` objective-c
 picker.selectedAssets = [NSMutableArray arrayWithArray:@[asset1, asset2, asset3, ...]];
 ````
 
 ### Delegate Methods
+
+**Set maximum number of selections**
 
 Limit the number of assets to be picked.
 ```` objective-c
@@ -129,6 +139,8 @@ Limit the number of assets to be picked.
     return (picker.selectedAssets.count < 10);
 }
 ````
+
+**Disable assets**
 
 Enable only certain assets to be selected.
 ```` objective-c
@@ -148,10 +160,9 @@ Enable only certain assets to be selected.
 }
 ````
 
-Show only certain albums.
+**Hide albums**
 
 Assets stored on iCloud (photo stream) may not be displayed and picked properly if they have not downloaded to the device. You may hide iCloud albums by implementing the following delegate.
-
 ```` objective-c
 - (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldShowAssetsGroup:(ALAssetsGroup *)group
 {
@@ -161,7 +172,7 @@ Assets stored on iCloud (photo stream) may not be displayed and picked properly 
 }
 ````
 
-Show alert on selection.
+**Show alert on selection**
 
 Or show an alert when user try to select empty assets
 
@@ -191,7 +202,8 @@ An `NSNotification` object named `CTAssetsPickerSelectedAssetsChangedNotificatio
 
 
 ## Documentation
-If you have [Appledoc](https://github.com/tomaz/appledoc) installed, you can install the documentation by running the `Documentation` target of the demo project.
+* [Online documentation](http://chiunam.github.io/CTAssetsPickerController)
+* If you have [Appledoc](https://github.com/tomaz/appledoc) installed, you can also install the documentation to Xcode by running the `Documentation` target of the demo project.
 
 
 ## Note
