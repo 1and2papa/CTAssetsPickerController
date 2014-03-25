@@ -18,6 +18,11 @@ CTAssetsPickerController is an iOS controller that allows picking multiple photo
 
 ## What's new
 
+### 2.1.0
+* Disable "Done" Button if no assets are selected
+* Change "Done" Button style to `UIBarButtonItemStyleDone`
+
+
 ### 2.0.0
 * Rename the delegate methods to more sensible one
 * Replace certain properties with delegate methods in order to provide more flexibility
@@ -53,7 +58,7 @@ Xcode 5 and iOS 7.
 ````bash
 $ edit Podfile
 platform :ios, '7.0'
-pod 'CTAssetsPickerController',  '~> 2.0.0'
+pod 'CTAssetsPickerController',  '~> 2.1.0'
 $ pod install
 ````
 * Use the Xcode workspace instead of the project.
