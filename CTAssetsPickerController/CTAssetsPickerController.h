@@ -1,4 +1,3 @@
-
 /*
  CTAssetsPickerController.h
  
@@ -27,8 +26,8 @@
  */
 
 
-#import <AssetsLibrary/AssetsLibrary.h>
 #import <UIKit/UIKit.h>
+#import <AssetsLibrary/AssetsLibrary.h>
 
 
 

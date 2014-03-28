@@ -21,6 +21,15 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		AD58798418E54F0C00B5773D /* CTAssetsGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD58798318E54F0C00B5773D /* CTAssetsGroupViewController.m */; };
+		AD58798718E550B000B5773D /* CTAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD58798618E550B000B5773D /* CTAssetsViewController.m */; };
+		AD58798A18E551E000B5773D /* CTAssetsGroupViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD58798918E551E000B5773D /* CTAssetsGroupViewCell.m */; };
+		AD58798D18E552D700B5773D /* CTAssetsViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD58798C18E552D700B5773D /* CTAssetsViewCell.m */; };
+		AD58799018E5535400B5773D /* CTAssetsSupplementaryView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD58798F18E5535400B5773D /* CTAssetsSupplementaryView.m */; };
+		AD58799318E553FF00B5773D /* ALAsset+isEqual.m in Sources */ = {isa = PBXBuildFile; fileRef = AD58799218E553FF00B5773D /* ALAsset+isEqual.m */; };
+		AD58799618E5543500B5773D /* ALAssetsGroup+isEqual.m in Sources */ = {isa = PBXBuildFile; fileRef = AD58799518E5543500B5773D /* ALAssetsGroup+isEqual.m */; };
+		AD58799918E554D200B5773D /* NSDate+timeDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = AD58799818E554D200B5773D /* NSDate+timeDescription.m */; };
+		AD58799D18E565AF00B5773D /* CTAssetsPickerConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = AD58799C18E565AF00B5773D /* CTAssetsPickerConstants.m */; };
 		ADE31D8A17EFF08C008958B8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADE31D8917EFF08C008958B8 /* Foundation.framework */; };
 		ADE31D8C17EFF08C008958B8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADE31D8B17EFF08C008958B8 /* CoreGraphics.framework */; };
 		ADE31D8E17EFF08C008958B8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADE31D8D17EFF08C008958B8 /* UIKit.framework */; };
@@ -37,6 +46,24 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AD58798218E54F0C00B5773D /* CTAssetsGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsGroupViewController.h; sourceTree = "<group>"; };
+		AD58798318E54F0C00B5773D /* CTAssetsGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetsGroupViewController.m; sourceTree = "<group>"; };
+		AD58798518E550B000B5773D /* CTAssetsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsViewController.h; sourceTree = "<group>"; };
+		AD58798618E550B000B5773D /* CTAssetsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetsViewController.m; sourceTree = "<group>"; };
+		AD58798818E551E000B5773D /* CTAssetsGroupViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsGroupViewCell.h; sourceTree = "<group>"; };
+		AD58798918E551E000B5773D /* CTAssetsGroupViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetsGroupViewCell.m; sourceTree = "<group>"; };
+		AD58798B18E552D700B5773D /* CTAssetsViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsViewCell.h; sourceTree = "<group>"; };
+		AD58798C18E552D700B5773D /* CTAssetsViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetsViewCell.m; sourceTree = "<group>"; };
+		AD58798E18E5535400B5773D /* CTAssetsSupplementaryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsSupplementaryView.h; sourceTree = "<group>"; };
+		AD58798F18E5535400B5773D /* CTAssetsSupplementaryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetsSupplementaryView.m; sourceTree = "<group>"; };
+		AD58799118E553FF00B5773D /* ALAsset+isEqual.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAsset+isEqual.h"; sourceTree = "<group>"; };
+		AD58799218E553FF00B5773D /* ALAsset+isEqual.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAsset+isEqual.m"; sourceTree = "<group>"; };
+		AD58799418E5543500B5773D /* ALAssetsGroup+isEqual.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAssetsGroup+isEqual.h"; sourceTree = "<group>"; };
+		AD58799518E5543500B5773D /* ALAssetsGroup+isEqual.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAssetsGroup+isEqual.m"; sourceTree = "<group>"; };
+		AD58799718E554D200B5773D /* NSDate+timeDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+timeDescription.h"; sourceTree = "<group>"; };
+		AD58799818E554D200B5773D /* NSDate+timeDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+timeDescription.m"; sourceTree = "<group>"; };
+		AD58799B18E565AF00B5773D /* CTAssetsPickerConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsPickerConstants.h; sourceTree = "<group>"; };
+		AD58799C18E565AF00B5773D /* CTAssetsPickerConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetsPickerConstants.m; sourceTree = "<group>"; };
 		ADE31D8617EFF08C008958B8 /* CTAssetsPickerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CTAssetsPickerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADE31D8917EFF08C008958B8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		ADE31D8B17EFF08C008958B8 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -74,6 +101,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AD58799A18E5556700B5773D /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				AD58799118E553FF00B5773D /* ALAsset+isEqual.h */,
+				AD58799218E553FF00B5773D /* ALAsset+isEqual.m */,
+				AD58799418E5543500B5773D /* ALAssetsGroup+isEqual.h */,
+				AD58799518E5543500B5773D /* ALAssetsGroup+isEqual.m */,
+				AD58799718E554D200B5773D /* NSDate+timeDescription.h */,
+				AD58799818E554D200B5773D /* NSDate+timeDescription.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
 		ADE31D7D17EFF08C008958B8 = {
 			isa = PBXGroup;
 			children = (
@@ -134,6 +174,19 @@
 			children = (
 				ADF20BD117F2737300E97692 /* CTAssetsPickerController.h */,
 				ADF20BD217F2737300E97692 /* CTAssetsPickerController.m */,
+				AD58798218E54F0C00B5773D /* CTAssetsGroupViewController.h */,
+				AD58798318E54F0C00B5773D /* CTAssetsGroupViewController.m */,
+				AD58798818E551E000B5773D /* CTAssetsGroupViewCell.h */,
+				AD58798918E551E000B5773D /* CTAssetsGroupViewCell.m */,
+				AD58798518E550B000B5773D /* CTAssetsViewController.h */,
+				AD58798618E550B000B5773D /* CTAssetsViewController.m */,
+				AD58798B18E552D700B5773D /* CTAssetsViewCell.h */,
+				AD58798C18E552D700B5773D /* CTAssetsViewCell.m */,
+				AD58798E18E5535400B5773D /* CTAssetsSupplementaryView.h */,
+				AD58798F18E5535400B5773D /* CTAssetsSupplementaryView.m */,
+				AD58799B18E565AF00B5773D /* CTAssetsPickerConstants.h */,
+				AD58799C18E565AF00B5773D /* CTAssetsPickerConstants.m */,
+				AD58799A18E5556700B5773D /* Categories */,
 				ADF20BD317F2737400E97692 /* Images.xcassets */,
 			);
 			path = CTAssetsPickerController;
@@ -226,10 +279,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD58798418E54F0C00B5773D /* CTAssetsGroupViewController.m in Sources */,
 				ADE31D9617EFF08C008958B8 /* main.m in Sources */,
+				AD58799318E553FF00B5773D /* ALAsset+isEqual.m in Sources */,
+				AD58799D18E565AF00B5773D /* CTAssetsPickerConstants.m in Sources */,
+				AD58798D18E552D700B5773D /* CTAssetsViewCell.m in Sources */,
+				AD58799918E554D200B5773D /* NSDate+timeDescription.m in Sources */,
+				AD58798718E550B000B5773D /* CTAssetsViewController.m in Sources */,
+				AD58799018E5535400B5773D /* CTAssetsSupplementaryView.m in Sources */,
 				ADF20BD617F2737400E97692 /* CTAssetsPickerController.m in Sources */,
 				ADE31D9A17EFF08C008958B8 /* CTAppDelegate.m in Sources */,
+				AD58798A18E551E000B5773D /* CTAssetsGroupViewCell.m in Sources */,
 				ADE31DA017EFF08C008958B8 /* CTMasterViewController.m in Sources */,
+				AD58799618E5543500B5773D /* ALAssetsGroup+isEqual.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
