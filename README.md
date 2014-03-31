@@ -6,7 +6,7 @@ CTAssetsPickerController v2 released! It has newly re-design delegate methods, f
 
 CTAssetsPickerController is an iOS controller that allows picking multiple photos and videos from user's photo library. The usage and look-and-feel are just similar to UIImagePickerController. It uses **ARC** and requires **AssetsLibrary** framework.
 
-![Screenshot](https://raw.github.com/chiunam/CTAssetsPickerController/master/Screenshot.png "Screenshot")
+![Screenshot](Screenshot.png "Screenshot")
 
 ## Features
 1. Picks multiple photos and videos across albums from user's library.
@@ -17,32 +17,7 @@ CTAssetsPickerController is an iOS controller that allows picking multiple photo
 
 
 ## What's new
-
-### 2.1.0
-* Disable "Done" Button if no assets are selected
-* Change "Done" Button style to `UIBarButtonItemStyleDone`
-
-
-### 2.0.0
-* Rename the delegate methods to more sensible one
-* Replace certain properties with delegate methods in order to provide more flexibility
-* Selected assets are preserved across albums
-* Move title of selected assets to toolbar
-* Show "no assets" view on empty albums
-* Make "no assets" message to be more graceful, reflecting the device's model and camera feature
-* Update padlock image to iOS 7 style
-* Monitor ALAssetsLibraryChangedNotification and reload corresponding view controllers
-* Use KVO to monitor the change of selected assets
-* Add: Empty assets placeholder image
-* Add: Selected assets property
-* Add: Selected assets changed notification
-* Add: Selection methods
-* Add: iPad demo
-* Add: Appledoc documentation
-* Fix: Footer is not centre aligned after rotation
-* Fix: Collection view layout issue on iPad landscape mode
-* Fix: Collection view not scrolling to bottom on load
-* Refactor certain methods
+* [Release Notes](RELEASE-NOTES.md)
 
 #### Note
 CTAssetsPickerController has dropped support for iOS 6. To use this control with iOS 6, you might consider to checkout the obsolete branch [1.x.x](https://github.com/chiunam/CTAssetsPickerController/tree/1.x.x), which developement has been ceased.
