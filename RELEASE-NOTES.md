@@ -1,8 +1,8 @@
 ### v2.2.0
-* #30 Refactor into separate files
+* [#30](https://github.com/chiunam/CTAssetsPickerController/issues/30) Refactor into separate files
 
 ### v2.1.0
-* #28 Disable "Done" Button if no assets are selected
+* [#28](https://github.com/chiunam/CTAssetsPickerController/issues/28) Disable "Done" Button if no assets are selected
 * Change "Done" Button style to `UIBarButtonItemStyleDone`
 
 
