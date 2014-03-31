@@ -33,7 +33,7 @@ Xcode 5 and iOS 7.
 ````bash
 $ edit Podfile
 platform :ios, '7.0'
-pod 'CTAssetsPickerController',  '~> 2.1.0'
+pod 'CTAssetsPickerController',  '~> 2.2.0'
 $ pod install
 ````
 * Use the Xcode workspace instead of the project.
