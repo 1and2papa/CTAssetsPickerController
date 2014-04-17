@@ -92,7 +92,7 @@
 
 - (CTAssetsPickerController *)picker
 {
-    return (CTAssetsPickerController *)self.navigationController;
+    return (CTAssetsPickerController *)self.navigationController.parentViewController;
 }
 
 
@@ -327,7 +327,7 @@
     
     [[self.toolbarItems objectAtIndex:1] setTitle:[self.picker toolbarTitle]];
     
-    [self.picker setToolbarHidden:(selectedAssets.count == 0) animated:YES];
+    [self.navigationController setToolbarHidden:(selectedAssets.count == 0) animated:YES];
 }
 
 
@@ -390,7 +390,7 @@
     CTAssetsViewController *vc = [[CTAssetsViewController alloc] init];
     vc.assetsGroup = [self.groups objectAtIndex:indexPath.row];
     
-    [self.picker pushViewController:vc animated:YES];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end

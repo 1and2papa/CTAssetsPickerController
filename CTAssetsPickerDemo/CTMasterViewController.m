@@ -32,8 +32,7 @@
 
 
 @interface CTMasterViewController ()
-<UINavigationControllerDelegate, CTAssetsPickerControllerDelegate,
-UIPopoverControllerDelegate>
+<CTAssetsPickerControllerDelegate, UIPopoverControllerDelegate>
 
 @property (nonatomic, copy) NSArray *assets;
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;

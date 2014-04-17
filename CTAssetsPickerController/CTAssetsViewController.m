@@ -30,6 +30,10 @@
 #import "CTAssetsViewController.h"
 #import "CTAssetsViewCell.h"
 #import "CTAssetsSupplementaryView.h"
+#import "CTAssetsPageViewController.h"
+#import "CTAssetsViewControllerTransition.h"
+
+
 
 
 
@@ -82,6 +86,7 @@ NSString * const CTAssetsSupplementaryViewIdentifier = @"CTAssetsSupplementaryVi
     }
     
     [self addNotificationObserver];
+    [self addGestureRecognizer];
     
     return self;
 }
@@ -110,7 +115,7 @@ NSString * const CTAssetsSupplementaryViewIdentifier = @"CTAssetsSupplementaryVi
 
 - (CTAssetsPickerController *)picker
 {
-    return (CTAssetsPickerController *)self.navigationController;
+    return (CTAssetsPickerController *)self.navigationController.parentViewController;
 }
 
 
@@ -153,7 +158,7 @@ NSString * const CTAssetsSupplementaryViewIdentifier = @"CTAssetsSupplementaryVi
     if (!self.assets)
         self.assets = [[NSMutableArray alloc] init];
     else
-        [self.assets removeAllObjects];
+        return;
     
     ALAssetsGroupEnumerationResultsBlock resultsBlock = ^(ALAsset *asset, NSUInteger index, BOOL *stop)
     {
@@ -173,7 +178,7 @@ NSString * const CTAssetsSupplementaryViewIdentifier = @"CTAssetsSupplementaryVi
 {
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.itemSize             = kThumbnailSize;
-    layout.footerReferenceSize  = CGSizeMake(0, 44.0);
+    layout.footerReferenceSize  = CGSizeMake(0, 47.0);
     
     if (UIInterfaceOrientationIsLandscape(orientation) && (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad))
     {
@@ -221,7 +226,7 @@ NSString * const CTAssetsSupplementaryViewIdentifier = @"CTAssetsSupplementaryVi
 {
     // Reload all assets
     if (notification.userInfo == nil)
-        [self performSelectorOnMainThread:@selector(setupAssets) withObject:nil waitUntilDone:NO];
+        [self performSelectorOnMainThread:@selector(reloadAssets) withObject:nil waitUntilDone:NO];
     
     // Reload effected assets groups
     if (notification.userInfo.count > 0)
@@ -241,7 +246,7 @@ NSString * const CTAssetsSupplementaryViewIdentifier = @"CTAssetsSupplementaryVi
     
     // Reload assets if current assets group is updated
     if (matchedGroups.count > 0)
-        [self performSelectorOnMainThread:@selector(setupAssets) withObject:nil waitUntilDone:NO];
+        [self performSelectorOnMainThread:@selector(reloadAssets) withObject:nil waitUntilDone:NO];
 }
 
 
@@ -254,8 +259,48 @@ NSString * const CTAssetsSupplementaryViewIdentifier = @"CTAssetsSupplementaryVi
     
     [[self.toolbarItems objectAtIndex:1] setTitle:[self.picker toolbarTitle]];
     
-    [self.picker setToolbarHidden:(selectedAssets.count == 0) animated:YES];
+    [self.navigationController setToolbarHidden:(selectedAssets.count == 0) animated:YES];
 }
+
+
+
+#pragma mark - Gesture Recognizer
+
+- (void)addGestureRecognizer
+{
+    UILongPressGestureRecognizer *longPress =
+    [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(pushPageViewController:)];
+    
+    [self.collectionView addGestureRecognizer:longPress];
+}
+
+
+#pragma mark - Push Assets Page View Controller
+
+- (void)pushPageViewController:(UILongPressGestureRecognizer *)longPress
+{
+    if (longPress.state == UIGestureRecognizerStateBegan)
+    {
+        CGPoint point           = [longPress locationInView:self.collectionView];
+        NSIndexPath *indexPath  = [self.collectionView indexPathForItemAtPoint:point];
+
+        CTAssetsPageViewController *vc = [[CTAssetsPageViewController alloc] initWithAssets:self.assets];
+        vc.pageIndex = indexPath.item;
+
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+}
+
+
+
+#pragma mark - Reload Assets
+
+- (void)reloadAssets
+{
+    self.assets = nil;
+    [self setupAssets];
+}
+
 
 
 #pragma mark - Reload Data
@@ -265,9 +310,7 @@ NSString * const CTAssetsSupplementaryViewIdentifier = @"CTAssetsSupplementaryVi
     if (self.assets.count > 0)
     {
         [self.collectionView reloadData];
-        
-        if (CGPointEqualToPoint(self.collectionView.contentOffset, CGPointZero))
-            [self.collectionView setContentOffset:CGPointMake(0, self.collectionViewLayout.collectionViewContentSize.height)];
+        [self.collectionView setContentOffset:CGPointMake(0, self.collectionViewLayout.collectionViewContentSize.height)];
     }
     else
     {

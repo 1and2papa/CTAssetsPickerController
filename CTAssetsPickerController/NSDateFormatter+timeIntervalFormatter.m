@@ -1,5 +1,5 @@
 /*
- NSDate+timeDescription.m
+ NSDateFormatter+timeIntervalFormatter.m
  
  The MIT License (MIT)
  
@@ -25,15 +25,15 @@
  
  */
 
-#import "NSDate+timeDescription.h"
+#import "NSDateFormatter+timeIntervalFormatter.h"
 
 
 
-@implementation NSDate (timeDescription)
+@implementation NSDateFormatter (timeIntervalFormatter)
 
-+ (NSString *)timeDescriptionOfTimeInterval:(NSTimeInterval)timeInterval
+- (NSString *)stringFromTimeInterval:(NSTimeInterval)timeInterval
 {
-    NSDateComponents *components = [self.class componetsWithTimeInterval:timeInterval];
+    NSDateComponents *components = [self dateComponetsWithTimeInterval:timeInterval];
     NSInteger roundedSeconds = lround(timeInterval - (components.hour * 60 * 60) - (components.minute * 60));
     
     if (components.hour > 0)
@@ -43,7 +43,31 @@
         return [NSString stringWithFormat:@"%ld:%02ld", (long)components.minute, (long)roundedSeconds];
 }
 
-+ (NSDateComponents *)componetsWithTimeInterval:(NSTimeInterval)timeInterval
+- (NSString *)spellOutStringFromTimeInterval:(NSTimeInterval)timeInterval
+{
+    NSString *string = @"";
+    
+    NSDateComponents *components = [self dateComponetsWithTimeInterval:timeInterval];
+    
+    if (components.hour > 0)
+        string = [string stringByAppendingFormat:@"%ld %@",
+                  (long)components.hour,
+                  (components.hour > 1) ? NSLocalizedString(@"hours", nil) : NSLocalizedString(@"hour", nil)];
+    
+    if (components.minute > 0)
+        string = [string stringByAppendingFormat:@"%ld %@",
+                  (long)components.minute,
+                  (components.minute > 1) ? NSLocalizedString(@"minutes", nil) : NSLocalizedString(@"minute", nil)];
+    
+    if (components.second > 0)
+        string = [string stringByAppendingFormat:@"%ld %@",
+                  (long)components.second,
+                  (components.second > 1) ? NSLocalizedString(@"seconds", nil) : NSLocalizedString(@"second", nil)];
+    
+    return string;
+}
+
+- (NSDateComponents *)dateComponetsWithTimeInterval:(NSTimeInterval)timeInterval
 {
     NSCalendar *calendar = [NSCalendar currentCalendar];
     

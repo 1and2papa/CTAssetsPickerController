@@ -36,12 +36,12 @@
 /**
  *  A controller that allows picking multiple photos and videos from user's photo library.
  */
-@interface CTAssetsPickerController : UINavigationController
+@interface CTAssetsPickerController : UIViewController
 
 /**
  *  The assets picker’s delegate object.
  */
-@property (nonatomic, weak) id <UINavigationControllerDelegate, CTAssetsPickerControllerDelegate> delegate;
+@property (nonatomic, weak) id <CTAssetsPickerControllerDelegate> delegate;
 
 /**
  *  Set the `ALAssetsFilter` to filter the picker contents.

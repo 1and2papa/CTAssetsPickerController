@@ -28,8 +28,13 @@
 		AD58799018E5535400B5773D /* CTAssetsSupplementaryView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD58798F18E5535400B5773D /* CTAssetsSupplementaryView.m */; };
 		AD58799318E553FF00B5773D /* ALAsset+isEqual.m in Sources */ = {isa = PBXBuildFile; fileRef = AD58799218E553FF00B5773D /* ALAsset+isEqual.m */; };
 		AD58799618E5543500B5773D /* ALAssetsGroup+isEqual.m in Sources */ = {isa = PBXBuildFile; fileRef = AD58799518E5543500B5773D /* ALAssetsGroup+isEqual.m */; };
-		AD58799918E554D200B5773D /* NSDate+timeDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = AD58799818E554D200B5773D /* NSDate+timeDescription.m */; };
 		AD58799D18E565AF00B5773D /* CTAssetsPickerConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = AD58799C18E565AF00B5773D /* CTAssetsPickerConstants.m */; };
+		AD5C307C193EF4CE00D31C45 /* CTAssetsViewControllerTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = AD5C307B193EF4CE00D31C45 /* CTAssetsViewControllerTransition.m */; };
+		ADBCACD718FF88FA002494D2 /* CTAssetsPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADBCACD618FF88FA002494D2 /* CTAssetsPageViewController.m */; };
+		ADDEA34B192F4A540049D6A7 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADDEA34A192F4A540049D6A7 /* MediaPlayer.framework */; };
+		ADDEA34E192F4C590049D6A7 /* CTAssetItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDEA34D192F4C590049D6A7 /* CTAssetItemViewController.m */; };
+		ADDEA351192F4CB40049D6A7 /* CTAssetScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDEA350192F4CB40049D6A7 /* CTAssetScrollView.m */; };
+		ADDEA35419333BDA0049D6A7 /* ALAsset+assetType.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDEA35319333BDA0049D6A7 /* ALAsset+assetType.m */; };
 		ADE31D8A17EFF08C008958B8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADE31D8917EFF08C008958B8 /* Foundation.framework */; };
 		ADE31D8C17EFF08C008958B8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADE31D8B17EFF08C008958B8 /* CoreGraphics.framework */; };
 		ADE31D8E17EFF08C008958B8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADE31D8D17EFF08C008958B8 /* UIKit.framework */; };
@@ -43,6 +48,8 @@
 		ADE31DDA17F12FB4008958B8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = ADE31DDC17F12FB4008958B8 /* Localizable.strings */; };
 		ADF20BD617F2737400E97692 /* CTAssetsPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADF20BD217F2737300E97692 /* CTAssetsPickerController.m */; };
 		ADF20BD717F2737400E97692 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADF20BD317F2737400E97692 /* Images.xcassets */; };
+		ADFDE19C19357D38004752B5 /* ALAsset+accessibilityLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = ADFDE19B19357D38004752B5 /* ALAsset+accessibilityLabel.m */; };
+		ADFDE1A21935857F004752B5 /* NSDateFormatter+timeIntervalFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = ADFDE1A11935857F004752B5 /* NSDateFormatter+timeIntervalFormatter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,10 +67,19 @@
 		AD58799218E553FF00B5773D /* ALAsset+isEqual.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAsset+isEqual.m"; sourceTree = "<group>"; };
 		AD58799418E5543500B5773D /* ALAssetsGroup+isEqual.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAssetsGroup+isEqual.h"; sourceTree = "<group>"; };
 		AD58799518E5543500B5773D /* ALAssetsGroup+isEqual.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAssetsGroup+isEqual.m"; sourceTree = "<group>"; };
-		AD58799718E554D200B5773D /* NSDate+timeDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+timeDescription.h"; sourceTree = "<group>"; };
-		AD58799818E554D200B5773D /* NSDate+timeDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+timeDescription.m"; sourceTree = "<group>"; };
 		AD58799B18E565AF00B5773D /* CTAssetsPickerConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsPickerConstants.h; sourceTree = "<group>"; };
 		AD58799C18E565AF00B5773D /* CTAssetsPickerConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetsPickerConstants.m; sourceTree = "<group>"; };
+		AD5C307A193EF4CE00D31C45 /* CTAssetsViewControllerTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsViewControllerTransition.h; sourceTree = "<group>"; };
+		AD5C307B193EF4CE00D31C45 /* CTAssetsViewControllerTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetsViewControllerTransition.m; sourceTree = "<group>"; };
+		ADBCACD518FF88FA002494D2 /* CTAssetsPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsPageViewController.h; sourceTree = "<group>"; };
+		ADBCACD618FF88FA002494D2 /* CTAssetsPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetsPageViewController.m; sourceTree = "<group>"; };
+		ADDEA34A192F4A540049D6A7 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		ADDEA34C192F4C590049D6A7 /* CTAssetItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetItemViewController.h; sourceTree = "<group>"; };
+		ADDEA34D192F4C590049D6A7 /* CTAssetItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetItemViewController.m; sourceTree = "<group>"; };
+		ADDEA34F192F4CB40049D6A7 /* CTAssetScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetScrollView.h; sourceTree = "<group>"; };
+		ADDEA350192F4CB40049D6A7 /* CTAssetScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetScrollView.m; sourceTree = "<group>"; };
+		ADDEA35219333BDA0049D6A7 /* ALAsset+assetType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAsset+assetType.h"; sourceTree = "<group>"; };
+		ADDEA35319333BDA0049D6A7 /* ALAsset+assetType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAsset+assetType.m"; sourceTree = "<group>"; };
 		ADE31D8617EFF08C008958B8 /* CTAssetsPickerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CTAssetsPickerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADE31D8917EFF08C008958B8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		ADE31D8B17EFF08C008958B8 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -84,6 +100,10 @@
 		ADF20BD117F2737300E97692 /* CTAssetsPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CTAssetsPickerController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		ADF20BD217F2737300E97692 /* CTAssetsPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CTAssetsPickerController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		ADF20BD317F2737400E97692 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		ADFDE19A19357D38004752B5 /* ALAsset+accessibilityLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAsset+accessibilityLabel.h"; sourceTree = "<group>"; };
+		ADFDE19B19357D38004752B5 /* ALAsset+accessibilityLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAsset+accessibilityLabel.m"; sourceTree = "<group>"; };
+		ADFDE1A01935857F004752B5 /* NSDateFormatter+timeIntervalFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+timeIntervalFormatter.h"; sourceTree = "<group>"; };
+		ADFDE1A11935857F004752B5 /* NSDateFormatter+timeIntervalFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+timeIntervalFormatter.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +111,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ADDEA34B192F4A540049D6A7 /* MediaPlayer.framework in Frameworks */,
 				ADE31DC217EFF159008958B8 /* AssetsLibrary.framework in Frameworks */,
 				ADE31D8C17EFF08C008958B8 /* CoreGraphics.framework in Frameworks */,
 				ADE31D8E17EFF08C008958B8 /* UIKit.framework in Frameworks */,
@@ -106,10 +127,14 @@
 			children = (
 				AD58799118E553FF00B5773D /* ALAsset+isEqual.h */,
 				AD58799218E553FF00B5773D /* ALAsset+isEqual.m */,
+				ADFDE19A19357D38004752B5 /* ALAsset+accessibilityLabel.h */,
+				ADFDE19B19357D38004752B5 /* ALAsset+accessibilityLabel.m */,
+				ADDEA35219333BDA0049D6A7 /* ALAsset+assetType.h */,
+				ADDEA35319333BDA0049D6A7 /* ALAsset+assetType.m */,
 				AD58799418E5543500B5773D /* ALAssetsGroup+isEqual.h */,
 				AD58799518E5543500B5773D /* ALAssetsGroup+isEqual.m */,
-				AD58799718E554D200B5773D /* NSDate+timeDescription.h */,
-				AD58799818E554D200B5773D /* NSDate+timeDescription.m */,
+				ADFDE1A01935857F004752B5 /* NSDateFormatter+timeIntervalFormatter.h */,
+				ADFDE1A11935857F004752B5 /* NSDateFormatter+timeIntervalFormatter.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -136,6 +161,7 @@
 			isa = PBXGroup;
 			children = (
 				ADE31DC117EFF159008958B8 /* AssetsLibrary.framework */,
+				ADDEA34A192F4A540049D6A7 /* MediaPlayer.framework */,
 				ADE31D8917EFF08C008958B8 /* Foundation.framework */,
 				ADE31D8B17EFF08C008958B8 /* CoreGraphics.framework */,
 				ADE31D8D17EFF08C008958B8 /* UIKit.framework */,
@@ -184,6 +210,14 @@
 				AD58798C18E552D700B5773D /* CTAssetsViewCell.m */,
 				AD58798E18E5535400B5773D /* CTAssetsSupplementaryView.h */,
 				AD58798F18E5535400B5773D /* CTAssetsSupplementaryView.m */,
+				ADBCACD518FF88FA002494D2 /* CTAssetsPageViewController.h */,
+				ADBCACD618FF88FA002494D2 /* CTAssetsPageViewController.m */,
+				ADDEA34C192F4C590049D6A7 /* CTAssetItemViewController.h */,
+				ADDEA34D192F4C590049D6A7 /* CTAssetItemViewController.m */,
+				ADDEA34F192F4CB40049D6A7 /* CTAssetScrollView.h */,
+				ADDEA350192F4CB40049D6A7 /* CTAssetScrollView.m */,
+				AD5C307A193EF4CE00D31C45 /* CTAssetsViewControllerTransition.h */,
+				AD5C307B193EF4CE00D31C45 /* CTAssetsViewControllerTransition.m */,
 				AD58799B18E565AF00B5773D /* CTAssetsPickerConstants.h */,
 				AD58799C18E565AF00B5773D /* CTAssetsPickerConstants.m */,
 				AD58799A18E5556700B5773D /* Categories */,
@@ -284,10 +318,16 @@
 				AD58799318E553FF00B5773D /* ALAsset+isEqual.m in Sources */,
 				AD58799D18E565AF00B5773D /* CTAssetsPickerConstants.m in Sources */,
 				AD58798D18E552D700B5773D /* CTAssetsViewCell.m in Sources */,
-				AD58799918E554D200B5773D /* NSDate+timeDescription.m in Sources */,
 				AD58798718E550B000B5773D /* CTAssetsViewController.m in Sources */,
 				AD58799018E5535400B5773D /* CTAssetsSupplementaryView.m in Sources */,
+				ADDEA35419333BDA0049D6A7 /* ALAsset+assetType.m in Sources */,
+				AD5C307C193EF4CE00D31C45 /* CTAssetsViewControllerTransition.m in Sources */,
+				ADFDE19C19357D38004752B5 /* ALAsset+accessibilityLabel.m in Sources */,
 				ADF20BD617F2737400E97692 /* CTAssetsPickerController.m in Sources */,
+				ADBCACD718FF88FA002494D2 /* CTAssetsPageViewController.m in Sources */,
+				ADDEA351192F4CB40049D6A7 /* CTAssetScrollView.m in Sources */,
+				ADFDE1A21935857F004752B5 /* NSDateFormatter+timeIntervalFormatter.m in Sources */,
+				ADDEA34E192F4C590049D6A7 /* CTAssetItemViewController.m in Sources */,
 				ADE31D9A17EFF08C008958B8 /* CTAppDelegate.m in Sources */,
 				AD58798A18E551E000B5773D /* CTAssetsGroupViewCell.m in Sources */,
 				ADE31DA017EFF08C008958B8 /* CTMasterViewController.m in Sources */,
