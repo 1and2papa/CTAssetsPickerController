@@ -42,6 +42,19 @@
 
 @implementation CTAssetsGroupViewCell
 
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])
+    {
+        self.opaque                             = YES;
+        self.isAccessibilityElement             = YES;
+        self.textLabel.backgroundColor          = self.backgroundColor;
+        self.detailTextLabel.backgroundColor    = self.backgroundColor;
+    }
+    
+    return self;
+}
+
 - (void)bind:(ALAssetsGroup *)assetsGroup
 {
     self.assetsGroup            = assetsGroup;
@@ -55,6 +68,9 @@
     self.detailTextLabel.text   = [NSString stringWithFormat:@"%ld", (long)assetsGroup.numberOfAssets];
     self.accessoryType          = UITableViewCellAccessoryDisclosureIndicator;
 }
+
+
+#pragma mark - Accessibility Label
 
 - (NSString *)accessibilityLabel
 {
