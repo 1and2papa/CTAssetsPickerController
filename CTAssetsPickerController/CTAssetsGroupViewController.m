@@ -337,9 +337,14 @@
 - (void)reloadData
 {
     if (self.groups.count > 0)
+    {
+        [self hideSpecialView];
         [self.tableView reloadData];
+    }
     else
+    {
         [self showNoAssets];
+    }
 }
 
 
@@ -354,6 +359,11 @@
 - (void)showNoAssets
 {
     self.tableView.backgroundView = [self.picker noAssetsView];
+}
+
+- (void)hideSpecialView
+{
+    self.tableView.backgroundView = nil;
 }
 
 
