@@ -338,7 +338,7 @@
 {
     if (self.groups.count > 0)
     {
-        [self hideSpecialView];
+        [self hideAuxiliaryView];
         [self.tableView reloadData];
     }
     else
@@ -354,17 +354,27 @@
 {
     self.title = nil;
     self.tableView.backgroundView = [self.picker notAllowedView];
+    [self setAccessibilityFocus];
 }
 
 - (void)showNoAssets
 {
     self.tableView.backgroundView = [self.picker noAssetsView];
+    [self setAccessibilityFocus];
 }
 
-- (void)hideSpecialView
+- (void)hideAuxiliaryView
 {
     self.tableView.backgroundView = nil;
 }
+
+- (void)setAccessibilityFocus
+{
+    self.tableView.accessibilityLabel = self.tableView.backgroundView.accessibilityLabel;
+    self.tableView.isAccessibilityElement = YES;
+    UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, self.tableView);
+}
+
 
 
 #pragma mark - Table view data source

@@ -282,6 +282,14 @@ NSString * const CTAssetsSupplementaryViewIdentifier = @"CTAssetsSupplementaryVi
 - (void)showNoAssets
 {
     self.collectionView.backgroundView = [self.picker noAssetsView];
+    [self setAccessibilityFocus];
+}
+
+- (void)setAccessibilityFocus
+{
+    self.collectionView.isAccessibilityElement  = YES;
+    self.collectionView.accessibilityLabel      = self.collectionView.backgroundView.accessibilityLabel;
+    UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, self.collectionView);
 }
 
 
