@@ -333,6 +333,9 @@ NSString * const CTAssetsSupplementaryViewIdentifier = @"CTAssetsSupplementaryVi
     
     [view bind:self.assets];
     
+    if (self.assets.count == 0)
+        view.hidden = YES;
+    
     return view;
 }
 
