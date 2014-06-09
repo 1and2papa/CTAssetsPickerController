@@ -172,7 +172,7 @@
             else
                 shouldShowGroup = YES;
             
-            if (shouldShowGroup)
+            if (shouldShowGroup && ([group numberOfAssets] > 0))
                 [self.groups addObject:group];
         }
         else
