@@ -141,8 +141,18 @@
 
 
 /**
- *  @name Enabling Assets for Selection
+ *  @name Enabling Assets
  */
+
+/**
+ *  Ask the delegate if the specified asset shoule be shown.
+ *
+ *  @param picker The controller object managing the assets picker interface.
+ *  @param asset  The asset to be shown.
+ *
+ *  @return `YES` if the asset should be shown or `NO` if it should not.
+ */
+- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldShowAsset:(ALAsset *)asset;
 
 /**
  *  Ask the delegate if the specified asset should be enabled for selection.

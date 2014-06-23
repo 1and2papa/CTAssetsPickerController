@@ -163,9 +163,21 @@ NSString * const CTAssetsSupplementaryViewIdentifier = @"CTAssetsSupplementaryVi
     ALAssetsGroupEnumerationResultsBlock resultsBlock = ^(ALAsset *asset, NSUInteger index, BOOL *stop)
     {
         if (asset)
-            [self.assets addObject:asset];
+        {
+            if ([self.picker.delegate respondsToSelector:@selector(assetsPickerController:shouldShowAsset:)])
+            {
+                if ([self.picker.delegate assetsPickerController:self.picker shouldShowAsset:asset])
+                    [self.assets addObject:asset];
+            }
+            else
+            {
+                [self.assets addObject:asset];
+            }
+        }
         else
+        {
             [self reloadData];
+        }
     };
     
     [self.assetsGroup enumerateAssetsUsingBlock:resultsBlock];
