@@ -149,6 +149,24 @@
 
 
 /**
+ *  @name Showing Content of Default Assets Group
+ */
+
+/**
+ *  Ask the delegate if the specified assets group is the default assets group.
+ *
+ *  The picker initially shows the content of default assets group instead of a list of albums. By default,
+ *  there are no default assets groups.
+ *
+ *  @param picker The controller object managing the assets picker interface.
+ *  @param group  The assets group to be process.
+ *
+ *  @return `YES` if the assets group is the default assets group or `NO` if it is not.
+ */
+- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker isDefaultAssetsGroup:(ALAssetsGroup *)group;
+
+
+/**
  *  @name Enabling Assets
  */
 

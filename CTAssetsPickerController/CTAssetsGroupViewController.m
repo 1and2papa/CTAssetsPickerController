@@ -52,6 +52,7 @@
 
 @property (nonatomic, weak) CTAssetsPickerController *picker;
 @property (nonatomic, strong) NSMutableArray *groups;
+@property (nonatomic, strong) ALAssetsGroup *defaultGroup;
 
 @end
 
@@ -173,7 +174,15 @@
                 shouldShowGroup = YES;
             
             if (shouldShowGroup)
+            {
                 [self.groups addObject:group];
+                
+                if ([self.picker.delegate respondsToSelector:@selector(assetsPickerController:isDefaultAssetsGroup:)])
+                {
+                    if ([self.picker.delegate assetsPickerController:self.picker isDefaultAssetsGroup:group])
+                        self.defaultGroup = group;
+                }
+            }
         }
         else
         {
@@ -340,12 +349,28 @@
     {
         [self hideAuxiliaryView];
         [self.tableView reloadData];
+        [self pushDefaultAssetsGroup:self.defaultGroup];
     }
     else
     {
         [self showNoAssets];
     }
 }
+            
+            
+#pragma mark - Default Assets Group
+
+- (void)pushDefaultAssetsGroup:(ALAssetsGroup *)group
+{
+    if (group)
+    {
+        CTAssetsViewController *vc = [[CTAssetsViewController alloc] init];
+        vc.assetsGroup = group;
+        
+        self.navigationController.viewControllers = @[self, vc];
+    }
+}
+    
 
 
 #pragma mark - Not allowed / No assets
