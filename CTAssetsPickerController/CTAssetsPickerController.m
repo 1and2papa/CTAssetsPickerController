@@ -54,10 +54,11 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
 {
     if (self = [super init])
     {
-        _assetsLibrary      = [self.class defaultAssetsLibrary];
-        _assetsFilter       = [ALAssetsFilter allAssets];
-        _selectedAssets     = [[NSMutableArray alloc] init];
-        _showsCancelButton  = YES;
+        _assetsLibrary          = [self.class defaultAssetsLibrary];
+        _assetsFilter           = [ALAssetsFilter allAssets];
+        _selectedAssets         = [[NSMutableArray alloc] init];
+        _showsCancelButton      = YES;
+        _showsNumberOfAssets    = YES;
 
         self.preferredContentSize = kPopoverContentSize;
         

@@ -55,7 +55,7 @@
     return self;
 }
 
-- (void)bind:(ALAssetsGroup *)assetsGroup
+- (void)bind:(ALAssetsGroup *)assetsGroup showNumberOfAssets:(BOOL)showNumberOfAssets;
 {
     self.assetsGroup            = assetsGroup;
     
@@ -65,8 +65,10 @@
     
     self.imageView.image        = [UIImage imageWithCGImage:posterImage scale:scale orientation:UIImageOrientationUp];
     self.textLabel.text         = [assetsGroup valueForProperty:ALAssetsGroupPropertyName];
-    self.detailTextLabel.text   = [NSString stringWithFormat:@"%ld", (long)assetsGroup.numberOfAssets];
     self.accessoryType          = UITableViewCellAccessoryDisclosureIndicator;
+    
+    if (showNumberOfAssets)
+        self.detailTextLabel.text = [NSString stringWithFormat:@"%ld", (long)assetsGroup.numberOfAssets];
 }
 
 

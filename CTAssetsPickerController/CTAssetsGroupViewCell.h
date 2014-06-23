@@ -32,6 +32,6 @@
 
 @interface CTAssetsGroupViewCell : UITableViewCell
 
-- (void)bind:(ALAssetsGroup *)assetsGroup;
+- (void)bind:(ALAssetsGroup *)assetsGroup showNumberOfAssets:(BOOL)showNumberOfAssets;
 
 @end

@@ -398,7 +398,7 @@
     if (cell == nil)
         cell = [[CTAssetsGroupViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     
-    [cell bind:[self.groups objectAtIndex:indexPath.row]];
+    [cell bind:[self.groups objectAtIndex:indexPath.row] showNumberOfAssets:self.picker.showsNumberOfAssets];
     
     return cell;
 }
