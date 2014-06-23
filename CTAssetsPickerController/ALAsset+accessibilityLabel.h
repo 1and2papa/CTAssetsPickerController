@@ -1,5 +1,5 @@
 /*
- NSDate+timeDescription.h
+ ALAsset+accessibilityLabel.h
  
  The MIT License (MIT)
  
@@ -25,13 +25,14 @@
  
  */
 
-#import <Foundation/Foundation.h>
+#import <AssetsLibrary/AssetsLibrary.h>
 
 
 
-@interface NSDate (timeDescription)
 
-+ (NSString *)timeDescriptionOfTimeInterval:(NSTimeInterval)timeInterva;
-+ (NSDateComponents *)componetsWithTimeInterval:(NSTimeInterval)timeInterval;
+
+@interface ALAsset (accessibilityLabel)
+
+- (NSString *)accessibilityLabel;
 
 @end

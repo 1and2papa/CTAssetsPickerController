@@ -26,7 +26,10 @@
  */
 
 #import "CTAssetsViewCell.h"
-#import "NSDate+timeDescription.h"
+#import "ALAsset+assetType.h"
+#import "ALAsset+accessibilityLabel.h"
+#import "NSDateFormatter+timeIntervalFormatter.h"
+
 
 
 
@@ -34,7 +37,6 @@
 
 @property (nonatomic, strong) ALAsset *asset;
 @property (nonatomic, strong) UIImage *image;
-@property (nonatomic, copy) NSString *type;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, strong) UIImage *videoImage;
 
@@ -81,11 +83,13 @@ static UIColor *disabledColor;
 - (void)bind:(ALAsset *)asset
 {
     self.asset  = asset;
-    self.type   = [asset valueForProperty:ALAssetPropertyType];
     self.image  = (asset.thumbnail == NULL) ? [UIImage imageNamed:@"CTAssetsPickerEmpty"] : [UIImage imageWithCGImage:asset.thumbnail];
     
-    if ([self.type isEqual:ALAssetTypeVideo])
-        self.title = [NSDate timeDescriptionOfTimeInterval:[[asset valueForProperty:ALAssetPropertyDuration] doubleValue]];
+    if ([self.asset isVideo])
+    {
+        NSDateFormatter *df = [[NSDateFormatter alloc] init];
+        self.title = [df stringFromTimeInterval:[[asset valueForProperty:ALAssetPropertyDuration] doubleValue]];
+    }
 }
 
 - (void)setSelected:(BOOL)selected
@@ -103,7 +107,7 @@ static UIColor *disabledColor;
     
     [self drawThumbnailInRect:rect];
     
-    if ([self.type isEqual:ALAssetTypeVideo])
+    if ([self.asset isVideo])
         [self drawVideoMetaInRect:rect];
     
     if (!self.isEnabled)
@@ -178,41 +182,7 @@ static UIColor *disabledColor;
 
 - (NSString *)accessibilityLabel
 {
-    NSMutableArray *labels = [[NSMutableArray alloc] init];
-    
-    [labels addObject:[self typeLabel]];
-    [labels addObject:[self orientationLabel]];
-    [labels addObject:[self dateLabel]];
-    
-    return [labels componentsJoinedByString:@", "];
+    return self.asset.accessibilityLabel;
 }
-
-- (NSString *)typeLabel
-{
-    NSString *type = [self.asset valueForProperty:ALAssetPropertyType];
-    NSString *key  = ([type isEqual:ALAssetTypeVideo]) ? @"Video" : @"Photo";
-    return NSLocalizedString(key, nil);
-}
-
-- (NSString *)orientationLabel
-{
-    CGSize dimension = self.asset.defaultRepresentation.dimensions;
-    NSString *key    = (dimension.height >= dimension.width) ? @"Portrait" : @"Landscape";
-    return NSLocalizedString(key, nil);
-}
-
-- (NSString *)dateLabel
-{
-    NSDate *date = [self.asset valueForProperty:ALAssetPropertyDate];
-    
-    NSDateFormatter *df             = [[NSDateFormatter alloc] init];
-    df.locale                       = [NSLocale currentLocale];
-    df.dateStyle                    = NSDateFormatterMediumStyle;
-    df.timeStyle                    = NSDateFormatterShortStyle;
-    df.doesRelativeDateFormatting   = YES;
-    
-    return [df stringFromDate:date];
-}
-
 
 @end

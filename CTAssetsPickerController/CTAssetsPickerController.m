@@ -28,6 +28,9 @@
 #import "CTAssetsPickerConstants.h"
 #import "CTAssetsPickerController.h"
 #import "CTAssetsGroupViewController.h"
+#import "CTAssetsPageViewController.h"
+#import "CTAssetsViewControllerTransition.h"
+
 
 
 
@@ -35,7 +38,7 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
 
 
 
-@interface CTAssetsPickerController ()
+@interface CTAssetsPickerController () <UINavigationControllerDelegate>
 
 @property (nonatomic, strong) ALAssetsLibrary *assetsLibrary;
 
@@ -49,9 +52,7 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
 
 - (id)init
 {
-    CTAssetsGroupViewController *groupViewController = [[CTAssetsGroupViewController alloc] init];
-    
-    if (self = [super initWithRootViewController:groupViewController])
+    if (self = [super init])
     {
         _assetsLibrary      = [self.class defaultAssetsLibrary];
         _assetsFilter       = [ALAssetsFilter allAssets];
@@ -60,26 +61,61 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
 
         self.preferredContentSize = kPopoverContentSize;
         
+        [self setupNavigationController];
         [self addKeyValueObserver];
     }
     
     return self;
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-}
-
 - (void)dealloc
 {
     [self removeKeyValueObserver];
 }
+
+
+
+#pragma mark - Setup Navigation Controller
+
+- (void)setupNavigationController
+{
+    CTAssetsGroupViewController *vc = [[CTAssetsGroupViewController alloc] init];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    nav.delegate = self;
+    
+    [nav willMoveToParentViewController:self];
+    [nav.view setFrame:self.view.frame];
+    [self.view addSubview:nav.view];
+    [self addChildViewController:nav];
+    [nav didMoveToParentViewController:self];
+}
+
+
+
+#pragma mark - UINavigationControllerDelegate
+
+
+- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
+                                  animationControllerForOperation:(UINavigationControllerOperation)operation
+                                               fromViewController:(UIViewController *)fromVC
+                                                 toViewController:(UIViewController *)toVC
+{
+    if ((operation == UINavigationControllerOperationPush && [toVC isKindOfClass:[CTAssetsPageViewController class]]) ||
+        (operation == UINavigationControllerOperationPop && [fromVC isKindOfClass:[CTAssetsPageViewController class]]))
+    {
+        CTAssetsViewControllerTransition *transition = [[CTAssetsViewControllerTransition alloc] init];
+        transition.operation = operation;
+        
+        return transition;
+    }
+    else
+    {
+        return nil;
+    }
+}
+
+
+
 
 
 #pragma mark - ALAssetsLibrary
@@ -128,7 +164,9 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
 
 - (void)toggleDoneButton
 {
-    for (UIViewController *viewController in self.viewControllers)
+    UINavigationController *nav = (UINavigationController *)self.childViewControllers[0];
+    
+    for (UIViewController *viewController in nav.viewControllers)
         viewController.navigationItem.rightBarButtonItem.enabled = (self.selectedAssets.count > 0);
 }
 
