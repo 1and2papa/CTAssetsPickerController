@@ -28,6 +28,7 @@
  
 
 #import "CTAssetsPickerController.h"
+#import "CTAssetsPageViewController.h"
 #import "CTMasterViewController.h"
 
 
@@ -136,8 +137,17 @@
     cell.textLabel.text = [self.dateFormatter stringFromDate:[asset valueForProperty:ALAssetPropertyDate]];
     cell.detailTextLabel.text = [asset valueForProperty:ALAssetPropertyType];
     cell.imageView.image = [UIImage imageWithCGImage:asset.thumbnail];
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CTAssetsPageViewController *vc = [[CTAssetsPageViewController alloc] initWithAssets:self.assets];
+    vc.pageIndex = indexPath.row;
+    
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 

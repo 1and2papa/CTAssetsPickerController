@@ -45,6 +45,9 @@
 
 /**
  *  Set the `ALAssetsFilter` to filter the picker contents.
+ *
+ *  @see [- assetsPickerController:shouldShowAsset:]([CTAssetsPickerControllerDelegate assetsPickerController:shouldShowAsset:])
+ *  @see [- assetsPickerController:shouldEnableAsset:]([CTAssetsPickerControllerDelegate assetsPickerController:shouldEnableAsset:])
  */
 @property (nonatomic, strong) ALAssetsFilter *assetsFilter;
 
@@ -82,6 +85,8 @@
  *  Selects an asset in the picker.
  *
  *  @param asset The asset to be selected.
+ *
+ *  @see deselectAsset:
  */
 - (void)selectAsset:(ALAsset *)asset;
 
@@ -89,6 +94,8 @@
  *  Deselects an asset in the picker.
  *
  *  @param asset The asset to be deselected.
+ *
+ *  @see selectAsset:
  */
 - (void)deselectAsset:(ALAsset *)asset;
 
@@ -120,6 +127,8 @@
  *
  *  @param picker The controller object managing the assets picker interface.
  *  @param assets An array containing picked `ALAsset` objects.
+ *
+ *  @see assetsPickerControllerDidCancel:
  */
 - (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets;
 
@@ -129,6 +138,8 @@
  *  Tells the delegate that the user cancelled the pick operation.
  *
  *  @param picker The controller object managing the assets picker interface.
+ *
+ *  @see assetsPickerController:didFinishPickingAssets:
  */
 - (void)assetsPickerControllerDidCancel:(CTAssetsPickerController *)picker;
 
@@ -177,6 +188,9 @@
  *  @param asset  The asset to be shown.
  *
  *  @return `YES` if the asset should be shown or `NO` if it should not.
+ *
+ *  @see [assetsFilter]([CTAssetsPickerController assetsFilter])
+ *  @see assetsPickerController:shouldEnableAsset:
  */
 - (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldShowAsset:(ALAsset *)asset;
 
@@ -187,6 +201,9 @@
  *  @param asset  The asset to be enabled.
  *
  *  @return `YES` if the asset should be enabled or `NO` if it should not.
+ *
+ *  @see [assetsFilter]([CTAssetsPickerController assetsFilter])
+ *  @see assetsPickerController:shouldShowAsset:
  */
 - (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldEnableAsset:(ALAsset *)asset;
 
@@ -202,6 +219,8 @@
  *  @param asset  The asset to be selected.
  *
  *  @return `YES` if the asset should be selected or `NO` if it should not.
+ *
+ *  @see assetsPickerController:shouldDeselectAsset:
  */
 - (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldSelectAsset:(ALAsset *)asset;
 
@@ -210,6 +229,8 @@
  *
  *  @param picker    The controller object managing the assets picker interface.
  *  @param indexPath The asset that was selected.
+ *
+ *  @see assetsPickerController:didDeselectAsset:
  */
 - (void)assetsPickerController:(CTAssetsPickerController *)picker didSelectAsset:(ALAsset *)asset;
 
@@ -220,6 +241,8 @@
  *  @param asset  The asset to be deselected.
  *
  *  @return `YES` if the asset should be deselected or `NO` if it should not.
+ *
+ *  @see assetsPickerController:shouldSelectAsset:
  */
 - (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldDeselectAsset:(ALAsset *)asset;
 
@@ -228,6 +251,8 @@
  *
  *  @param picker    The controller object managing the assets picker interface.
  *  @param indexPath The asset that was deselected.
+ *
+ *  @see assetsPickerController:didSelectAsset:
  */
 - (void)assetsPickerController:(CTAssetsPickerController *)picker didDeselectAsset:(ALAsset *)asset;
 
@@ -252,6 +277,8 @@
  *
  *  @param picker    The controller object managing the assets picker interface.
  *  @param indexPath The asset that was highlighted.
+ *
+ *  @see assetsPickerController:didUnhighlightAsset:
  */
 - (void)assetsPickerController:(CTAssetsPickerController *)picker didHighlightAsset:(ALAsset *)asset;
 
@@ -261,6 +288,8 @@
  *
  *  @param picker    The controller object managing the assets picker interface.
  *  @param indexPath The asset that had its highlight removed.
+ *
+ *  @see assetsPickerController:didHighlightAsset:
  */
 - (void)assetsPickerController:(CTAssetsPickerController *)picker didUnhighlightAsset:(ALAsset *)asset;
 
