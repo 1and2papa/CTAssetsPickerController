@@ -1,3 +1,14 @@
+### v2.3.0
+* [#29](https://github.com/chiunam/CTAssetsPickerController/issues/29) Add "hold to preview" feature (Finally!)
+* [#32](https://github.com/chiunam/CTAssetsPickerController/issues/32) Fix showing "No photos" view issue even there are photos in album
+* [#35](https://github.com/chiunam/CTAssetsPickerController/issues/35) Fix showing supplementary view issue when there are no assets in the album
+* [#38](https://github.com/chiunam/CTAssetsPickerController/issues/38) Add shouldShowAsset delegate method 
+* [#39](https://github.com/chiunam/CTAssetsPickerController/issues/39) Add showsNumberOfAssets property
+* [#40](https://github.com/chiunam/CTAssetsPickerController/issues/40) Change the picker to a container view controller rather than a navigation controller.
+* [#41](https://github.com/chiunam/CTAssetsPickerController/issues/41) Add "show default content" feature
+* Make assets group cell to opaque to increase scrolling performance
+* Add accessibility label to the auxiliary view
+
 ### v2.2.2
 * Fix issue of removing notifications from the same thread
 
