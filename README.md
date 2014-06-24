@@ -4,14 +4,14 @@ CTAssetsPickerController v2 released! It has newly re-design delegate methods, f
 
 ## Introduction
 
-CTAssetsPickerController is an iOS controller that allows picking multiple photos and videos from user's photo library. The usage and look-and-feel are just similar to UIImagePickerController. It uses **ARC** and requires **AssetsLibrary** framework.
+CTAssetsPickerController is an iOS controller that allows picking multiple photos and videos from user's photo library. The usage and look-and-feel are just similar to UIImagePickerController. It uses **ARC**. Requires **AssetsLibrary** and **MediaPlayer** frameworks.
 
 ![Screenshot](Screenshot.png "Screenshot")
 
 ## Features
 1. Picks multiple photos and videos across albums from user's library.
 2. Filters assets for picking only photos or videos.
-3. Provides delegate methods for customization.
+3. Filters assets or albums by their properties.
 4. Achieves average 5x fps.
 5. Conforms UIAccessibility Protocol.
 
@@ -33,7 +33,7 @@ Xcode 5 and iOS 7.
 ````bash
 $ edit Podfile
 platform :ios, '7.0'
-pod 'CTAssetsPickerController',  '~> 2.2.0'
+pod 'CTAssetsPickerController',  '~> 2.3.0'
 $ pod install
 ````
 * Use the Xcode workspace instead of the project.
@@ -44,7 +44,7 @@ $ pod install
 $ git submodule add http://github.com/chiunam/CTAssetsPickerController
 ````
 1. Drag `CTAssetsPickerController` folder in your project and add to your targets.
-2. Add `AssetsLibrary.framework`.
+2. Add `AssetsLibrary.framework` and `MediaPlayer.framework`.
 
 ## Simple Uses
 
@@ -73,7 +73,7 @@ The delegate methods are responsible for dismissing the picker when the operatio
 // assets contains ALAsset objects.
 ````
 
-## Advanced Uses
+## Customization
 
 Customization can be done by setting properties or implementating delegate methods. This section describes common customizations. Please refer to the [documentation](#documentation) for the complete list of properties and delegate methods.
 
@@ -81,7 +81,7 @@ Customization can be done by setting properties or implementating delegate metho
 
 **Filter picker contents**
 
-Pick only photos or videos by creating an `ALAssetsFilter` and assigning it to `assetsFilter`.
+Pick only photos or videos by creating an `ALAssetsFilter` and assigning it to `assetsFilter`. If you need filtering by assets' properties, implement `shouldShowAsset` [delegate method](#delegate-methods).
 ```` objective-c
 picker.assetsFilter = [ALAssetsFilter allPhotos]; // Only pick photos.
 ````
@@ -91,6 +91,13 @@ picker.assetsFilter = [ALAssetsFilter allPhotos]; // Only pick photos.
 Hide cancel button if you present the picker in `UIPopoverController`.
 ```` objective-c
 picker.showsCancelButton = NO;
+````
+
+**Hide number of assets**
+
+Hide number of assets if you implement `shouldShowAsset` delegate method.
+```` objective-c
+picker.showsNumberOfAssets = NO;
 ````
 
 **Override picker's title**
@@ -120,6 +127,17 @@ Limit the number of assets to be picked.
 }
 ````
 
+**Hide assets**
+
+Show only certain assets.
+```` objective-c
+- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldShowAsset:(ALAsset *)asset
+{
+    // Show only assets with 640px width
+    return (asset.defaultRepresentation.dimensions.width == 640);
+}
+````
+
 **Disable assets**
 
 Enable only certain assets to be selected.
@@ -139,6 +157,18 @@ Enable only certain assets to be selected.
     }
 }
 ````
+
+**Default album**
+
+You can show an album content (e.g. Camera Roll) initially instead of a list of albums by the following delegate.
+```` objective-c
+- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker isDefaultAssetsGroup:(ALAssetsGroup *)group
+{
+    // Set Camera Roll as default album and it will be shown initially.
+    return ([[group valueForProperty:ALAssetsGroupPropertyType] integerValue] == ALAssetsGroupSavedPhotos);    
+}
+````
+
 
 **Hide albums**
 
@@ -179,6 +209,17 @@ Or show an alert when user try to select empty assets
 ### Notifications
 
 An `NSNotification` object named `CTAssetsPickerSelectedAssetsChangedNotification` will be sent when user select or deselect assets. You may add your observer to monitor the change of selection.
+
+## Bonus
+
+To view selected assets, you may reuse the preview feature of the picker. Just init a `CTAssetsPageViewController` with an array of assets of assign `pageIndex`. Please refer to the demo app.
+
+```` objective-c
+    CTAssetsPageViewController *vc = [[CTAssetsPageViewController alloc] initWithAssets:self.assets];
+    vc.pageIndex = indexPath.row;
+    
+    [self.navigationController pushViewController:vc animated:YES];
+````    
 
 
 ## Documentation
