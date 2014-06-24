@@ -10,10 +10,11 @@ CTAssetsPickerController is an iOS controller that allows picking multiple photo
 
 ## Features
 1. Picks multiple photos and videos across albums from user's library.
-2. Filters assets for picking only photos or videos.
-3. Filters assets or albums by their properties.
-4. Achieves average 5x fps.
-5. Conforms UIAccessibility Protocol.
+2. Previews assets by long-press gesture.
+3. Filters assets for picking only photos or videos.
+4. Filters assets or albums by their properties.
+5. Achieves average 5x fps.
+6. Conforms UIAccessibility Protocol.
 
 
 ## What's new
@@ -214,11 +215,11 @@ An `NSNotification` object named `CTAssetsPickerSelectedAssetsChangedNotificatio
 You may reuse the preview feature of the picker to view any assets. Just init a `CTAssetsPageViewController` with an array of assets and assign `pageIndex` property. Please refer to the demo app.
 
 ```` objective-c
-    NSArray *assets = @[asset1, asset2, asset3, ...];
-    CTAssetsPageViewController *vc = [[CTAssetsPageViewController alloc] initWithAssets:assets];
-    vc.pageIndex = assets.count - 1; // display the last asset 
-    
-    [self.navigationController pushViewController:vc animated:YES];
+NSArray *assets = @[asset1, asset2, asset3, ...];
+CTAssetsPageViewController *vc = [[CTAssetsPageViewController alloc] initWithAssets:assets];
+vc.pageIndex = assets.count - 1; // display the last asset 
+
+[self.navigationController pushViewController:vc animated:YES];
 ````    
 
 
@@ -233,37 +234,36 @@ CTAssetsPickerController does not compress the picked photos and videos. You can
 For example, you can create `UIImage` from picked assets like this:-
 
 ```` objective-c
-    ALAssetRepresentation *representation = alAsset.defaultRepresentation;
+ALAssetRepresentation *representation = alAsset.defaultRepresentation;
 
-    UIImage *fullResolutionImage =
-    [UIImage imageWithCGImage:representation.fullResolutionImage
-                        scale:1.0f
-                  orientation:(UIImageOrientation)representation.orientation];
+UIImage *fullResolutionImage =
+[UIImage imageWithCGImage:representation.fullResolutionImage
+					scale:1.0f
+			  orientation:(UIImageOrientation)representation.orientation];
 ````
 
 and create `NSData` of picked vidoes:-
 
 ```` objective-c
-    ALAssetRepresentation *representation = alAsset.defaultRepresentation;
+ALAssetRepresentation *representation = alAsset.defaultRepresentation;
 
-    NSURL *url          = representation.url;
-    AVAsset *asset      = [AVURLAsset URLAssetWithURL:url options:nil];
+NSURL *url          = representation.url;
+AVAsset *asset      = [AVURLAsset URLAssetWithURL:url options:nil];
 
-    AVAssetExportSession *session =
-    [AVAssetExportSession exportSessionWithAsset:asset presetName:AVAssetExportPresetLowQuality];
+AVAssetExportSession *session =
+[AVAssetExportSession exportSessionWithAsset:asset presetName:AVAssetExportPresetLowQuality];
 
-    session.outputFileType  = AVFileTypeQuickTimeMovie;
-    session.outputURL       = VIDEO_EXPORTING_URL;
+session.outputFileType  = AVFileTypeQuickTimeMovie;
+session.outputURL       = VIDEO_EXPORTING_URL;
 
-    [session exportAsynchronouslyWithCompletionHandler:^{
+[session exportAsynchronouslyWithCompletionHandler:^{
 
-        if (session.status == AVAssetExportSessionStatusCompleted)
-        {
-            NSData *data    = [NSData dataWithContentsOfURL:session.outputURL];
-        }
+	if (session.status == AVAssetExportSessionStatusCompleted)
+	{
+		NSData *data    = [NSData dataWithContentsOfURL:session.outputURL];
+	}
 
-    }];
-
+}];
 ````
 Please refer the documentation of `ALAssetRepresentation` and `AVAssetExportSession`.
 
