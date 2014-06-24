@@ -66,7 +66,7 @@ picker.delegate = self;
 
 ### Implement didFinishPickingAssets delegate
 
-The delegate methods are responsible for dismissing the picker when the operation completes. To dismiss the picker, call the [dismissViewControllerAnimated:completion:](https://developer.apple.com/library/ios/documentation/uikit/reference/UIViewController_Class/Reference/Reference.html#//apple_ref/occ/instm/UIViewController/dismissViewControllerAnimated:completion:) method of the presenting controller responsible for displaying `CTAssetsPickerController` object. Please refer to the demo app.
+The delegate is responsible for dismissing the picker when the operation completes. To dismiss the picker, call the [dismissViewControllerAnimated:completion:](https://developer.apple.com/library/ios/documentation/uikit/reference/UIViewController_Class/Reference/Reference.html#//apple_ref/occ/instm/UIViewController/dismissViewControllerAnimated:completion:) method of the presenting controller responsible for displaying `CTAssetsPickerController` object. Please refer to the demo app.
 
 ```` objective-c
 - (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets;
@@ -160,7 +160,7 @@ Enable only certain assets to be selected.
 
 **Default album**
 
-You can show an album content (e.g. Camera Roll) initially instead of a list of albums by the following delegate.
+You can show an album content (e.g. Camera Roll) initially instead of a list of albums by implementing the following delegate method. The default album must not returns `NO` in `shouldShowAssetsGroup`. 
 ```` objective-c
 - (BOOL)assetsPickerController:(CTAssetsPickerController *)picker isDefaultAssetsGroup:(ALAssetsGroup *)group
 {
@@ -172,19 +172,18 @@ You can show an album content (e.g. Camera Roll) initially instead of a list of 
 
 **Hide albums**
 
-Assets stored on iCloud (photo stream) may not be displayed and picked properly if they have not downloaded to the device. You may hide iCloud albums by implementing the following delegate.
+The picker shows all albums by default, including empty albums, iCloud albums and those synced with iTunes. You may hide albums by implementing the following delegate method.
 ```` objective-c
 - (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldShowAssetsGroup:(ALAssetsGroup *)group
 {
-    // Do not show photo stream
-    NSInteger type = [[group valueForProperty:ALAssetsGroupPropertyType] integerValue];
-    return (type != ALAssetsGroupPhotoStream);
+    // Do not show empty albums
+    return group.numberOfAssets > 0;
 }
 ````
 
 **Show alert on selection**
 
-Or show an alert when user try to select empty assets
+Assets stored on iCloud may not be displayed and picked properly if they have not downloaded to the device. You can show an alert when user try to select empty assets
 
 ```` objective-c
 - (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldSelectAsset:(ALAsset *)asset
@@ -212,11 +211,12 @@ An `NSNotification` object named `CTAssetsPickerSelectedAssetsChangedNotificatio
 
 ## Bonus
 
-To view selected assets, you may reuse the preview feature of the picker. Just init a `CTAssetsPageViewController` with an array of assets of assign `pageIndex`. Please refer to the demo app.
+You may reuse the preview feature of the picker to view any assets. Just init a `CTAssetsPageViewController` with an array of assets and assign `pageIndex` property. Please refer to the demo app.
 
 ```` objective-c
-    CTAssetsPageViewController *vc = [[CTAssetsPageViewController alloc] initWithAssets:self.assets];
-    vc.pageIndex = indexPath.row;
+    NSArray *assets = @[asset1, asset2, asset3, ...];
+    CTAssetsPageViewController *vc = [[CTAssetsPageViewController alloc] initWithAssets:assets];
+    vc.pageIndex = assets.count - 1; // display the last asset 
     
     [self.navigationController pushViewController:vc animated:YES];
 ````    
