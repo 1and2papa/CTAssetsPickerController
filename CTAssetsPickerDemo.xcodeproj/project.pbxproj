@@ -30,6 +30,7 @@
 		AD58799618E5543500B5773D /* ALAssetsGroup+isEqual.m in Sources */ = {isa = PBXBuildFile; fileRef = AD58799518E5543500B5773D /* ALAssetsGroup+isEqual.m */; };
 		AD58799D18E565AF00B5773D /* CTAssetsPickerConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = AD58799C18E565AF00B5773D /* CTAssetsPickerConstants.m */; };
 		AD5C307C193EF4CE00D31C45 /* CTAssetsViewControllerTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = AD5C307B193EF4CE00D31C45 /* CTAssetsViewControllerTransition.m */; };
+		AD7D990F1978FE17002A2E4C /* CTAssetsPicker.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD7D990E1978FE17002A2E4C /* CTAssetsPicker.xcassets */; };
 		ADBCACD718FF88FA002494D2 /* CTAssetsPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADBCACD618FF88FA002494D2 /* CTAssetsPageViewController.m */; };
 		ADDEA34B192F4A540049D6A7 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADDEA34A192F4A540049D6A7 /* MediaPlayer.framework */; };
 		ADDEA34E192F4C590049D6A7 /* CTAssetItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDEA34D192F4C590049D6A7 /* CTAssetItemViewController.m */; };
@@ -47,7 +48,6 @@
 		ADE31DC217EFF159008958B8 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADE31DC117EFF159008958B8 /* AssetsLibrary.framework */; };
 		ADE31DDA17F12FB4008958B8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = ADE31DDC17F12FB4008958B8 /* Localizable.strings */; };
 		ADF20BD617F2737400E97692 /* CTAssetsPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADF20BD217F2737300E97692 /* CTAssetsPickerController.m */; };
-		ADF20BD717F2737400E97692 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADF20BD317F2737400E97692 /* Images.xcassets */; };
 		ADFDE19C19357D38004752B5 /* ALAsset+accessibilityLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = ADFDE19B19357D38004752B5 /* ALAsset+accessibilityLabel.m */; };
 		ADFDE1A21935857F004752B5 /* NSDateFormatter+timeIntervalFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = ADFDE1A11935857F004752B5 /* NSDateFormatter+timeIntervalFormatter.m */; };
 /* End PBXBuildFile section */
@@ -71,6 +71,7 @@
 		AD58799C18E565AF00B5773D /* CTAssetsPickerConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetsPickerConstants.m; sourceTree = "<group>"; };
 		AD5C307A193EF4CE00D31C45 /* CTAssetsViewControllerTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsViewControllerTransition.h; sourceTree = "<group>"; };
 		AD5C307B193EF4CE00D31C45 /* CTAssetsViewControllerTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetsViewControllerTransition.m; sourceTree = "<group>"; };
+		AD7D990E1978FE17002A2E4C /* CTAssetsPicker.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CTAssetsPicker.xcassets; sourceTree = "<group>"; };
 		ADBCACD518FF88FA002494D2 /* CTAssetsPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsPageViewController.h; sourceTree = "<group>"; };
 		ADBCACD618FF88FA002494D2 /* CTAssetsPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetsPageViewController.m; sourceTree = "<group>"; };
 		ADDEA34A192F4A540049D6A7 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
@@ -99,7 +100,6 @@
 		ADE31DDF17F13084008958B8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		ADF20BD117F2737300E97692 /* CTAssetsPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CTAssetsPickerController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		ADF20BD217F2737300E97692 /* CTAssetsPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CTAssetsPickerController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		ADF20BD317F2737400E97692 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		ADFDE19A19357D38004752B5 /* ALAsset+accessibilityLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAsset+accessibilityLabel.h"; sourceTree = "<group>"; };
 		ADFDE19B19357D38004752B5 /* ALAsset+accessibilityLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAsset+accessibilityLabel.m"; sourceTree = "<group>"; };
 		ADFDE1A01935857F004752B5 /* NSDateFormatter+timeIntervalFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+timeIntervalFormatter.h"; sourceTree = "<group>"; };
@@ -221,7 +221,7 @@
 				AD58799B18E565AF00B5773D /* CTAssetsPickerConstants.h */,
 				AD58799C18E565AF00B5773D /* CTAssetsPickerConstants.m */,
 				AD58799A18E5556700B5773D /* Categories */,
-				ADF20BD317F2737400E97692 /* Images.xcassets */,
+				AD7D990E1978FE17002A2E4C /* CTAssetsPicker.xcassets */,
 			);
 			path = CTAssetsPickerController;
 			sourceTree = "<group>";
@@ -282,8 +282,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				ADE31DDA17F12FB4008958B8 /* Localizable.strings in Resources */,
+				AD7D990F1978FE17002A2E4C /* CTAssetsPicker.xcassets in Resources */,
 				ADE31DA517EFF08C008958B8 /* Images.xcassets in Resources */,
-				ADF20BD717F2737400E97692 /* Images.xcassets in Resources */,
 				ADE31D9417EFF08C008958B8 /* InfoPlist.strings in Resources */,
 				ADE31D9D17EFF08C008958B8 /* Main.storyboard in Resources */,
 			);
