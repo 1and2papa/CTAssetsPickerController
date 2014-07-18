@@ -1,3 +1,7 @@
+### v2.3.1
+* [#29](https://github.com/chiunam/CTAssetsPickerController/issues/42) #42 Fix errors of building in Xcode 6 beta
+* Rename asset catalog to a more explicit one
+
 ### v2.3.0
 * [#29](https://github.com/chiunam/CTAssetsPickerController/issues/29) Add "hold to preview" feature (Finally!)
 * [#32](https://github.com/chiunam/CTAssetsPickerController/issues/32) Fix showing "No photos" view issue even there are photos in album
