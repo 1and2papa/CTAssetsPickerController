@@ -206,6 +206,20 @@ Assets stored on iCloud may not be displayed and picked properly if they have no
 }
 ````
 
+### Apperance
+
+The first child view controller of the picker is a `UINavigationController`. You can access the navigation controller via the property `navigationContoller` and then customise its apperance.
+
+```` objective-c
+// Set navigation bar's tint color
+picker.navigationController.navigationBar.tintColor = ...
+
+// Set navigation bar's title attributes
+picker.navigationController.navigationBar.titleTextAttributes = ...
+
+````
+
+
 ### Notifications
 
 An `NSNotification` object named `CTAssetsPickerSelectedAssetsChangedNotification` will be sent when user select or deselect assets. You may add your observer to monitor the change of selection.
