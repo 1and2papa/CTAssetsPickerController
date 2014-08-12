@@ -181,6 +181,14 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
 }
 
 
+#pragma mark - Accessors
+
+- (UINavigationController *)navigationController
+{
+    return (UINavigationController *)self.childViewControllers.firstObject;
+}
+
+
 #pragma mark - Indexed Accessors
 
 - (NSUInteger)countOfSelectedAssets

@@ -76,6 +76,13 @@
  */
 @property (nonatomic, assign) BOOL showsNumberOfAssets;
 
+/**
+ *  The navigation controller of the picker hierarchy. (read-only)
+ *
+ *  This property contains the child navigation controller of the picker.
+ */
+@property (nonatomic, readonly, strong) UINavigationController *navigationController;
+
 
 /**
  *  @name Managing Selections
