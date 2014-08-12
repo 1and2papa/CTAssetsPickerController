@@ -1,5 +1,8 @@
+### v2.4.0
+* [#46](https://github.com/chiunam/CTAssetsPickerController/issues/46) #46 Add navigationController property
+
 ### v2.3.1
-* [#29](https://github.com/chiunam/CTAssetsPickerController/issues/42) #42 Fix errors of building in Xcode 6 beta
+* [#42](https://github.com/chiunam/CTAssetsPickerController/issues/42) #42 Fix errors of building in Xcode 6 beta
 * Rename asset catalog to a more explicit one
 
 ### v2.3.0
