@@ -35,8 +35,6 @@
 
 @interface CTAssetsPickerController ()
 
-@property (nonatomic, strong) ALAssetsLibrary *assetsLibrary;
-
 - (void)dismiss:(id)sender;
 - (void)finishPickingAssets:(id)sender;
 
