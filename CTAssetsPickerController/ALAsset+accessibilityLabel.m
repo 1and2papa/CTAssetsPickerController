@@ -54,8 +54,11 @@
 
 - (NSString *)typeAccessibilityLabel
 {
-    NSString *key  = ([self isVideo]) ? @"Video" : @"Photo";
-    return NSLocalizedString(key, nil);
+    if ([self isVideo]) {
+        return NSLocalizedString(@"Video", nil);
+    }
+
+    return NSLocalizedString(@"Photo", nil);
 }
 
 - (NSString *)durationAccessibilityLabel
@@ -68,8 +71,10 @@
 - (NSString *)orientationAccessibilityLabel
 {
     CGSize dimension = self.defaultRepresentation.dimensions;
-    NSString *key    = (dimension.height >= dimension.width) ? @"Portrait" : @"Landscape";
-    return NSLocalizedString(key, nil);
+    if (dimension.height >= dimension.width) {
+        return NSLocalizedString(@"Portrait", nil);
+    }
+    return NSLocalizedString(@"Landscape", nil);
 }
 
 - (NSString *)dateAccessibilityLabel
