@@ -36,30 +36,21 @@
 
 NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPickerSelectedAssetsChangedNotification";
 
-
-
 @interface CTAssetsPickerController () <UINavigationControllerDelegate>
-
-@property (nonatomic, strong) ALAssetsLibrary *assetsLibrary;
-
 @end
-
-
-
-
 
 @implementation CTAssetsPickerController
 
-- (id)init
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    if (self = [super init])
+    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])
     {
         _assetsLibrary          = [self.class defaultAssetsLibrary];
         _assetsFilter           = [ALAssetsFilter allAssets];
         _selectedAssets         = [[NSMutableArray alloc] init];
         _showsCancelButton      = YES;
         _showsNumberOfAssets    = YES;
-
+        
         self.preferredContentSize = kPopoverContentSize;
         
         [self setupNavigationController];
@@ -74,7 +65,14 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
     [self removeKeyValueObserver];
 }
 
-
+//Lazy load assetsLibrary. User will be able to set his custom assetsLibrary
+- (ALAssetsLibrary *)assetsLibrary
+{
+    if (nil == _assetsLibrary) {
+        _assetsLibrary = [self.class defaultAssetsLibrary];
+    }
+    return _assetsLibrary;
+}
 
 #pragma mark - Setup Navigation Controller
 

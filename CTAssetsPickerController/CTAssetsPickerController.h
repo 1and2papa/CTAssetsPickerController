@@ -44,6 +44,12 @@
 @property (nonatomic, weak) id <CTAssetsPickerControllerDelegate> delegate;
 
 /**
+ *  The assetsLibrary
+ *
+ */
+@property (nonatomic, strong) ALAssetsLibrary *assetsLibrary;
+
+/**
  *  Set the `ALAssetsFilter` to filter the picker contents.
  *
  *  @see [- assetsPickerController:shouldShowAsset:]([CTAssetsPickerControllerDelegate assetsPickerController:shouldShowAsset:])
