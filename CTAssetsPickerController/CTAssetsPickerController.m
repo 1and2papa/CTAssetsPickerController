@@ -65,14 +65,7 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
     [self removeKeyValueObserver];
 }
 
-//Lazy load assetsLibrary. User will be able to set his custom assetsLibrary
-- (ALAssetsLibrary *)assetsLibrary
-{
-    if (nil == _assetsLibrary) {
-        _assetsLibrary = [self.class defaultAssetsLibrary];
-    }
-    return _assetsLibrary;
-}
+
 
 #pragma mark - Setup Navigation Controller
 
@@ -115,8 +108,6 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
 
 
 
-
-
 #pragma mark - ALAssetsLibrary
 
 + (ALAssetsLibrary *)defaultAssetsLibrary
@@ -129,6 +120,18 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
                   });
     return library;
 }
+
+//Lazy load assetsLibrary. User will be able to set his custom assetsLibrary
+- (ALAssetsLibrary *)assetsLibrary
+{
+    if (nil == _assetsLibrary)
+    {
+        _assetsLibrary = [self.class defaultAssetsLibrary];
+    }
+    
+    return _assetsLibrary;
+}
+
 
 
 #pragma mark - Key-Value Observers

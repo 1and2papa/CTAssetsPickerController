@@ -71,9 +71,11 @@
 - (NSString *)orientationAccessibilityLabel
 {
     CGSize dimension = self.defaultRepresentation.dimensions;
+    
     if (dimension.height >= dimension.width) {
         return NSLocalizedString(@"Portrait", nil);
     }
+    
     return NSLocalizedString(@"Landscape", nil);
 }
 

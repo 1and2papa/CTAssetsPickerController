@@ -44,8 +44,9 @@
 @property (nonatomic, weak) id <CTAssetsPickerControllerDelegate> delegate;
 
 /**
- *  The assetsLibrary
+ *  The assetsLibrary.
  *
+ *  You can set your own custom assetsLibrary of the picker.
  */
 @property (nonatomic, strong) ALAssetsLibrary *assetsLibrary;
 
