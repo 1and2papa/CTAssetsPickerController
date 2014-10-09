@@ -28,7 +28,6 @@
 		AD58799018E5535400B5773D /* CTAssetsSupplementaryView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD58798F18E5535400B5773D /* CTAssetsSupplementaryView.m */; };
 		AD58799318E553FF00B5773D /* ALAsset+isEqual.m in Sources */ = {isa = PBXBuildFile; fileRef = AD58799218E553FF00B5773D /* ALAsset+isEqual.m */; };
 		AD58799618E5543500B5773D /* ALAssetsGroup+isEqual.m in Sources */ = {isa = PBXBuildFile; fileRef = AD58799518E5543500B5773D /* ALAssetsGroup+isEqual.m */; };
-		AD58799D18E565AF00B5773D /* CTAssetsPickerConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = AD58799C18E565AF00B5773D /* CTAssetsPickerConstants.m */; };
 		AD5C307C193EF4CE00D31C45 /* CTAssetsViewControllerTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = AD5C307B193EF4CE00D31C45 /* CTAssetsViewControllerTransition.m */; };
 		AD7D990F1978FE17002A2E4C /* CTAssetsPicker.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD7D990E1978FE17002A2E4C /* CTAssetsPicker.xcassets */; };
 		ADBCACD718FF88FA002494D2 /* CTAssetsPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADBCACD618FF88FA002494D2 /* CTAssetsPageViewController.m */; };
@@ -53,6 +52,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AD309FC619E67B7500BFCE8B /* CTAssetsPickerCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsPickerCommon.h; sourceTree = "<group>"; };
 		AD58798218E54F0C00B5773D /* CTAssetsGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsGroupViewController.h; sourceTree = "<group>"; };
 		AD58798318E54F0C00B5773D /* CTAssetsGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetsGroupViewController.m; sourceTree = "<group>"; };
 		AD58798518E550B000B5773D /* CTAssetsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsViewController.h; sourceTree = "<group>"; };
@@ -67,8 +67,6 @@
 		AD58799218E553FF00B5773D /* ALAsset+isEqual.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAsset+isEqual.m"; sourceTree = "<group>"; };
 		AD58799418E5543500B5773D /* ALAssetsGroup+isEqual.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAssetsGroup+isEqual.h"; sourceTree = "<group>"; };
 		AD58799518E5543500B5773D /* ALAssetsGroup+isEqual.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAssetsGroup+isEqual.m"; sourceTree = "<group>"; };
-		AD58799B18E565AF00B5773D /* CTAssetsPickerConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsPickerConstants.h; sourceTree = "<group>"; };
-		AD58799C18E565AF00B5773D /* CTAssetsPickerConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetsPickerConstants.m; sourceTree = "<group>"; };
 		AD5C307A193EF4CE00D31C45 /* CTAssetsViewControllerTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsViewControllerTransition.h; sourceTree = "<group>"; };
 		AD5C307B193EF4CE00D31C45 /* CTAssetsViewControllerTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetsViewControllerTransition.m; sourceTree = "<group>"; };
 		AD7D990E1978FE17002A2E4C /* CTAssetsPicker.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CTAssetsPicker.xcassets; sourceTree = "<group>"; };
@@ -218,8 +216,7 @@
 				ADDEA350192F4CB40049D6A7 /* CTAssetScrollView.m */,
 				AD5C307A193EF4CE00D31C45 /* CTAssetsViewControllerTransition.h */,
 				AD5C307B193EF4CE00D31C45 /* CTAssetsViewControllerTransition.m */,
-				AD58799B18E565AF00B5773D /* CTAssetsPickerConstants.h */,
-				AD58799C18E565AF00B5773D /* CTAssetsPickerConstants.m */,
+				AD309FC619E67B7500BFCE8B /* CTAssetsPickerCommon.h */,
 				AD58799A18E5556700B5773D /* Categories */,
 				AD7D990E1978FE17002A2E4C /* CTAssetsPicker.xcassets */,
 			);
@@ -316,7 +313,6 @@
 				AD58798418E54F0C00B5773D /* CTAssetsGroupViewController.m in Sources */,
 				ADE31D9617EFF08C008958B8 /* main.m in Sources */,
 				AD58799318E553FF00B5773D /* ALAsset+isEqual.m in Sources */,
-				AD58799D18E565AF00B5773D /* CTAssetsPickerConstants.m in Sources */,
 				AD58798D18E552D700B5773D /* CTAssetsViewCell.m in Sources */,
 				AD58798718E550B000B5773D /* CTAssetsViewController.m in Sources */,
 				AD58799018E5535400B5773D /* CTAssetsSupplementaryView.m in Sources */,

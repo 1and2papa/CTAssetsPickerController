@@ -25,7 +25,7 @@
  
  */
 
-#import "CTAssetsPickerConstants.h"
+#import "CTAssetsPickerCommon.h"
 #import "CTAssetsPickerController.h"
 #import "CTAssetsGroupViewController.h"
 #import "CTAssetsPageViewController.h"
@@ -51,7 +51,7 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
         _showsCancelButton      = YES;
         _showsNumberOfAssets    = YES;
         
-        self.preferredContentSize = kPopoverContentSize;
+        self.preferredContentSize = CTAssetPickerPopoverContentSize;
         
         [self setupNavigationController];
         [self addKeyValueObserver];
@@ -245,7 +245,12 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
 
 - (UIImageView *)padlockImageView
 {
-    UIImageView *padlock = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CTAssetsPickerLocked"]];
+    UIImage *file        = [UIImage imageNamed:@"CTAssetsPickerLocked"];
+    UIImage *image       = [file imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    
+    UIImageView *padlock = [[UIImageView alloc] initWithImage:image];
+    padlock.tintColor    = [UIColor colorWithRed:129.0/255.0 green:136.0/255.0 blue:148.0/255.0 alpha:1];
+    
     padlock.translatesAutoresizingMaskIntoConstraints = NO;
     
     return padlock;

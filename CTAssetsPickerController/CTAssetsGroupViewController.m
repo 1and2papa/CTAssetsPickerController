@@ -25,7 +25,7 @@
  
  */
 
-#import "CTAssetsPickerConstants.h"
+#import "CTAssetsPickerCommon.h"
 #import "CTAssetsPickerController.h"
 #import "CTAssetsGroupViewController.h"
 #import "CTAssetsGroupViewCell.h"
@@ -64,7 +64,7 @@
 {
     if (self = [super initWithStyle:UITableViewStylePlain])
     {
-        self.preferredContentSize = kPopoverContentSize;
+        self.preferredContentSize = CTAssetPickerPopoverContentSize;
         [self addNotificationObserver];
     }
     
@@ -112,7 +112,7 @@
 
 - (void)setupViews
 {
-    self.tableView.rowHeight = kThumbnailLength + 12;
+    self.tableView.rowHeight = CTAssetThumbnailLength + 12;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 

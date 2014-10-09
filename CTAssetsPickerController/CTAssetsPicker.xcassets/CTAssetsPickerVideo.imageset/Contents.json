@@ -9,6 +9,11 @@
       "idiom" : "universal",
       "scale" : "2x",
       "filename" : "CTAssetsPickerVideo@2x.png"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x",
+      "filename" : "CTAssetsPickerVideo@3x.png"
     }
   ],
   "info" : {

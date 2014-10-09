@@ -25,7 +25,7 @@
  
  */
 
-#import "CTAssetsPickerConstants.h"
+#import "CTAssetsPickerCommon.h"
 #import "CTAssetsPickerController.h"
 #import "CTAssetsViewController.h"
 #import "CTAssetsViewCell.h"
@@ -82,7 +82,7 @@ NSString * const CTAssetsSupplementaryViewIdentifier = @"CTAssetsSupplementaryVi
                 forSupplementaryViewOfKind:UICollectionElementKindSectionFooter
                        withReuseIdentifier:CTAssetsSupplementaryViewIdentifier];
         
-        self.preferredContentSize = kPopoverContentSize;
+        self.preferredContentSize = CTAssetPickerPopoverContentSize;
     }
     
     [self addNotificationObserver];
@@ -189,20 +189,21 @@ NSString * const CTAssetsSupplementaryViewIdentifier = @"CTAssetsSupplementaryVi
 - (UICollectionViewFlowLayout *)collectionViewFlowLayoutOfOrientation:(UIInterfaceOrientation)orientation
 {
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    layout.itemSize             = kThumbnailSize;
+    
+    layout.itemSize             = CTAssetThumbnailSize;
     layout.footerReferenceSize  = CGSizeMake(0, 47.0);
     
     if (UIInterfaceOrientationIsLandscape(orientation) && (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad))
     {
         layout.sectionInset            = UIEdgeInsetsMake(9.0, 2.0, 0, 2.0);
-        layout.minimumInteritemSpacing = 3.0;
-        layout.minimumLineSpacing      = 3.0;
+        layout.minimumInteritemSpacing = (CTIPhone6Plus) ? 1.0 : ( (CTIPhone6) ? 2.0 : 3.0 );
+        layout.minimumLineSpacing      = (CTIPhone6Plus) ? 1.0 : ( (CTIPhone6) ? 2.0 : 3.0 );
     }
     else
     {
         layout.sectionInset            = UIEdgeInsetsMake(9.0, 0, 0, 0);
-        layout.minimumInteritemSpacing = 2.0;
-        layout.minimumLineSpacing      = 2.0;
+        layout.minimumInteritemSpacing = (CTIPhone6Plus) ? 0.5 : ( (CTIPhone6) ? 1.0 : 2.0 );
+        layout.minimumLineSpacing      = (CTIPhone6Plus) ? 0.5 : ( (CTIPhone6) ? 1.0 : 2.0 );
     }
     
     return layout;

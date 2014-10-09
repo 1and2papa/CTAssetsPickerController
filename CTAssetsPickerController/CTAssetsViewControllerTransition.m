@@ -201,8 +201,13 @@
     CGSize size = imageView.frame.size;
     
     UIGraphicsBeginImageContextWithOptions(size, YES, 0);
+    
+    [[UIColor whiteColor] set];
+    UIRectFill(CGRectMake(0, 0, size.width, size.height));    
+    
     [imageView.image drawInRect:CGRectMake(0, 0, size.width, size.height)];
     UIImage *resized = UIGraphicsGetImageFromCurrentImageContext();
+    
     UIGraphicsEndImageContext();
     
     return (UIView *)[[UIImageView alloc] initWithImage:resized];

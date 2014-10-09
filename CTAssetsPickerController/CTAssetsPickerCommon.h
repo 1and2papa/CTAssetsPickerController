@@ -1,5 +1,5 @@
 /*
- CTAssetsPickerConstants.m
+ CTAssetsPickerCommon.h
  
  The MIT License (MIT)
  
@@ -25,12 +25,11 @@
  
  */
 
-#import "CTAssetsPickerConstants.h"
+#define CTScreenSize [[UIScreen mainScreen] bounds].size
+#define CTScreenHeight MAX(CTScreenSize.width, CTScreenSize.height)
+#define CTIPhone6 (CTScreenHeight == 667)
+#define CTIPhone6Plus (CTScreenHeight == 736)
 
-
-
-
-
-CGFloat const kThumbnailLength = 78.0f;
-CGSize const kThumbnailSize = {kThumbnailLength, kThumbnailLength};
-CGSize const kPopoverContentSize = {320, 480};
+#define CTAssetThumbnailLength (CTIPhone6Plus) ? 103.0f : ( (CTIPhone6) ? 93.0f : 78.0f )
+#define CTAssetThumbnailSize CGSizeMake(CTAssetThumbnailLength, CTAssetThumbnailLength)
+#define CTAssetPickerPopoverContentSize CGSizeMake(320, 480)

@@ -83,7 +83,7 @@ static UIColor *disabledColor;
 - (void)bind:(ALAsset *)asset
 {
     self.asset  = asset;
-    self.image  = (asset.thumbnail == NULL) ? [UIImage imageNamed:@"CTAssetsPickerEmpty"] : [UIImage imageWithCGImage:asset.thumbnail];
+    self.image  = (asset.thumbnail == NULL) ? [UIImage imageNamed:@"CTAssetsPickerEmptyCell"] : [UIImage imageWithCGImage:asset.thumbnail];
     
     if ([self.asset isVideo])
     {
@@ -158,7 +158,7 @@ static UIColor *disabledColor;
                              NSForegroundColorAttributeName : titleColor,
                              NSParagraphStyleAttributeName : titleStyle}];
     
-    [videoIcon drawAtPoint:CGPointMake(2, startPoint.y + (titleHeight - videoIcon.size.height) / 2)];
+    [videoIcon drawAtPoint:CGPointMake(4, startPoint.y + 1 + (titleHeight - videoIcon.size.height) / 2)];
 }
 
 - (void)drawDisabledViewInRect:(CGRect)rect

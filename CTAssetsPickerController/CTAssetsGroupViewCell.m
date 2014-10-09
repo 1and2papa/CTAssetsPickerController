@@ -25,7 +25,7 @@
  
  */
 
-#import "CTAssetsPickerConstants.h"
+#import "CTAssetsPickerCommon.h"
 #import "CTAssetsGroupViewCell.h"
 
 
@@ -61,7 +61,7 @@
     
     CGImageRef posterImage      = assetsGroup.posterImage;
     size_t height               = CGImageGetHeight(posterImage);
-    float scale                 = height / kThumbnailLength;
+    float scale                 = height / (CTAssetThumbnailLength);
     
     self.imageView.image        = [UIImage imageWithCGImage:posterImage scale:scale orientation:UIImageOrientationUp];
     self.textLabel.text         = [assetsGroup valueForProperty:ALAssetsGroupPropertyName];
