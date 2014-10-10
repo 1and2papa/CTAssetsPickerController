@@ -1,3 +1,9 @@
+### v2.6.0
+* Fix: Footer of collection view is not horizontally centered in iOS 8
+* Add: Support iPhone 6 and iPhone 6 Plus native view
+* [#52](https://github.com/chiunam/CTAssetsPickerController/issues/52) Extracted Navigation Controller creation to a separate method
+* Rename property `navigationController` to `childNavigatonController`
+
 ### v2.5.0
 * [#49](https://github.com/chiunam/CTAssetsPickerController/issues/49) Share AssetLibrary with user
 
