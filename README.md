@@ -15,6 +15,7 @@ CTAssetsPickerController is an iOS controller that allows picking multiple photo
 4. Filters assets or albums by their properties.
 5. Achieves average 5x fps.
 6. Conforms UIAccessibility Protocol.
+7. Support iPhone 6 and iPhone 6 Plus native view.
 
 
 ## What's new
@@ -34,7 +35,7 @@ Xcode 5 and iOS 7.
 ````bash
 $ edit Podfile
 platform :ios, '7.0'
-pod 'CTAssetsPickerController',  '~> 2.3.0'
+pod 'CTAssetsPickerController',  '~> 2.6.0'
 $ pod install
 ````
 * Use the Xcode workspace instead of the project.
@@ -208,14 +209,29 @@ Assets stored on iCloud may not be displayed and picked properly if they have no
 
 ### Apperance
 
-The first child view controller of the picker is a `UINavigationController`. You can access the navigation controller via the property `navigationContoller` and then customise its apperance.
+The first child view controller of the picker is a `UINavigationController`. You can access the navigation controller via the property `childNavigationController` and then customise its apperance.
 
 ```` objective-c
 // Set navigation bar's tint color
-picker.navigationController.navigationBar.tintColor = ...
+picker.childNavigationController.navigationBar.tintColor = ...
 
 // Set navigation bar's title attributes
-picker.navigationController.navigationBar.titleTextAttributes = ...
+picker.childNavigationController.navigationBar.titleTextAttributes = ...
+
+````
+
+You may also create custom `UINavigationController` subclass if you want to control things like the status bar. Just subclass `CTAssetsPickerController` and provide your own `UINavigationController` via the function `createChildNavigationController`.
+
+```` objective-c
+@interface BaseAssetsPickerController : CTAssetsPickerController 
+@end
+
+@implementation BaseAssetsPickerController
+- (UINavigationController *)createChildNavigationController
+{
+    return [BaseChildNavigationController alloc];
+}
+@end
 
 ````
 
