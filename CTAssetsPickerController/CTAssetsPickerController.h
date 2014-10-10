@@ -88,7 +88,7 @@
  *
  *  This property contains the child navigation controller of the picker.
  */
-@property (nonatomic, readonly, strong) UINavigationController *navigationController;
+@property (nonatomic, readonly, strong) UINavigationController *childNavigationController;
 
 
 /**

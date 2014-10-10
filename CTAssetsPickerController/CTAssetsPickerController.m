@@ -72,7 +72,7 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
 - (void)setupNavigationController
 {
     CTAssetsGroupViewController *vc = [[CTAssetsGroupViewController alloc] init];
-    UINavigationController *nav = [[self createNavigationController] initWithRootViewController:vc];
+    UINavigationController *nav = [[self createChildNavigationController] initWithRootViewController:vc];
     nav.delegate = self;
     
     [nav willMoveToParentViewController:self];
@@ -82,7 +82,7 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
     [nav didMoveToParentViewController:self];
 }
 
-- (UINavigationController *)createNavigationController
+- (UINavigationController *)createChildNavigationController
 {
     return [UINavigationController alloc];
 }
@@ -187,7 +187,7 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
 
 #pragma mark - Accessors
 
-- (UINavigationController *)navigationController
+- (UINavigationController *)childNavigationController
 {
     return (UINavigationController *)self.childViewControllers.firstObject;
 }
