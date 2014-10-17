@@ -241,8 +241,8 @@
 /**
  *  Tells the delegate that the asset was selected.
  *
- *  @param picker    The controller object managing the assets picker interface.
- *  @param indexPath The asset that was selected.
+ *  @param picker The controller object managing the assets picker interface.
+ *  @param asset  The asset that was selected.
  *
  *  @see assetsPickerController:didDeselectAsset:
  */
@@ -263,8 +263,8 @@
 /**
  *  Tells the delegate that the item at the specified path was deselected.
  *
- *  @param picker    The controller object managing the assets picker interface.
- *  @param indexPath The asset that was deselected.
+ *  @param picker The controller object managing the assets picker interface.
+ *  @param asset  The asset that was deselected.
  *
  *  @see assetsPickerController:didSelectAsset:
  */
@@ -289,8 +289,8 @@
 /**
  *  Tells the delegate that asset was highlighted.
  *
- *  @param picker    The controller object managing the assets picker interface.
- *  @param indexPath The asset that was highlighted.
+ *  @param picker The controller object managing the assets picker interface.
+ *  @param asset  The asset that was highlighted.
  *
  *  @see assetsPickerController:didUnhighlightAsset:
  */
@@ -300,8 +300,8 @@
 /**
  *  Tells the delegate that the highlight was removed from the asset.
  *
- *  @param picker    The controller object managing the assets picker interface.
- *  @param indexPath The asset that had its highlight removed.
+ *  @param picker The controller object managing the assets picker interface.
+ *  @param asset  The asset that had its highlight removed.
  *
  *  @see assetsPickerController:didHighlightAsset:
  */
