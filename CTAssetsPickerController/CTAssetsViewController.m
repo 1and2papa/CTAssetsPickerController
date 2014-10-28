@@ -324,7 +324,9 @@ NSString * const CTAssetsSupplementaryViewIdentifier = @"CTAssetsSupplementaryVi
     if (self.assets.count > 0)
     {
         [self.collectionView reloadData];
-        [self.collectionView setContentOffset:CGPointMake(0, self.collectionViewLayout.collectionViewContentSize.height)];
+        
+        if (self.collectionView.contentOffset.y <= 0)
+            [self.collectionView setContentOffset:CGPointMake(0, self.collectionViewLayout.collectionViewContentSize.height)];
     }
     else
     {
