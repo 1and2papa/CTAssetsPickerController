@@ -1,3 +1,6 @@
+### v2.6.1
+* [#55](https://github.com/chiunam/CTAssetsPickerController/issues/55) Fix: Pictures disappear until you do scrolling gesture when you take screenshot
+
 ### v2.6.0
 * Fix: Footer of collection view is not horizontally centered in iOS 8
 * Add: Support iPhone 6 and iPhone 6 Plus native view
