@@ -90,6 +90,13 @@
  */
 @property (nonatomic, readonly, strong) UINavigationController *childNavigationController;
 
+/**
+ *  The default toolbar text attributes.
+ *
+ *  The default color is black.  You can set this to nil, to have the toolbar use the global
+ *  appearance's text attributes, or you can set them here.
+ */
+@property (nonatomic, copy, readwrite) NSDictionary *defaultToolbarTextAttributes;
 
 /**
  *  @name Managing Selections

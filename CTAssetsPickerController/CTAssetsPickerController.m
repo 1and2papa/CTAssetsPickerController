@@ -47,6 +47,7 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
     {
         _assetsLibrary          = [self.class defaultAssetsLibrary];
         _assetsFilter           = [ALAssetsFilter allAssets];
+        _defaultToolbarTextAttributes = @{NSForegroundColorAttributeName : [UIColor blackColor]};
         _selectedAssets         = [[NSMutableArray alloc] init];
         _showsCancelButton      = YES;
         _showsNumberOfAssets    = YES;
@@ -420,7 +421,6 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
     return [NSString stringWithFormat:format, (long)self.selectedAssets.count];
 }
 
-
 #pragma mark - Toolbar Items
 
 - (UIBarButtonItem *)titleButtonItem
@@ -431,10 +431,13 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
                                     target:nil
                                     action:nil];
     
-    NSDictionary *attributes = @{NSForegroundColorAttributeName : [UIColor blackColor]};
+    if (self.defaultToolbarTextAttributes) {
+        [title setTitleTextAttributes:self.defaultToolbarTextAttributes
+                             forState:UIControlStateNormal];
+        [title setTitleTextAttributes:self.defaultToolbarTextAttributes
+                             forState:UIControlStateDisabled];
+    }
     
-    [title setTitleTextAttributes:attributes forState:UIControlStateNormal];
-    [title setTitleTextAttributes:attributes forState:UIControlStateDisabled];
     [title setEnabled:NO];
     
     return title;
