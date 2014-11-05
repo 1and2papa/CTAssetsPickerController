@@ -54,6 +54,7 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
         self.preferredContentSize = CTAssetPickerPopoverContentSize;
         
         [self setupNavigationController];
+        [self setupToolbarApperance];
         [self addKeyValueObserver];
     }
     
@@ -87,8 +88,9 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
     return [UINavigationController alloc];
 }
 
-#pragma mark - UINavigationControllerDelegate
 
+
+#pragma mark - UINavigationControllerDelegate
 
 - (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
                                   animationControllerForOperation:(UINavigationControllerOperation)operation
@@ -107,6 +109,17 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
     {
         return nil;
     }
+}
+
+
+
+#pragma mark - Toolbar Appearance
+
+- (void)setupToolbarApperance
+{
+    NSDictionary *attributes = @{NSForegroundColorAttributeName : [UIColor blackColor]};
+    UIBarButtonItem *barButtonItem = [UIBarButtonItem appearanceWhenContainedIn:[UIToolbar class], [CTAssetsPickerController class], nil];
+    [barButtonItem setTitleTextAttributes:attributes forState:UIControlStateNormal];
 }
 
 
@@ -430,11 +443,7 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
                                      style:UIBarButtonItemStylePlain
                                     target:nil
                                     action:nil];
-    
-    NSDictionary *attributes = @{NSForegroundColorAttributeName : [UIColor blackColor]};
-    
-    [title setTitleTextAttributes:attributes forState:UIControlStateNormal];
-    [title setTitleTextAttributes:attributes forState:UIControlStateDisabled];
+
     [title setEnabled:NO];
     
     return title;
