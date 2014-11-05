@@ -172,7 +172,20 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
     UINavigationController *nav = (UINavigationController *)self.childViewControllers[0];
     
     for (UIViewController *viewController in nav.viewControllers)
-        viewController.navigationItem.rightBarButtonItem.enabled = (self.selectedAssets.count > 0);
+    {
+        //Done button is disabled
+        //viewController.navigationItem.rightBarButtonItem.enabled = (self.selectedAssets.count > 0);
+        //Replace Done button with Cancel when no item selected (in order to enable leaving the picker)
+        if(self.selectedAssets.count == 0)
+        {
+            viewController.navigationItem.rightBarButtonItem.title= @"Cancel";
+        }
+        else
+        {
+            viewController.navigationItem.rightBarButtonItem.title= @"Done";
+        }
+
+    }
 }
 
 
