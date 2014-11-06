@@ -1,3 +1,8 @@
+### v2.7.0
+* [#57](https://github.com/chiunam/CTAssetsPickerController/issues/57) Make the picker's toolbar to conform UIApperance so that it can be overridden
+* [#56](https://github.com/chiunam/CTAssetsPickerController/issues/56) Move the localisable string to separated string table
+
+
 ### v2.6.1
 * [#55](https://github.com/chiunam/CTAssetsPickerController/issues/55) Fix: Pictures disappear until you do scrolling gesture when you take screenshot
 
