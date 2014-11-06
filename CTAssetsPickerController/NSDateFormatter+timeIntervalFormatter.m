@@ -52,17 +52,23 @@
     if (components.hour > 0)
         string = [string stringByAppendingFormat:@"%ld %@",
                   (long)components.hour,
-                  (components.hour > 1) ? NSLocalizedString(@"hours", nil) : NSLocalizedString(@"hour", nil)];
+                  (components.hour > 1) ?
+                  NSLocalizedStringFromTable(@"hours", @"CTAssetsPickerController", nil) :
+                  NSLocalizedStringFromTable(@"hour", @"CTAssetsPickerController", nil)];
     
     if (components.minute > 0)
         string = [string stringByAppendingFormat:@"%ld %@",
                   (long)components.minute,
-                  (components.minute > 1) ? NSLocalizedString(@"minutes", nil) : NSLocalizedString(@"minute", nil)];
+                  (components.minute > 1) ?
+                  NSLocalizedStringFromTable(@"minutes", @"CTAssetsPickerController", nil) :
+                  NSLocalizedStringFromTable(@"minute", @"CTAssetsPickerController", nil)];
     
     if (components.second > 0)
         string = [string stringByAppendingFormat:@"%ld %@",
                   (long)components.second,
-                  (components.second > 1) ? NSLocalizedString(@"seconds", nil) : NSLocalizedString(@"second", nil)];
+                  (components.second > 1) ?
+                  NSLocalizedStringFromTable(@"seconds", @"CTAssetsPickerController", nil) :
+                  NSLocalizedStringFromTable(@"second", @"CTAssetsPickerController", nil)];
     
     return string;
 }

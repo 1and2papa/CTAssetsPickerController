@@ -86,7 +86,7 @@
 - (void)setTitleIndex:(NSInteger)index
 {
     NSInteger count = self.assets.count;
-    self.title      = [NSString stringWithFormat:NSLocalizedString(@"%ld of %ld", nil), index, count];
+    self.title      = [NSString stringWithFormat:NSLocalizedStringFromTable(@"%ld of %ld", @"CTAssetsPickerController", nil), index, count];
 }
 
 

@@ -46,7 +46,7 @@
     [accessibilityLabels addObject:[self dateAccessibilityLabel]];
     
     if (!self.defaultRepresentation)
-        [accessibilityLabels addObject:NSLocalizedString(@"Not available", nil)];
+        [accessibilityLabels addObject:NSLocalizedStringFromTable(@"Not available", @"CTAssetsPickerController", nil)];
     
     return [accessibilityLabels componentsJoinedByString:@", "];
 }
@@ -55,10 +55,10 @@
 - (NSString *)typeAccessibilityLabel
 {
     if ([self isVideo]) {
-        return NSLocalizedString(@"Video", nil);
+        return NSLocalizedStringFromTable(@"Video", @"CTAssetsPickerController", nil);
     }
 
-    return NSLocalizedString(@"Photo", nil);
+    return NSLocalizedStringFromTable(@"Photo", @"CTAssetsPickerController", nil);
 }
 
 - (NSString *)durationAccessibilityLabel
@@ -73,10 +73,10 @@
     CGSize dimension = self.defaultRepresentation.dimensions;
     
     if (dimension.height >= dimension.width) {
-        return NSLocalizedString(@"Portrait", nil);
+        return NSLocalizedStringFromTable(@"Portrait", @"CTAssetsPickerController", nil);
     }
     
-    return NSLocalizedString(@"Landscape", nil);
+    return NSLocalizedStringFromTable(@"Landscape", @"CTAssetsPickerController", nil);
 }
 
 - (NSString *)dateAccessibilityLabel
