@@ -1,7 +1,5 @@
 # CTAssetsPickerController
 
-CTAssetsPickerController v2 released! It has newly re-design delegate methods, fixed serveral issues and improved usability. Please see [What's new](#whats-new) for the details.
-
 ## Introduction
 
 CTAssetsPickerController is an iOS controller that allows picking multiple photos and videos from user's photo library. The usage and look-and-feel are just similar to UIImagePickerController. It uses **ARC**. Requires **AssetsLibrary** and **MediaPlayer** frameworks.
@@ -14,16 +12,13 @@ CTAssetsPickerController is an iOS controller that allows picking multiple photo
 3. Filters assets for picking only photos or videos.
 4. Filters assets or albums by their properties.
 5. Achieves average 5x fps.
-6. Conforms UIAccessibility Protocol.
-7. Support iPhone 6 and iPhone 6 Plus native view.
+6. Conforms UIAppearance Protocol.
+7. Conforms UIAccessibility Protocol.
+8. Support iPhone 6 and iPhone 6 Plus native view.
 
 
 ## What's new
 * [Release Notes](RELEASE-NOTES.md)
-
-#### Note
-CTAssetsPickerController has dropped support for iOS 6. To use this control with iOS 6, you might consider to checkout the obsolete branch [1.x.x](https://github.com/chiunam/CTAssetsPickerController/tree/1.x.x), which developement has been ceased.
-
 
 ## Minimum Requirement
 Xcode 5 and iOS 7.
@@ -35,7 +30,7 @@ Xcode 5 and iOS 7.
 ````bash
 $ edit Podfile
 platform :ios, '7.0'
-pod 'CTAssetsPickerController',  '~> 2.6.0'
+pod 'CTAssetsPickerController',  '~> 2.7.0'
 $ pod install
 ````
 * Use the Xcode workspace instead of the project.
@@ -68,16 +63,16 @@ picker.delegate = self;
 
 ### Implement didFinishPickingAssets delegate
 
-The delegate is responsible for dismissing the picker when the operation completes. To dismiss the picker, call the [dismissViewControllerAnimated:completion:](https://developer.apple.com/library/ios/documentation/uikit/reference/UIViewController_Class/Reference/Reference.html#//apple_ref/occ/instm/UIViewController/dismissViewControllerAnimated:completion:) method of the presenting controller responsible for displaying `CTAssetsPickerController` object. Please refer to the demo app.
+The delegate is responsible for dismissing the picker when the operation completes. To dismiss the picker, call the [dismissViewControllerAnimated:completion:](https://developer.apple.com/library/ios/documentation/uikit/reference/UIViewController_Class/index.html#//apple_ref/occ/instm/UIViewController/dismissViewControllerAnimated:completion:) method of the presenting controller responsible for displaying `CTAssetsPickerController` object. Please refer to the demo app.
 
 ```` objective-c
 - (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets;
 // assets contains ALAsset objects.
 ````
 
-## Customization
+## Customisation
 
-Customization can be done by setting properties or implementating delegate methods. This section describes common customizations. Please refer to the [documentation](#documentation) for the complete list of properties and delegate methods.
+Customisation can be done by setting properties or implementating delegate methods. This section describes common customisations. Please refer to the [documentation](#documentation) for the complete list of properties and delegate methods.
 
 ### Properties
 
@@ -162,11 +157,11 @@ Enable only certain assets to be selected.
 
 **Default album**
 
-You can show an album content (e.g. Camera Roll) initially instead of a list of albums by implementing the following delegate method. The default album must not returns `NO` in `shouldShowAssetsGroup`. 
+You can show an album content (e.g. All Photos) initially instead of a list of albums by implementing the following delegate method. The default album must not returns `NO` in `shouldShowAssetsGroup`. 
 ```` objective-c
 - (BOOL)assetsPickerController:(CTAssetsPickerController *)picker isDefaultAssetsGroup:(ALAssetsGroup *)group
 {
-    // Set Camera Roll as default album and it will be shown initially.
+    // Set All Photos as default album and it will be shown initially.
     return ([[group valueForProperty:ALAssetsGroupPropertyType] integerValue] == ALAssetsGroupSavedPhotos);    
 }
 ````
@@ -209,6 +204,9 @@ Assets stored on iCloud may not be displayed and picked properly if they have no
 
 ### Apperance
 
+The picker conforms `UIAppearance` protocol. For most UI appearance, (e.g. fonts, buttons, text colors), it can be overridden by setting proper `UIAppearance` after picker initalisation. Please refer to [UIAppearance Protocol Reference]( https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIAppearance_Protocol/index.html#//apple_ref/occ/intfcm/UIAppearance/appearance)
+
+
 The first child view controller of the picker is a `UINavigationController`. You can access the navigation controller via the property `childNavigationController` and then customise its apperance.
 
 ```` objective-c
@@ -235,8 +233,21 @@ You may also create custom `UINavigationController` subclass if you want to cont
 
 ````
 
+The appearance of footer text requires overridden by using `appearanceWhenContainedIn:`.
 
-### Notifications
+```` objective-c
+//Set appearance of footer text
+UIBarButtonItem *barButtonItem = [UIBarButtonItem appearanceWhenContainedIn:[UIToolbar class], [CTAssetsPickerController class], nil];
+[barButtonItem setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:10], NSForegroundColorAttributeName: [UIColor redColor]} forState:UIControlStateNormal];
+```
+
+### Localisation
+
+`CTAssetsPickerController.strings` contains strings used in the picker. It will be included if you add the picker to your project by installing via [submodules](#via-git-submodules). You might translate the text accordingly. PR is always welcomed if you add translation of the picker.
+
+If you uses [CocoaPods](#via-cocoapods), please download the [string table](https://github.com/chiunam/CTAssetsPickerController/blob/master/CTAssetsPickerController/en.lproj/CTAssetsPickerController.strings) and add it to project manually.
+
+## Notifications
 
 An `NSNotification` object named `CTAssetsPickerSelectedAssetsChangedNotification` will be sent when user select or deselect assets. You may add your observer to monitor the change of selection.
 
