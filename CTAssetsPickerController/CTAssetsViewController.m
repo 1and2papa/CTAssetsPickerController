@@ -142,8 +142,17 @@ NSString * const CTAssetsSupplementaryViewIdentifier = @"CTAssetsSupplementaryVi
                                      style:UIBarButtonItemStyleDone
                                     target:self.picker
                                     action:@selector(finishPickingAssets:)];
-    
-    self.navigationItem.rightBarButtonItem.enabled = (self.picker.selectedAssets.count > 0);
+    //Done button is disabled
+    //self.navigationItem.rightBarButtonItem.enabled = (self.picker.selectedAssets.count > 0);
+    //Replace Done button with Cancel when no item selected (in order to enable leaving the picker)
+    if(self.picker.selectedAssets.count == 0)
+    {
+        self.navigationItem.rightBarButtonItem.title= @"Cancel";
+    }
+    else
+    {
+        self.navigationItem.rightBarButtonItem.title= @"Done";
+    }
 }
 
 - (void)setupToolbar
