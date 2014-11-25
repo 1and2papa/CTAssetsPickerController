@@ -6,5 +6,14 @@
 //  Copyright (c) 2014 Clement T. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
+
+
 #define CTAssetsPickerControllerLocalizedString(key) \
-    NSLocalizedStringFromTableInBundle((key), @"CTAssetsPickerController", [NSBundle bundleWithPath: @"CTAssetsPickerController"], nil)
+NSLocalizedStringFromTableInBundle((key), @"CTAssetsPickerController", [NSBundle ctassetsPickerControllerBundle], nil)
+
+@interface NSBundle (CTAssetsPickerController)
+
++ (NSBundle *)ctassetsPickerControllerBundle;
+
+@end
