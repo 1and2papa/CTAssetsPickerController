@@ -50,6 +50,7 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
         _selectedAssets         = [[NSMutableArray alloc] init];
         _showsCancelButton      = YES;
         _showsNumberOfAssets    = YES;
+        _alwaysEnableDoneButton = NO;
         
         self.preferredContentSize = CTAssetPickerPopoverContentSize;
         
@@ -184,8 +185,10 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
 {
     UINavigationController *nav = (UINavigationController *)self.childViewControllers[0];
     
+    BOOL enabled = (self.alwaysEnableDoneButton) ? YES : (self.selectedAssets.count > 0);
+    
     for (UIViewController *viewController in nav.viewControllers)
-        viewController.navigationItem.rightBarButtonItem.enabled = (self.selectedAssets.count > 0);
+        viewController.navigationItem.rightBarButtonItem.enabled = enabled;
 }
 
 
