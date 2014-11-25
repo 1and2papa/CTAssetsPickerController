@@ -22,8 +22,6 @@
 
 /* Begin PBXBuildFile section */
 		A67AE04091963F6C77C5FE46 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 37AB9ED3927E2C7F99667B50 /* libPods.a */; };
-		AD68F6971A09FA5700097018 /* CTAssetsPickerController.strings in Resources */ = {isa = PBXBuildFile; fileRef = AD68F6991A09FA5700097018 /* CTAssetsPickerController.strings */; };
-		AD7D990F1978FE17002A2E4C /* CTAssetsPicker.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD7D990E1978FE17002A2E4C /* CTAssetsPicker.xcassets */; };
 		ADDEA34B192F4A540049D6A7 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADDEA34A192F4A540049D6A7 /* MediaPlayer.framework */; };
 		ADE31D8A17EFF08C008958B8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADE31D8917EFF08C008958B8 /* Foundation.framework */; };
 		ADE31D8C17EFF08C008958B8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADE31D8B17EFF08C008958B8 /* CoreGraphics.framework */; };
@@ -295,8 +293,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD68F6971A09FA5700097018 /* CTAssetsPickerController.strings in Resources */,
-				AD7D990F1978FE17002A2E4C /* CTAssetsPicker.xcassets in Resources */,
 				ADE31DA517EFF08C008958B8 /* Images.xcassets in Resources */,
 				ADE31D9417EFF08C008958B8 /* InfoPlist.strings in Resources */,
 				ADE31D9D17EFF08C008958B8 /* Main.storyboard in Resources */,
