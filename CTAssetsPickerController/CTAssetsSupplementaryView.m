@@ -26,6 +26,7 @@
  */
 
 #import "CTAssetsSupplementaryView.h"
+#import "NSBundle+CTAssetsPickerController.h"
 
 
 
@@ -83,11 +84,11 @@
     NSInteger numberOfPhotos = [assets filteredArrayUsingPredicate:[self predicateOfAssetType:ALAssetTypePhoto]].count;
     
     if (numberOfVideos == 0)
-        self.label.text = [NSString stringWithFormat:NSLocalizedStringFromTable(@"%ld Photos", @"CTAssetsPickerController", nil), (long)numberOfPhotos];
+        self.label.text = [NSString stringWithFormat:CTAssetsPickerControllerLocalizedString(@"%ld Photos"), (long)numberOfPhotos];
     else if (numberOfPhotos == 0)
-        self.label.text = [NSString stringWithFormat:NSLocalizedStringFromTable(@"%ld Videos", @"CTAssetsPickerController", nil), (long)numberOfVideos];
+        self.label.text = [NSString stringWithFormat:CTAssetsPickerControllerLocalizedString(@"%ld Videos"), (long)numberOfVideos];
     else
-        self.label.text = [NSString stringWithFormat:NSLocalizedStringFromTable(@"%ld Photos, %ld Videos", @"CTAssetsPickerController", nil), (long)numberOfPhotos, (long)numberOfVideos];
+        self.label.text = [NSString stringWithFormat:CTAssetsPickerControllerLocalizedString(@"%ld Photos, %ld Videos"), (long)numberOfPhotos, (long)numberOfVideos];
 }
 
 - (NSPredicate *)predicateOfAssetType:(NSString *)type

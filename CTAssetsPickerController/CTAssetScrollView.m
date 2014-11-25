@@ -29,6 +29,7 @@
 #import "CTAssetScrollView.h"
 #import "ALAsset+assetType.h"
 #import "ALAsset+accessibilityLabel.h"
+#import "NSBundle+CTAssetsPickerController.h"
 
 
 
@@ -397,7 +398,7 @@ NSString * const CTAssetScrollViewTappedNotification = @"CTAssetScrollViewTapped
     [button setImage:image forState:UIControlStateNormal];
     [button addTarget:self action:@selector(playVideo:) forControlEvents:UIControlEventTouchUpInside];
     
-    button.accessibilityLabel = NSLocalizedStringFromTable(@"Play", @"CTAssetsPickerController", nil);
+    button.accessibilityLabel = CTAssetsPickerControllerLocalizedString(@"Play");
     button.translatesAutoresizingMaskIntoConstraints = NO;
     
     self.playButton = button;

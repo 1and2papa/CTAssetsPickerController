@@ -28,6 +28,7 @@
 #import "CTAssetsPageViewController.h"
 #import "CTAssetItemViewController.h"
 #import "CTAssetScrollView.h"
+#import "NSBundle+CTAssetsPickerController.h"
 
 
 
@@ -86,7 +87,7 @@
 - (void)setTitleIndex:(NSInteger)index
 {
     NSInteger count = self.assets.count;
-    self.title      = [NSString stringWithFormat:NSLocalizedStringFromTable(@"%ld of %ld", @"CTAssetsPickerController", nil), index, count];
+    self.title      = [NSString stringWithFormat:CTAssetsPickerControllerLocalizedString(@"%ld of %ld"), index, count];
 }
 
 
