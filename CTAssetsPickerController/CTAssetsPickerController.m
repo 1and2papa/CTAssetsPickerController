@@ -31,6 +31,7 @@
 #import "CTAssetsPageViewController.h"
 #import "CTAssetsViewControllerTransition.h"
 #import "NSBundle+CTAssetsPickerController.h"
+#import "UIImage+CTAssetsPickerController.h"
 
 
 
@@ -264,7 +265,7 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
 
 - (UIImageView *)padlockImageView
 {
-    UIImage *file        = [UIImage imageNamed:@"CTAssetsPickerLocked"];
+    UIImage *file        = [UIImage ctassetsPickerControllerImageNamed:@"CTAssetsPickerLocked"];
     UIImage *image       = [file imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     
     UIImageView *padlock = [[UIImageView alloc] initWithImage:image];

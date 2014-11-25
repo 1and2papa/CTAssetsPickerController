@@ -30,7 +30,7 @@
 #import "ALAsset+assetType.h"
 #import "ALAsset+accessibilityLabel.h"
 #import "NSBundle+CTAssetsPickerController.h"
-
+#import "UIImage+CTAssetsPickerController.h"
 
 
 
@@ -190,7 +190,7 @@ NSString * const CTAssetScrollViewTappedNotification = @"CTAssetScrollViewTapped
         }
         else
         {
-            image = [UIImage imageNamed:@"CTAssetsPickerEmptyAsset"];
+            image = [UIImage ctassetsPickerControllerImageNamed:@"CTAssetsPickerEmptyAsset"];
         }
         
         // clear the previous image
@@ -392,7 +392,7 @@ NSString * const CTAssetScrollViewTappedNotification = @"CTAssetScrollViewTapped
 
 - (void)addVideoPlayButton
 {
-    UIImage *image   = [UIImage imageNamed:@"CTAssetsPickerPlay"];
+    UIImage *image   = [UIImage ctassetsPickerControllerImageNamed:@"CTAssetsPickerPlay"];
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     
     [button setImage:image forState:UIControlStateNormal];
