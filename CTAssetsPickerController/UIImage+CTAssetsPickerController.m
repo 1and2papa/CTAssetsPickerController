@@ -7,7 +7,6 @@
 //
 
 #import "UIImage+CTAssetsPickerController.h"
-#import "NSBundle+CTAssetsPickerController.h"
 
 @implementation UIImage (CTAssetsPickerController)
 
