@@ -29,7 +29,7 @@
 
 /* The parameter will be replaced by the device model name */
 "You can take photos and videos using the camera, or sync photos and videos onto your %@\nusing iTunes." = "Você pode tirar fotos e vídeos com a sua câmera, ou sincronizar fotos e vídeos para o seu %@ usando o iTunes.";
-"You can sync photos and videos onto your iPhone using iTunes." = "Pode sincronizar fotos e vídeos para o seu iPhone usando o iTunes";
+"You can sync photos and videos onto your %@ using iTunes." = "Pode sincronizar fotos e vídeos para o seu %@ usando o iTunes";
 
 /* Accessibility labels */
 "Photo" = "Foto";

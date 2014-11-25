@@ -29,7 +29,7 @@
 
 /* The parameter will be replaced by the device model name */
 "You can take photos and videos using the camera, or sync photos and videos onto your %@\nusing iTunes." = "You can take photos and videos using the camera, or sync photos and videos onto your %@\nusing iTunes.";
-"You can sync photos and videos onto your iPhone using iTunes." = "You can sync photos and videos onto your iPhone using iTunes.";
+"You can sync photos and videos onto your %@ using iTunes." = "You can sync photos and videos onto your %@ using iTunes.";
 
 /* Accessibility labels */
 "Photo" = "Photo";
