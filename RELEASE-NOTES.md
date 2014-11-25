@@ -1,3 +1,7 @@
+### v2.8.0
+* [#63](https://github.com/chiunam/CTAssetsPickerController/issues/63) Add translations for pt, pt-PT and es-MX
+* [#59](https://github.com/chiunam/CTAssetsPickerController/issues/59) Add `alwaysEnableDoneButton` property to allow enabling done button even without assets selected
+
 ### v2.7.0
 * [#57](https://github.com/chiunam/CTAssetsPickerController/issues/57) Make the picker's toolbar to conform UIApperance so that it can be overridden
 * [#56](https://github.com/chiunam/CTAssetsPickerController/issues/56) Move the localisable string to separated string table
