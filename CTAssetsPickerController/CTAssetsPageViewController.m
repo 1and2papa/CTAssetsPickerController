@@ -59,6 +59,7 @@
         self.delegate               = self;
         self.view.backgroundColor   = [UIColor whiteColor];
         self.automaticallyAdjustsScrollViewInsets = NO;
+        _showsDeleteButton          = NO;
     }
     
     return self;
@@ -68,6 +69,18 @@
 {
     [super viewDidLoad];
     [self addNotificationObserver];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if (_showsDeleteButton) {
+        self.navigationItem.rightBarButtonItem =
+        [[UIBarButtonItem alloc] initWithTitle:NSLocalizedStringFromTable(@"Delete", @"CTAssetsPickerController", nil)
+                                         style:UIBarButtonItemStylePlain
+                                        target:self
+                                        action:@selector(deleteAsset)];
+    }
 }
 
 - (void)dealloc
@@ -80,6 +93,23 @@
     return self.isStatusBarHidden;
 }
 
+#pragma mark - Delete assets
+
+- (void)deleteAsset
+{
+    NSMutableArray *tempArray = [NSMutableArray arrayWithArray:self.assets];
+    NSInteger pageIndex = ((CTAssetItemViewController *)self.viewControllers[0]).pageIndex;
+    [tempArray removeObjectAtIndex:pageIndex];
+    self.assets = tempArray;
+    if (_assetDeleteBlock) {
+        _assetDeleteBlock(self.assets);
+    }
+    if (pageIndex == 0) {
+        self.pageIndex = pageIndex;
+    } else {
+        self.pageIndex = pageIndex - 1;
+    }
+}
 
 #pragma mark - Update Title
 
@@ -112,6 +142,8 @@
                       completion:NULL];
         
         [self setTitleIndex:pageIndex + 1];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 

@@ -42,6 +42,15 @@
  */
 @property (nonatomic, assign) NSInteger pageIndex;
 
+/**
+ *  Determines whether or not the delete button is visible in page view.
+ */
+@property (nonatomic, assign) BOOL showsDeleteButton;
+
+/**
+ *  Delete asset callback.
+ */
+@property (nonatomic, copy) void (^assetDeleteBlock)(NSArray *);
 
 /**
  *  @name Creating a Assets Page View Controller
