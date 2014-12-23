@@ -1,48 +1,48 @@
 /* Navigation bar buttons */
-"Cancel" = "Cancel";
-"Done" = "Done";
+"Cancel" = "取消";
+"Done" = "完成";
 
 /* Default title */
-"Photos" = "Photos";
+"Photos" = "照片";
 
 /* No. of selected */
-"%ld Photo Selected" = "%ld Photo Selected";
-"%ld Photos Selected" = "%ld Photos Selected";
-"%ld Video Selected" = "%ld Video Selected";
-"%ld Videos Selected" = "%ld Videos Selected";
-"%ld Items Selected" = "%ld Items Selected";
+"%ld Photo Selected" = "已选择%ld张照片";
+"%ld Photos Selected" = "已选择%ld张照片";
+"%ld Video Selected" = "已选择%ld个视频";
+"%ld Videos Selected" = "已选择%ld个视频";
+"%ld Items Selected" = "已选择%ld项";
 
 /* Album's footer */
-"%ld Photos" = "%ld Photos";
-"%ld Videos" = "%ld Videos";
-"%ld Photos, %ld Videos" = "%1$ld Photos, %2$ld Videos";
+"%ld Photos" = "%ld张照片";
+"%ld Videos" = "%ld个视频";
+"%ld Photos, %ld Videos" = "%1$ld张照片，%2$ld个视频";
 
 /* Assets index */
-"%ld of %ld" = "%1$ld of %2$ld";
+"%ld of %ld" = "%1$ld，共%2$ld";
 
 /* Messages if privacy is not granted */
-"This app does not have access to your photos or videos." = "This app does not have access to your photos or videos.";
-"You can enable access in Privacy Settings." = "You can enable access in Privacy Settings.";
+"This app does not have access to your photos or videos." = "此应用程序对您的照片或视频没有访问权。";
+"You can enable access in Privacy Settings." = "您可以在隐私设置中启用访问权。";
 
 /* Messages if no assets */
-"No Photos or Videos" = "No Photos or Videos";
+"No Photos or Videos" = "无照片或视频";
 
 /* The parameter will be replaced by the device model name */
-"You can take photos and videos using the camera, or sync photos and videos onto your %@\nusing iTunes." = "You can take photos and videos using the camera, or sync photos and videos onto your %@\nusing iTunes.";
-"You can sync photos and videos onto your %@ using iTunes." = "You can sync photos and videos onto your %@ using iTunes.";
+"You can take photos and videos using the camera, or sync photos and videos onto your %@\nusing iTunes." = "您可以使用摄像头拍摄照片和视频，或使用iTunes将照片和视频同步到您的%@上。\n";
+"You can sync photos and videos onto your %@ using iTunes." = "您可以使用iTunes将照片和视频同步到您的%@上。";
 
 /* Accessibility labels */
-"Photo" = "Photo";
-"Video" = "Video";
-"Portrait" = "Portrait";
-"Landscape" = "Landscape";
-"Play" = "Play";
-"Not available" = "Not available";
+"Photo" = "照片";
+"Video" = "视频";
+"Portrait" = "纵向";
+"Landscape" = "横向";
+"Play" = "播放";
+"Not available" = "不可用";
 
 /* Video duration spell out */
-"hours" = "hours";
-"hour" = "hour";
-"minutes" = "minutes";
-"minute" = "minute";
-"seconds" = "seconds";
-"second" = "second";
+"hours" = "小时";
+"hour" = "小时";
+"minutes" = "分钟";
+"minute" = "分钟";
+"seconds" = "秒";
+"second" = "秒";

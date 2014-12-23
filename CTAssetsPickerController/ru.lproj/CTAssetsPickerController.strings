@@ -1,48 +1,48 @@
 /* Navigation bar buttons */
-"Cancel" = "Cancel";
-"Done" = "Done";
+"Cancel" = "Отмена";
+"Done" = "Готово";
 
 /* Default title */
-"Photos" = "Photos";
+"Photos" = "Фотографии";
 
 /* No. of selected */
-"%ld Photo Selected" = "%ld Photo Selected";
-"%ld Photos Selected" = "%ld Photos Selected";
-"%ld Video Selected" = "%ld Video Selected";
-"%ld Videos Selected" = "%ld Videos Selected";
-"%ld Items Selected" = "%ld Items Selected";
+"%ld Photo Selected" = "выбрана %ld фотография";
+"%ld Photos Selected" = "выбрано %ld фотографий";
+"%ld Video Selected" = "выбрано %ld видео";
+"%ld Videos Selected" = "выбрано %ld видео";
+"%ld Items Selected" = "выбрано %ld элементов";
 
 /* Album's footer */
-"%ld Photos" = "%ld Photos";
-"%ld Videos" = "%ld Videos";
-"%ld Photos, %ld Videos" = "%1$ld Photos, %2$ld Videos";
+"%ld Photos" = "%ld фотографий";
+"%ld Videos" = "%ld видео";
+"%ld Photos, %ld Videos" = "%1$ld фотографий, %2$ld видео";
 
 /* Assets index */
-"%ld of %ld" = "%1$ld of %2$ld";
+"%ld of %ld" = "%1$ld из %2$ld";
 
 /* Messages if privacy is not granted */
-"This app does not have access to your photos or videos." = "This app does not have access to your photos or videos.";
-"You can enable access in Privacy Settings." = "You can enable access in Privacy Settings.";
+"This app does not have access to your photos or videos." = "У этого приложения нет доступа к вашим фотографиям и видео.";
+"You can enable access in Privacy Settings." = "Вы можете включить доступ приложению в Настройках конфиденциальности.";
 
 /* Messages if no assets */
-"No Photos or Videos" = "No Photos or Videos";
+"No Photos or Videos" = "Нет фотографий и видео";
 
 /* The parameter will be replaced by the device model name */
-"You can take photos and videos using the camera, or sync photos and videos onto your %@\nusing iTunes." = "You can take photos and videos using the camera, or sync photos and videos onto your %@\nusing iTunes.";
-"You can sync photos and videos onto your %@ using iTunes." = "You can sync photos and videos onto your %@ using iTunes.";
+"You can take photos and videos using the camera, or sync photos and videos onto your %@\nusing iTunes." = "Вы можете сделать фотографии или снять видео при помощи камеры либо синхронизировать фотографии и видео со своим %@\nчерез iTunes.";
+"You can sync photos and videos onto your %@ using iTunes." = "Вы можете синхронизировать фотографии и видео со своим %@ при помощи iTunes.";
 
 /* Accessibility labels */
-"Photo" = "Photo";
-"Video" = "Video";
-"Portrait" = "Portrait";
-"Landscape" = "Landscape";
-"Play" = "Play";
-"Not available" = "Not available";
+"Photo" = "Фотографии";
+"Video" = "Видео";
+"Portrait" = "Портрет";
+"Landscape" = "Пейзаж";
+"Play" = "Воспр.";
+"Not available" = "Недоступно";
 
 /* Video duration spell out */
-"hours" = "hours";
-"hour" = "hour";
-"minutes" = "minutes";
-"minute" = "minute";
-"seconds" = "seconds";
-"second" = "second";
+"hours" = "часов";
+"hour" = "час";
+"minutes" = "минут";
+"minute" = "минута";
+"seconds" = "секунд";
+"second" = "секунда";

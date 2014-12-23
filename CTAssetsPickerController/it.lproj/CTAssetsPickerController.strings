@@ -1,48 +1,48 @@
 /* Navigation bar buttons */
-"Cancel" = "Cancel";
-"Done" = "Done";
+"Cancel" = "Annulla";
+"Done" = "Fatto";
 
 /* Default title */
-"Photos" = "Photos";
+"Photos" = "Foto";
 
 /* No. of selected */
-"%ld Photo Selected" = "%ld Photo Selected";
-"%ld Photos Selected" = "%ld Photos Selected";
-"%ld Video Selected" = "%ld Video Selected";
-"%ld Videos Selected" = "%ld Videos Selected";
-"%ld Items Selected" = "%ld Items Selected";
+"%ld Photo Selected" = "%ld foto selezionata";
+"%ld Photos Selected" = "%ld foto selezionate";
+"%ld Video Selected" = "%ld video selezionato";
+"%ld Videos Selected" = "%ld video selezionati";
+"%ld Items Selected" = "%ld oggetto selezionato";
 
 /* Album's footer */
-"%ld Photos" = "%ld Photos";
-"%ld Videos" = "%ld Videos";
-"%ld Photos, %ld Videos" = "%1$ld Photos, %2$ld Videos";
+"%ld Photos" = "%ld foto";
+"%ld Videos" = "%ld video";
+"%ld Photos, %ld Videos" = "%1$ld foto, %2$ld video";
 
 /* Assets index */
-"%ld of %ld" = "%1$ld of %2$ld";
+"%ld of %ld" = "%1$ld di %2$ld";
 
 /* Messages if privacy is not granted */
-"This app does not have access to your photos or videos." = "This app does not have access to your photos or videos.";
-"You can enable access in Privacy Settings." = "You can enable access in Privacy Settings.";
+"This app does not have access to your photos or videos." = "Questa app non ha accesso alle tue foto o ai tuoi video.";
+"You can enable access in Privacy Settings." = "Puoi attivare l'accesso nelle Impostazioni sulla privacy.";
 
 /* Messages if no assets */
-"No Photos or Videos" = "No Photos or Videos";
+"No Photos or Videos" = "Nessuna foto o video";
 
 /* The parameter will be replaced by the device model name */
-"You can take photos and videos using the camera, or sync photos and videos onto your %@\nusing iTunes." = "You can take photos and videos using the camera, or sync photos and videos onto your %@\nusing iTunes.";
-"You can sync photos and videos onto your %@ using iTunes." = "You can sync photos and videos onto your %@ using iTunes.";
+"You can take photos and videos using the camera, or sync photos and videos onto your %@\nusing iTunes." = "Puoi scattare foto e registrare video con la fotocamera oppure sincronizzandoli sul tuo %@\ncon iTunes.";
+"You can sync photos and videos onto your %@ using iTunes." = "Puoi sincronizzare foto e video sul tuo %@ con iTunes.";
 
 /* Accessibility labels */
-"Photo" = "Photo";
+"Photo" = "Foto";
 "Video" = "Video";
-"Portrait" = "Portrait";
-"Landscape" = "Landscape";
-"Play" = "Play";
-"Not available" = "Not available";
+"Portrait" = "Verticale";
+"Landscape" = "Orizzontale";
+"Play" = "Riproduci";
+"Not available" = "Non disponibile";
 
 /* Video duration spell out */
-"hours" = "hours";
-"hour" = "hour";
-"minutes" = "minutes";
-"minute" = "minute";
-"seconds" = "seconds";
-"second" = "second";
+"hours" = "ore";
+"hour" = "ora";
+"minutes" = "minuti";
+"minute" = "minuto";
+"seconds" = "secondi";
+"second" = "secondo";
