@@ -1,0 +1,48 @@
+/* Navigation bar buttons */
+"Cancel" = "取消";
+"Done" = "完成";
+
+/* Default title */
+"Photos" = "照片";
+
+/* No. of selected */
+"%ld Photo Selected" = "已选择%ld张照片";
+"%ld Photos Selected" = "已选择%ld张照片";
+"%ld Video Selected" = "已选择%ld个视频";
+"%ld Videos Selected" = "已选择%ld个视频";
+"%ld Items Selected" = "已选择%ld项";
+
+/* Album's footer */
+"%ld Photos" = "%ld张照片";
+"%ld Videos" = "%ld个视频";
+"%ld Photos, %ld Videos" = "%1$ld张照片，%2$ld个视频";
+
+/* Assets index */
+"%ld of %ld" = "%1$ld，共%2$ld";
+
+/* Messages if privacy is not granted */
+"This app does not have access to your photos or videos." = "此应用程序对您的照片或视频没有访问权。";
+"You can enable access in Privacy Settings." = "您可以在隐私设置中启用访问权。";
+
+/* Messages if no assets */
+"No Photos or Videos" = "无照片或视频";
+
+/* The parameter will be replaced by the device model name */
+"You can take photos and videos using the camera, or sync photos and videos onto your %@\nusing iTunes." = "您可以使用摄像头拍摄照片和视频，或使用iTunes将照片和视频同步到您的%@上。\n";
+"You can sync photos and videos onto your %@ using iTunes." = "您可以使用iTunes将照片和视频同步到您的%@上。";
+
+/* Accessibility labels */
+"Photo" = "照片";
+"Video" = "视频";
+"Portrait" = "纵向";
+"Landscape" = "横向";
+"Play" = "播放";
+"Not available" = "不可用";
+
+/* Video duration spell out */
+"hours" = "小时";
+"hour" = "小时";
+"minutes" = "分钟";
+"minute" = "分钟";
+"seconds" = "秒";
+"second" = "秒";

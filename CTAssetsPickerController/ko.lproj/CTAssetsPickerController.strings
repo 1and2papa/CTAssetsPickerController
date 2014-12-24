@@ -1,0 +1,48 @@
+/* Navigation bar buttons */
+"Cancel" = "취소";
+"Done" = "완료";
+
+/* Default title */
+"Photos" = "사진";
+
+/* No. of selected */
+"%ld Photo Selected" = "사진 %ld개 선택됨";
+"%ld Photos Selected" = "사진 %ld개 선택됨";
+"%ld Video Selected" = "동영상 %ld개 선택됨";
+"%ld Videos Selected" = "동영상 %ld개 선택됨";
+"%ld Items Selected" = "%ld개의 항목 선택됨";
+
+/* Album's footer */
+"%ld Photos" = "사진 %ld개";
+"%ld Videos" = "동영상 %ld개";
+"%ld Photos, %ld Videos" = "사진 %1$ld개, 동영상 %2$ld 개";
+
+/* Assets index */
+"%ld of %ld" = "%1$ld/%2$ld";
+
+/* Messages if privacy is not granted */
+"This app does not have access to your photos or videos." = "이 앱은 귀하의 사진이나 동영상에 접근 권한이 없습니다.";
+"You can enable access in Privacy Settings." = "개인정보 설정에서 접근을 활성화할 수 있습니다.";
+
+/* Messages if no assets */
+"No Photos or Videos" = "사진이나 동영상 없음";
+
+/* The parameter will be replaced by the device model name */
+"You can take photos and videos using the camera, or sync photos and videos onto your %@\nusing iTunes." = "카메라를 사용해서 사진 및 동영상을 가져오거나 iTunes를 사용하여 %@에서 사진 및 동영상을 동기화할 수\n있습니다.";
+"You can sync photos and videos onto your %@ using iTunes." = "iTunes를 사용하여 %@에서 사진 및 동영상을 동기화할 수 있습니다.";
+
+/* Accessibility labels */
+"Photo" = "사진";
+"Video" = "동영상";
+"Portrait" = "세로";
+"Landscape" = "가로";
+"Play" = "플레이";
+"Not available" = "사용할 수 없음";
+
+/* Video duration spell out */
+"hours" = "시간";
+"hour" = "시간";
+"minutes" = "분";
+"minute" = "분";
+"seconds" = "초";
+"second" = "초";

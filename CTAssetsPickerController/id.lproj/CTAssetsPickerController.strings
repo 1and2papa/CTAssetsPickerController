@@ -1,0 +1,48 @@
+/* Navigation bar buttons */
+"Cancel" = "Batal";
+"Done" = "Selesai";
+
+/* Default title */
+"Photos" = "Foto";
+
+/* No. of selected */
+"%ld Photo Selected" = "%ld Foto Terpilih";
+"%ld Photos Selected" = "%ld Foto Terpilih";
+"%ld Video Selected" = "%ld Video Terpilih";
+"%ld Videos Selected" = "%ld Video Terpilih";
+"%ld Items Selected" = "%ld Item Terpilih";
+
+/* Album's footer */
+"%ld Photos" = "%ld Foto";
+"%ld Videos" = "%ld Video";
+"%ld Photos, %ld Videos" = "%1$ld Foto, %2$ld Video";
+
+/* Assets index */
+"%ld of %ld" = "%1$ld dari %2$ld";
+
+/* Messages if privacy is not granted */
+"This app does not have access to your photos or videos." = "Aplikasi ini tidak memiliki akses ke foto atau videomu.";
+"You can enable access in Privacy Settings." = "Kamu bisa mengaktifkan akses di Setelan Privasi.";
+
+/* Messages if no assets */
+"No Photos or Videos" = "Tidak ada Foto atau Video";
+
+/* The parameter will be replaced by the device model name */
+"You can take photos and videos using the camera, or sync photos and videos onto your %@\nusing iTunes." = "Kamu bisa mengambil foto dan video menggunakan kamera, atau menyinkronkan foto dan video ke %@\nmenggunakan iTunes.";
+"You can sync photos and videos onto your %@ using iTunes." = "Kamu bisa menyinkronkan foto dan video ke %@ menggunakan iTunes.";
+
+/* Accessibility labels */
+"Photo" = "Foto";
+"Video" = "Video";
+"Portrait" = "Potret";
+"Landscape" = "Lanskap";
+"Play" = "Putar";
+"Not available" = "Tidak tersedia";
+
+/* Video duration spell out */
+"hours" = "jam";
+"hour" = "jam";
+"minutes" = "menit";
+"minute" = "menit";
+"seconds" = "detik";
+"second" = "detik";

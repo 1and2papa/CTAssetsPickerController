@@ -1,0 +1,48 @@
+/* Navigation bar buttons */
+"Cancel" = "إلغاء";
+"Done" = "تم";
+
+/* Default title */
+"Photos" = "الصور";
+
+/* No. of selected */
+"%ld Photo Selected" = "تم تحديد %ld صورة";
+"%ld Photos Selected" = "تم تحديد %ld صور";
+"%ld Video Selected" = "تم تحديد %ld فيديو";
+"%ld Videos Selected" = "تم تحديد %ld فيديوهات";
+"%ld Items Selected" = "تم تحديد %ld عناصر";
+
+/* Album's footer */
+"%ld Photos" = "%ld صور";
+"%ld Videos" = "%ld فيديوهات";
+"%ld Photos, %ld Videos" = "%1$l صورة، %2$l فيديوهات";
+
+/* Assets index */
+"%ld of %ld" = "%1$l من %2$l";
+
+/* Messages if privacy is not granted */
+"This app does not have access to your photos or videos." = "لا يحق لهذا التطبيق الوصول إلى صورك أو فيديوهاتك.";
+"You can enable access in Privacy Settings." = "يمكن تفعيل الوصول من إعدادات الخصوصية.";
+
+/* Messages if no assets */
+"No Photos or Videos" = "لا توجد صور أو فيديوهات";
+
+/* The parameter will be replaced by the device model name */
+"You can take photos and videos using the camera, or sync photos and videos onto your %@\nusing iTunes." = "يمكنك التقاط الصور والفيديوهات باستخدام الكاميرا، أو مزامنة الصورة والفيديوهات مع %@ الخاص بك.\nباستخدام iTunes.";
+"You can sync photos and videos onto your %@ using iTunes." = "يمكنك مزامنة الصورة والفيديوهات مع %@ الخاص بك.";
+
+/* Accessibility labels */
+"Photo" = "صورة";
+"Video" = "فيديو";
+"Portrait" = "بورتريه";
+"Landscape" = "منظر طبيعي";
+"Play" = "تشغيل";
+"Not available" = "غير متاح";
+
+/* Video duration spell out */
+"hours" = "ساعات";
+"hour" = "ساعة";
+"minutes" = "دقائق";
+"minute" = "دقيقة";
+"seconds" = "ثواني";
+"second" = "ثانية";

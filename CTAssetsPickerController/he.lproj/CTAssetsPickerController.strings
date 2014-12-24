@@ -1,0 +1,48 @@
+/* Navigation bar buttons */
+"Cancel" = "ביטול";
+"Done" = "סיום";
+
+/* Default title */
+"Photos" = "תמונות";
+
+/* No. of selected */
+"%ld Photo Selected" = "נבחרה תמונה %ld";
+"%ld Photos Selected" = "נבחרו %ld תמונות";
+"%ld Video Selected" = "נבחר וידאו %ld";
+"%ld Videos Selected" = "נבחרו %ld סרטוני וידאו";
+"%ld Items Selected" = "נבחרו %ld פריטים";
+
+/* Album's footer */
+"%ld Photos" = "%ld תמונות";
+"%ld Videos" = "%ld סרטוני וידאו";
+"%ld Photos, %ld Videos" = "%1$ld תמונות, %2$ld סרטוני וידאו";
+
+/* Assets index */
+"%ld of %ld" = "%1$ld מ-%2$ld";
+
+/* Messages if privacy is not granted */
+"This app does not have access to your photos or videos." = "לאפליקציה הזו אין גישה לתמונות ולסרטוני הוידאו שלך.";
+"You can enable access in Privacy Settings." = "באפשרותך לאפשר גישה בהגדרות הפרטיות.";
+
+/* Messages if no assets */
+"No Photos or Videos" = "אין תמונות או סרטוני וידאו";
+
+/* The parameter will be replaced by the device model name */
+"You can take photos and videos using the camera, or sync photos and videos onto your %@\nusing iTunes." = "באפשרותך לצלם תמונות ולהקליט וידאו בעזרת המצלמה או לסנכרן תמונות וסרטוני וידאו עם %@\nבאמצעות ב-iTunes.";
+"You can sync photos and videos onto your %@ using iTunes." = "באפשרותך לסנכרן תמונות וסרטוני וידאו עם %@ באמצעות iTunes.";
+
+/* Accessibility labels */
+"Photo" = "תמונה";
+"Video" = "וידאו";
+"Portrait" = "דיוקן";
+"Landscape" = "נוף";
+"Play" = "הפעלה";
+"Not available" = "לא זמין";
+
+/* Video duration spell out */
+"hours" = "שעות";
+"hour" = "שעה";
+"minutes" = "דקות";
+"minute" = "דקה";
+"seconds" = "שניות";
+"second" = "שנייה";
