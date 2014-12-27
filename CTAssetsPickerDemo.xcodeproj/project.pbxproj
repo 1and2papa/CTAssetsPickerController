@@ -36,7 +36,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		249481A61A4F2820000827AC /* CTAssetsPicker.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CTAssetsPicker.xcassets; sourceTree = "<group>"; };
 		08DD564C1A49414B009CA145 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/CTAssetsPickerController.strings"; sourceTree = "<group>"; };
 		08DD564D1A49426B009CA145 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/CTAssetsPickerController.strings; sourceTree = "<group>"; };
 		08DD564E1A494272009CA145 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/CTAssetsPickerController.strings; sourceTree = "<group>"; };
@@ -47,6 +46,10 @@
 		08DD56531A494299009CA145 /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/CTAssetsPickerController.strings; sourceTree = "<group>"; };
 		08DD56541A4942A1009CA145 /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/CTAssetsPickerController.strings; sourceTree = "<group>"; };
 		08DD56551A4942B3009CA145 /* hi-IN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "hi-IN"; path = "hi-IN.lproj/CTAssetsPickerController.strings"; sourceTree = "<group>"; };
+		249481A61A4F2820000827AC /* CTAssetsPicker.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CTAssetsPicker.xcassets; sourceTree = "<group>"; };
+		249481B31A4F3689000827AC /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/CTAssetsPickerController.strings; sourceTree = "<group>"; };
+		249481B41A4F368C000827AC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/CTAssetsPickerController.strings"; sourceTree = "<group>"; };
+		249481B51A4F368F000827AC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/CTAssetsPickerController.strings; sourceTree = "<group>"; };
 		24F16AA91A23A7FB0007F11A /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/CTAssetsPickerController.strings"; sourceTree = "<group>"; };
 		24F16AAA1A23A8040007F11A /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/CTAssetsPickerController.strings; sourceTree = "<group>"; };
 		24F16AAB1A23A80C0007F11A /* es-MX */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-MX"; path = "es-MX.lproj/CTAssetsPickerController.strings"; sourceTree = "<group>"; };
@@ -392,8 +395,6 @@
 		249481A71A4F2820000827AC /* CTAssetsPickerController.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				AD68F6981A09FA5700097018 /* en */,
-				AD68F69A1A09FA6100097018 /* zh-Hant */,
 				24F16AA91A23A7FB0007F11A /* pt-PT */,
 				24F16AAA1A23A8040007F11A /* pt */,
 				24F16AAB1A23A80C0007F11A /* es-MX */,
@@ -407,6 +408,9 @@
 				08DD56531A494299009CA145 /* he */,
 				08DD56541A4942A1009CA145 /* id */,
 				08DD56551A4942B3009CA145 /* hi-IN */,
+				249481B31A4F3689000827AC /* de */,
+				249481B41A4F368C000827AC /* zh-Hant */,
+				249481B51A4F368F000827AC /* en */,
 			);
 			name = CTAssetsPickerController.strings;
 			sourceTree = "<group>";
