@@ -1,0 +1,48 @@
+/* Navigation bar buttons */
+"Cancel" = "キャンセル";
+"Done" = "終了";
+
+/* Default title */
+"Photos" = "写真";
+
+/* No. of selected */
+"%ld Photo Selected" = "%ld 枚の写真が選択されました";
+"%ld Photos Selected" = "%ld 枚の写真が選択されました";
+"%ld Video Selected" = "%ld 件の動画が選択されました";
+"%ld Videos Selected" = "%ld 件の動画が選択されました";
+"%ld Items Selected" = "%ld 個のアイテムが選択されました";
+
+/* Album's footer */
+"%ld Photos" = "%ld 枚の写真";
+"%ld Videos" = "%ld 件の動画";
+"%ld Photos, %ld Videos" = "%1$ld 枚の写真、%2$ld 件の動画";
+
+/* Assets index */
+"%ld of %ld" = "%1$ld / %2$ld";
+
+/* Messages if privacy is not granted */
+"This app does not have access to your photos or videos." = "このアプリはあなたの写真と動画へアクセスする許可を得ていません。";
+"You can enable access in Privacy Settings." = "「プライバシー設定」からアクセスを許可できます。";
+
+/* Messages if no assets */
+"No Photos or Videos" = "写真または動画がありません";
+
+/* The parameter will be replaced by the device model name */
+"You can take photos and videos using the camera, or sync photos and videos onto your %@\nusing iTunes." = "カメラを使用して写真または動画を撮影するか、ご利用の%@へ写真と動画を同期することができます。\n同期はiTunes を使用して行えます。";
+"You can sync photos and videos onto your %@ using iTunes." = "iTunes を使用して、ご利用の%@へ写真と動画を同期することができます。";
+
+/* Accessibility labels */
+"Photo" = "写真";
+"Video" = "動画";
+"Portrait" = "ポートレイト";
+"Landscape" = "ランドスケープ";
+"Play" = "再生";
+"Not available" = "ありません";
+
+/* Video duration spell out */
+"hours" = "時間";
+"hour" = "時間";
+"minutes" = "分";
+"minute" = "分";
+"seconds" = "秒";
+"second" = "秒";

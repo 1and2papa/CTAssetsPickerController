@@ -1,0 +1,48 @@
+/* Navigation bar buttons */
+"Cancel" = "Отмена";
+"Done" = "Готово";
+
+/* Default title */
+"Photos" = "Фотографии";
+
+/* No. of selected */
+"%ld Photo Selected" = "выбрана %ld фотография";
+"%ld Photos Selected" = "выбрано %ld фотографий";
+"%ld Video Selected" = "выбрано %ld видео";
+"%ld Videos Selected" = "выбрано %ld видео";
+"%ld Items Selected" = "выбрано %ld элементов";
+
+/* Album's footer */
+"%ld Photos" = "%ld фотографий";
+"%ld Videos" = "%ld видео";
+"%ld Photos, %ld Videos" = "%1$ld фотографий, %2$ld видео";
+
+/* Assets index */
+"%ld of %ld" = "%1$ld из %2$ld";
+
+/* Messages if privacy is not granted */
+"This app does not have access to your photos or videos." = "У этого приложения нет доступа к вашим фотографиям и видео.";
+"You can enable access in Privacy Settings." = "Вы можете включить доступ приложению в Настройках конфиденциальности.";
+
+/* Messages if no assets */
+"No Photos or Videos" = "Нет фотографий и видео";
+
+/* The parameter will be replaced by the device model name */
+"You can take photos and videos using the camera, or sync photos and videos onto your %@\nusing iTunes." = "Вы можете сделать фотографии или снять видео при помощи камеры либо синхронизировать фотографии и видео со своим %@\nчерез iTunes.";
+"You can sync photos and videos onto your %@ using iTunes." = "Вы можете синхронизировать фотографии и видео со своим %@ при помощи iTunes.";
+
+/* Accessibility labels */
+"Photo" = "Фотографии";
+"Video" = "Видео";
+"Portrait" = "Портрет";
+"Landscape" = "Пейзаж";
+"Play" = "Воспр.";
+"Not available" = "Недоступно";
+
+/* Video duration spell out */
+"hours" = "часов";
+"hour" = "час";
+"minutes" = "минут";
+"minute" = "минута";
+"seconds" = "секунд";
+"second" = "секунда";
