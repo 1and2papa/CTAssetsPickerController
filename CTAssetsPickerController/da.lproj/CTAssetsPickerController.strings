@@ -1,0 +1,48 @@
+/* Navigation bar buttons */
+"Cancel" = "Fortryd";
+"Done" = "Færdig";
+
+/* Default title */
+"Photos" = "Billeder";
+
+/* No. of selected */
+"%ld Photo Selected" = "%ld Billed valgt";
+"%ld Photos Selected" = "%ld Bileder valgt";
+"%ld Video Selected" = "%ld Video valgt";
+"%ld Videos Selected" = "%ld Videoer valgt";
+"%ld Items Selected" = "%ld Emner valgt";
+
+/* Album's footer */
+"%ld Photos" = "%ld Billeder";
+"%ld Videos" = "%ld Videoer";
+"%ld Photos, %ld Videos" = "%1$ld Billeder, %2$ld Videoer";
+
+/* Assets index */
+"%ld of %ld" = "%1$ld af %2$ld";
+
+/* Messages if privacy is not granted */
+"This app does not have access to your photos or videos." = "Denne app har ikke adgangs til dine billeder eller videoer.";
+"You can enable access in Privacy Settings." = "Du kan tildele adgang under Privatlivs indstillinger.";
+
+/* Messages if no assets */
+"No Photos or Videos" = "Ingen billeder eller videoer";
+
+/* The parameter will be replaced by the device model name */
+"You can take photos and videos using the camera, or sync photos and videos onto your %@\nusing iTunes." = "Du kan tage billeder med kameraet, eller synkronisere billeder og videoer til din %@\nmed iTunes.";
+"You can sync photos and videos onto your %@ using iTunes." = "Du kan synkronisere billeder eller videoer til din %@ med iTunes.";
+
+/* Accessibility labels */
+"Photo" = "Billed";
+"Video" = "Video";
+"Portrait" = "Portræt";
+"Landscape" = "Landskap";
+"Play" = "Afspil";
+"Not available" = "Ikke tilgængelig";
+
+/* Video duration spell out */
+"hours" = "timer";
+"hour" = "time";
+"minutes" = "minutter";
+"minute" = "minut";
+"seconds" = "sekunder";
+"second" = "sekund";
