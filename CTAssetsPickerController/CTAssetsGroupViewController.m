@@ -290,7 +290,10 @@
         if (index != NSNotFound)
         {
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-            
+
+            /* Re-apply the filter if the group changed */
+            [group setAssetsFilter:self.picker.assetsFilter];
+
             [self.groups replaceObjectAtIndex:index withObject:group];
             [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         }
@@ -306,6 +309,9 @@
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.groups.count inSection:0];
         
         [self.tableView beginUpdates];
+        
+        /* Re-apply the filter for inserted group */
+        [group setAssetsFilter:self.picker.assetsFilter];
         
         [self.groups addObject:group];
         [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
