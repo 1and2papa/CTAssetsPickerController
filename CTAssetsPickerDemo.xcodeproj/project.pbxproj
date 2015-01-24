@@ -65,6 +65,7 @@
 		24F16AA91A23A7FB0007F11A /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/CTAssetsPickerController.strings"; sourceTree = "<group>"; };
 		24F16AAA1A23A8040007F11A /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/CTAssetsPickerController.strings; sourceTree = "<group>"; };
 		24F16AAB1A23A80C0007F11A /* es-MX */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-MX"; path = "es-MX.lproj/CTAssetsPickerController.strings"; sourceTree = "<group>"; };
+		A13712E31A644280006C4B32 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/CTAssetsPickerController.strings; sourceTree = "<group>"; };
 		AD309FC619E67B7500BFCE8B /* CTAssetsPickerCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsPickerCommon.h; sourceTree = "<group>"; };
 		AD58798218E54F0C00B5773D /* CTAssetsGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsGroupViewController.h; sourceTree = "<group>"; };
 		AD58798318E54F0C00B5773D /* CTAssetsGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CTAssetsGroupViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -288,6 +289,7 @@
 				he,
 				id,
 				"hi-IN",
+				da,
 			);
 			mainGroup = ADE31D7D17EFF08C008958B8;
 			productRefGroup = ADE31D8717EFF08C008958B8 /* Products */;
@@ -379,6 +381,7 @@
 				08DD56531A494299009CA145 /* he */,
 				08DD56541A4942A1009CA145 /* id */,
 				08DD56551A4942B3009CA145 /* hi-IN */,
+				A13712E31A644280006C4B32 /* da */,
 			);
 			name = CTAssetsPickerController.strings;
 			sourceTree = "<group>";
