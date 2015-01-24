@@ -161,7 +161,7 @@ NSString * const CTAssetsSupplementaryViewIdentifier = @"CTAssetsSupplementaryVi
     if (!self.assets)
         self.assets = [[NSMutableArray alloc] init];
     else
-        return;
+        return [self.collectionView reloadData];
     
     ALAssetsGroupEnumerationResultsBlock resultsBlock = ^(ALAsset *asset, NSUInteger index, BOOL *stop)
     {
