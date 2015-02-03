@@ -1,3 +1,6 @@
+### v2.9.0
+* [#64](https://github.com/chiunam/CTAssetsPickerController/issues/64) Put resources into a bundle
+
 ### v2.8.1
 * [#81](https://github.com/chiunam/CTAssetsPickerController/issues/81) Fix: Update `collectionView` after calling `de/selectAsset` methods.
 * [#77](https://github.com/chiunam/CTAssetsPickerController/issues/77) Fix: When assets group changed, the asset filter is not re-applied
