@@ -28,8 +28,7 @@
 #import "ALAsset+accessibilityLabel.h"
 #import "ALAsset+assetType.h"
 #import "NSDateFormatter+timeIntervalFormatter.h"
-
-
+#import "NSBundle+CTAssetsPickerController.h"
 
 @implementation ALAsset (accessibilityLabel)
 
@@ -46,7 +45,7 @@
     [accessibilityLabels addObject:[self dateAccessibilityLabel]];
     
     if (!self.defaultRepresentation)
-        [accessibilityLabels addObject:NSLocalizedStringFromTable(@"Not available", @"CTAssetsPickerController", nil)];
+        [accessibilityLabels addObject:CTAssetsPickerControllerLocalizedString(@"Not available")];
     
     return [accessibilityLabels componentsJoinedByString:@", "];
 }
@@ -55,10 +54,10 @@
 - (NSString *)typeAccessibilityLabel
 {
     if ([self isVideo]) {
-        return NSLocalizedStringFromTable(@"Video", @"CTAssetsPickerController", nil);
+        return CTAssetsPickerControllerLocalizedString(@"Video");
     }
 
-    return NSLocalizedStringFromTable(@"Photo", @"CTAssetsPickerController", nil);
+    return CTAssetsPickerControllerLocalizedString(@"Photo");
 }
 
 - (NSString *)durationAccessibilityLabel
@@ -73,10 +72,10 @@
     CGSize dimension = self.defaultRepresentation.dimensions;
     
     if (dimension.height >= dimension.width) {
-        return NSLocalizedStringFromTable(@"Portrait", @"CTAssetsPickerController", nil);
+        return CTAssetsPickerControllerLocalizedString(@"Portrait");
     }
     
-    return NSLocalizedStringFromTable(@"Landscape", @"CTAssetsPickerController", nil);
+    return CTAssetsPickerControllerLocalizedString(@"Landscape");
 }
 
 - (NSString *)dateAccessibilityLabel

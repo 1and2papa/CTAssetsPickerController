@@ -30,6 +30,7 @@
 #import "CTAssetsGroupViewController.h"
 #import "CTAssetsGroupViewCell.h"
 #import "CTAssetsViewController.h"
+#import "NSBundle+CTAssetsPickerController.h"
 
 
 
@@ -121,14 +122,14 @@
     if (self.picker.showsCancelButton)
     {
         self.navigationItem.leftBarButtonItem =
-        [[UIBarButtonItem alloc] initWithTitle:NSLocalizedStringFromTable(@"Cancel", @"CTAssetsPickerController", nil)
+        [[UIBarButtonItem alloc] initWithTitle:CTAssetsPickerControllerLocalizedString(@"Cancel")
                                          style:UIBarButtonItemStylePlain
                                         target:self.picker
                                         action:@selector(dismiss:)];
     }
     
     self.navigationItem.rightBarButtonItem =
-    [[UIBarButtonItem alloc] initWithTitle:NSLocalizedStringFromTable(@"Done", @"CTAssetsPickerController", nil)
+    [[UIBarButtonItem alloc] initWithTitle:CTAssetsPickerControllerLocalizedString(@"Done")
                                      style:UIBarButtonItemStyleDone
                                     target:self.picker
                                     action:@selector(finishPickingAssets:)];
@@ -147,7 +148,7 @@
 - (void)localize
 {
     if (!self.picker.title)
-        self.title = NSLocalizedStringFromTable(@"Photos", @"CTAssetsPickerController", nil);
+        self.title = CTAssetsPickerControllerLocalizedString(@"Photos");
     else
         self.title = self.picker.title;
 }

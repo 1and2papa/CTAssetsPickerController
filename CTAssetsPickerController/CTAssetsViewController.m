@@ -32,6 +32,7 @@
 #import "CTAssetsSupplementaryView.h"
 #import "CTAssetsPageViewController.h"
 #import "CTAssetsViewControllerTransition.h"
+#import "NSBundle+CTAssetsPickerController.h"
 
 
 
@@ -138,7 +139,7 @@ NSString * const CTAssetsSupplementaryViewIdentifier = @"CTAssetsSupplementaryVi
 - (void)setupButtons
 {
     self.navigationItem.rightBarButtonItem =
-    [[UIBarButtonItem alloc] initWithTitle:NSLocalizedStringFromTable(@"Done", @"CTAssetsPickerController", nil)
+    [[UIBarButtonItem alloc] initWithTitle:CTAssetsPickerControllerLocalizedString(@"Done")
                                      style:UIBarButtonItemStyleDone
                                     target:self.picker
                                     action:@selector(finishPickingAssets:)];

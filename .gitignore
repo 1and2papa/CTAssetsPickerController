@@ -165,3 +165,7 @@ xcuserdata
 #
 
 *.xccheckout
+
+Pods
+CTAssetsPickerController/CTAssetsPickerController.bundle
+

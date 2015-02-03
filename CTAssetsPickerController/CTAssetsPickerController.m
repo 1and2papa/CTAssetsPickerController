@@ -30,7 +30,8 @@
 #import "CTAssetsGroupViewController.h"
 #import "CTAssetsPageViewController.h"
 #import "CTAssetsViewControllerTransition.h"
-
+#import "NSBundle+CTAssetsPickerController.h"
+#import "UIImage+CTAssetsPickerController.h"
 
 
 
@@ -264,7 +265,7 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
 
 - (UIImageView *)padlockImageView
 {
-    UIImage *file        = [UIImage imageNamed:@"CTAssetsPickerLocked"];
+    UIImage *file        = [UIImage ctassetsPickerControllerImageNamed:@"CTAssetsPickerLocked"];
     UIImage *image       = [file imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     
     UIImageView *padlock = [[UIImageView alloc] initWithImage:image];
@@ -280,9 +281,9 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
     NSString *format;
     
     if ([self isCameraDeviceAvailable])
-        format = NSLocalizedStringFromTable(@"You can take photos and videos using the camera, or sync photos and videos onto your %@\nusing iTunes.", @"CTAssetsPickerController", nil);
+        format = CTAssetsPickerControllerLocalizedString(@"You can take photos and videos using the camera, or sync photos and videos onto your %@\nusing iTunes.");
     else
-        format = NSLocalizedStringFromTable(@"You can sync photos and videos onto your %@ using iTunes.", @"CTAssetsPickerController", nil);
+        format = CTAssetsPickerControllerLocalizedString(@"You can sync photos and videos onto your %@ using iTunes.");
     
     return [NSString stringWithFormat:format, self.deviceModel];
 }
@@ -367,11 +368,11 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
     UILabel *title =
     [self auxiliaryLabelWithFont:[UIFont boldSystemFontOfSize:17.0]
                            color:[UIColor colorWithRed:129.0/255.0 green:136.0/255.0 blue:148.0/255.0 alpha:1]
-                            text:NSLocalizedStringFromTable(@"This app does not have access to your photos or videos.", @"CTAssetsPickerController", nil)];
+                            text:CTAssetsPickerControllerLocalizedString(@"This app does not have access to your photos or videos.")];
     UILabel *message =
     [self auxiliaryLabelWithFont:[UIFont systemFontOfSize:14.0]
                            color:[UIColor colorWithRed:129.0/255.0 green:136.0/255.0 blue:148.0/255.0 alpha:1]
-                            text:NSLocalizedStringFromTable(@"You can enable access in Privacy Settings.", @"CTAssetsPickerController", nil)];
+                            text:CTAssetsPickerControllerLocalizedString(@"You can enable access in Privacy Settings.")];
     
     UIView *centerView = [self centerViewWithViews:@[padlock, title, message]];
     
@@ -386,7 +387,7 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
     UILabel *title =
     [self auxiliaryLabelWithFont:[UIFont systemFontOfSize:26.0]
                            color:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1]
-                            text:NSLocalizedStringFromTable(@"No Photos or Videos", @"CTAssetsPickerController", nil)];
+                            text:CTAssetsPickerControllerLocalizedString(@"No Photos or Videos")];
     
     UILabel *message =
     [self auxiliaryLabelWithFont:[UIFont systemFontOfSize:18.0]
@@ -425,17 +426,17 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
     NSString *format;
     
     if (photoSelected && videoSelected)
-        format = NSLocalizedStringFromTable(@"%ld Items Selected", @"CTAssetsPickerController", nil);
+        format = CTAssetsPickerControllerLocalizedString(@"%ld Items Selected");
     
     else if (photoSelected)
         format = (self.selectedAssets.count > 1) ?
-        NSLocalizedStringFromTable(@"%ld Photos Selected", @"CTAssetsPickerController", nil) :
-        NSLocalizedStringFromTable(@"%ld Photo Selected", @"CTAssetsPickerController", nil);
+        CTAssetsPickerControllerLocalizedString(@"%ld Photos Selected") :
+        CTAssetsPickerControllerLocalizedString(@"%ld Photo Selected");
     
     else if (videoSelected)
         format = (self.selectedAssets.count > 1) ?
-        NSLocalizedStringFromTable(@"%ld Videos Selected", @"CTAssetsPickerController", nil) :
-        NSLocalizedStringFromTable(@"%ld Video Selected", @"CTAssetsPickerController", nil);
+        CTAssetsPickerControllerLocalizedString(@"%ld Videos Selected") :
+        CTAssetsPickerControllerLocalizedString(@"%ld Video Selected");
     
     return [NSString stringWithFormat:format, (long)self.selectedAssets.count];
 }

@@ -1,0 +1,28 @@
+#!/usr/bin/env ruby
+
+require 'fileutils'
+include FileUtils
+
+module Pod
+  class Spec
+    attr_accessor :resource_bundles
+
+    def initialize
+      yield self
+    end
+
+    def method_missing(meth, *args, &block)
+      super unless meth.to_s =~ /^(.+)=$/
+    end
+
+  end
+end
+
+podspec = eval File.read('CTAssetsPickerController.podspec')
+podspec.resource_bundles.each do |bundle_name, bundle_contents|
+  bundle_directory = "CTAssetsPickerController/#{bundle_name}.bundle"
+  rm_rf bundle_directory, secure: true
+  mkdir bundle_directory
+  cp_r Dir.glob(bundle_contents), bundle_directory
+  puts "Created #{bundle_directory}"
+end
