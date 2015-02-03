@@ -1,3 +1,12 @@
+### v2.8.1
+* [#81](https://github.com/chiunam/CTAssetsPickerController/issues/81) Fix: Update `collectionView` after calling `de/selectAsset` methods.
+* [#77](https://github.com/chiunam/CTAssetsPickerController/issues/77) Fix: When assets group changed, the asset filter is not re-applied
+* [#83](https://github.com/chiunam/CTAssetsPickerController/issues/83) Better Japanese translation of "Done"
+* [#76](https://github.com/chiunam/CTAssetsPickerController/issues/76) Add Danish localisation
+* [#74](https://github.com/chiunam/CTAssetsPickerController/issues/74) Add Japanese, Korean, Simplified Chinese, Indonesian, Italian, Russian localisations
+* [#73](https://github.com/chiunam/CTAssetsPickerController/issues/73) Add German localisation
+* [#72](https://github.com/chiunam/CTAssetsPickerController/issues/72) Add French localisation
+
 ### v2.8.0
 * [#63](https://github.com/chiunam/CTAssetsPickerController/issues/63) Add translations for pt, pt-PT and es-MX
 * [#59](https://github.com/chiunam/CTAssetsPickerController/issues/59) Add `alwaysEnableDoneButton` property to allow enabling done button even without assets selected
