@@ -277,6 +277,9 @@ NSString * const CTAssetsSupplementaryViewIdentifier = @"CTAssetsSupplementaryVi
     [[self.toolbarItems objectAtIndex:1] setTitle:[self.picker toolbarTitle]];
     
     [self.navigationController setToolbarHidden:(selectedAssets.count == 0) animated:YES];
+    
+    // Reload assets
+    [self reloadData];
 }
 
 
