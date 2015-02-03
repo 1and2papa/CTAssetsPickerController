@@ -279,8 +279,8 @@ NSString * const CTAssetsSupplementaryViewIdentifier = @"CTAssetsSupplementaryVi
     
     [self.navigationController setToolbarHidden:(selectedAssets.count == 0) animated:YES];
     
-    // Reload assets
-    [self reloadData];
+    // Reload assets for calling de/selectAsset method programmatically
+    [self.collectionView reloadData];
 }
 
 
