@@ -76,8 +76,12 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
 {
     CTAssetsGroupViewController *vc = [[CTAssetsGroupViewController alloc] init];
     UINavigationController *nav = [[self createChildNavigationController] initWithRootViewController:vc];
-    nav.delegate = self;
+
+    // Enable iOS 7 back gesture
+    nav.interactivePopGestureRecognizer.enabled  = YES;
+    nav.interactivePopGestureRecognizer.delegate = nil;
     
+    nav.delegate = self;
     [nav willMoveToParentViewController:self];
     [nav.view setFrame:self.view.frame];
     [self.view addSubview:nav.view];
