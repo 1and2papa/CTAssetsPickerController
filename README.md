@@ -32,7 +32,7 @@ platform :ios, '7.0'
 pod 'CTAssetsPickerController',  '~> 2.9.0'
 ````
 
-*If you need manually manage your library, you can still use this control via git submodule. Please see [submodules notes](SUBMODULES-NOTES.md) for the details.*
+*If you manually manage your libraries, this contol can also be used via git submodule but you have to create resource bundle by yourself. Please see [submodules notes](SUBMODULES-NOTES.md) for the details.*
 
 ## Running the demo app
 
