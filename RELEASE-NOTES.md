@@ -1,3 +1,6 @@
+### v2.9.1
+* [#85](https://github.com/chiunam/CTAssetsPickerController/issues/85) Fix: No "swipe to go back" gesture
+
 ### v2.9.0
 * [#64](https://github.com/chiunam/CTAssetsPickerController/issues/64) Put resources into a bundle
 
