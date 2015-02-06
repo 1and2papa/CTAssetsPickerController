@@ -62,9 +62,9 @@
 		78FC009B0D59C0E3BB69A7DE /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		AD309FC619E67B7500BFCE8B /* CTAssetsPickerCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsPickerCommon.h; sourceTree = "<group>"; };
 		AD58798218E54F0C00B5773D /* CTAssetsGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsGroupViewController.h; sourceTree = "<group>"; };
-		AD58798318E54F0C00B5773D /* CTAssetsGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CTAssetsGroupViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		AD58798318E54F0C00B5773D /* CTAssetsGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CTAssetsGroupViewController.m; sourceTree = "<group>"; };
 		AD58798518E550B000B5773D /* CTAssetsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsViewController.h; sourceTree = "<group>"; };
-		AD58798618E550B000B5773D /* CTAssetsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CTAssetsViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		AD58798618E550B000B5773D /* CTAssetsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CTAssetsViewController.m; sourceTree = "<group>"; };
 		AD58798818E551E000B5773D /* CTAssetsGroupViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsGroupViewCell.h; sourceTree = "<group>"; };
 		AD58798918E551E000B5773D /* CTAssetsGroupViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetsGroupViewCell.m; sourceTree = "<group>"; };
 		AD58798B18E552D700B5773D /* CTAssetsViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsViewCell.h; sourceTree = "<group>"; };
@@ -83,7 +83,7 @@
 		ADDEA34C192F4C590049D6A7 /* CTAssetItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetItemViewController.h; sourceTree = "<group>"; };
 		ADDEA34D192F4C590049D6A7 /* CTAssetItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetItemViewController.m; sourceTree = "<group>"; };
 		ADDEA34F192F4CB40049D6A7 /* CTAssetScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetScrollView.h; sourceTree = "<group>"; };
-		ADDEA350192F4CB40049D6A7 /* CTAssetScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CTAssetScrollView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		ADDEA350192F4CB40049D6A7 /* CTAssetScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CTAssetScrollView.m; sourceTree = "<group>"; };
 		ADDEA35219333BDA0049D6A7 /* ALAsset+assetType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAsset+assetType.h"; sourceTree = "<group>"; };
 		ADDEA35319333BDA0049D6A7 /* ALAsset+assetType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAsset+assetType.m"; sourceTree = "<group>"; };
 		ADE31D8617EFF08C008958B8 /* CTAssetsPickerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CTAssetsPickerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
