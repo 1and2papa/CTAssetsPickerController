@@ -60,6 +60,7 @@
 		37AB9ED3927E2C7F99667B50 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		453FEBD9917867C79B853164 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		78FC009B0D59C0E3BB69A7DE /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		79B51BE71A97741A0015DD2D /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/CTAssetsPickerController.strings; sourceTree = "<group>"; };
 		AD309FC619E67B7500BFCE8B /* CTAssetsPickerCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsPickerCommon.h; sourceTree = "<group>"; };
 		AD58798218E54F0C00B5773D /* CTAssetsGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsGroupViewController.h; sourceTree = "<group>"; };
 		AD58798318E54F0C00B5773D /* CTAssetsGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CTAssetsGroupViewController.m; sourceTree = "<group>"; };
@@ -306,6 +307,7 @@
 				he,
 				id,
 				"hi-IN",
+				fi,
 			);
 			mainGroup = ADE31D7D17EFF08C008958B8;
 			productRefGroup = ADE31D8717EFF08C008958B8 /* Products */;
@@ -411,6 +413,7 @@
 				249481B31A4F3689000827AC /* de */,
 				249481B41A4F368C000827AC /* zh-Hant */,
 				249481B51A4F368F000827AC /* en */,
+				79B51BE71A97741A0015DD2D /* fi */,
 			);
 			name = CTAssetsPickerController.strings;
 			sourceTree = "<group>";
