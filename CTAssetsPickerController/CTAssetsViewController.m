@@ -70,7 +70,8 @@ NSString * const CTAssetsSupplementaryViewIdentifier = @"CTAssetsSupplementaryVi
 
 - (id)init
 {
-    UICollectionViewFlowLayout *layout = [self collectionViewFlowLayoutOfOrientation:self.interfaceOrientation];
+    UIInterfaceOrientation interfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+    UICollectionViewFlowLayout *layout = [self collectionViewFlowLayoutOfOrientation:interfaceOrientation];
     
     if (self = [super initWithCollectionViewLayout:layout])
     {
