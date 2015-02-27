@@ -82,8 +82,8 @@
     NSDate *date2 = [[NSDate alloc] initWithTimeInterval:timeInterval sinceDate:date1];
     
     unsigned int unitFlags =
-    NSSecondCalendarUnit | NSMinuteCalendarUnit | NSHourCalendarUnit |
-    NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit;
+    NSCalendarUnitSecond | NSCalendarUnitMinute | NSCalendarUnitHour |
+    NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear;
     
     return [calendar components:unitFlags
                        fromDate:date1
