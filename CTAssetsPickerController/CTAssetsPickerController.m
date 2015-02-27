@@ -76,14 +76,16 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
 {
     CTAssetsGroupViewController *vc = [[CTAssetsGroupViewController alloc] init];
     UINavigationController *nav = [[self createChildNavigationController] initWithRootViewController:vc];
-
+    
     // Enable iOS 7 back gesture
     nav.interactivePopGestureRecognizer.enabled  = YES;
     nav.interactivePopGestureRecognizer.delegate = nil;
     
     nav.delegate = self;
     [nav willMoveToParentViewController:self];
-    [nav.view setFrame:self.view.frame];
+    
+    // Set frame origin to zero so that the view will be positioned correctly while in-call status bar is shown
+    [nav.view setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     [self.view addSubview:nav.view];
     [self addChildViewController:nav];
     [nav didMoveToParentViewController:self];
