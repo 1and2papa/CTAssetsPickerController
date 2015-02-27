@@ -1,3 +1,9 @@
+### v2.9.2
+* [#89](https://github.com/chiunam/CTAssetsPickerController/issues/89) Add Finnish language support
+* [#90](https://github.com/chiunam/CTAssetsPickerController/issues/90) Remove deprication warrnings for iOS 8
+* [#87](https://github.com/chiunam/CTAssetsPickerController/issues/87) Fix: Missing padlock image
+* [#91](https://github.com/chiunam/CTAssetsPickerController/issues/91) Fix: Wrong view position when in-call / tethering status bar is shown
+
 ### v2.9.1
 * [#85](https://github.com/chiunam/CTAssetsPickerController/issues/85) Fix: No "swipe to go back" gesture
 
