@@ -1,3 +1,7 @@
+### v2.9.3
+* [#95](https://github.com/chiunam/CTAssetsPickerController/issues/95) Fix bundle path error if the pod use frameworks
+* Fix the path of Danish localization
+
 ### v2.9.2
 * [#89](https://github.com/chiunam/CTAssetsPickerController/issues/89) Add Finnish language support
 * [#90](https://github.com/chiunam/CTAssetsPickerController/issues/90) Remove deprication warrnings for iOS 8
