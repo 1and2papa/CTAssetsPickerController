@@ -7,6 +7,7 @@
 //
 
 #import "NSBundle+CTAssetsPickerController.h"
+#import "CTAssetsPickerController.h"
 
 @implementation NSBundle (CTAssetsPickerController)
 
@@ -17,7 +18,8 @@
 
 + (NSString *)ctassetsPickerControllerBundlePath
 {
-    return [[NSBundle mainBundle] pathForResource:@"CTAssetsPickerController" ofType:@"bundle"];
+    return [[NSBundle bundleForClass:[CTAssetsPickerController class]]
+            pathForResource:@"CTAssetsPickerController" ofType:@"bundle"];
 }
 
 @end
