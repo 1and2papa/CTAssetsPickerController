@@ -1,0 +1,48 @@
+/* Navigation bar buttons */
+"Cancel" = "Annuleren";
+"Done" = "Valideren";
+
+/* Default title */
+"Photos" = "Foto's";
+
+/* No. of selected */
+"%ld Photo Selected" = "%ld foto geselecteerd";
+"%ld Photos Selected" = "%ld foto's geselecteerd";
+"%ld Video Selected" = "%ld video geselecteerd";
+"%ld Videos Selected" = "%ld video's geselecteerd";
+"%ld Items Selected" = "%ld items geselecteerd";
+
+/* Album's footer */
+"%ld Photos" = "%ld Foto's";
+"%ld Videos" = "%ld Video's";
+"%ld Photos, %ld Videos" = "%1$ld Foto's, %2$ld Videos";
+
+/* Assets index */
+"%ld of %ld" = "%1$ld op %2$ld";
+
+/* Messages if privacy is not granted */
+"This app does not have access to your photos or videos." = "Deze App heeft geen toegang tot je foto's en video's.";
+"You can enable access in Privacy Settings." = "Je kan de applicatie toegang verlenen via Instellingen > Privacy.";
+
+/* Messages if no assets */
+"No Photos or Videos" = "Geen foto's of video's";
+
+/* The parameter will be replaced by the device model name */
+"You can take photos and videos using the camera, or sync photos and videos onto your %@\nusing iTunes." = "Je kan foto's of video's nemen met je camera, of door je foto's en video's te synchroniseren via %@n iTunes.";
+"You can sync photos and videos onto your %@ using iTunes." = "Je kan je foto's en video's synchroniseren met %@ iTunes";
+
+/* Accessibility labels */
+"Photo" = "Foto";
+"Video" = "Video";
+"Portrait" = "Portret";
+"Landscape" = "Landschap";
+"Play" = "Lezen";
+"Not available" = "Niet beschikbaar";
+
+/* Video duration spell out */
+"hours" = "uren";
+"hour" = "uur";
+"minutes" = "minuten";
+"minute" = "minute";
+"seconds" = "seconden";
+"second" = "seconde”;
