@@ -7,10 +7,10 @@
 
 /* No. of selected */
 "%ld Photo Selected" = "%ld Foto ausgewählt";
-"%ld Photos Selected" = "%ld Foto ausgewählt";
-"%ld Video Selected" = "%ld Video ausgewhält";
-"%ld Videos Selected" = "%ld Videos ausgewhält";
-"%ld Items Selected" = "%ld Objekte ausgewhält";
+"%ld Photos Selected" = "%ld Fotos ausgewählt";
+"%ld Video Selected" = "%ld Video ausgewählt";
+"%ld Videos Selected" = "%ld Videos ausgewählt";
+"%ld Items Selected" = "%ld Objekte ausgewählt";
 
 /* Album's footer */
 "%ld Photos" = "%ld Fotos";
@@ -22,14 +22,14 @@
 
 /* Messages if privacy is not granted */
 "This app does not have access to your photos or videos." = "Diese App darf nicht auf Ihr Fotoalbum zugreifen.";
-"You can enable access in Privacy Settings." = "Sie Zugriff unter Einstellungen gewähren.";
+"You can enable access in Privacy Settings." = "Sie können den Zugriff in den Einstellungen erlauben.";
 
 /* Messages if no assets */
 "No Photos or Videos" = "Keine Fotos oder Videos ausgewählt";
 
 /* The parameter will be replaced by the device model name */
-"You can take photos and videos using the camera, or sync photos and videos onto your %@\nusing iTunes." = "Sie können Fotos oder Videos mit der Kamera aufnehmen oder %@\nmit iTunes synchronisieren.";
-"You can sync photos and videos onto your %@ using iTunes." = "Sie können Fotos oder Videos mit Ihrem %@ iTunes synchronisieren.";
+"You can take photos and videos using the camera, or sync photos and videos onto your %@\nusing iTunes." = "Sie können Fotos oder Videos mit der Kamera aufnehmen oder Ihr %@\nmit iTunes synchronisieren.";
+"You can sync photos and videos onto your %@ using iTunes." = "Sie können Fotos und Videos mit iTunes auf Ihr %@ synchronisieren.";
 
 /* Accessibility labels */
 "Photo" = "Foto";
