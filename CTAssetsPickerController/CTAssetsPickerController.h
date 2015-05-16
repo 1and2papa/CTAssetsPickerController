@@ -92,6 +92,22 @@
 @property (nonatomic, assign) BOOL alwaysEnableDoneButton;
 
 /**
+ *  Maximum number of photos that can be selected.
+ *
+ *  The maximum image count is 0 by default, which is unlimited.
+ *  Setting the property to other value will affect the maximum number of assets that the picker can select.
+ */
+@property (nonatomic, assign) unsigned int maxImageCount;
+
+/**
+ *  Determines whether or not the maximum number of selection is reached.
+ *
+ *  When the user selects image up to maxImageCount, then the isMaxReached
+ *  Converts to YES
+ */
+@property (nonatomic, assign, readonly) BOOL isMaxReached;
+
+/**
  *  The navigation controller of the picker hierarchy. (read-only)
  *
  *  This property contains the child navigation controller of the picker.
@@ -315,7 +331,12 @@
  */
 - (void)assetsPickerController:(CTAssetsPickerController *)picker didUnhighlightAsset:(ALAsset *)asset;
 
-
+/**
+ *  Tells the delegate that asset selection reached its maximum
+ *
+ *  @param picker The controller object managing the assets picker interface.
+ */
+- (void)assetsPickerControllerReachedMaximumCount:(CTAssetsPickerController *)picker;
 
 /**
  *  @name Notifications
