@@ -422,7 +422,9 @@ NSString * const CTAssetsSupplementaryViewIdentifier = @"CTAssetsSupplementaryVi
     
     CTAssetsViewCell *cell = (CTAssetsViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     
-    if (!cell.isEnabled)
+    if (self.picker.isMaxReached)
+        return NO;
+    else if (!cell.isEnabled)
         return NO;
     else if ([self.picker.delegate respondsToSelector:@selector(assetsPickerController:shouldSelectAsset:)])
         return [self.picker.delegate assetsPickerController:self.picker shouldSelectAsset:asset];

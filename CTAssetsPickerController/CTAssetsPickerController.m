@@ -38,9 +38,14 @@
 NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPickerSelectedAssetsChangedNotification";
 
 @interface CTAssetsPickerController () <UINavigationControllerDelegate>
+
+@property (nonatomic, assign) unsigned int currentCount;
+
 @end
 
 @implementation CTAssetsPickerController
+
+@synthesize currentCount = _currentCount;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -52,6 +57,9 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
         _showsCancelButton      = YES;
         _showsNumberOfAssets    = YES;
         _alwaysEnableDoneButton = NO;
+        _maxImageCount          = 0;
+        _currentCount           = 0;
+        _isMaxReached           = NO;
         
         self.preferredContentSize = CTAssetPickerPopoverContentSize;
         
@@ -248,11 +256,19 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
 
 - (void)selectAsset:(ALAsset *)asset
 {
+    _currentCount++;
+    if (_currentCount == _maxImageCount){
+        _isMaxReached = YES;
+        if ([self.delegate respondsToSelector:@selector(assetsPickerControllerReachedMaximumCount:)])
+            [self.delegate assetsPickerControllerReachedMaximumCount:self];
+    }
     [self insertObject:asset inSelectedAssetsAtIndex:self.countOfSelectedAssets];
 }
 
 - (void)deselectAsset:(ALAsset *)asset
 {
+    _currentCount--;
+    _isMaxReached = NO;
     [self removeObjectFromSelectedAssetsAtIndex:[self.selectedAssets indexOfObject:asset]];
 }
 
