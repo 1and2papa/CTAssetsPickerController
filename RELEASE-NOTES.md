@@ -1,3 +1,10 @@
+### v2.9.4
+* [#96](https://github.com/chiunam/CTAssetsPickerController/issues/96) Add Belgian French and Dutch translations
+* [#99](https://github.com/chiunam/CTAssetsPickerController/issues/99) Fix typo of Danish translation
+* [#103](https://github.com/chiunam/CTAssetsPickerController/issues/103) Fix invalid double quotes of Belgian French and Dutch translations
+* [#104](https://github.com/chiunam/CTAssetsPickerController/issues/104) Fix typo of German translation
+* [#107](https://github.com/chiunam/CTAssetsPickerController/issues/107) Fix error of create_bundle
+
 ### v2.9.3
 * [#95](https://github.com/chiunam/CTAssetsPickerController/issues/95) Fix bundle path error if the pod use frameworks
 * Fix the path of Danish localization
