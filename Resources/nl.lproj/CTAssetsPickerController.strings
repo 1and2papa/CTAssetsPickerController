@@ -1,6 +1,6 @@
 /* Navigation bar buttons */
 "Cancel" = "Annuleren";
-"Done" = "Valideren";
+"Done" = "Gereed";
 
 /* Default title */
 "Photos" = "Foto's";
@@ -28,8 +28,8 @@
 "No Photos or Videos" = "Geen foto's of video's";
 
 /* The parameter will be replaced by the device model name */
-"You can take photos and videos using the camera, or sync photos and videos onto your %@\nusing iTunes." = "Je kan foto's of video's nemen met je camera, of door je foto's en video's te synchroniseren via %@n in iTunes.";
-"You can sync photos and videos onto your %@ using iTunes." = "Je kan je foto's en video's synchroniseren met je %@ in iTunes";
+"You can take photos and videos using the camera, or sync photos and videos onto your %@\nusing iTunes." = "Je kunt foto's of video's nemen met je camera, of door je foto's en video's te synchroniseren met je %@n in iTunes.";
+"You can sync photos and videos onto your %@ using iTunes." = "Je kunt foto's en video's synchroniseren met je %@ in iTunes";
 
 /* Accessibility labels */
 "Photo" = "Foto";
