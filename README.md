@@ -4,6 +4,8 @@
 
 CTAssetsPickerController is an iOS controller that allows picking multiple photos and videos from user's photo library. The usage and look-and-feel are just similar to UIImagePickerController. It uses **ARC**. Requires **AssetsLibrary** and **MediaPlayer** frameworks.
 
+If you're looking for picker supporting iOS 8 **Photos** framework, please try [v3.0.0 beta](https://github.com/chiunam/CTAssetsPickerController/tree/v3).
+
 ![Screenshot](Screenshot.png "Screenshot")
 
 ## Features
@@ -18,7 +20,7 @@ CTAssetsPickerController is an iOS controller that allows picking multiple photo
 
 
 ## What's new
-* [Release Notes](RELEASE-NOTES.md)
+* [Release Notes](https://github.com/chiunam/CTAssetsPickerController/releases)
 
 ## Minimum Requirement
 Xcode 5 and iOS 7.
@@ -242,9 +244,11 @@ UIBarButtonItem *barButtonItem = [UIBarButtonItem appearanceWhenContainedIn:[UIT
 
 ### Localisation
 
-`CTAssetsPickerController.strings` contains strings used in the picker. It will be included if you add the picker to your project by installing via [submodules](#via-git-submodules). You might translate the text accordingly. PR is always welcomed if you add translation of the picker.
+`CTAssetsPickerController.strings` contains strings used in the picker. It will be package together with the images used in the `CTAssetsPickerController.bundle`. If you install with [submodules](#via-git-submodules), the bundle will only be included after running the `create_bundle` script.
 
-If you uses [CocoaPods](#via-cocoapods), please download the [string table](https://github.com/chiunam/CTAssetsPickerController/blob/master/CTAssetsPickerController/en.lproj/CTAssetsPickerController.strings) and add it to project manually.
+If you uses [CocoaPods](#via-cocoapods), the bundle will be included in the pod built to the workspace.
+
+PR is always welcomed if you add translation of the picker.
 
 ## Notifications
 
@@ -264,9 +268,7 @@ vc.pageIndex = assets.count - 1; // display the last asset
 
 
 ## Documentation
-* [Online documentation](http://chiunam.github.io/CTAssetsPickerController)
-* If you have [Appledoc](https://github.com/tomaz/appledoc) installed, you can also install the documentation to Xcode by running the `Documentation` target of the demo project.
-
+* [Online documentation](http://cocoadocs.org/docsets/CTAssetsPickerController/)
 
 ## Note
 CTAssetsPickerController does not compress the picked photos and videos. You can process the picked assets via the `defaultRepresentation` property.
