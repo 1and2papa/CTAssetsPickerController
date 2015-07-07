@@ -24,21 +24,13 @@ CTAssetsPickerController is an iOS controller that allows picking multiple photo
 Xcode 6 and iOS 8.
 
 ## Adding to your project
-[CocoaPods](http://cocoapods.org) is a very good library dependencies manager. Just create the Podfile and it does all the remaining works.  
-
-Podfile
+###[CocoaPods](http://cocoapods.org) Podfile
 ````
 platform :ios, '8.0'
 pod 'CTAssetsPickerController',  '~> 3.0.0-beta.1'
 ````
+###[Manual Setup](https://github.com/chiunam/CTAssetsPickerController/wiki/Manual-Setup-(v3))
 
-## Running the demo app
-
-To run the demo app, you have to run `pod install` and then open `CTAssetsPickerDemo.xcworkspace`
-````bash
-git clone https://github.com/chiunam/CTAssetsPickerController/
-pod install
-````
 
 ## Usages
 
@@ -73,29 +65,23 @@ pod install
 If the picker is presented by `presentViewController:animated:completion:` method, the delegate is responsible for dismissing the picker when the operation completes.
 
 ```` objective-c
-- (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets;
+- (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets
+{
 // assets contains PHAsset objects.
+}
 ````
 
 ## Customisation
 
-Customisation can be done by setting properties or implementating delegate methods. See the demo project for the details.
-
-### Apperance
-
-The picker conforms `UIAppearance` protocol. For most UI appearance, (e.g. fonts, buttons, text colors), it can be overridden by setting proper `UIAppearance` after picker initalisation. Please refer to the demo project.
+Customisation can be done by setting properties or implementating delegate methods. See the [demo project](https://github.com/chiunam/CTAssetsPickerController/wiki/Running-demo-app) for the details.
 
 ### Localisation
 
-`CTAssetsPicker.strings` contains strings used in the picker. It will be included in `CTAssetsPickerController.bundle` if you add the picker to your project by using CocoaPods. You might translate the text accordingly. PR is always welcomed if you add translation of the picker.
-
-### Notifications
-
-`NSNotification` objects named `CTAssetsPickerSelectedAssetsDidChangeNotification`, `CTAssetsPickerDidSelectAssetNotification` and `CTAssetsPickerDidDeselectAssetNotification` will be sent when user select or deselect assets. You may add your observer to monitor the change of selection.
+`CTAssetsPicker.strings` contains strings used in the picker. It will be included in `CTAssetsPickerController.bundle` automatically if you add the picker to your project by using CocoaPods. You might translate the text or add your translation accordingly. PR is always welcomed if you add translation to the picker.
 
 ## Bonus
 
-You may reuse the preview feature of the picker to view any assets. Just init a `CTAssetsPageViewController` with an array of assets and assign `pageIndex` property. Please refer to the demo app for the details.
+You may reuse the preview feature of the picker to view any assets. Just init a `CTAssetsPageViewController` with an array of assets and assign `pageIndex` property. Please refer to the [demo app](https://github.com/chiunam/CTAssetsPickerController/wiki/Running-demo-app) for the details.
 
 ```` objective-c
 NSArray *assets = @[asset1, asset2, asset3, ...];
@@ -111,14 +97,14 @@ vc.pageIndex = assets.count - 1; // display the last asset
 
 
 ## Note
-CTAssetsPickerController does not compress the picked photos and videos. You can retrieve the image or video data of picked assets by the `PHImageManager` object. Please refer the documentation of `PHImageManager`.
+CTAssetsPickerController does not compress the picked photos and videos. You can retrieve the image or video data of picked assets by the `PHImageManager` object. Please refer the documentation of [`PHImageManager`](https://developer.apple.com/library/prerelease/ios/documentation/Photos/Reference/PHImageManager_Class/index.html).
 
 
 ## License
 
  The MIT License (MIT)
 
- Copyright (c) 2013 Clement CN Tsang
+ Copyright (c) 2015 Clement CN Tsang
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
