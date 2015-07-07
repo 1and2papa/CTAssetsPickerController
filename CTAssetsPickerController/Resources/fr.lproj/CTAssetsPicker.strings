@@ -43,5 +43,5 @@
 "second" = "seconde";
 
 /* Error message of playing stream video */
-"Cannot Play Stream Video" = "Cannot Play Stream Video";
+"Cannot Play Stream Video" = "Impossible de lire le flux vidéo";
 "OK" = "OK";
