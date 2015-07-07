@@ -230,12 +230,26 @@ NSString * const CTAssetsSupplementaryViewIdentifier = @"CTAssetsSupplementaryVi
                selector:@selector(selectedAssetsChanged:)
                    name:CTAssetsPickerSelectedAssetsChangedNotification
                  object:nil];
+    
+    [center addObserver:self
+               selector:@selector(didSelectAsset:)
+                   name:CTAssetsPickerDidSelectAssetNotification
+                 object:nil];
+    
+    [center addObserver:self
+               selector:@selector(didDeselectAsset:)
+                   name:CTAssetsPickerDidDeselectAssetNotification
+                 object:nil];
+    
 }
 
 - (void)removeNotificationObserver
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:ALAssetsLibraryChangedNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:CTAssetsPickerSelectedAssetsChangedNotification object:nil];
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center removeObserver:self name:ALAssetsLibraryChangedNotification object:nil];
+    [center removeObserver:self name:CTAssetsPickerSelectedAssetsChangedNotification object:nil];
+    [center removeObserver:self name:CTAssetsPickerDidSelectAssetNotification object:nil];
+    [center removeObserver:self name:CTAssetsPickerDidDeselectAssetNotification object:nil];
 }
 
 
@@ -282,6 +296,20 @@ NSString * const CTAssetsSupplementaryViewIdentifier = @"CTAssetsSupplementaryVi
     
     // Reload assets for calling de/selectAsset method programmatically
     [self.collectionView reloadData];
+}
+
+- (void)didSelectAsset:(NSNotification *)notification
+{
+    ALAsset *asset = (ALAsset *)notification.object;
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[self.assets indexOfObject:asset] inSection:0];
+    [self.collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+}
+
+- (void)didDeselectAsset:(NSNotification *)notification
+{
+    ALAsset *asset = (ALAsset *)notification.object;
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[self.assets indexOfObject:asset] inSection:0];
+    [self.collectionView deselectItemAtIndexPath:indexPath animated:NO];
 }
 
 

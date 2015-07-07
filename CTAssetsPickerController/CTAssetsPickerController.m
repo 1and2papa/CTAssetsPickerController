@@ -36,6 +36,10 @@
 
 
 NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPickerSelectedAssetsChangedNotification";
+NSString * const CTAssetsPickerDidSelectAssetNotification = @"CTAssetsPickerDidSelectAssetNotification";
+NSString * const CTAssetsPickerDidDeselectAssetNotification = @"CTAssetsPickerDidDeselectAssetNotification";
+
+
 
 @interface CTAssetsPickerController () <UINavigationControllerDelegate>
 @end
@@ -181,7 +185,7 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
     if ([keyPath isEqual:@"selectedAssets"])
     {
         [self toggleDoneButton];
-        [self postNotification:[object valueForKey:keyPath]];
+        [self postAssetsChangedNotification:[object valueForKey:keyPath]];
     }
 }
 
@@ -199,11 +203,24 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
 }
 
 
-#pragma mark - Post Notification
+#pragma mark - Post Notifications
 
-- (void)postNotification:(id)sender
+- (void)postAssetsChangedNotification:(id)sender
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:CTAssetsPickerSelectedAssetsChangedNotification
+                                                        object:sender];
+}
+
+- (void)postDidSelectAssetNotification:(id)sender
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:CTAssetsPickerDidSelectAssetNotification
+                                                        object:sender];
+}
+
+
+- (void)postDidDeselectAssetNotification:(id)sender
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:CTAssetsPickerDidDeselectAssetNotification
                                                         object:sender];
 }
 
@@ -249,11 +266,13 @@ NSString * const CTAssetsPickerSelectedAssetsChangedNotification = @"CTAssetsPic
 - (void)selectAsset:(ALAsset *)asset
 {
     [self insertObject:asset inSelectedAssetsAtIndex:self.countOfSelectedAssets];
+    [self postDidSelectAssetNotification:asset];
 }
 
 - (void)deselectAsset:(ALAsset *)asset
 {
     [self removeObjectFromSelectedAssetsAtIndex:[self.selectedAssets indexOfObject:asset]];
+    [self postDidDeselectAssetNotification:asset];
 }
 
 

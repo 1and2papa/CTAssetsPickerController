@@ -322,11 +322,25 @@
  */
 
 /**
- *  Sent when the assets selected or deselected
+ *  Sent when the assets are selected or deselected
  *
  *  The notification’s `object` is an `NSArray` object of selected assets
  */
 extern NSString * const CTAssetsPickerSelectedAssetsChangedNotification;
+
+/**
+ *  Sent when asset is selected
+ *
+ *  The notification’s `object` is an `ALAsset` object
+ */
+extern NSString * const CTAssetsPickerDidSelectAssetNotification;
+
+/**
+ *  Sent when asset is deselected
+ *
+ *  The notification’s `object` is an `ALAsset` object
+ */
+extern NSString * const CTAssetsPickerDidDeselectAssetNotification;
 
 
 @end
