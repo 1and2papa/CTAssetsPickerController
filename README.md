@@ -34,7 +34,7 @@ platform :ios, '7.0'
 pod 'CTAssetsPickerController',  '~> 2.9.0'
 ````
 
-*If you manually manage your libraries, this contol can also be used via git submodule but you have to create resource bundle by yourself. Please see [submodules notes](SUBMODULES-NOTES.md) for the details.*
+*If you manually manage your libraries, this contol can also be used via git submodule but you have to create resource bundle by yourself. Please see [wiki](https://github.com/chiunam/CTAssetsPickerController/wiki/Manual-Setup-(v2)) for the details.*
 
 ## Running the demo app
 
@@ -244,7 +244,7 @@ UIBarButtonItem *barButtonItem = [UIBarButtonItem appearanceWhenContainedIn:[UIT
 
 ### Localisation
 
-`CTAssetsPickerController.strings` contains strings used in the picker. It will be package together with the images used in the `CTAssetsPickerController.bundle`. If you install with [submodules](#via-git-submodules), the bundle will only be included after running the `create_bundle` script.
+`CTAssetsPickerController.strings` contains strings used in the picker. It will be package together with the images used in the `CTAssetsPickerController.bundle`. If you manually install, the bundle will only be included after running the `create_bundle` script. Please refer to [wiki](https://github.com/chiunam/CTAssetsPickerController/wiki/Manual-Setup-(v2)) for the details.
 
 If you uses [CocoaPods](#via-cocoapods), the bundle will be included in the pod built to the workspace.
 
