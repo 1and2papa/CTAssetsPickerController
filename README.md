@@ -24,58 +24,60 @@ CTAssetsPickerController is an iOS controller that allows picking multiple photo
 Xcode 6 and iOS 8.
 
 ## Adding to your project
-###[CocoaPods](http://cocoapods.org) Podfile
-````
-platform :ios, '8.0'
-pod 'CTAssetsPickerController',  '~> 3.0.0-beta.1'
-````
-###[Manual Setup](https://github.com/chiunam/CTAssetsPickerController/wiki/Manual-Setup-(v3))
+    	
+1. [CocoaPods](http://cocoapods.org) Podfile
+
+    ````
+    platform :ios, '8.0'
+    pod 'CTAssetsPickerController',  '~> 3.0.0-beta.1'
+    ````
+    	
+2. [Manual Setup](https://github.com/chiunam/CTAssetsPickerController/wiki/Manual-Setup-(v3))
 
 
 ## Usages
 
-### Import header
+1. Import header
 
-```` objective-c
-#import <CTAssetsPickerController/CTAssetsPickerController.h>
-````
+    ```` objective-c
+    #import <CTAssetsPickerController/CTAssetsPickerController.h>
+    ````
 
-### Create and present CTAssetsPickerController
+2. Create and present CTAssetsPickerController
 
-```` objective-c
-// request authorization status
-[PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status){
-    dispatch_async(dispatch_get_main_queue(), ^{
-
-        // init picker
-        CTAssetsPickerController *picker = [[CTAssetsPickerController alloc] init];
+    ```` objective-c
+    // request authorization status
+    [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status){
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            // init picker
+            CTAssetsPickerController *picker = [[CTAssetsPickerController alloc] init];
         
-        // set delegate
-        picker.delegate = self;
-        
-        // present picker
-        [self presentViewController:picker animated:YES completion:nil];
+            // set delegate
+            picker.delegate = self;
+            
+            // present picker
+            [self presentViewController:picker animated:YES completion:nil];
+        });
+    }];
+    ````
 
-    });
-}];
-````
+3. Implement didFinishPickingAssets delegate
 
-### Implement didFinishPickingAssets delegate
+    If the picker is presented by `presentViewController:animated:completion:` method, the delegate is responsible for dismissing the picker when the operation completes.
 
-If the picker is presented by `presentViewController:animated:completion:` method, the delegate is responsible for dismissing the picker when the operation completes.
-
-```` objective-c
-- (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets
-{
-// assets contains PHAsset objects.
-}
-````
+    ```` objective-c
+    - (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets
+    {
+    // assets contains PHAsset objects.
+    }
+    ````
 
 ## Customisation
 
 Customisation can be done by setting properties or implementating delegate methods. See the [demo project](https://github.com/chiunam/CTAssetsPickerController/wiki/Running-demo-app) for the details.
 
-### Localisation
+## Localisation
 
 `CTAssetsPicker.strings` contains strings used in the picker. It will be included in `CTAssetsPickerController.bundle` automatically if you add the picker to your project by using CocoaPods. You might translate the text or add your translation accordingly. PR is always welcomed if you add translation to the picker.
 
