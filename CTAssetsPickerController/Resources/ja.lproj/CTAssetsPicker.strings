@@ -43,5 +43,5 @@
 "second" = "秒";
 
 /* Error message of playing stream video */
-"Cannot Play Stream Video" = "Cannot Play Stream Video";
+"Cannot Play Stream Video" = "動画が再生できません";
 "OK" = "OK";
