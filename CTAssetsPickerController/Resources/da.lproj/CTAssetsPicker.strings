@@ -7,7 +7,7 @@
 
 /* No. of selected */
 "%@ Photo Selected" = "%@ Billed valgt";
-"%@ Photos Selected" = "%@ Bileder valgt";
+"%@ Photos Selected" = "%@ Billeder valgt";
 "%@ Video Selected" = "%@ Video valgt";
 "%@ Videos Selected" = "%@ Videoer valgt";
 "%@ Items Selected" = "%@ Emner valgt";
@@ -43,5 +43,5 @@
 "second" = "sekund";
 
 /* Error message of playing stream video */
-"Cannot Play Stream Video" = "Cannot Play Stream Video";
+"Cannot Play Stream Video" = "Kan ikke afspille video streaming";
 "OK" = "OK";
