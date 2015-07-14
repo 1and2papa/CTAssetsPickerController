@@ -98,6 +98,9 @@
             // set delegate
             picker.delegate = self;
             
+            // to present picker as a form sheet in iPad
+            picker.modalPresentationStyle = UIModalPresentationFormSheet;
+            
             // present picker
             [self presentViewController:picker animated:YES completion:nil];
 
@@ -126,7 +129,7 @@
 
     PHAsset *asset = [self.assets objectAtIndex:indexPath.row];
     cell.textLabel.text         = [self.dateFormatter stringFromDate:asset.creationDate];
-    cell.detailTextLabel.text   = [NSString stringWithFormat:@"%ld X %ld", asset.pixelWidth, asset.pixelHeight];
+    cell.detailTextLabel.text   = [NSString stringWithFormat:@"%ld X %ld", (unsigned long)asset.pixelWidth, (unsigned long)asset.pixelHeight];
     cell.accessoryType          = UITableViewCellAccessoryDisclosureIndicator;
     cell.clipsToBounds          = YES;
 

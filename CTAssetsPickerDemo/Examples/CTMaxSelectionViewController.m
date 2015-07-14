@@ -57,7 +57,7 @@
     {
         UIAlertController *alert =
         [UIAlertController alertControllerWithTitle:@"Attention"
-                                            message:[NSString stringWithFormat:@"Please select not more than %ld assets", max]
+                                            message:[NSString stringWithFormat:@"Please select not more than %ld assets", (long)max]
                                      preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction *action =
