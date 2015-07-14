@@ -27,8 +27,10 @@
 #import <UIKit/UIKit.h>
 #import <Photos/Photos.h>
 
+
 @interface CTAssetThumbnailOverlay : UIView
 
 - (void)bind:(PHAsset *)asset duration:(NSString *)duration;
+- (void)bind:(PHAssetCollection *)assetCollection;
 
 @end

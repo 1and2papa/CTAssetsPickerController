@@ -106,21 +106,24 @@
 
 - (void)setupPlaceholderImage
 {
-    NSString *imageName = [self imageNameOfCollectionSubtype:self.collection.assetCollectionSubtype];
+    NSString *imageName = [self placeHolderImageNameOfCollectionSubtype:self.collection.assetCollectionSubtype];
     UIImage *image = [UIImage ctassetsPickerImageNamed:imageName];
     image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     
     for (CTAssetThumbnailView *thumbnailView in self.thumbnailStacks.thumbnailViews)
     {
-        [thumbnailView bind:nil image:nil];
+        [thumbnailView bind:nil assetCollection:nil];
         [thumbnailView setBackgroundImage:image];
     }
 }
 
-- (NSString *)imageNameOfCollectionSubtype:(PHAssetCollectionSubtype)subtype
+- (NSString *)placeHolderImageNameOfCollectionSubtype:(PHAssetCollectionSubtype)subtype
 {
     if (subtype == PHAssetCollectionSubtypeSmartAlbumUserLibrary)
         return @"GridEmptyCameraRoll";
+    
+    else if (subtype == PHAssetCollectionSubtypeSmartAlbumAllHidden)
+        return @"GridHiddenAlbum";
     
     else if (subtype == PHAssetCollectionSubtypeAlbumCloudShared)
         return @"GridEmptyAlbumShared";

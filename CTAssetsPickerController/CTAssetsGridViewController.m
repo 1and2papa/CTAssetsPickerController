@@ -627,7 +627,7 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
                               resultHandler:^(UIImage *image, NSDictionary *info){
                                   // Only update the image if the cell tag hasn't changed. Otherwise, the cell has been re-used.
                                   if (cell.tag == tag)
-                                      [(CTAssetThumbnailView *)cell.backgroundView bind:asset image:image];
+                                      [(CTAssetThumbnailView *)cell.backgroundView bind:image asset:asset];
                               }];
 }
 

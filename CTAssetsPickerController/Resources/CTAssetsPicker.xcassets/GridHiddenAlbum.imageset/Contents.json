@@ -2,18 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "GridTimelapseBadgeIcon.png"
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "GridTimelapseBadgeIcon@2x.png"
+      "filename" : "GridHiddenAlbum@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "GridTimelapseBadgeIcon@3x.png"
+      "filename" : "GridHiddenAlbum@3x.png"
     }
   ],
   "info" : {

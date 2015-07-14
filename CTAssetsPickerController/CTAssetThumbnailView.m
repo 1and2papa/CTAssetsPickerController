@@ -32,6 +32,7 @@
 #import "NSDateFormatter+CTAssetsPickerController.h"
 
 
+
 @interface CTAssetThumbnailView ()
 
 @property (nonatomic, strong) CTAssetThumbnailOverlay *overlay;
@@ -118,9 +119,9 @@
 
 #pragma - Bind asset and image
 
-- (void)bind:(PHAsset *)asset image:(UIImage *)image
+- (void)bind:(UIImage *)image asset:(PHAsset *)asset;
 {
-    [self setupOverlay:asset];
+    [self setupOverlayForAsset:asset];
     
     self.imageView.image = image;
     self.backgroundView.hidden = (image != nil);
@@ -129,7 +130,7 @@
     [self updateConstraintsIfNeeded];
 }
 
-- (void)setupOverlay:(PHAsset *)asset
+- (void)setupOverlayForAsset:(PHAsset *)asset
 {
     if (asset.ctassetsPickerIsVideo)
     {
@@ -154,6 +155,40 @@
         [self.overlay removeFromSuperview];
         self.overlay = nil;
     }        
+}
+
+
+#pragma - Bind asset collection and image
+
+- (void)bind:(UIImage *)image assetCollection:(PHAssetCollection *)assetCollection;
+{
+    [self setupOverlayForAssetCollection:assetCollection];
+    
+    self.imageView.image = image;
+    self.backgroundView.hidden = (image != nil);
+    
+    [self setNeedsUpdateConstraints];
+    [self updateConstraintsIfNeeded];
+}
+
+- (void)setupOverlayForAssetCollection:(PHAssetCollection *)assetCollection
+{
+    if (assetCollection.assetCollectionType == PHAssetCollectionTypeSmartAlbum &&
+        assetCollection.assetCollectionSubtype != PHAssetCollectionSubtypeSmartAlbumAllHidden)
+    {
+        if (!self.overlay) {
+            self.overlay = [[CTAssetThumbnailOverlay alloc] initWithFrame:self.bounds];
+            [self addSubview:self.overlay];
+        }
+        
+        [self.overlay bind:assetCollection];
+    }
+    
+    else
+    {
+        [self.overlay removeFromSuperview];
+        self.overlay = nil;
+    }
 }
 
 

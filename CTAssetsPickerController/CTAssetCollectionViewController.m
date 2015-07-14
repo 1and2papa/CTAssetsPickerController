@@ -429,8 +429,8 @@
                                         contentMode:PHImageContentModeAspectFill
                                             options:self.picker.thumbnailRequestOptions
                                       resultHandler:^(UIImage *image, NSDictionary *info){
-                                                [thumbnailView setHidden:NO];
-                                                [thumbnailView bind:asset image:image];
+                                          [thumbnailView setHidden:NO];
+                                          [thumbnailView bind:image assetCollection:collection];
                                       }];
         }
     }

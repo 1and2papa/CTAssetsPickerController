@@ -33,6 +33,7 @@
 @property (nonatomic, assign) BOOL showsDuration;
 @property (nonatomic, strong) UIImage *backgroundImage;
 
-- (void)bind:(PHAsset *)asset image:(UIImage *)image;
+- (void)bind:(UIImage *)image asset:(PHAsset *)asset;
+- (void)bind:(UIImage *)image assetCollection:(PHAssetCollection *)assetCollection;
 
 @end

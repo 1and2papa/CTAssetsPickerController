@@ -24,41 +24,26 @@
  
  */
 
+#import <PureLayout/PureLayout.h>
 #import "CTAssetThumbnailOverlay.h"
 #import "UIImage+CTAssetsPickerController.h"
 #import "PHAsset+CTAssetsPickerController.h"
 
 
+
 @interface CTAssetThumbnailOverlay ()
 
-@property (nonatomic, strong) PHAsset *asset;
-@property (nonatomic, copy) NSString *duration;
+@property (nonatomic, strong) UIImageView *gradient;
+@property (nonatomic, strong) UIImageView *badge;
+@property (nonatomic, strong) UILabel *duration;
+
+@property (nonatomic, assign) BOOL didSetupConstraints;
 
 @end
 
 
 
 @implementation CTAssetThumbnailOverlay
-
-static UIFont *durationFont;
-static UIColor *durationColor;
-
-static UIImage *videoBadge;
-static UIImage *sloMoBadge;
-static UIImage *timelapseBadge;
-static UIImage *gradient;
-
-
-
-+ (void)initialize
-{
-    durationFont    = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption2];
-    durationColor   = [UIColor whiteColor];
-    videoBadge      = [UIImage ctassetsPickerImageNamed:@"GridVideoBadgeIcon"];
-    sloMoBadge      = [UIImage ctassetsPickerImageNamed:@"GridSloMoBadgeIcon"];
-    timelapseBadge  = [UIImage ctassetsPickerImageNamed:@"GridTimelapseBadgeIcon"];
-    gradient        = [UIImage ctassetsPickerImageNamed:@"GridGradient"];
-}
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -67,89 +52,94 @@ static UIImage *gradient;
         self.opaque                 = NO;
         self.clipsToBounds          = YES;
         self.isAccessibilityElement = NO;
+        
+        [self setupViews];
     }
     
     return self;
 }
 
-#pragma mark - Draw Rect
 
-- (void)drawRect:(CGRect)rect
+#pragma markt - Setup
+
+- (void)setupViews
 {
-    [super drawRect:rect];
-
-    [self drawGradientInRect:rect];
-    [self drawBadgeInRect:rect];
-    [self drawDurationInRect:rect];
-}
-
-- (void)drawGradientInRect:(CGRect)rect
-{
-    CGFloat x = CGRectGetMinX(rect);
-    CGFloat y = CGRectGetMaxY(rect) - gradient.size.height;
-
-    CGFloat width  = CGRectGetMaxX(rect) - x;
-    CGFloat height = gradient.size.height;
-
-    [gradient drawInRect:CGRectMake(x, y, width, height)];
-}
-
-- (void)drawDurationInRect:(CGRect)rect
-{
-    if (self.duration)
-    {
-        CGSize size = [self.duration sizeWithAttributes:@{NSFontAttributeName : durationFont}];
-        UIEdgeInsets insets = [self durationInsets];
-        
-        CGFloat x = CGRectGetMaxX(rect) - size.width - insets.right;
-        CGFloat y = CGRectGetMaxY(rect) - size.height - insets.bottom;
-        
-        CGRect durationRect = CGRectMake(x, y, size.width, size.height);
-        
-        NSMutableParagraphStyle *durationStyle = [NSMutableParagraphStyle new];
-        durationStyle.lineBreakMode = NSLineBreakByTruncatingTail;
-        
-        NSDictionary *attributes = @{NSFontAttributeName : durationFont,
-                                     NSForegroundColorAttributeName : durationColor,
-                                     NSParagraphStyleAttributeName : durationStyle};
-        
-        [self.duration drawInRect:durationRect withAttributes:attributes];
-    }
-}
-
-- (void)drawBadgeInRect:(CGRect)rect
-{
-    UIImage *badge = [self badgeOfAsset:self.asset];
-    UIEdgeInsets insets = [self badgeInsetsOfAsset:self.asset];
-
-    CGSize size = badge.size;
-    CGFloat left = insets.left;
-    CGFloat bottom = insets.bottom;
+    UIImageView *gradient = [UIImageView newAutoLayoutView];
+    gradient.image = [UIImage ctassetsPickerImageNamed:@"GridGradient"];
+    self.gradient = gradient;
     
-    CGFloat x = CGRectGetMinX(rect) + left;
-    CGFloat y = CGRectGetMaxY(rect) - size.height - bottom;
-
-    CGPoint point = CGPointMake(x, y);
-
-    [badge drawAtPoint:point];
+    [self addSubview:self.gradient];
+    
+    UIImageView *badge = [UIImageView newAutoLayoutView];
+    badge.tintColor = [UIColor whiteColor];
+    self.badge = badge;
+    
+    [self addSubview:self.badge];
+    
+    UILabel *duration = [UILabel newAutoLayoutView];
+    duration.font = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption2];
+    duration.textColor = [UIColor whiteColor];
+    duration.lineBreakMode = NSLineBreakByTruncatingTail;
+    duration.layoutMargins = UIEdgeInsetsMake(2.5, 2.5, 2.5, 2.5);
+    self.duration = duration;
+    
+    [self addSubview:self.duration];
 }
 
-- (UIImage *)badgeOfAsset:(PHAsset *)asset
+#pragma mark - Update auto layout constraints
+
+- (void)updateConstraints
 {
+    if (!self.didSetupConstraints)
+    {
+        [self.gradient autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeTop];
+        [self.gradient autoSetDimension:ALDimensionHeight toSize:self.gradient.image.size.height];
+        [self.badge autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:self.badge.layoutMargins.left];
+        [self.badge autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:self.badge.layoutMargins.bottom];
+        [self.duration autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:self.duration.layoutMargins.right];
+        [self.duration autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:self.duration.layoutMargins.bottom];
+        
+        
+        self.didSetupConstraints = YES;
+    }
+    
+    [super updateConstraints];
+}
+
+
+#pragma - Bind asset and duration
+
+- (void)bind:(PHAsset *)asset duration:(NSString *)duration;
+{
+    self.badge.image = [self imageForAsset:asset];
+    self.badge.layoutMargins = [self layoutMarginsForAsset:asset];
+    self.duration.text = duration;
+    
+    [self setNeedsUpdateConstraints];
+    [self updateConstraintsIfNeeded];
+}
+
+
+- (UIImage *)imageForAsset:(PHAsset *)asset
+{
+    NSString *imageName;
+    
     if (asset.ctassetsPickerIsHighFrameRateVideo)
-        return sloMoBadge;
-
+        imageName = @"BadgeSloMoSmall";
+    
     else if (asset.ctassetsPickerIsTimelapseVideo)
-        return timelapseBadge;
-
+        imageName = @"BadgeTimelapseSmall";
+    
     else if (asset.ctassetsPickerIsVideo)
-        return videoBadge;
+        imageName = @"BadgeVideoSmall";
 
+    if (imageName)
+        return [[UIImage ctassetsPickerImageNamed:imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     else
         return nil;
 }
 
-- (UIEdgeInsets)badgeInsetsOfAsset:(PHAsset *)asset
+- (UIEdgeInsets)layoutMarginsForAsset:(PHAsset *)asset
 {
     if (asset.ctassetsPickerIsHighFrameRateVideo)
         return UIEdgeInsetsMake(2.5, 2.5, 2.5, 2.5);
@@ -164,18 +154,60 @@ static UIImage *gradient;
         return UIEdgeInsetsZero;
 }
 
-- (UIEdgeInsets)durationInsets
-{
-    return UIEdgeInsetsMake(2.5, 2.5, 2.5, 2.5);
-}
 
-- (void)bind:(PHAsset *)asset duration:(NSString *)duration
+#pragma - Bind asset collection
+
+- (void)bind:(PHAssetCollection *)assetCollection;
 {
-    self.asset    = asset;
-    self.duration = duration;
+    self.badge.image = [self imageForAssetCollection:assetCollection];
+    self.badge.layoutMargins = [self layoutMarginsForAssetCollection:assetCollection];
+    self.duration.text = nil;
     
-    [self setNeedsDisplay];
+    [self setNeedsUpdateConstraints];
+    [self updateConstraintsIfNeeded];    
 }
 
+- (UIImage *)imageForAssetCollection:(PHAssetCollection *)assetCollection
+{
+    NSString *imageName;
+    
+    if (assetCollection.assetCollectionSubtype == PHAssetCollectionSubtypeSmartAlbumUserLibrary)
+        imageName = @"BadgeAllPhotos";
+
+    else if (assetCollection.assetCollectionSubtype == PHAssetCollectionSubtypeSmartAlbumPanoramas)
+        imageName = @"BadgePanorama";
+
+    else if (assetCollection.assetCollectionSubtype == PHAssetCollectionSubtypeSmartAlbumVideos)
+        imageName = @"BadgeVideo";
+    
+    else if (assetCollection.assetCollectionSubtype == PHAssetCollectionSubtypeSmartAlbumFavorites)
+        imageName = @"BadgeFavorites";
+
+    else if (assetCollection.assetCollectionSubtype == PHAssetCollectionSubtypeSmartAlbumTimelapses)
+        imageName = @"BadgeTimelapse";
+
+    else if (assetCollection.assetCollectionSubtype == PHAssetCollectionSubtypeSmartAlbumAllHidden)
+        imageName = nil;
+
+    else if (assetCollection.assetCollectionSubtype == PHAssetCollectionSubtypeSmartAlbumRecentlyAdded)
+        imageName = @"BadgeLastImport";
+    
+    else if (assetCollection.assetCollectionSubtype == PHAssetCollectionSubtypeSmartAlbumBursts)
+        imageName = @"BadgeBurst";
+    
+    else if (assetCollection.assetCollectionSubtype == PHAssetCollectionSubtypeSmartAlbumSlomoVideos)
+        imageName = @"BadgeSlomo";
+    
+    
+    if (imageName)
+        return [[UIImage ctassetsPickerImageNamed:imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    else
+        return nil;
+}
+
+- (UIEdgeInsets)layoutMarginsForAssetCollection:(PHAssetCollection *)assetCollection
+{
+    return UIEdgeInsetsMake(4,4,4,4);
+}
 
 @end
