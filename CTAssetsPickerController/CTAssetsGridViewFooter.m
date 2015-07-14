@@ -78,12 +78,22 @@
 
 #pragma mark - Appearance
 
+- (UIFont *)font
+{
+    return self.label.font;
+}
+
 - (void)setFont:(UIFont *)font
 {
     if (!font)
         self.label.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     else
         self.label.font = font;
+}
+
+- (UIColor *)textColor
+{
+    return self.label.textColor;
 }
 
 - (void)setTextColor:(UIColor *)textColor

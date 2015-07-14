@@ -135,12 +135,22 @@
 
 #pragma mark - Apperance
 
+- (UIFont *)titleFont
+{
+    return self.titleLabel.font;
+}
+
 - (void)setTitleFont:(UIFont *)titleFont
 {
     if (!titleFont)
         self.titleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     else
         self.titleLabel.font = titleFont;
+}
+
+- (UIColor *)titleTextColor
+{
+    return self.titleLabel.textColor;
 }
 
 - (void)setTitleTextColor:(UIColor *)titleTextColor
@@ -151,6 +161,11 @@
         self.titleLabel.textColor = titleTextColor;
 }
 
+- (UIFont *)countFont
+{
+    return self.countLabel.font;
+}
+
 - (void)setCountFont:(UIFont *)countFont
 {
     if (!countFont)
@@ -159,12 +174,34 @@
         self.countLabel.font = countFont;
 }
 
+- (UIColor *)countTextColor
+{
+    return self.countLabel.textColor;
+}
+
 - (void)setCountTextColor:(UIColor *)countTextColor
 {
     if (!countTextColor)
         self.countLabel.textColor = [UIColor darkTextColor];
     else
         self.countLabel.textColor = countTextColor;
+}
+
+- (UIColor *)selectedBackgroundColor
+{
+    return self.selectedBackgroundView.backgroundColor;
+}
+
+- (void)setSelectedBackgroundColor:(UIColor *)selectedBackgroundColor
+{
+    if (!selectedBackgroundColor)
+        self.selectedBackgroundView = nil;
+    else
+    {
+        UIView *view = [UIView new];
+        view.backgroundColor = selectedBackgroundColor;
+        self.selectedBackgroundView = view;
+    }
 }
 
 

@@ -40,6 +40,8 @@
 @property (nonatomic, weak) UIFont *countFont UI_APPEARANCE_SELECTOR;
 @property (nonatomic, weak) UIColor *countTextColor UI_APPEARANCE_SELECTOR;
 
+@property (nonatomic, weak) UIColor *selectedBackgroundColor UI_APPEARANCE_SELECTOR;
+
 
 - (instancetype)initWithThumbnailSize:(CGSize)size reuseIdentifier:(NSString *)reuseIdentifier;
 - (void)bind:(PHAssetCollection *)collection count:(NSUInteger)count;

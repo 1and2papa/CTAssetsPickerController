@@ -84,6 +84,7 @@
     assetCollectionViewCell.titleTextColor = self.primaryColor;
     assetCollectionViewCell.countFont = [self.secondaryFont fontWithSize:12.0];
     assetCollectionViewCell.countTextColor = self.primaryColor;
+    assetCollectionViewCell.selectedBackgroundColor = [UIColor colorWithRed:251.0/255.0 green:13.0/255.0 blue:67.0/255.0 alpha:0.2];
 
    
     // assets grid footer apperance
@@ -97,7 +98,7 @@
 
 - (void)dealloc
 {
-    // reset apperance
+    // reset appearance
     UINavigationBar *navBar = [UINavigationBar appearanceWhenContainedIn:[CTAssetsPickerController class], nil];
     
     navBar.barStyle = UIBarStyleDefault;
@@ -117,6 +118,7 @@
     assetCollectionViewCell.titleTextColor = nil;
     assetCollectionViewCell.countFont = nil;
     assetCollectionViewCell.countTextColor = nil;
+    assetCollectionViewCell.selectedBackgroundColor = nil;
     
     
     CTAssetsGridViewFooter *assetsGridViewFooter = [CTAssetsGridViewFooter appearance];
