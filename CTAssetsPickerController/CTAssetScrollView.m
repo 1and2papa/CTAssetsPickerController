@@ -105,7 +105,7 @@ NSString * const CTAssetScrollViewPlayerWillPauseNotification = @"CTAssetScrollV
     
     [self addSubview:self.imageView];
     
-    UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     self.activityView = activityView;
     
     [self addSubview:self.activityView];
