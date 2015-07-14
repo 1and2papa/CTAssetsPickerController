@@ -97,7 +97,11 @@
             // set default album (Camera Roll)
             picker.defaultAssetCollection = PHAssetCollectionSubtypeSmartAlbumUserLibrary;
             
+            // align assets fetch options
             picker.assetsFetchOptions = self.options;
+            
+            // to present picker as a form sheet in iPad
+            picker.modalPresentationStyle = UIModalPresentationFormSheet;
             
             // present picker
             [self presentViewController:picker animated:YES completion:^{

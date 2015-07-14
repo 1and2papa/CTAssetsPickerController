@@ -24,33 +24,22 @@
  
  */
 
-#import "CTSelectedAssetsViewController.h"
+#import "CTLayoutViewController.h"
 
 
-@implementation CTSelectedAssetsViewController
+@implementation CTLayoutViewController
 
-- (void)pickAssets:(id)sender
+- (UICollectionViewLayout *)assetsPickerController:(CTAssetsPickerController *)picker collectionViewLayoutForContentSize:(CGSize)contentSize traitCollection:(UITraitCollection *)trait
 {
-    [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status){
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            // init picker
-            CTAssetsPickerController *picker = [[CTAssetsPickerController alloc] init];
-            
-            // set delegate
-            picker.delegate = self;
-            
-            // set initial selected assets
-            picker.selectedAssets = [NSMutableArray arrayWithArray:self.assets];
-            
-            // to present picker as a form sheet in iPad
-            picker.modalPresentationStyle = UIModalPresentationFormSheet;
-            
-            // present picker
-            [self presentViewController:picker animated:YES completion:nil];
-            
-        });
-    }];
+    UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
+    layout.itemSize = CGSizeMake(175, 175);
+    layout.minimumInteritemSpacing = 8;
+    layout.minimumLineSpacing = 8;
+    layout.sectionInset = UIEdgeInsetsMake(8, 8, 8, 8);
+    
+    layout.footerReferenceSize = CGSizeMake(contentSize.width, 60);
+    
+    return (UICollectionViewLayout *)layout;
 }
 
 @end

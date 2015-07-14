@@ -44,6 +44,8 @@
 
 #import "CTApperanceViewController.h"
 
+#import "CTLayoutViewController.h"
+
 
 
 
@@ -61,7 +63,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 5;
+    return 6;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -84,6 +86,10 @@
             break;
             
         case 4:
+            return 1;
+            break;
+            
+        case 5:
             return 1;
             break;
             
@@ -114,6 +120,10 @@
             
         case 4:
             return @"Apperance";
+            break;
+            
+        case 5:
+            return @"CollectionView Layout (Experimental)";
             break;
             
         default:
@@ -187,6 +197,13 @@
             title = @"UI Customisation";
     }
     
+    if (section == 5)
+    {
+        if (row == 0)
+            title = @"Grid view Customisation";
+    }
+    
+    
     cell.textLabel.text = title;
     
     return cell;
@@ -250,6 +267,12 @@
     {
         if (row == 0)
             vc = (UIViewController *)[CTApperanceViewController new];
+    }
+
+    if (section == 5)
+    {
+        if (row == 0)
+            vc = (UIViewController *)[CTLayoutViewController new];
     }
     
     if (vc)

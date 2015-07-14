@@ -24,6 +24,7 @@
 		ADD965DA1AAD4C4A002A26A2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADD965D91AAD4C49002A26A2 /* Images.xcassets */; };
 		ADD965DD1AAD4C4A002A26A2 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADD965DB1AAD4C4A002A26A2 /* LaunchScreen.xib */; };
 		ADE2713C1ACBA6BA0090EFB1 /* NSIndexSet+CTAssetsPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE2713B1ACBA6BA0090EFB1 /* NSIndexSet+CTAssetsPickerController.m */; };
+		ADFC004C1B54FF740024CBB9 /* CTLayoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADFC004B1B54FF740024CBB9 /* CTLayoutViewController.m */; };
 		ADFE23881B46602400E44353 /* CTProgrammaticViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADFE23871B46602400E44353 /* CTProgrammaticViewController.m */; };
 		ADFE238B1B46868100E44353 /* CTApperanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADFE238A1B46868100E44353 /* CTApperanceViewController.m */; };
 		B43C0AF1A012FFAA0D65B9BD /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D839EBD98F450261A4C6E41 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -154,6 +155,8 @@
 		ADE2713B1ACBA6BA0090EFB1 /* NSIndexSet+CTAssetsPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexSet+CTAssetsPickerController.m"; sourceTree = "<group>"; };
 		ADE2713D1ACD1D6D0090EFB1 /* CTAssetsPickerAccessDeniedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsPickerAccessDeniedView.h; sourceTree = "<group>"; };
 		ADE2713E1ACD1D6D0090EFB1 /* CTAssetsPickerAccessDeniedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetsPickerAccessDeniedView.m; sourceTree = "<group>"; };
+		ADFC004A1B54FF740024CBB9 /* CTLayoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTLayoutViewController.h; sourceTree = "<group>"; };
+		ADFC004B1B54FF740024CBB9 /* CTLayoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTLayoutViewController.m; sourceTree = "<group>"; };
 		ADFE23861B46602400E44353 /* CTProgrammaticViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTProgrammaticViewController.h; sourceTree = "<group>"; };
 		ADFE23871B46602400E44353 /* CTProgrammaticViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTProgrammaticViewController.m; sourceTree = "<group>"; };
 		ADFE23891B46868100E44353 /* CTApperanceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTApperanceViewController.h; sourceTree = "<group>"; };
@@ -209,6 +212,8 @@
 				ADFE23871B46602400E44353 /* CTProgrammaticViewController.m */,
 				ADFE23891B46868100E44353 /* CTApperanceViewController.h */,
 				ADFE238A1B46868100E44353 /* CTApperanceViewController.m */,
+				ADFC004A1B54FF740024CBB9 /* CTLayoutViewController.h */,
+				ADFC004B1B54FF740024CBB9 /* CTLayoutViewController.m */,
 			);
 			path = Examples;
 			sourceTree = "<group>";
@@ -490,6 +495,7 @@
 				ADD965CC1AAD4C49002A26A2 /* main.m in Sources */,
 				ADFE23881B46602400E44353 /* CTProgrammaticViewController.m in Sources */,
 				ADA0730A1B451E11009FB7C7 /* CTSloMoViewController.m in Sources */,
+				ADFC004C1B54FF740024CBB9 /* CTLayoutViewController.m in Sources */,
 				AD0786DF1B42864F003C8863 /* CTSelectedAssetsViewController.m in Sources */,
 				ADA073041B45118F009FB7C7 /* CTMaxSelectionViewController.m in Sources */,
 				AD4B06CB1B44CD5A00D99C5A /* CTSortedAssetsViewController.m in Sources */,

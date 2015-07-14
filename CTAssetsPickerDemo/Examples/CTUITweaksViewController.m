@@ -52,6 +52,9 @@
             // do not show number of assets in album list
             picker.showsNumberOfAssets = NO;
             
+            // to present picker as a form sheet in iPad
+            picker.modalPresentationStyle = UIModalPresentationFormSheet;
+            
             // present picker
             [self presentViewController:picker animated:YES completion:nil];
             
