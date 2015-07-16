@@ -318,7 +318,14 @@
 
 - (void)assetScrollViewPlayerDidPlayToEnd:(NSNotification *)notification
 {
-    [self.navigationController setToolbarHidden:YES animated:NO];
+    [self replaceToolbarButton:self.playButton];
+    
+    [UIView animateWithDuration:0.2
+                     animations:^{
+                         self.view.backgroundColor = [UIColor whiteColor];
+                     }];
+    
+    [self fadeInControls:self.navigationController];
 }
 
 - (void)assetScrollViewPlayerWillPlay:(NSNotification *)notification

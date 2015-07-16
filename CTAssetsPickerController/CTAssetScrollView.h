@@ -45,6 +45,9 @@ extern NSString * const CTAssetScrollViewPlayerWillPauseNotification;
 @property (nonatomic, strong, readonly) CTAssetPlayButton *playButton;
 
 
+- (void)startLoading;
+- (void)stopLoading;
+
 - (void)bind:(PHAsset *)asset image:(UIImage *)image requestInfo:(NSDictionary *)info;
 - (void)bind:(AVPlayerItem *)playerItem requestInfo:(NSDictionary *)info;
 

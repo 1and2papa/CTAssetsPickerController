@@ -131,6 +131,8 @@
 
 - (void)showRequestError:(NSError *)error title:(NSString *)title
 {
+    [self.scrollView stopLoading];
+    
     UIAlertController *alert =
     [UIAlertController alertControllerWithTitle:title
                                         message:error.localizedDescription
@@ -201,6 +203,8 @@
 
 - (void)requestAssetPlayerItem:(id)sender
 {
+    [self.scrollView startLoading];
+    
     PHVideoRequestOptions *options = [self videoRequestOptions];
     
     self.imageRequestID =

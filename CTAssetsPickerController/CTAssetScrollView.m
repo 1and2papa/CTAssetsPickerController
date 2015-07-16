@@ -47,6 +47,7 @@ NSString * const CTAssetScrollViewPlayerWillPauseNotification = @"CTAssetScrollV
 @property (nonatomic, strong) PHAsset *asset;
 @property (nonatomic, strong) UIImage *image;
 @property (nonatomic, strong) AVPlayer *player;
+@property (nonatomic, assign) BOOL didStartPlayback;
 
 @property (nonatomic, assign) CGFloat perspectiveZoomScale;
 
@@ -90,7 +91,8 @@ NSString * const CTAssetScrollViewPlayerWillPauseNotification = @"CTAssetScrollV
 - (void)dealloc
 {
     [self removePlayerNotificationObserver];
-    [self removePlayerKeyValueObserver];
+    [self removePlayerLoadedTimeRangesObserver];
+    [self removePlayerRateObserver];
 }
 
 
@@ -163,6 +165,23 @@ NSString * const CTAssetScrollViewPlayerWillPauseNotification = @"CTAssetScrollV
 
 
 
+#pragma mark - Start/stop loading animation
+
+- (void)startLoading
+{
+    [self.playButton setHidden:YES];
+    [self.activityView startAnimating];
+}
+
+- (void)stopLoading
+{
+    if (self.player)
+        [self.playButton setHidden:NO];
+    
+    [self.activityView stopAnimating];
+}
+
+
 #pragma mark - Bind asset
 
 - (void)bind:(PHAsset *)asset image:(UIImage *)image requestInfo:(NSDictionary *)info
@@ -203,9 +222,7 @@ NSString * const CTAssetScrollViewPlayerWillPauseNotification = @"CTAssetScrollV
     self.player = player;
 
     [self addPlayerNotificationObserver];
-    [self addPlayerKeyValueObserver];
-    
-    [self playVideo];
+    [self addPlayerLoadedTimeRangesObserver];
 }
 
 - (CGSize)assetSize
@@ -433,11 +450,6 @@ NSString * const CTAssetScrollViewPlayerWillPauseNotification = @"CTAssetScrollV
                selector:@selector(applicationWillResignActive:)
                    name:UIApplicationWillResignActiveNotification
                  object:nil];
-    
-    [center addObserver:self
-               selector:@selector(playerDidPlayToEnd:)
-                   name:AVPlayerItemDidPlayToEndTimeNotification
-                 object:nil];
 }
 
 - (void)removePlayerNotificationObserver
@@ -445,22 +457,34 @@ NSString * const CTAssetScrollViewPlayerWillPauseNotification = @"CTAssetScrollV
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
 
     [center removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
-    [center removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
 }
 
 
 
 #pragma mark - Video player item key-value observer
 
-- (void)addPlayerKeyValueObserver
+- (void)addPlayerLoadedTimeRangesObserver
 {
     [self.player addObserver:self
-                  forKeyPath:@"rate"
-                     options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
+                  forKeyPath:@"currentItem.loadedTimeRanges"
+                     options:NSKeyValueObservingOptionNew
                      context:nil];
 }
 
-- (void)removePlayerKeyValueObserver
+- (void)removePlayerLoadedTimeRangesObserver
+{
+    [self.player removeObserver:self forKeyPath:@"currentItem.loadedTimeRanges"];
+}
+
+- (void)addPlayerRateObserver
+{
+    [self.player addObserver:self
+                  forKeyPath:@"rate"
+                     options:NSKeyValueObservingOptionNew
+                     context:nil];
+}
+
+- (void)removePlayerRateObserver
 {
     [self.player removeObserver:self forKeyPath:@"rate"];
 }
@@ -470,58 +494,49 @@ NSString * const CTAssetScrollViewPlayerWillPauseNotification = @"CTAssetScrollV
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if ([keyPath isEqual:@"rate"])
+    if (object == self.player && [keyPath isEqual:@"currentItem.loadedTimeRanges"])
     {
-        CGFloat old = [[change valueForKey:NSKeyValueChangeOldKey] floatValue];
-        CGFloat new = [[change valueForKey:NSKeyValueChangeNewKey] floatValue];
+        NSArray *timeRanges = [change objectForKey:NSKeyValueChangeNewKey];
 
-        if (old == 0.0 && new > 0.0)
+        if (timeRanges && [timeRanges count])
         {
-            if ([self playerAtStartTime])
-                [self performSelector:@selector(playerWillPlayFromStart:) withObject:object];
-            else
-                [self performSelector:@selector(playerWillResume:) withObject:object];
+            CMTimeRange timeRange = [timeRanges.firstObject CMTimeRangeValue];
+            
+            if (CMTIME_COMPARE_INLINE(timeRange.duration, ==, self.player.currentItem.duration))
+                [self performSelector:@selector(playerDidLoadItem:) withObject:object];
         }
+    }
+    
+    if (object == self.player && [keyPath isEqual:@"rate"])
+    {
+        CGFloat rate = [[change valueForKey:NSKeyValueChangeNewKey] floatValue];
         
-        if (old > 0.0 && new == 0.0)
-            [self performSelector:@selector(playerWillPause:) withObject:object];
+        if (rate > 0)
+            [self performSelector:@selector(playerDidPlay:) withObject:object];
         
-        if (old == new && new > 0.0)
-            [self performSelector:@selector(playerDidPlayFromStart:) withObject:object];
+        if (rate == 0)
+            [self performSelector:@selector(playerDidPause:) withObject:object];
     }
 }
+
 
 
 #pragma mark - Playback events
 
 - (void)applicationWillResignActive:(NSNotification *)notification
 {
-    [self.player pause];
-    self.playButton.hidden = NO;
+    [self pauseVideo];
 }
 
-- (void)playerDidPlayToEnd:(NSNotification *)notification
-{
-    self.playButton.hidden = NO;
-}
-
-- (void)playerWillPlayFromStart:(id)sender
+- (void)playerWillPlay:(id)sender
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:CTAssetScrollViewPlayerWillPlayNotification object:sender];
-    self.playButton.hidden = YES;
-    
-    [self.activityView startAnimating];
 }
 
-- (void)playerDidPlayFromStart:(id)sender
+- (void)playerDidPlay:(id)sender
 {
+    [self.playButton setHidden:YES];
     [self.activityView stopAnimating];
-}
-
-- (void)playerWillResume:(id)sender
-{
-    [[NSNotificationCenter defaultCenter] postNotificationName:CTAssetScrollViewPlayerWillPlayNotification object:sender];
-    self.playButton.hidden = YES;
 }
 
 - (void)playerWillPause:(id)sender
@@ -529,30 +544,38 @@ NSString * const CTAssetScrollViewPlayerWillPauseNotification = @"CTAssetScrollV
     [[NSNotificationCenter defaultCenter] postNotificationName:CTAssetScrollViewPlayerWillPauseNotification object:sender];
 }
 
+- (void)playerDidPause:(id)sender
+{
+    [self.playButton setHidden:NO];
+}
+
+- (void)playerDidLoadItem:(id)sender
+{
+    if (!self.didStartPlayback)
+    {
+        [self addPlayerRateObserver];
+        [self.activityView stopAnimating];
+        [self playVideo];
+        [self setDidStartPlayback:YES];
+    }
+}
+
 
 
 #pragma mark - Playback
 
-- (BOOL)playerAtStartTime
-{
-    return (CMTimeCompare(self.player.currentTime, kCMTimeZero) == 0);
-}
-
-- (BOOL)playerAtEndTime
-{
-    return (CMTimeCompare(self.player.currentTime, self.player.currentItem.duration) == 0);
-}
-
 - (void)playVideo
 {
-    if ([self playerAtEndTime])
+    if (CMTIME_COMPARE_INLINE(self.player.currentTime, == , self.player.currentItem.duration))
         [self.player seekToTime:kCMTimeZero];
-    
+
+    [self playerWillPlay:nil];
     [self.player play];
 }
 
 - (void)pauseVideo
 {
+    [self playerWillPause:nil];
     [self.player pause];
 }
 
