@@ -41,6 +41,7 @@
 
 @property (nonatomic, strong) PHImageManager *imageManager;
 @property (nonatomic, assign) PHImageRequestID imageRequestID;
+@property (nonatomic, assign) PHImageRequestID playerItemRequestID;
 @property (nonatomic, strong) CTAssetScrollView *scrollView;
 
 @property (nonatomic, assign) BOOL didSetupConstraints;
@@ -86,7 +87,7 @@
 {
     [super viewWillDisappear:animated];
     [self pauseAsset:self.view];
-    [self cancelRequestAssetImage];
+    [self cancelRequestAsset];
 }
 
 - (void)viewWillLayoutSubviews
@@ -121,31 +122,28 @@
 
 #pragma mark - Cancel request
 
-- (void)cancelRequestAssetImage
+- (void)cancelRequestAsset
 {
-    [self.imageManager cancelImageRequest:self.imageRequestID];
+    [self cancelRequestImage];
+    [self cancelRequestPlayerItem];
 }
 
-
-#pragma mark - Request error
-
-- (void)showRequestError:(NSError *)error title:(NSString *)title
+- (void)cancelRequestImage
 {
-    [self.scrollView stopLoading];
-    
-    UIAlertController *alert =
-    [UIAlertController alertControllerWithTitle:title
-                                        message:error.localizedDescription
-                                 preferredStyle:UIAlertControllerStyleAlert];
-    
-    UIAlertAction *action =
-    [UIAlertAction actionWithTitle:CTAssetsPickerLocalizedString(@"OK", nil)
-                             style:UIAlertActionStyleDefault
-                           handler:nil];
-    
-    [alert addAction:action];
-    
-    [self presentViewController:alert animated:YES completion:nil];
+    if (self.imageRequestID)
+    {
+        [self.scrollView setProgress:1];
+        [self.imageManager cancelImageRequest:self.imageRequestID];
+    }
+}
+
+- (void)cancelRequestPlayerItem
+{
+    if (self.playerItemRequestID)
+    {
+        [self.scrollView stopActivityAnimating];
+        [self.imageManager cancelImageRequest:self.playerItemRequestID];
+    }
 }
 
 
@@ -153,6 +151,8 @@
 
 - (void)requestAssetImage
 {
+    [self.scrollView setProgress:0];
+    
     CGSize targetSize = [self targetImageSize];
     PHImageRequestOptions *options = [self imageRequestOptions];
     
@@ -162,7 +162,7 @@
                                 contentMode:PHImageContentModeAspectFit
                                     options:options
                               resultHandler:^(UIImage *image, NSDictionary *info) {
-                                  
+
                                   // this image is set for transition animation
                                   self.image = image;
                                   
@@ -171,7 +171,7 @@
                                       NSError *error = [info objectForKey:PHImageErrorKey];
                                       
                                       if (error)
-                                          [self showRequestError:error title:nil];
+                                          [self showRequestImageError:error title:nil];
                                       else
                                           [self.scrollView bind:self.asset image:image requestInfo:info];
                                   });
@@ -192,6 +192,7 @@
     options.progressHandler         = ^(double progress, NSError *error, BOOL *stop, NSDictionary *info) {
         dispatch_async(dispatch_get_main_queue(), ^{
             //XXX never get called
+            [self.scrollView setProgress:progress];
         });
     };
     
@@ -203,11 +204,11 @@
 
 - (void)requestAssetPlayerItem:(id)sender
 {
-    [self.scrollView startLoading];
+    [self.scrollView startActivityAnimating];
     
     PHVideoRequestOptions *options = [self videoRequestOptions];
     
-    self.imageRequestID =
+    self.playerItemRequestID =
     [self.imageManager requestPlayerItemForVideo:self.asset
                                          options:options
                                    resultHandler:^(AVPlayerItem *playerItem, NSDictionary *info) {
@@ -217,7 +218,7 @@
                                            NSString * title = CTAssetsPickerLocalizedString(@"Cannot Play Stream Video", nil);
                                            
                                            if (error)
-                                               [self showRequestError:error title:title];
+                                               [self showRequestVideoError:error title:title];
                                            else
                                                [self.scrollView bind:playerItem requestInfo:info];
                                        });
@@ -238,6 +239,36 @@
 }
 
 
+#pragma mark - Request error
+
+- (void)showRequestImageError:(NSError *)error title:(NSString *)title
+{
+    [self.scrollView setProgress:1];
+    [self showRequestError:error title:title];
+}
+
+- (void)showRequestVideoError:(NSError *)error title:(NSString *)title
+{
+    [self.scrollView stopActivityAnimating];
+    [self showRequestError:error title:title];
+}
+
+- (void)showRequestError:(NSError *)error title:(NSString *)title
+{
+    UIAlertController *alert =
+    [UIAlertController alertControllerWithTitle:title
+                                        message:error.localizedDescription
+                                 preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *action =
+    [UIAlertAction actionWithTitle:CTAssetsPickerLocalizedString(@"OK", nil)
+                             style:UIAlertActionStyleDefault
+                           handler:nil];
+    
+    [alert addAction:action];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
 
 
 #pragma mark - Playback
@@ -252,7 +283,10 @@
 
 - (void)pauseAsset:(id)sender
 {
-    [self.scrollView pauseVideo];
+    if (!self.scrollView.player)
+        [self cancelRequestPlayerItem];
+    else
+        [self.scrollView pauseVideo];
 }
 
 

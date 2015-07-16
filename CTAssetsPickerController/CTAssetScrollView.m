@@ -47,12 +47,14 @@ NSString * const CTAssetScrollViewPlayerWillPauseNotification = @"CTAssetScrollV
 @property (nonatomic, strong) PHAsset *asset;
 @property (nonatomic, strong) UIImage *image;
 @property (nonatomic, strong) AVPlayer *player;
-@property (nonatomic, assign) BOOL didStartPlayback;
+
+@property (nonatomic, assign) BOOL didLoadPlayerItem;
 
 @property (nonatomic, assign) CGFloat perspectiveZoomScale;
 
 @property (nonatomic, strong) UIImageView *imageView;
 
+@property (nonatomic, strong) UIProgressView *progressView;
 @property (nonatomic, strong) UIActivityIndicatorView *activityView;
 @property (nonatomic, strong) CTAssetPlayButton *playButton;
 
@@ -107,7 +109,15 @@ NSString * const CTAssetScrollViewPlayerWillPauseNotification = @"CTAssetScrollV
     
     [self addSubview:self.imageView];
     
-    UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    UIProgressView *progressView =
+    [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
+    self.progressView = progressView;
+    
+    [self addSubview:self.progressView];
+    
+    UIActivityIndicatorView *activityView =
+    [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    
     self.activityView = activityView;
     
     [self addSubview:self.activityView];
@@ -125,8 +135,9 @@ NSString * const CTAssetScrollViewPlayerWillPauseNotification = @"CTAssetScrollV
     if (!self.didSetupConstraints)
     {
         [self autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero];
-        [self updateButtonConstraints];
+        [self updateProgressConstraints];
         [self updateActivityConstraints];
+        [self updateButtonConstraints];
         
         self.didSetupConstraints = YES;
     }
@@ -135,19 +146,32 @@ NSString * const CTAssetScrollViewPlayerWillPauseNotification = @"CTAssetScrollV
     [super updateConstraints];
 }
 
+- (void)updateProgressConstraints
+{
+    [UIView autoSetPriority:UILayoutPriorityDefaultLow forConstraints:^{
+        [self.progressView autoConstrainAttribute:ALAttributeLeading toAttribute:ALAttributeLeading ofView:self.superview withMultiplier:1 relation:NSLayoutRelationEqual];
+        [self.progressView autoConstrainAttribute:ALAttributeTrailing toAttribute:ALAttributeTrailing ofView:self.superview withMultiplier:1 relation:NSLayoutRelationEqual];
+        [self.progressView autoConstrainAttribute:ALAttributeBottom toAttribute:ALAttributeBottom ofView:self.superview withMultiplier:1 relation:NSLayoutRelationEqual];
+    }];
+    
+    [UIView autoSetPriority:UILayoutPriorityDefaultHigh forConstraints:^{
+        [self.progressView autoConstrainAttribute:ALAttributeLeading toAttribute:ALAttributeLeading ofView:self.imageView withMultiplier:1 relation:NSLayoutRelationGreaterThanOrEqual];
+        [self.progressView autoConstrainAttribute:ALAttributeTrailing toAttribute:ALAttributeTrailing ofView:self.imageView withMultiplier:1 relation:NSLayoutRelationLessThanOrEqual];
+        [self.progressView autoConstrainAttribute:ALAttributeBottom toAttribute:ALAttributeBottom ofView:self.imageView withMultiplier:1 relation:NSLayoutRelationLessThanOrEqual];
+    }];
+}
+
 - (void)updateActivityConstraints
 {
     [self.activityView autoAlignAxis:ALAxisVertical toSameAxisOfView:self.superview];
     [self.activityView autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self.superview];
 }
 
-
 - (void)updateButtonConstraints
 {
     [self.playButton autoAlignAxis:ALAxisVertical toSameAxisOfView:self.superview];
     [self.playButton autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self.superview];
 }
-
 
 - (void)updateContentFrame
 {
@@ -167,22 +191,61 @@ NSString * const CTAssetScrollViewPlayerWillPauseNotification = @"CTAssetScrollV
 
 #pragma mark - Start/stop loading animation
 
-- (void)startLoading
+- (void)startActivityAnimating
 {
     [self.playButton setHidden:YES];
     [self.activityView startAnimating];
+    [self postPlayerWillPlayNotification];
 }
 
-- (void)stopLoading
+- (void)stopActivityAnimating
 {
-    if (self.player)
-        [self.playButton setHidden:NO];
-    
+    [self.playButton setHidden:NO];
     [self.activityView stopAnimating];
+    [self postPlayerWillPauseNotification];
 }
 
 
-#pragma mark - Bind asset
+#pragma mark - Set progress
+
+- (void)setProgress:(CGFloat)progress
+{
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:(progress < 1)];
+    [self.progressView setProgress:progress animated:(progress < 1)];
+    [self.progressView setHidden:(progress == 1)];
+}
+
+// To mimic image downloading progress
+// as PHImageRequestOptions does not work as expected
+- (void)mimicProgress
+{
+    CGFloat progress = self.progressView.progress;
+
+    if (progress < 0.95)
+    {
+        int lowerbound = progress * 100 + 1;
+        int upperbound = 95;
+        
+        int random = lowerbound + arc4random() % (upperbound - lowerbound);
+        CGFloat randomProgress = random / 100.0f;
+
+        [self setProgress:randomProgress];
+        
+        NSInteger randomDelay = 1 + arc4random() % (3 - 1);
+        [self performSelector:@selector(mimicProgress) withObject:nil afterDelay:randomDelay];
+    }
+}
+
+
+#pragma mark - asset size
+
+- (CGSize)assetSize
+{
+    return CGSizeMake(self.asset.pixelWidth, self.asset.pixelHeight);
+}
+
+
+#pragma mark - Bind asset image
 
 - (void)bind:(PHAsset *)asset image:(UIImage *)image requestInfo:(NSDictionary *)info
 {
@@ -199,9 +262,9 @@ NSString * const CTAssetScrollViewPlayerWillPauseNotification = @"CTAssetScrollV
         self.imageView.image = image;
         
         if (isDegraded)
-            [self.activityView startAnimating];
+            [self mimicProgress];
         else
-            [self.activityView stopAnimating];
+            [self setProgress:1];
 
         [self setNeedsUpdateConstraints];
         [self updateConstraintsIfNeeded];        
@@ -209,8 +272,13 @@ NSString * const CTAssetScrollViewPlayerWillPauseNotification = @"CTAssetScrollV
     }
 }
 
+
+#pragma mark - Bind player item
+
 - (void)bind:(AVPlayerItem *)playerItem requestInfo:(NSDictionary *)info
 {
+    [self unbindPlayerItem];
+    
     AVPlayer *player = [AVPlayer playerWithPlayerItem:playerItem];
     AVPlayerLayer *playerLayer = [AVPlayerLayer playerLayerWithPlayer:player];
     playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
@@ -225,10 +293,17 @@ NSString * const CTAssetScrollViewPlayerWillPauseNotification = @"CTAssetScrollV
     [self addPlayerLoadedTimeRangesObserver];
 }
 
-- (CGSize)assetSize
+- (void)unbindPlayerItem
 {
-    return CGSizeMake(self.asset.pixelWidth, self.asset.pixelHeight);
+    [self removePlayerNotificationObserver];
+    [self removePlayerLoadedTimeRangesObserver];
+
+    for (CALayer *layer in self.imageView.layer.sublayers)
+        [layer removeFromSuperlayer];
+    
+    self.player = nil;
 }
+
 
 
 #pragma mark - Upate zoom scales
@@ -473,7 +548,12 @@ NSString * const CTAssetScrollViewPlayerWillPauseNotification = @"CTAssetScrollV
 
 - (void)removePlayerLoadedTimeRangesObserver
 {
-    [self.player removeObserver:self forKeyPath:@"currentItem.loadedTimeRanges"];
+    @try {
+        [self.player removeObserver:self forKeyPath:@"currentItem.loadedTimeRanges"];
+    }
+    @catch (NSException *exception) {
+        // do noting
+    }
 }
 
 - (void)addPlayerRateObserver
@@ -486,7 +566,12 @@ NSString * const CTAssetScrollViewPlayerWillPauseNotification = @"CTAssetScrollV
 
 - (void)removePlayerRateObserver
 {
-    [self.player removeObserver:self forKeyPath:@"rate"];
+    @try {
+        [self.player removeObserver:self forKeyPath:@"rate"];
+    }
+    @catch (NSException *exception) {
+        // do noting
+    }    
 }
 
 
@@ -521,6 +606,19 @@ NSString * const CTAssetScrollViewPlayerWillPauseNotification = @"CTAssetScrollV
 
 
 
+#pragma mark - Notifications
+
+- (void)postPlayerWillPlayNotification
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:CTAssetScrollViewPlayerWillPlayNotification object:nil];
+}
+
+- (void)postPlayerWillPauseNotification
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:CTAssetScrollViewPlayerWillPauseNotification object:nil];
+}
+
+
 #pragma mark - Playback events
 
 - (void)applicationWillResignActive:(NSNotification *)notification
@@ -528,21 +626,14 @@ NSString * const CTAssetScrollViewPlayerWillPauseNotification = @"CTAssetScrollV
     [self pauseVideo];
 }
 
-- (void)playerWillPlay:(id)sender
-{
-    [[NSNotificationCenter defaultCenter] postNotificationName:CTAssetScrollViewPlayerWillPlayNotification object:sender];
-}
 
 - (void)playerDidPlay:(id)sender
 {
+    [self setProgress:1];
     [self.playButton setHidden:YES];
     [self.activityView stopAnimating];
 }
 
-- (void)playerWillPause:(id)sender
-{
-    [[NSNotificationCenter defaultCenter] postNotificationName:CTAssetScrollViewPlayerWillPauseNotification object:sender];
-}
 
 - (void)playerDidPause:(id)sender
 {
@@ -551,35 +642,44 @@ NSString * const CTAssetScrollViewPlayerWillPauseNotification = @"CTAssetScrollV
 
 - (void)playerDidLoadItem:(id)sender
 {
-    if (!self.didStartPlayback)
+    if (!self.didLoadPlayerItem)
     {
+        [self setDidLoadPlayerItem:YES];
         [self addPlayerRateObserver];
+        
         [self.activityView stopAnimating];
         [self playVideo];
-        [self setDidStartPlayback:YES];
     }
 }
-
 
 
 #pragma mark - Playback
 
 - (void)playVideo
 {
-    if (CMTIME_COMPARE_INLINE(self.player.currentTime, == , self.player.currentItem.duration))
-        [self.player seekToTime:kCMTimeZero];
-
-    [self playerWillPlay:nil];
-    [self.player play];
+    if (self.didLoadPlayerItem)
+    {
+        if (CMTIME_COMPARE_INLINE(self.player.currentTime, == , self.player.currentItem.duration))
+            [self.player seekToTime:kCMTimeZero];
+        
+        [self postPlayerWillPlayNotification];
+        [self.player play];
+    }
 }
 
 - (void)pauseVideo
 {
-    [self playerWillPause:nil];
-    [self.player pause];
+    if (self.didLoadPlayerItem)
+    {
+        [self postPlayerWillPauseNotification];
+        [self.player pause];
+    }
+    else
+    {
+        [self stopActivityAnimating];
+        [self unbindPlayerItem];
+    }
 }
-
-
 
 
 @end
