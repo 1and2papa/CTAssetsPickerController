@@ -11,11 +11,12 @@ CTAssetsPickerController is an iOS controller that allows picking multiple photo
 2. Previews assets by long-press gesture.
 3. Filters assets for picking only photos or videos.
 4. Filters assets or albums by their properties.
-5. Achieves average 5x fps.
-6. Conforms UIAppearance Protocol.
-7. Conforms UIAccessibility Protocol.
-8. Highly customisable.
-9. Pure Auto Layout.
+5. Support assets stored in iCloud. 
+6. Achieves average 5x fps.
+7. Conforms UIAppearance Protocol.
+8. Conforms UIAccessibility Protocol.
+9. Highly customisable.
+10. Pure Auto Layout. (by [PureLayout](https://github.com/smileyborg/PureLayout))
 
 ## Release Notes
 * [Release Notes](https://github.com/chiunam/CTAssetsPickerController/releases)
@@ -79,7 +80,7 @@ Customisation can be done by setting properties or implementating delegate metho
 
 ## Localisation
 
-`CTAssetsPicker.strings` contains strings used in the picker. It will be included in `CTAssetsPickerController.bundle` automatically if you add the picker to your project by using CocoaPods. You might translate the text or add your translation accordingly. PR is always welcomed if you add translation to the picker.
+`CTAssetsPicker.strings` contains strings used in the picker. It will be included in `CTAssetsPickerController.bundle` automatically if you add the picker to your project by CocoaPods. You might translate the text or add your translation accordingly. PR is always welcomed if you add translation to the picker.
 
 ## Bonus
 
