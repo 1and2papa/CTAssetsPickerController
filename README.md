@@ -30,7 +30,7 @@ Xcode 6 and iOS 8.
 
     ````
     platform :ios, '8.0'
-    pod 'CTAssetsPickerController',  '~> 3.0.0-beta.1'
+    pod 'CTAssetsPickerController',  '~> 3.0.0'
     ````
     	
 2. [Manual Setup](https://github.com/chiunam/CTAssetsPickerController/wiki/Manual-Setup-(v3))
