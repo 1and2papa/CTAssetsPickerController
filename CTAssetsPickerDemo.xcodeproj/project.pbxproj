@@ -32,6 +32,10 @@
 
 /* Begin PBXFileReference section */
 		408BD0916F5C7C71C93D0E93 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		A741BBA21B5F7A8C00ED3D7B /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		A741BBA31B5F7A8C00ED3D7B /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/CTAssetsPicker.strings; sourceTree = "<group>"; };
+		A741BBA41B5F9AB500ED3D7B /* nl-NL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nl-NL"; path = "nl-NL.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		A741BBA51B5F9AB500ED3D7B /* nl-NL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nl-NL"; path = "nl-NL.lproj/CTAssetsPicker.strings"; sourceTree = "<group>"; };
 		AD0786A21B423AF2003C8863 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		AD0786A41B423AFC003C8863 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		AD0786A61B423AFC003C8863 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
@@ -412,6 +416,8 @@
 				ru,
 				"zh-Hans",
 				"zh-Hant",
+				nl,
+				"nl-NL",
 			);
 			mainGroup = ADD965BD1AAD4C49002A26A2;
 			productRefGroup = ADD965C71AAD4C49002A26A2 /* Products */;
@@ -535,6 +541,8 @@
 				AD0786C21B423B11003C8863 /* fi */,
 				AD0786C41B423B13003C8863 /* fr */,
 				AD0786C61B423B16003C8863 /* he */,
+				A741BBA21B5F7A8C00ED3D7B /* nl */,
+				A741BBA41B5F9AB500ED3D7B /* nl-NL */,
 			);
 			name = LaunchScreen.xib;
 			sourceTree = "<group>";
@@ -561,6 +569,8 @@
 				ADD9662A1AAD5780002A26A2 /* ru */,
 				ADD9662B1AAD5780002A26A2 /* zh-Hans */,
 				ADD9662C1AAD5780002A26A2 /* zh-Hant */,
+				A741BBA31B5F7A8C00ED3D7B /* nl */,
+				A741BBA51B5F9AB500ED3D7B /* nl-NL */,
 			);
 			name = CTAssetsPicker.strings;
 			sourceTree = "<group>";
