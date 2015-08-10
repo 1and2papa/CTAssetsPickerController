@@ -57,6 +57,10 @@ Xcode 6 and iOS 8.
             // set delegate
             picker.delegate = self;
             
+            // to present picker as a form sheet on iPad
+            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+                picker.modalPresentationStyle = UIModalPresentationFormSheet;
+            
             // present picker
             [self presentViewController:picker animated:YES completion:nil];
         });
