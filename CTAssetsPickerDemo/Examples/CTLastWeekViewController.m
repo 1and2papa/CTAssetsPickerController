@@ -54,7 +54,8 @@
             picker.assetsFetchOptions = fetchOptions;
 
             // to present picker as a form sheet in iPad
-            picker.modalPresentationStyle = UIModalPresentationFormSheet;
+            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+                picker.modalPresentationStyle = UIModalPresentationFormSheet;
             
             // present picker
             [self presentViewController:picker animated:YES completion:nil];
