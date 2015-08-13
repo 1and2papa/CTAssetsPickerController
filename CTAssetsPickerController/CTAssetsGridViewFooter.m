@@ -123,15 +123,26 @@
 {
     NSNumberFormatter *nf = [NSNumberFormatter new];
     
-    NSString *numberOfVideos = [nf ctassetsPickerStringFromAssetsCount:[result countOfAssetsWithMediaType:PHAssetMediaTypeVideo]];
-    NSString *numberOfPhotos = [nf ctassetsPickerStringFromAssetsCount:[result countOfAssetsWithMediaType:PHAssetMediaTypeImage]];
+    NSString *numberOfVideos = @"";
+    NSString *numberOfPhotos = @"";
     
-    if ([numberOfVideos isEqualToString:@"0"])
+    NSUInteger videoCount = [result countOfAssetsWithMediaType:PHAssetMediaTypeVideo];
+    NSUInteger photoCount = [result countOfAssetsWithMediaType:PHAssetMediaTypeImage];
+    
+    if (videoCount > 0)
+        numberOfVideos = [nf ctassetsPickerStringFromAssetsCount:videoCount];
+    
+    if (photoCount > 0)
+        numberOfPhotos = [nf ctassetsPickerStringFromAssetsCount:photoCount];
+    
+    if (photoCount > 0 && videoCount > 0)
+        self.label.text = [NSString stringWithFormat:CTAssetsPickerLocalizedString(@"%@ Photos, %@ Videos", nil), numberOfPhotos, numberOfVideos];
+    else if (photoCount > 0 && videoCount <= 0)
         self.label.text = [NSString stringWithFormat:CTAssetsPickerLocalizedString(@"%@ Photos", nil), numberOfPhotos];
-    else if ([numberOfPhotos isEqualToString:@"0"])
+    else if (photoCount <= 0 && videoCount > 0)
         self.label.text = [NSString stringWithFormat:CTAssetsPickerLocalizedString(@"%@ Videos", nil), numberOfVideos];
     else
-        self.label.text = [NSString stringWithFormat:CTAssetsPickerLocalizedString(@"%@ Photos, %@ Videos", nil), numberOfPhotos, numberOfVideos];
+        self.label.text = @"";
     
     self.hidden = (result.count == 0);
     
