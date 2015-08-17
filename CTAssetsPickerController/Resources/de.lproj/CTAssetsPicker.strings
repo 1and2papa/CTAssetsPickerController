@@ -22,7 +22,7 @@
 
 /* Messages if privacy is not granted */
 "This app does not have access to your photos or videos." = "Diese App darf nicht auf Ihr Fotoalbum zugreifen.";
-"You can enable access in Privacy Settings." = "Sie können den Zugriff in den Einstellungen erlauben.";
+"You can enable access in Privacy Settings." = "Sie können den Zugriff in den Datenschutz Einstellungen erlauben.";
 
 /* Messages if no assets */
 "No Photos or Videos" = "Keine Fotos oder Videos ausgewählt";
