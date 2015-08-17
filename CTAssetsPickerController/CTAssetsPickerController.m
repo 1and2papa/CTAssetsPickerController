@@ -245,6 +245,7 @@ NSString * const CTAssetsPickerDidDeselectAssetNotification = @"CTAssetsPickerDi
     
     svc.delegate = self;
     svc.presentsWithGesture = NO;
+    svc.preferredDisplayMode =  UISplitViewControllerDisplayModeAllVisible;
     
     [svc willMoveToParentViewController:self];
     [svc setViewControllers:@[master, detail]];
