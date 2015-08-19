@@ -25,7 +25,7 @@
 "You can enable access in Privacy Settings." = "Sie können den Zugriff in den Datenschutz Einstellungen erlauben.";
 
 /* Messages if no assets */
-"No Photos or Videos" = "Keine Fotos oder Videos ausgewählt";
+"No Photos or Videos" = "Keine Fotos oder Videos vorhanden";
 
 /* The parameter will be replaced by the device model name */
 "You can take photos and videos using the camera, or sync photos and videos onto your %@\nusing iTunes." = "Sie können Fotos oder Videos mit der Kamera aufnehmen oder Ihr %@\nmit iTunes synchronisieren.";
