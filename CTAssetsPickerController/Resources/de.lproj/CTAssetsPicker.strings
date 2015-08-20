@@ -22,10 +22,10 @@
 
 /* Messages if privacy is not granted */
 "This app does not have access to your photos or videos." = "Diese App darf nicht auf Ihr Fotoalbum zugreifen.";
-"You can enable access in Privacy Settings." = "Sie können den Zugriff in den Einstellungen erlauben.";
+"You can enable access in Privacy Settings." = "Sie können den Zugriff in den Datenschutz Einstellungen erlauben.";
 
 /* Messages if no assets */
-"No Photos or Videos" = "Keine Fotos oder Videos ausgewählt";
+"No Photos or Videos" = "Keine Fotos oder Videos vorhanden";
 
 /* The parameter will be replaced by the device model name */
 "You can take photos and videos using the camera, or sync photos and videos onto your %@\nusing iTunes." = "Sie können Fotos oder Videos mit der Kamera aufnehmen oder Ihr %@\nmit iTunes synchronisieren.";
