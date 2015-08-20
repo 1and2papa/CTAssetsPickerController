@@ -43,5 +43,5 @@
 "second" = "Sekunde";
 
 /* Error message of playing stream video */
-"Cannot Play Stream Video" = "Video kann nicht wiedergeben werden";
+"Cannot Play Stream Video" = "Video kann nicht wiedergegeben werden";
 "OK" = "OK";
