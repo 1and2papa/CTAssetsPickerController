@@ -244,8 +244,9 @@ NSString * const CTAssetsPickerDidDeselectAssetNotification = @"CTAssetsPickerDi
     master.interactivePopGestureRecognizer.delegate = nil;
     
     svc.delegate = self;
+    svc.viewControllers = @[master, detail];
     svc.presentsWithGesture = NO;
-    svc.preferredDisplayMode =  UISplitViewControllerDisplayModeAllVisible;
+    svc.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
     
     [svc willMoveToParentViewController:self];
     [svc setViewControllers:@[master, detail]];
