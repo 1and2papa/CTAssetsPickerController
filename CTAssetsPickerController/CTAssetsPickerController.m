@@ -171,7 +171,7 @@ NSString * const CTAssetsPickerDidDeselectAssetNotification = @"CTAssetsPickerDi
         case PHAuthorizationStatusAuthorized:
         default:
         {
-            [self checkAssetsCount];
+            [self showAssetCollectionViewController];
             break;
         }
     }
@@ -187,7 +187,7 @@ NSString * const CTAssetsPickerDidDeselectAssetNotification = @"CTAssetsPickerDi
             case PHAuthorizationStatusAuthorized:
             {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [self checkAssetsCount];
+                    [self showAssetCollectionViewController];
                 });
                 break;
             }
@@ -201,21 +201,6 @@ NSString * const CTAssetsPickerDidDeselectAssetNotification = @"CTAssetsPickerDi
         }
     }];
 }
-
-
-#pragma mark - Check assets count
-
-- (void)checkAssetsCount
-{
-    PHFetchResult *fetchResult = [PHAsset fetchAssetsWithOptions:self.assetsFetchOptions];
-    
-    if (fetchResult.count > 0) {
-        [self showAssetCollectionViewController];
-    } else {
-        [self showNoAssets];
-    }
-}
-
 
 #pragma mark - Setup views
 
