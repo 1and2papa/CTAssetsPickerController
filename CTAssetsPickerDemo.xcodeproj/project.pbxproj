@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		363F8D0A685BF86C60D06D49 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1B2FBB7FD634FB543BB7BB6 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		3CE9F5681B9C63D900491639 /* CTCustomDoneButtonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CE9F5671B9C63D900491639 /* CTCustomDoneButtonViewController.m */; };
 		AD0786D91B428313003C8863 /* CTBasicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0786D81B428313003C8863 /* CTBasicViewController.m */; };
 		AD0786DF1B42864F003C8863 /* CTSelectedAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0786DE1B42864F003C8863 /* CTSelectedAssetsViewController.m */; };
 		AD0786E21B428A73003C8863 /* CTDefaultAlbumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0786E11B428A73003C8863 /* CTDefaultAlbumViewController.m */; };
@@ -31,6 +32,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3CE9F5661B9C63D900491639 /* CTCustomDoneButtonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTCustomDoneButtonViewController.h; sourceTree = "<group>"; };
+		3CE9F5671B9C63D900491639 /* CTCustomDoneButtonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTCustomDoneButtonViewController.m; sourceTree = "<group>"; };
 		408BD0916F5C7C71C93D0E93 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		A741BBA21B5F7A8C00ED3D7B /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		A741BBA31B5F7A8C00ED3D7B /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/CTAssetsPicker.strings; sourceTree = "<group>"; };
@@ -216,6 +219,8 @@
 				ADFE23871B46602400E44353 /* CTProgrammaticViewController.m */,
 				ADFE23891B46868100E44353 /* CTApperanceViewController.h */,
 				ADFE238A1B46868100E44353 /* CTApperanceViewController.m */,
+				3CE9F5661B9C63D900491639 /* CTCustomDoneButtonViewController.h */,
+				3CE9F5671B9C63D900491639 /* CTCustomDoneButtonViewController.m */,
 				ADFC004A1B54FF740024CBB9 /* CTLayoutViewController.h */,
 				ADFC004B1B54FF740024CBB9 /* CTLayoutViewController.m */,
 			);
@@ -506,6 +511,7 @@
 				ADA073041B45118F009FB7C7 /* CTMaxSelectionViewController.m in Sources */,
 				AD4B06CB1B44CD5A00D99C5A /* CTSortedAssetsViewController.m in Sources */,
 				ADA073101B462C98009FB7C7 /* CTLastWeekViewController.m in Sources */,
+				3CE9F5681B9C63D900491639 /* CTCustomDoneButtonViewController.m in Sources */,
 				AD4B06C81B428EEF00D99C5A /* CTiCloudAlbumsViewController.m in Sources */,
 				AD0786E21B428A73003C8863 /* CTDefaultAlbumViewController.m in Sources */,
 				AD0786D91B428313003C8863 /* CTBasicViewController.m in Sources */,
