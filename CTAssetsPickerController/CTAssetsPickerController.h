@@ -112,6 +112,14 @@
 @property (nonatomic, assign) BOOL showsNumberOfAssets;
 
 /**
+ *  Title for Done button.
+ *
+ *  Default title for right button in the navigation bar.
+ *  Pass nil to reset to default value ("Done" in current localization).
+ */
+@property (nonatomic, copy) NSString* doneButtonTitle;
+
+/**
  *  Determines whether or not the done button is always enabled.
  *
  *  The done button is enabled only when assets are selected. To enable the done button even without assets selected,

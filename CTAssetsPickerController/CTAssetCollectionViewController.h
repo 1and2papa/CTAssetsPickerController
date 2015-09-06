@@ -28,6 +28,7 @@
 
 @interface CTAssetCollectionViewController : UITableViewController
 
+- (void)updateButton:(NSArray *)selectedAssets;
 - (void)reloadUserInterface;
 
 @end

@@ -158,7 +158,7 @@
                                     action:@selector(dismiss:)];
 
     self.doneButton =
-    [[UIBarButtonItem alloc] initWithTitle:CTAssetsPickerLocalizedString(@"Done", nil)
+    [[UIBarButtonItem alloc] initWithTitle:self.picker.doneButtonTitle
                                      style:UIBarButtonItemStyleDone
                                     target:self.picker
                                     action:@selector(finishPickingAssets:)];
@@ -327,6 +327,14 @@
 
 - (void)updateButton:(NSArray *)selectedAssets
 {
+	NSString* doneButtonTitle = self.picker.doneButtonTitle ? self.picker.doneButtonTitle : @"";
+	NSString* currentTitle = self.doneButton.title;
+	
+	if (![currentTitle isEqualToString:doneButtonTitle])
+	{
+		self.doneButton.title = doneButtonTitle;
+	}
+	
     self.navigationItem.leftBarButtonItem = (self.picker.showsCancelButton) ? self.cancelButton : nil;
     self.navigationItem.rightBarButtonItem = [self isTopViewController] ? self.doneButton : nil;
     

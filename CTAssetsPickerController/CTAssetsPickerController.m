@@ -75,6 +75,7 @@ NSString * const CTAssetsPickerDidDeselectAssetNotification = @"CTAssetsPickerDi
         _showsCancelButton                  = YES;
         _showsEmptyAlbums                   = YES;
         _showsNumberOfAssets                = YES;
+		_doneButtonTitle                    = [[self class] defaultDoneButtonTitle];
         _alwaysEnableDoneButton             = NO;
         _defaultAssetCollection             = PHAssetCollectionSubtypeAny;
         
@@ -374,7 +375,7 @@ NSString * const CTAssetsPickerDidDeselectAssetNotification = @"CTAssetsPickerDi
 {
     if ([keyPath isEqual:@"selectedAssets"])
     {
-        [self toggleDoneButton];
+        [self updateDoneButton];
         [self postSelectedAssetsDidChangeNotification:[object valueForKey:keyPath]];
     }
 }
@@ -382,7 +383,7 @@ NSString * const CTAssetsPickerDidDeselectAssetNotification = @"CTAssetsPickerDi
 
 #pragma mark - Toggle button
 
-- (void)toggleDoneButton
+- (void)updateDoneButton
 {
     UIViewController *vc = self.childSplitViewController.viewControllers.firstObject;
     
@@ -391,7 +392,12 @@ NSString * const CTAssetsPickerDidDeselectAssetNotification = @"CTAssetsPickerDi
         BOOL enabled = (self.alwaysEnableDoneButton) ? YES : (self.selectedAssets.count > 0);
         
         for (UIViewController *viewController in ((UINavigationController *)vc).viewControllers)
-            viewController.navigationItem.rightBarButtonItem.enabled = enabled;
+		{
+			if ([viewController respondsToSelector:@selector(updateButton:)])
+				[(id)viewController updateButton:self.selectedAssets];
+			else
+				viewController.navigationItem.rightBarButtonItem.enabled = enabled;
+		}
     }
 }
 
@@ -547,6 +553,21 @@ NSString * const CTAssetsPickerDidDeselectAssetNotification = @"CTAssetsPickerDi
     }
 }
 
+#pragma mark - Done button title
+
++ (NSString*)defaultDoneButtonTitle
+{
+	return CTAssetsPickerLocalizedString(@"Done", nil);
+}
+
+- (void)setDoneButtonTitle:(NSString *)newValue
+{
+	if (!newValue.length)
+		newValue = [[self class] defaultDoneButtonTitle];
+	
+	_doneButtonTitle = [newValue copy];
+	[self updateDoneButton];
+}
 
 #pragma mark - Actions
 
