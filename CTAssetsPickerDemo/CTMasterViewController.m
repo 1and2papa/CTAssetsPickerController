@@ -43,6 +43,7 @@
 #import "CTProgrammaticViewController.h"
 
 #import "CTApperanceViewController.h"
+#import "CTCustomDoneButtonViewController.h"
 
 #import "CTLayoutViewController.h"
 
@@ -86,7 +87,7 @@
             break;
             
         case 4:
-            return 1;
+            return 2;
             break;
             
         case 5:
@@ -193,10 +194,12 @@
     
     if (section == 4)
     {
-        if (row == 0)
-            title = @"UI Customisation";
+		if (row == 0)
+			title = @"UI Customisation";
+		if (row == 1)
+			title = @"Done Button Customisation";
     }
-    
+	
     if (section == 5)
     {
         if (row == 0)
@@ -265,8 +268,10 @@
     
     if (section == 4)
     {
-        if (row == 0)
-            vc = (UIViewController *)[CTApperanceViewController new];
+		if (row == 0)
+			vc = (UIViewController *)[CTApperanceViewController new];
+		if (row == 1)
+			vc = (UIViewController *)[CTCustomDoneButtonViewController new];
     }
 
     if (section == 5)

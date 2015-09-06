@@ -24,11 +24,8 @@
  
  */
 
-#import <UIKit/UIKit.h>
+#import "CTBasicViewController.h"
 
-@interface CTAssetCollectionViewController : UITableViewController
-
-- (void)updateButton:(NSArray *)selectedAssets;
-- (void)reloadUserInterface;
+@interface CTCustomDoneButtonViewController : CTBasicViewController
 
 @end

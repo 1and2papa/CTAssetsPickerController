@@ -168,13 +168,17 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
     self.collectionView.backgroundColor = [UIColor whiteColor];
 }
 
+- (UIBarButtonItem*)createDoneButton
+{
+	return [[UIBarButtonItem alloc] initWithTitle:self.picker.doneButtonTitle
+												style:UIBarButtonItemStyleDone
+											   target:self.picker
+											   action:@selector(finishPickingAssets:)];
+}
+
 - (void)setupButtons
 {
-    self.navigationItem.rightBarButtonItem =
-    [[UIBarButtonItem alloc] initWithTitle:CTAssetsPickerLocalizedString(@"Done", nil)
-                                     style:UIBarButtonItemStyleDone
-                                    target:self.picker
-                                    action:@selector(finishPickingAssets:)];
+	self.navigationItem.rightBarButtonItem = [self createDoneButton];
 }
 
 - (void)setupAssets
@@ -359,6 +363,17 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
 
 - (void)updateButton:(NSArray *)selectedAssets
 {
+	NSString* doneButtonTitle = self.picker.doneButtonTitle ? self.picker.doneButtonTitle : @"";
+	NSString* currentTitle = self.navigationItem.rightBarButtonItem.title;
+	
+	if (![currentTitle isEqualToString:doneButtonTitle])
+	{
+		// If we just update title, when title is wider than the previous one,
+		// there's this strange animation effect: ellipsis and then actual title.
+		// So re-create item rather than update its title.
+		[self.navigationItem setRightBarButtonItem:[self createDoneButton] animated:YES];
+	}
+	
     if (self.picker.alwaysEnableDoneButton)
         self.navigationItem.rightBarButtonItem.enabled = YES;
     else

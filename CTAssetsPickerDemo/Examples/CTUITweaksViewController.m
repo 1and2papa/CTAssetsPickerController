@@ -46,9 +46,12 @@
             // hide cancel button;
             picker.showsCancelButton = NO;
             
-            // make done button enable even without selection
-            picker.alwaysEnableDoneButton = YES;
-            
+			// make done button enable even without selection
+			picker.alwaysEnableDoneButton = YES;
+			
+			// change done button title to custom value
+			picker.doneButtonTitle = @"Pick";
+			
             // do not show number of assets in album list
             picker.showsNumberOfAssets = NO;
             

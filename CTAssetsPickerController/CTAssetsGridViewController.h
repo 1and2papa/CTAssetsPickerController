@@ -45,6 +45,8 @@
 @property (nonatomic, weak) id<CTAssetsGridViewControllerDelegate> delegate;
 @property (nonatomic, strong) PHAssetCollection *assetCollection;
 
+- (void)updateButton:(NSArray *)selectedAssets;
+
 @end
 
 
