@@ -28,6 +28,7 @@
 #import "CTAssetThumbnailOverlay.h"
 #import "UIImage+CTAssetsPickerController.h"
 #import "PHAsset+CTAssetsPickerController.h"
+#import "PHAssetCollection+CTAssetsPickerController.h"
 
 
 
@@ -111,32 +112,12 @@
 
 - (void)bind:(PHAsset *)asset duration:(NSString *)duration;
 {
-    self.badge.image = [self imageForAsset:asset];
+    self.badge.image = [asset badgeImage];
     self.badge.layoutMargins = [self layoutMarginsForAsset:asset];
     self.duration.text = duration;
     
     [self setNeedsUpdateConstraints];
     [self updateConstraintsIfNeeded];
-}
-
-
-- (UIImage *)imageForAsset:(PHAsset *)asset
-{
-    NSString *imageName;
-    
-    if (asset.ctassetsPickerIsHighFrameRateVideo)
-        imageName = @"BadgeSloMoSmall";
-    
-    else if (asset.ctassetsPickerIsTimelapseVideo)
-        imageName = @"BadgeTimelapseSmall";
-    
-    else if (asset.ctassetsPickerIsVideo)
-        imageName = @"BadgeVideoSmall";
-
-    if (imageName)
-        return [[UIImage ctassetsPickerImageNamed:imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    else
-        return nil;
 }
 
 - (UIEdgeInsets)layoutMarginsForAsset:(PHAsset *)asset
@@ -159,7 +140,7 @@
 
 - (void)bind:(PHAssetCollection *)assetCollection;
 {
-    self.badge.image = [self imageForAssetCollection:assetCollection];
+    self.badge.image = [assetCollection badgeImage];
     self.badge.layoutMargins = [self layoutMarginsForAssetCollection:assetCollection];
     self.duration.text = nil;
     
@@ -167,47 +148,9 @@
     [self updateConstraintsIfNeeded];    
 }
 
-- (UIImage *)imageForAssetCollection:(PHAssetCollection *)assetCollection
-{
-    NSString *imageName;
-    
-    if (assetCollection.assetCollectionSubtype == PHAssetCollectionSubtypeSmartAlbumUserLibrary)
-        imageName = @"BadgeAllPhotos";
-
-    else if (assetCollection.assetCollectionSubtype == PHAssetCollectionSubtypeSmartAlbumPanoramas)
-        imageName = @"BadgePanorama";
-
-    else if (assetCollection.assetCollectionSubtype == PHAssetCollectionSubtypeSmartAlbumVideos)
-        imageName = @"BadgeVideo";
-    
-    else if (assetCollection.assetCollectionSubtype == PHAssetCollectionSubtypeSmartAlbumFavorites)
-        imageName = @"BadgeFavorites";
-
-    else if (assetCollection.assetCollectionSubtype == PHAssetCollectionSubtypeSmartAlbumTimelapses)
-        imageName = @"BadgeTimelapse";
-
-    else if (assetCollection.assetCollectionSubtype == PHAssetCollectionSubtypeSmartAlbumAllHidden)
-        imageName = nil;
-
-    else if (assetCollection.assetCollectionSubtype == PHAssetCollectionSubtypeSmartAlbumRecentlyAdded)
-        imageName = @"BadgeLastImport";
-    
-    else if (assetCollection.assetCollectionSubtype == PHAssetCollectionSubtypeSmartAlbumBursts)
-        imageName = @"BadgeBurst";
-    
-    else if (assetCollection.assetCollectionSubtype == PHAssetCollectionSubtypeSmartAlbumSlomoVideos)
-        imageName = @"BadgeSlomo";
-    
-    
-    if (imageName)
-        return [[UIImage ctassetsPickerImageNamed:imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    else
-        return nil;
-}
-
 - (UIEdgeInsets)layoutMarginsForAssetCollection:(PHAssetCollection *)assetCollection
 {
-    return UIEdgeInsetsMake(4,4,4,4);
+    return UIEdgeInsetsMake(4.0, 4.0, 4.0, 4.0);
 }
 
 @end

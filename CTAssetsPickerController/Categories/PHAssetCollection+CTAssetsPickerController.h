@@ -30,5 +30,6 @@
 
 + (PHAssetCollectionType)ctassetPickerAssetCollectionTypeOfSubtype:(PHAssetCollectionSubtype)subtype;
 - (NSUInteger)ctassetPikcerCountOfAssetsFetchedWithOptions:(PHFetchOptions *)fetchOptions;
+- (UIImage *)badgeImage;
 
 @end

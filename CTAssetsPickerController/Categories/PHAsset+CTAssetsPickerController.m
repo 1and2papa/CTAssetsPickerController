@@ -25,6 +25,9 @@
  */
 
 #import "PHAsset+CTAssetsPickerController.h"
+#import "UIImage+CTAssetsPickerController.h"
+
+
 
 @implementation PHAsset (CTAssetsPickerController)
 
@@ -46,6 +49,25 @@
 - (BOOL)ctassetsPickerIsTimelapseVideo
 {
     return (self.mediaType == PHAssetMediaTypeVideo && (self.mediaSubtypes & PHAssetMediaSubtypeVideoTimelapse));    
+}
+
+- (UIImage *)badgeImage
+{
+    NSString *imageName;
+    
+    if (self.ctassetsPickerIsHighFrameRateVideo)
+        imageName = @"BadgeSlomoSmall";
+    
+    else if (self.ctassetsPickerIsTimelapseVideo)
+        imageName = @"BadgeTimelapseSmall";
+    
+    else if (self.ctassetsPickerIsVideo)
+        imageName = @"BadgeVideoSmall";
+    
+    if (imageName)
+        return [[UIImage ctassetsPickerImageNamed:imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    else
+        return nil;
 }
 
 - (NSString *)ctassetsPickerAccessibilityLabel

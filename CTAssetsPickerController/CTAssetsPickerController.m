@@ -134,13 +134,23 @@ NSString * const CTAssetsPickerDidDeselectAssetNotification = @"CTAssetsPickerDi
       [NSNumber numberWithInt:PHAssetCollectionSubtypeSmartAlbumTimelapses],
       [NSNumber numberWithInt:PHAssetCollectionSubtypeSmartAlbumBursts],
       [NSNumber numberWithInt:PHAssetCollectionSubtypeSmartAlbumAllHidden],
-      [NSNumber numberWithInt:PHAssetCollectionSubtypeSmartAlbumGeneric],      
+      [NSNumber numberWithInt:PHAssetCollectionSubtypeSmartAlbumGeneric],
       [NSNumber numberWithInt:PHAssetCollectionSubtypeAlbumRegular],
       [NSNumber numberWithInt:PHAssetCollectionSubtypeAlbumSyncedAlbum],
       [NSNumber numberWithInt:PHAssetCollectionSubtypeAlbumSyncedEvent],
       [NSNumber numberWithInt:PHAssetCollectionSubtypeAlbumSyncedFaces],
       [NSNumber numberWithInt:PHAssetCollectionSubtypeAlbumImported],
       [NSNumber numberWithInt:PHAssetCollectionSubtypeAlbumCloudShared]];
+    
+    // Add iOS 9's new albums
+    if ([[PHAsset new] respondsToSelector:@selector(sourceType)])
+    {
+        NSMutableArray *subtypes = [NSMutableArray arrayWithArray:self.assetCollectionSubtypes];
+        [subtypes insertObject:[NSNumber numberWithInt:PHAssetCollectionSubtypeSmartAlbumSelfPortraits] atIndex:4];
+        [subtypes insertObject:[NSNumber numberWithInt:PHAssetCollectionSubtypeSmartAlbumScreenshots] atIndex:10];
+        
+        self.assetCollectionSubtypes = [NSArray arrayWithArray:subtypes];
+    }
 }
 
 - (void)initThumbnailRequestOptions

@@ -33,6 +33,7 @@
 - (BOOL)ctassetsPickerIsHighFrameRateVideo;
 - (BOOL)ctassetsPickerIsTimelapseVideo;
 
+- (UIImage *)badgeImage;
 - (NSString *)ctassetsPickerAccessibilityLabel;
 
 @end
