@@ -33,7 +33,7 @@
     return (subtype >= PHAssetCollectionSubtypeSmartAlbumGeneric) ? PHAssetCollectionTypeSmartAlbum : PHAssetCollectionTypeAlbum;
 }
 
-- (NSInteger)ctassetPikcerCountOfAssetsFetchedWithOptions:(PHFetchOptions *)fetchOptions
+- (NSUInteger)ctassetPikcerCountOfAssetsFetchedWithOptions:(PHFetchOptions *)fetchOptions
 {
     PHFetchResult *result = [PHAsset fetchAssetsInAssetCollection:self options:fetchOptions];
     return result.count;

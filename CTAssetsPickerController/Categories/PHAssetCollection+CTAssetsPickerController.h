@@ -29,6 +29,6 @@
 @interface PHAssetCollection (CTAssetsPickerController)
 
 + (PHAssetCollectionType)ctassetPickerAssetCollectionTypeOfSubtype:(PHAssetCollectionSubtype)subtype;
-- (NSInteger)ctassetPikcerCountOfAssetsFetchedWithOptions:(PHFetchOptions *)fetchOptions;
+- (NSUInteger)ctassetPikcerCountOfAssetsFetchedWithOptions:(PHFetchOptions *)fetchOptions;
 
 @end
