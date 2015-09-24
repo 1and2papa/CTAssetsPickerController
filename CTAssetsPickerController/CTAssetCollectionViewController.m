@@ -201,7 +201,7 @@
     {
         for (PHAssetCollection *assetCollection in fetchResult)
         {
-            NSInteger count = [assetCollection ctassetPikcerCountOfAssetsFetchedWithOptions:self.picker.assetsFetchOptions];
+            NSInteger count = (assetCollection.estimatedAssetCount) ? assetCollection.estimatedAssetCount : 0;
             
             if (self.picker.showsEmptyAlbums || count > 0)
                 [assetCollections addObject:assetCollection];
