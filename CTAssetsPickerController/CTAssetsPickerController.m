@@ -48,7 +48,7 @@ NSString * const CTAssetsPickerDidDeselectAssetNotification = @"CTAssetsPickerDi
 
 
 @interface CTAssetsPickerController ()
-<UISplitViewControllerDelegate, UINavigationControllerDelegate>
+<PHPhotoLibraryChangeObserver, UISplitViewControllerDelegate, UINavigationControllerDelegate>
 
 @property (nonatomic, assign) BOOL shouldCollapseDetailViewController;
 
@@ -93,11 +93,13 @@ NSString * const CTAssetsPickerDidDeselectAssetNotification = @"CTAssetsPickerDi
     [self setupEmptyViewController];
     [self checkAuthorizationStatus];
     [self addKeyValueObserver];
+    [self registerChangeObserver];
 }
 
 - (void)dealloc
 {
     [self removeKeyValueObserver];
+    [self unregisterChangeObserver];
 }
 
 - (UIViewController *)childViewControllerForStatusBarStyle
@@ -378,6 +380,45 @@ NSString * const CTAssetsPickerDidDeselectAssetNotification = @"CTAssetsPickerDi
         [self postSelectedAssetsDidChangeNotification:[object valueForKey:keyPath]];
     }
 }
+
+
+#pragma mark - Photo library change observer
+
+- (void)registerChangeObserver
+{
+    [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
+}
+
+- (void)unregisterChangeObserver
+{
+    [[PHPhotoLibrary sharedPhotoLibrary] unregisterChangeObserver:self];
+}
+
+
+
+#pragma mark - Photo library changed
+
+- (void)photoLibraryDidChange:(PHChange *)changeInstance
+{
+    // Call might come on any background queue. Re-dispatch to the main queue to handle it.
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        NSMutableArray *deselectAssets = [NSMutableArray new];
+        
+        for (PHAsset *asset in self.selectedAssets)
+        {
+            PHObjectChangeDetails *changeDetails = [changeInstance changeDetailsForObject:asset];
+    
+            if ([changeDetails objectWasDeleted])
+                [deselectAssets addObject:asset];
+        }
+        
+        // Deselect asset if it was deleted from library
+        for (PHAsset *asset in deselectAssets)
+            [self deselectAsset:asset];
+    });
+}
+
 
 
 #pragma mark - Toggle button
