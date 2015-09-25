@@ -552,7 +552,7 @@ NSString * const CTAssetScrollViewPlayerWillPauseNotification = @"CTAssetScrollV
         [self.player removeObserver:self forKeyPath:@"currentItem.loadedTimeRanges"];
     }
     @catch (NSException *exception) {
-        // do noting
+        // do nothing
     }
 }
 
@@ -570,7 +570,7 @@ NSString * const CTAssetScrollViewPlayerWillPauseNotification = @"CTAssetScrollV
         [self.player removeObserver:self forKeyPath:@"rate"];
     }
     @catch (NSException *exception) {
-        // do noting
+        // do nothing
     }    
 }
 

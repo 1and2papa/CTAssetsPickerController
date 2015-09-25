@@ -376,7 +376,12 @@ NSString * const CTAssetsPickerDidDeselectAssetNotification = @"CTAssetsPickerDi
 
 - (void)removeKeyValueObserver
 {
-    [self removeObserver:self forKeyPath:@"selectedAssets"];
+    @try {
+        [self removeObserver:self forKeyPath:@"selectedAssets"];
+    }
+    @catch (NSException *exception) {
+        // do nothing
+    }
 }
 
 
