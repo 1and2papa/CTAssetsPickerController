@@ -33,6 +33,8 @@
 
 /* Accessibility labels */
 "Play" = "הפעלה";
+"Select" = "בחר";
+"Deselect" = "בטלו את הבחירה";
 
 /* Video duration spell out */
 "hours" = "שעות";

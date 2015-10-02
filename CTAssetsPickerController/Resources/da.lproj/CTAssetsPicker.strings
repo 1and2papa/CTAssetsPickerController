@@ -33,6 +33,8 @@
 
 /* Accessibility labels */
 "Play" = "Afspil";
+"Select" = "Vælg";
+"Deselect" = "Fravælg";
 
 /* Video duration spell out */
 "hours" = "timer";

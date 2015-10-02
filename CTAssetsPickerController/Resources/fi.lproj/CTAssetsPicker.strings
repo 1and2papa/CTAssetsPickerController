@@ -33,6 +33,8 @@
 
 /* Accessibility labels */
 "Play" = "Toista";
+"Select" = "Valitse";
+"Deselect" = "Poista";
 
 /* Video duration spell out */
 "hours" = "tuntia";

@@ -33,6 +33,8 @@
 
 /* Accessibility labels */
 "Play" = "Воспр.";
+"Select" = "Выбрать";
+"Deselect" = "Снимите";
 
 /* Video duration spell out */
 "hours" = "часов";

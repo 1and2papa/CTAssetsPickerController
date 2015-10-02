@@ -24,42 +24,8 @@
  
  */
 
-#import <UIKit/UIKit.h>
-#import "CTAssetItemViewController.h"
-#import "CTAssetPlayButton.h"
-#import "CTAssetSelectionButton.h"
-
-
-
-
-extern NSString * const CTAssetScrollViewDidTapNotification;
-extern NSString * const CTAssetScrollViewPlayerWillPlayNotification;
-extern NSString * const CTAssetScrollViewPlayerWillPauseNotification;
-
-
-@interface CTAssetScrollView : UIScrollView
+@interface CTAssetsPageViewController (Internal)
 
 @property (nonatomic, assign) BOOL allowsSelection;
-
-@property (nonatomic, strong, readonly) UIImage *image;
-@property (nonatomic, strong, readonly) AVPlayer *player;
-
-@property (nonatomic, strong, readonly) UIImageView *imageView;
-@property (nonatomic, strong, readonly) CTAssetPlayButton *playButton;
-@property (nonatomic, strong, readonly) CTAssetSelectionButton *selectionButton;
-
-
-- (void)startActivityAnimating;
-- (void)stopActivityAnimating;
-
-- (void)setProgress:(CGFloat)progress;
-
-- (void)bind:(PHAsset *)asset image:(UIImage *)image requestInfo:(NSDictionary *)info;
-- (void)bind:(AVPlayerItem *)playerItem requestInfo:(NSDictionary *)info;
-
-- (void)updateZoomScalesAndZoom:(BOOL)zoom;
-
-- (void)playVideo;
-- (void)pauseVideo;
 
 @end

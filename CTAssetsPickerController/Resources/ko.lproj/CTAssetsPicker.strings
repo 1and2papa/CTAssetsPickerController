@@ -33,6 +33,8 @@
 
 /* Accessibility labels */
 "Play" = "플레이";
+"Select" = "선택";
+"Deselect" = "선택 해제";
 
 /* Video duration spell out */
 "hours" = "시간";

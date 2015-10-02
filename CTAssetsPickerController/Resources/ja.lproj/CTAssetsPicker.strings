@@ -33,6 +33,8 @@
 
 /* Accessibility labels */
 "Play" = "再生";
+"Select" = "選択";
+"Deselect" = "選択を解除";
 
 /* Video duration spell out */
 "hours" = "時間";
