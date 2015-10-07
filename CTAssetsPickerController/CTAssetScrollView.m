@@ -210,7 +210,9 @@ NSString * const CTAssetScrollViewPlayerWillPauseNotification = @"CTAssetScrollV
 
 - (void)setProgress:(CGFloat)progress
 {
+#if !defined(CT_APP_EXTENSIONS)
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:(progress < 1)];
+#endif
     [self.progressView setProgress:progress animated:(progress < 1)];
     [self.progressView setHidden:(progress == 1)];
 }
