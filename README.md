@@ -22,7 +22,7 @@ CTAssetsPickerController is an iOS controller that allows picking multiple photo
 * [Release Notes](https://github.com/chiunam/CTAssetsPickerController/releases)
 
 ## Minimum Requirement
-Xcode 6 and iOS 8.
+iOS 9 SDK
 
 ## Adding to your project
     	
