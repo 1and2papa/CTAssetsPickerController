@@ -86,6 +86,10 @@ Customisation can be done by setting properties or implementating delegate metho
 
 `CTAssetsPicker.strings` contains strings used in the picker. It will be included in `CTAssetsPickerController.bundle` automatically if you add the picker to your project by CocoaPods. You might translate the text or add your translation accordingly. PR is always welcomed if you add translation to the picker.
 
+## App Extensions
+
+When using CTAssetsPickerController in an App Extension, `#define CT_APP_EXTENSIONS` to avoid using unavailable APIs.
+
 ## Bonus
 
 You may reuse the preview feature of the picker to view any assets. Just init a `CTAssetsPageViewController` with an array of assets and assign `pageIndex` property. Please refer to the [demo app](https://github.com/chiunam/CTAssetsPickerController/wiki/Running-demo-app) for the details.
