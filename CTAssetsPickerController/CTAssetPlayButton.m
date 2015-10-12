@@ -124,6 +124,7 @@
     colorView.backgroundColor = [UIColor whiteColor];
     colorView.userInteractionEnabled = NO;
     self.colorView = colorView;
+    
     [self addSubview:self.colorView];
 }
 
@@ -166,6 +167,9 @@
     
     [super updateConstraints];
 }
+
+
+#pragma mark - States
 
 - (void)setHighlighted:(BOOL)highlighted
 {

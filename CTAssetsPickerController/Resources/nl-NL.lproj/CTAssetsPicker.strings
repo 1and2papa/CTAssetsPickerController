@@ -32,12 +32,9 @@
 "You can sync photos and videos onto your %@ using iTunes." = "Je kunt foto's en video's synchroniseren met je %@ in iTunes";
 
 /* Accessibility labels */
-"Photo" = "Foto";
-"Video" = "Video";
-"Portrait" = "Portret";
-"Landscape" = "Landschap";
 "Play" = "Lezen";
-"Not available" = "Niet beschikbaar";
+"Select" = "Select";
+"Deselect" = "Deselecteren";
 
 /* Video duration spell out */
 "hours" = "uren";

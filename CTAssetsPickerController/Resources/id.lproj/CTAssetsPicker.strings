@@ -33,6 +33,8 @@
 
 /* Accessibility labels */
 "Play" = "Putar";
+"Select" = "Memilih";
+"Deselect" = "Hapus";
 
 /* Video duration spell out */
 "hours" = "jam";

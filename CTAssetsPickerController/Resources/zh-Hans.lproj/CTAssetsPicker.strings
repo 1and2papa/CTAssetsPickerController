@@ -33,6 +33,8 @@
 
 /* Accessibility labels */
 "Play" = "播放";
+"Select" = "选择";
+"Deselect" = "取消选择";
 
 /* Video duration spell out */
 "hours" = "小时";

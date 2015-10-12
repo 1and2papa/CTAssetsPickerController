@@ -33,6 +33,7 @@
 #import "CTAssetsGridViewFooter.h"
 #import "CTAssetsPickerNoAssetsView.h"
 #import "CTAssetsPageViewController.h"
+#import "CTAssetsPageViewController+Internal.h"
 #import "CTAssetsViewControllerTransition.h"
 #import "UICollectionView+CTAssetsPickerController.h"
 #import "NSIndexSet+CTAssetsPickerController.h"
@@ -403,6 +404,7 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
         NSIndexPath *indexPath  = [self.collectionView indexPathForItemAtPoint:point];
         
         CTAssetsPageViewController *vc = [[CTAssetsPageViewController alloc] initWithFetchResult:self.fetchResult];
+        vc.allowsSelection = YES;
         vc.pageIndex = indexPath.item;
         
         [self.navigationController pushViewController:vc animated:YES];

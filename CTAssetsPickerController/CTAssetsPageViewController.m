@@ -39,10 +39,12 @@
 @interface CTAssetsPageViewController ()
 <UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 
+
+@property (nonatomic, assign) BOOL allowsSelection;
+
 @property (nonatomic, assign, getter = isStatusBarHidden) BOOL statusBarHidden;
 
 @property (nonatomic, copy) NSArray *assets;
-//@property (nonatomic, strong) PHFetchResult *fetchResult;
 @property (nonatomic, strong, readonly) PHAsset *asset;
 
 @property (nonatomic, strong) UIBarButtonItem *playButton;
@@ -74,9 +76,10 @@
     
     if (self)
     {
-        self.assets     = assets;
-        self.dataSource = self;
-        self.delegate   = self;
+        self.assets          = assets;
+        self.dataSource      = self;
+        self.delegate        = self;
+        self.allowsSelection = NO;
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
     
@@ -196,6 +199,7 @@
         PHAsset *asset = [self.assets objectAtIndex:pageIndex];
         
         CTAssetItemViewController *page = [CTAssetItemViewController assetItemViewControllerForAsset:asset];
+        page.allowsSelection = self.allowsSelection;
         
         [self setViewControllers:@[page]
                        direction:UIPageViewControllerNavigationDirectionForward
@@ -223,7 +227,10 @@
     if (index > 0)
     {
         PHAsset *beforeAsset = [self.assets objectAtIndex:(index - 1)];
-        return [CTAssetItemViewController assetItemViewControllerForAsset:beforeAsset];
+        CTAssetItemViewController *page = [CTAssetItemViewController assetItemViewControllerForAsset:beforeAsset];
+        page.allowsSelection = self.allowsSelection;
+        
+        return page;
     }
 
     return nil;
@@ -238,7 +245,10 @@
     if (index < count - 1)
     {
         PHAsset *afterAsset = [self.assets objectAtIndex:(index + 1)];
-        return [CTAssetItemViewController assetItemViewControllerForAsset:afterAsset];
+        CTAssetItemViewController *page = [CTAssetItemViewController assetItemViewControllerForAsset:afterAsset];
+        page.allowsSelection = self.allowsSelection;
+        
+        return page;
     }
     
     return nil;

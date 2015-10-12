@@ -33,6 +33,8 @@
 
 /* Accessibility labels */
 "Play" = "चलाएं";
+"Select" = "चुनना";
+"Deselect" = "चयन रद्द करें";
 
 /* Video duration spell out */
 "hours" = "घंटे";
@@ -42,5 +44,6 @@
 "seconds" = "सेकंड";
 "second" = "सेकंड";
 
+/* Error message of playing stream video */
 "Cannot Play Stream Video" = "Cannot Play Stream Video";
 "OK" = "OK";

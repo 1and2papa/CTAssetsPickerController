@@ -33,6 +33,8 @@
 
 /* Accessibility labels */
 "Play" = "Reproducir";
+"Select" = "Seleccione";
+"Deselect" = "Deseleccionar";
 
 /* Video duration spell out */
 "hours" = "horas";

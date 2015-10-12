@@ -33,6 +33,8 @@
 
 /* Accessibility labels */
 "Play" = "تشغيل";
+"Select" = "حدد";
+"Deselect" = "إلغاء";
 
 /* Video duration spell out */
 "hours" = "ساعات";
