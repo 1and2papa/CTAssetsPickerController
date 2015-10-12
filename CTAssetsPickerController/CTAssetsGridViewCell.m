@@ -138,7 +138,7 @@
 {
     if (!self.didSetupConstraints)
     {
-        [UIView autoSetPriority:UILayoutPriorityRequired forConstraints:^{
+        [NSLayoutConstraint autoSetPriority:UILayoutPriorityRequired forConstraints:^{
             [self.backgroundView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero];
             [self.disabledView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero];
             [self.highlightedView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero];

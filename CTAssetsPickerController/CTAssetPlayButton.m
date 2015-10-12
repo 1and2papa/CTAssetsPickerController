@@ -152,7 +152,7 @@
     {
         CGSize size = [UIImage ctassetsPickerImageNamed:@"VideoPlayButtonMask"].size;
         
-        [UIView autoSetPriority:UILayoutPriorityRequired forConstraints:^{
+        [NSLayoutConstraint autoSetPriority:UILayoutPriorityRequired forConstraints:^{
             [self autoSetDimensionsToSize:size];
         }];
         

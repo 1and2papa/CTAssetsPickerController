@@ -110,11 +110,11 @@
             
             CGFloat inset = (index * delta * 3);
 
-            [UIView autoSetPriority:UILayoutPriorityRequired forConstraints:^{
+            [NSLayoutConstraint autoSetPriority:UILayoutPriorityRequired forConstraints:^{
                 [thumbnailView autoSetDimensionsToSize:size];
             }];
             
-            [UIView autoSetPriority:UILayoutPriorityDefaultHigh forConstraints:^{
+            [NSLayoutConstraint autoSetPriority:UILayoutPriorityDefaultHigh forConstraints:^{
                 [thumbnailView autoAlignAxisToSuperviewAxis:ALAxisVertical];
                 [thumbnailView autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:inset];
             }];
