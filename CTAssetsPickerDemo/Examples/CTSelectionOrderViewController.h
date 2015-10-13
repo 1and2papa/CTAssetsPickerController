@@ -24,18 +24,8 @@
  
  */
 
-#import <UIKit/UIKit.h>
-#import <Photos/Photos.h>
-#import "CTAssetThumbnailView.h"
+#import "CTBasicViewController.h"
 
-
-
-@interface CTAssetsGridViewCell : UICollectionViewCell
-
-@property (nonatomic, assign, getter = isEnabled) BOOL enabled;
-@property (nonatomic, assign) BOOL showsSelectionIndex;
-@property (nonatomic, assign) NSUInteger selectionIndex;
-
-- (void)bind:(PHAsset *)asset;
+@interface CTSelectionOrderViewController : CTBasicViewController
 
 @end

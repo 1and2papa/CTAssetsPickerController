@@ -31,6 +31,7 @@
 #import "CTMaxSelectionViewController.h"
 #import "CTSelectedAssetsViewController.h"
 #import "CTDefaultAlbumViewController.h"
+#import "CTSelectionOrderViewController.h"
 #import "CTUITweaksViewController.h"
 
 #import "CTSortedAssetsViewController.h"
@@ -70,7 +71,7 @@
 {
     switch (section) {
         case 0:
-            return 5;
+            return 6;
             break;
 
         case 1:
@@ -161,6 +162,9 @@
             title = @"Show Camera Roll first";
         
         if (row == 4)
+            title = @"Show selection order";
+        
+        if (row == 5)
             title = @"UI tweaks";
     }
     
@@ -233,6 +237,9 @@
             vc = (UIViewController *)[CTDefaultAlbumViewController new];
         
         if (row == 4)
+            vc = (UIViewController *)[CTSelectionOrderViewController new];
+        
+        if (row == 5)
             vc = (UIViewController *)[CTUITweaksViewController new];
     }
     

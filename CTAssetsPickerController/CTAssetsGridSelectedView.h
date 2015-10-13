@@ -25,17 +25,12 @@
  */
 
 #import <UIKit/UIKit.h>
-#import <Photos/Photos.h>
-#import "CTAssetThumbnailView.h"
 
+@interface CTAssetsGridSelectedView : UIView
 
-
-@interface CTAssetsGridViewCell : UICollectionViewCell
-
-@property (nonatomic, assign, getter = isEnabled) BOOL enabled;
 @property (nonatomic, assign) BOOL showsSelectionIndex;
 @property (nonatomic, assign) NSUInteger selectionIndex;
 
-- (void)bind:(PHAsset *)asset;
+@property (nonatomic, assign) CGFloat borderWidth UI_APPEARANCE_SELECTOR;
 
 @end

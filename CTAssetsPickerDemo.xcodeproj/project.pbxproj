@@ -11,6 +11,7 @@
 		AD0786D91B428313003C8863 /* CTBasicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0786D81B428313003C8863 /* CTBasicViewController.m */; };
 		AD0786DF1B42864F003C8863 /* CTSelectedAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0786DE1B42864F003C8863 /* CTSelectedAssetsViewController.m */; };
 		AD0786E21B428A73003C8863 /* CTDefaultAlbumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0786E11B428A73003C8863 /* CTDefaultAlbumViewController.m */; };
+		AD18AFD71BCC9BA9008B507D /* CTSelectionOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD18AFD61BCC9BA9008B507D /* CTSelectionOrderViewController.m */; settings = {ASSET_TAGS = (); }; };
 		AD4B06C81B428EEF00D99C5A /* CTiCloudAlbumsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD4B06C71B428EEF00D99C5A /* CTiCloudAlbumsViewController.m */; };
 		AD4B06CB1B44CD5A00D99C5A /* CTSortedAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD4B06CA1B44CD5A00D99C5A /* CTSortedAssetsViewController.m */; };
 		AD6CDA4A1AC55BEE008C6AC2 /* UICollectionView+CTAssetsPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6CDA491AC55BEE008C6AC2 /* UICollectionView+CTAssetsPickerController.m */; };
@@ -64,6 +65,10 @@
 		AD08405F1ACD3F07003347CC /* CTAssetsPickerNoAssetsView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CTAssetsPickerNoAssetsView.h; sourceTree = "<group>"; };
 		AD0840601ACD3F07003347CC /* CTAssetsPickerNoAssetsView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CTAssetsPickerNoAssetsView.m; sourceTree = "<group>"; };
 		AD18AFD11BCB9025008B507D /* CTAssetsPageViewController+Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CTAssetsPageViewController+Internal.h"; sourceTree = "<group>"; };
+		AD18AFD21BCBB856008B507D /* CTAssetsGridSelectedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsGridSelectedView.h; sourceTree = "<group>"; };
+		AD18AFD31BCBB856008B507D /* CTAssetsGridSelectedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetsGridSelectedView.m; sourceTree = "<group>"; };
+		AD18AFD51BCC9BA9008B507D /* CTSelectionOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTSelectionOrderViewController.h; sourceTree = "<group>"; };
+		AD18AFD61BCC9BA9008B507D /* CTSelectionOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTSelectionOrderViewController.m; sourceTree = "<group>"; };
 		AD30D7F61AAE9D0400C79E3D /* NSNumberFormatter+CTAssetsPickerController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSNumberFormatter+CTAssetsPickerController.h"; sourceTree = "<group>"; };
 		AD30D7F71AAE9D0400C79E3D /* NSNumberFormatter+CTAssetsPickerController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSNumberFormatter+CTAssetsPickerController.m"; sourceTree = "<group>"; };
 		AD30D7FB1AAEE01800C79E3D /* CTAssetThumbnailView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CTAssetThumbnailView.h; sourceTree = "<group>"; };
@@ -203,6 +208,8 @@
 				AD0786DE1B42864F003C8863 /* CTSelectedAssetsViewController.m */,
 				AD0786E01B428A73003C8863 /* CTDefaultAlbumViewController.h */,
 				AD0786E11B428A73003C8863 /* CTDefaultAlbumViewController.m */,
+				AD18AFD51BCC9BA9008B507D /* CTSelectionOrderViewController.h */,
+				AD18AFD61BCC9BA9008B507D /* CTSelectionOrderViewController.m */,
 				ADA0730B1B4625AA009FB7C7 /* CTUITweaksViewController.h */,
 				ADA0730C1B4625AA009FB7C7 /* CTUITweaksViewController.m */,
 				AD4B06C91B44CD5A00D99C5A /* CTSortedAssetsViewController.h */,
@@ -289,6 +296,8 @@
 				AD4CC0CC1AD61E0D009C3F45 /* CTAssetsGridViewLayout.m */,
 				ADD966111AAD5780002A26A2 /* CTAssetsGridViewCell.h */,
 				ADD966121AAD5780002A26A2 /* CTAssetsGridViewCell.m */,
+				AD18AFD21BCBB856008B507D /* CTAssetsGridSelectedView.h */,
+				AD18AFD31BCBB856008B507D /* CTAssetsGridSelectedView.m */,
 				ADD9660F1AAD5780002A26A2 /* CTAssetsGridViewFooter.h */,
 				ADD966101AAD5780002A26A2 /* CTAssetsGridViewFooter.m */,
 				AD9BB2481B295EE2001F9809 /* CTAssetCheckmark.h */,
@@ -516,6 +525,7 @@
 				AD0786E21B428A73003C8863 /* CTDefaultAlbumViewController.m in Sources */,
 				AD0786D91B428313003C8863 /* CTBasicViewController.m in Sources */,
 				ADA0730D1B4625AA009FB7C7 /* CTUITweaksViewController.m in Sources */,
+				AD18AFD71BCC9BA9008B507D /* CTSelectionOrderViewController.m in Sources */,
 				ADFE238B1B46868100E44353 /* CTApperanceViewController.m in Sources */,
 				ADE2713C1ACBA6BA0090EFB1 /* NSIndexSet+CTAssetsPickerController.m in Sources */,
 			);

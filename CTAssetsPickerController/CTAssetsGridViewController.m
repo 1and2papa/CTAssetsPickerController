@@ -367,13 +367,15 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
 }
 
 
-#pragma mark - Did de/select asset
+#pragma mark - Did de/select asset notifications
 
 - (void)assetsPickerDidSelectAsset:(NSNotification *)notification
 {
     PHAsset *asset = (PHAsset *)notification.object;
     NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[self.fetchResult indexOfObject:asset] inSection:0];
     [self.collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+    
+    [self updateSelectionOrderLabels];
 }
 
 - (void)assetsPickerDidDeselectAsset:(NSNotification *)notification
@@ -381,7 +383,23 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
     PHAsset *asset = (PHAsset *)notification.object;
     NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[self.fetchResult indexOfObject:asset] inSection:0];
     [self.collectionView deselectItemAtIndexPath:indexPath animated:NO];
+    
+    [self updateSelectionOrderLabels];
 }
+
+
+#pragma mark - Update Selection Order Labels
+
+- (void)updateSelectionOrderLabels
+{
+    for (NSIndexPath *indexPath in [self.collectionView indexPathsForSelectedItems])
+    {
+        PHAsset *asset = [self assetAtIndexPath:indexPath];
+        CTAssetsGridViewCell *cell = (CTAssetsGridViewCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
+        cell.selectionIndex = [self.picker.selectedAssets indexOfObject:asset];
+    }
+}
+
 
 #pragma mark - Gesture recognizer
 
@@ -598,12 +616,15 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
     else
         cell.enabled = YES;
     
+    cell.showsSelectionIndex = self.picker.showsSelectionIndex;
+    
     // XXX
     // Setting `selected` property blocks further deselection.
     // Have to call selectItemAtIndexPath too. ( ref: http://stackoverflow.com/a/17812116/1648333 )
     if ([self.picker.selectedAssets containsObject:asset])
     {
         cell.selected = YES;
+        cell.selectionIndex = [self.picker.selectedAssets indexOfObject:asset];
         [collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
     }
     

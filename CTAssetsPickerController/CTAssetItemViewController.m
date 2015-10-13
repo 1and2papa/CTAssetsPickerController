@@ -219,7 +219,6 @@
     options.networkAccessAllowed    = YES;
     options.progressHandler         = ^(double progress, NSError *error, BOOL *stop, NSDictionary *info) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            //XXX never get called
             [self.scrollView setProgress:progress];
         });
     };
@@ -259,7 +258,7 @@
     options.networkAccessAllowed    = YES;
     options.progressHandler         = ^(double progress, NSError *error, BOOL *stop, NSDictionary *info) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            //XXX never get called
+            //do nothing
         });
     };
     
