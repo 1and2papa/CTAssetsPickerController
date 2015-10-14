@@ -15,10 +15,10 @@
 /* Album's footer */
 "%@ Photos" = "%@ Foto's";
 "%@ Videos" = "%@ Video's";
-"%@ Photos, %@ Videos" = "%1$ld Foto's, %2$ld Videos";
+"%@ Photos, %@ Videos" = "%1$@ Foto's, %2$@ Videos";
 
 /* Assets index */
-"%@ of %@" = "%1$ld op %2$ld";
+"%@ of %@" = "%1$@ op %2$@";
 
 /* Messages if privacy is not granted */
 "This app does not have access to your photos or videos." = "Deze App heeft geen toegang tot je foto's en video's.";
