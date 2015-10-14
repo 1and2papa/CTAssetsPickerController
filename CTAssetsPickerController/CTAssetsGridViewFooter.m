@@ -25,6 +25,7 @@
  */
 
 #import <PureLayout/PureLayout.h>
+#import "CTAssetsPickerDefines.h"
 #import "CTAssetsGridViewFooter.h"
 #import "NSNumberFormatter+CTAssetsPickerController.h"
 #import "NSBundle+CTAssetsPickerController.h"
@@ -57,22 +58,18 @@
     return self;
 }
 
+
 #pragma mark - Setup
 
 - (void)setupViews
 {
     UILabel *label = [UILabel newAutoLayoutView];
     label.textAlignment = NSTextAlignmentCenter;
-    self.label = label;
+    label.font = CTAssetsGridViewFooterFont;
+    label.textColor = CTAssetsGridViewFooterTextColor;
     
-    [self setupFonts];
-     
+    self.label = label;
     [self addSubview:self.label];
-}
-
-- (void)setupFonts
-{
-    self.label.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
 }
 
 
@@ -85,10 +82,8 @@
 
 - (void)setFont:(UIFont *)font
 {
-    if (!font)
-        self.label.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    else
-        self.label.font = font;
+    UIFont *labelFont = (font) ? font : CTAssetsGridViewFooterFont;
+    self.label.font = labelFont;
 }
 
 - (UIColor *)textColor
@@ -98,10 +93,8 @@
 
 - (void)setTextColor:(UIColor *)textColor
 {
-    if (!textColor)
-        self.label.textColor = [UIColor darkTextColor];
-    else
-        self.label.textColor = textColor;
+    UIColor *color = (textColor) ? textColor : CTAssetsGridViewFooterTextColor;
+    self.label.textColor = color;
 }
 
 

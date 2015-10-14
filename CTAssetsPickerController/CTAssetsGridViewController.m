@@ -28,6 +28,7 @@
 #import "CTAssetsPickerController.h"
 #import "CTAssetsPickerController+Internal.h"
 #import "CTAssetsGridViewController.h"
+#import "CTAssetsGridView.h"
 #import "CTAssetsGridViewLayout.h"
 #import "CTAssetsGridViewCell.h"
 #import "CTAssetsGridViewFooter.h"
@@ -166,7 +167,10 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
 
 - (void)setupViews
 {
-    self.collectionView.backgroundColor = [UIColor whiteColor];
+    self.collectionView.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
+    CTAssetsGridView *gridView = [CTAssetsGridView new];
+    [self.view insertSubview:gridView atIndex:0];
+    [self.view setNeedsUpdateConstraints];
 }
 
 - (void)setupButtons

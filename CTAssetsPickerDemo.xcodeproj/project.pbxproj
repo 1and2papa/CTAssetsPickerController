@@ -11,7 +11,7 @@
 		AD0786D91B428313003C8863 /* CTBasicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0786D81B428313003C8863 /* CTBasicViewController.m */; };
 		AD0786DF1B42864F003C8863 /* CTSelectedAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0786DE1B42864F003C8863 /* CTSelectedAssetsViewController.m */; };
 		AD0786E21B428A73003C8863 /* CTDefaultAlbumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0786E11B428A73003C8863 /* CTDefaultAlbumViewController.m */; };
-		AD18AFD71BCC9BA9008B507D /* CTSelectionOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD18AFD61BCC9BA9008B507D /* CTSelectionOrderViewController.m */; settings = {ASSET_TAGS = (); }; };
+		AD18AFD71BCC9BA9008B507D /* CTSelectionOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD18AFD61BCC9BA9008B507D /* CTSelectionOrderViewController.m */; };
 		AD4B06C81B428EEF00D99C5A /* CTiCloudAlbumsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD4B06C71B428EEF00D99C5A /* CTiCloudAlbumsViewController.m */; };
 		AD4B06CB1B44CD5A00D99C5A /* CTSortedAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD4B06CA1B44CD5A00D99C5A /* CTSortedAssetsViewController.m */; };
 		AD6CDA4A1AC55BEE008C6AC2 /* UICollectionView+CTAssetsPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6CDA491AC55BEE008C6AC2 /* UICollectionView+CTAssetsPickerController.m */; };
@@ -37,6 +37,8 @@
 		A741BBA31B5F7A8C00ED3D7B /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/CTAssetsPicker.strings; sourceTree = "<group>"; };
 		A741BBA41B5F9AB500ED3D7B /* nl-NL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nl-NL"; path = "nl-NL.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		A741BBA51B5F9AB500ED3D7B /* nl-NL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nl-NL"; path = "nl-NL.lproj/CTAssetsPicker.strings"; sourceTree = "<group>"; };
+		AD0335661BCF515B0040D576 /* CTAssetsGridView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CTAssetsGridView.h; sourceTree = "<group>"; };
+		AD0335671BCF515B0040D576 /* CTAssetsGridView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CTAssetsGridView.m; sourceTree = "<group>"; };
 		AD0786A21B423AF2003C8863 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		AD0786A41B423AFC003C8863 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		AD0786A61B423AFC003C8863 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
@@ -88,6 +90,8 @@
 		AD6CDA491AC55BEE008C6AC2 /* UICollectionView+CTAssetsPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+CTAssetsPickerController.m"; sourceTree = "<group>"; };
 		AD716C401AB81E78007F7A4C /* CTAssetThumbnailStacks.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CTAssetThumbnailStacks.h; sourceTree = "<group>"; };
 		AD716C411AB81E78007F7A4C /* CTAssetThumbnailStacks.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CTAssetThumbnailStacks.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		AD7B28F51BCE2C88001EC414 /* CTAssetsPageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CTAssetsPageView.h; sourceTree = "<group>"; };
+		AD7B28F61BCE2C88001EC414 /* CTAssetsPageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CTAssetsPageView.m; sourceTree = "<group>"; };
 		AD9BB2481B295EE2001F9809 /* CTAssetCheckmark.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CTAssetCheckmark.h; sourceTree = "<group>"; };
 		AD9BB2491B295EE2001F9809 /* CTAssetCheckmark.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CTAssetCheckmark.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		ADA073021B45118F009FB7C7 /* CTMaxSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTMaxSelectionViewController.h; sourceTree = "<group>"; };
@@ -135,7 +139,7 @@
 		ADD9660F1AAD5780002A26A2 /* CTAssetsGridViewFooter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CTAssetsGridViewFooter.h; sourceTree = "<group>"; };
 		ADD966101AAD5780002A26A2 /* CTAssetsGridViewFooter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CTAssetsGridViewFooter.m; sourceTree = "<group>"; };
 		ADD966111AAD5780002A26A2 /* CTAssetsGridViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CTAssetsGridViewCell.h; sourceTree = "<group>"; };
-		ADD966121AAD5780002A26A2 /* CTAssetsGridViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CTAssetsGridViewCell.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		ADD966121AAD5780002A26A2 /* CTAssetsGridViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CTAssetsGridViewCell.m; sourceTree = "<group>"; };
 		ADD966131AAD5780002A26A2 /* CTAssetsGridViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CTAssetsGridViewController.h; sourceTree = "<group>"; };
 		ADD966141AAD5780002A26A2 /* CTAssetsGridViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CTAssetsGridViewController.m; sourceTree = "<group>"; };
 		ADD966151AAD5780002A26A2 /* CTAssetsViewControllerTransition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CTAssetsViewControllerTransition.h; sourceTree = "<group>"; };
@@ -292,6 +296,8 @@
 				ADD966071AAD5780002A26A2 /* CTAssetCollectionViewCell.m */,
 				ADD966131AAD5780002A26A2 /* CTAssetsGridViewController.h */,
 				ADD966141AAD5780002A26A2 /* CTAssetsGridViewController.m */,
+				AD0335661BCF515B0040D576 /* CTAssetsGridView.h */,
+				AD0335671BCF515B0040D576 /* CTAssetsGridView.m */,
 				AD4CC0CB1AD61E0D009C3F45 /* CTAssetsGridViewLayout.h */,
 				AD4CC0CC1AD61E0D009C3F45 /* CTAssetsGridViewLayout.m */,
 				ADD966111AAD5780002A26A2 /* CTAssetsGridViewCell.h */,
@@ -304,6 +310,8 @@
 				AD9BB2491B295EE2001F9809 /* CTAssetCheckmark.m */,
 				ADD9660A1AAD5780002A26A2 /* CTAssetsPageViewController.h */,
 				ADD9660B1AAD5780002A26A2 /* CTAssetsPageViewController.m */,
+				AD7B28F51BCE2C88001EC414 /* CTAssetsPageView.h */,
+				AD7B28F61BCE2C88001EC414 /* CTAssetsPageView.m */,
 				ADD966021AAD5780002A26A2 /* CTAssetItemViewController.h */,
 				ADD966031AAD5780002A26A2 /* CTAssetItemViewController.m */,
 				ADD966041AAD5780002A26A2 /* CTAssetScrollView.h */,

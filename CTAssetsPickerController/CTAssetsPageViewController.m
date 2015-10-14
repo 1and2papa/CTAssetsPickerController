@@ -25,6 +25,7 @@
  */
 
 #import "CTAssetsPageViewController.h"
+#import "CTAssetsPageView.h"
 #import "CTAssetItemViewController.h"
 #import "CTAssetScrollView.h"
 #import "NSNumberFormatter+CTAssetsPickerController.h"
@@ -46,6 +47,8 @@
 
 @property (nonatomic, copy) NSArray *assets;
 @property (nonatomic, strong, readonly) PHAsset *asset;
+
+@property (nonatomic, strong) CTAssetsPageView *pageView;
 
 @property (nonatomic, strong) UIBarButtonItem *playButton;
 @property (nonatomic, strong) UIBarButtonItem *pauseButton;
@@ -113,7 +116,9 @@
 
 - (void)setupViews
 {
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.pageView = [CTAssetsPageView new];
+    [self.view insertSubview:self.pageView atIndex:0];
+    [self.view setNeedsUpdateConstraints];
 }
 
 - (void)setupButtons
@@ -320,34 +325,19 @@
     UITapGestureRecognizer *gesture = (UITapGestureRecognizer *)notification.object;
     
     if (gesture.numberOfTapsRequired == 1)
-    {
-        [self toogleBackgroundColor:gesture];
-        [self toogleControls:gesture];
-    }
+        [self toggleFullscreen:gesture];
 }
 
 - (void)assetScrollViewPlayerDidPlayToEnd:(NSNotification *)notification
 {
     [self replaceToolbarButton:self.playButton];
-    
-    [UIView animateWithDuration:0.2
-                     animations:^{
-                         self.view.backgroundColor = [UIColor whiteColor];
-                     }];
-    
-    [self fadeInControls:self.navigationController];
+    [self setFullscreen:NO];
 }
 
 - (void)assetScrollViewPlayerWillPlay:(NSNotification *)notification
 {
     [self replaceToolbarButton:self.pauseButton];
-    
-    [UIView animateWithDuration:0.2
-                     animations:^{
-                         self.view.backgroundColor = [UIColor blackColor];
-                     }];
-    
-    [self fadeAwayControls:self.navigationController];
+    [self setFullscreen:YES];
 }
 
 - (void)assetScrollViewPlayerWillPause:(NSNotification *)notification
@@ -356,30 +346,26 @@
 }
 
 
-#pragma mark - Toogle background color
+#pragma mark - Toggle fullscreen
 
-- (void)toogleBackgroundColor:(id)sender
+- (void)toggleFullscreen:(id)sender
 {
-    UIColor *color = (self.view.backgroundColor == UIColor.whiteColor) ?
-    [UIColor blackColor] : [UIColor whiteColor];
-    
-    [UIView animateWithDuration:0.2
-                     animations:^{
-                         self.view.backgroundColor = color;
-                     }];
+    [self setFullscreen:!self.isStatusBarHidden];
 }
 
-
-#pragma mark - Toogle controls
-
-- (void)toogleControls:(id)sender
+- (void)setFullscreen:(BOOL)fullscreen
 {
-    UINavigationController *nav = self.navigationController;
-    
-    if (self.isStatusBarHidden)
-        [self fadeInControls:nav];
+    if (fullscreen)
+    {
+        [self.pageView enterFullscreen];
+        [self fadeAwayControls:self.navigationController];
+    }
     else
-        [self fadeAwayControls:nav];
+    {
+        [self.pageView exitFullscreen];
+        [self fadeInControls:self.navigationController];
+    }
+    
 }
 
 - (void)fadeInControls:(UINavigationController *)nav

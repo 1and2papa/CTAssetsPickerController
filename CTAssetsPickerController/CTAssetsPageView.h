@@ -25,30 +25,13 @@
  */
 
 #import <UIKit/UIKit.h>
-#import <Photos/Photos.h>
-#import "CTAssetThumbnailStacks.h"
 
+@interface CTAssetsPageView : UIView
 
+@property (nonatomic, strong) UIColor *pageBackgroundColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIColor *fullscreenBackgroundColor UI_APPEARANCE_SELECTOR;
 
-@interface CTAssetCollectionViewCell : UITableViewCell
-
-@property (nonatomic, strong, readonly) CTAssetThumbnailStacks *thumbnailStacks;
-
-@property (nonatomic, weak) UIFont *titleFont UI_APPEARANCE_SELECTOR;
-@property (nonatomic, strong) UIColor *titleTextColor UI_APPEARANCE_SELECTOR;
-@property (nonatomic, strong) UIColor *selectedTitleTextColor UI_APPEARANCE_SELECTOR;
-
-@property (nonatomic, weak) UIFont *countFont UI_APPEARANCE_SELECTOR;
-@property (nonatomic, strong) UIColor *countTextColor UI_APPEARANCE_SELECTOR;
-@property (nonatomic, strong) UIColor *selectedCountTextColor UI_APPEARANCE_SELECTOR;
-
-@property (nonatomic, strong) UIColor *accessoryColor UI_APPEARANCE_SELECTOR;
-@property (nonatomic, strong) UIColor *selectedAccessoryColor UI_APPEARANCE_SELECTOR;
-
-@property (nonatomic, weak) UIColor *selectedBackgroundColor UI_APPEARANCE_SELECTOR;
-
-
-- (instancetype)initWithThumbnailSize:(CGSize)size reuseIdentifier:(NSString *)reuseIdentifier;
-- (void)bind:(PHAssetCollection *)collection count:(NSUInteger)count;
+- (void)enterFullscreen;
+- (void)exitFullscreen;
 
 @end

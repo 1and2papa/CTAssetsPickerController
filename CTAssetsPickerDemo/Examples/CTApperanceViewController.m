@@ -27,21 +27,25 @@
 #import "CTApperanceViewController.h"
 
 // import headers that need to be customised
-#import <CTAssetsPickerController/CTAssetCheckmark.h>
 #import <CTAssetsPickerController/CTAssetCollectionViewCell.h>
+#import <CTAssetsPickerController/CTAssetsGridView.h>
 #import <CTAssetsPickerController/CTAssetsGridViewFooter.h>
+#import <CTAssetsPickerController/CTAssetsGridViewCell.h>
+#import <CTAssetsPickerController/CTAssetsGridSelectedView.h>
+#import <CTAssetsPickerController/CTAssetCheckmark.h>
+#import <CTAssetsPickerController/CTAssetsPageView.h>
 
 
 
 @interface CTApperanceViewController ()
 
-@property (nonatomic, strong) UIColor *primaryColor;
-@property (nonatomic, strong) UIColor *secondaryColor;
-@property (nonatomic, strong) UIFont *primaryFont;
-@property (nonatomic, strong) UIFont *secondaryFont;
-
+@property (nonatomic, strong) UIColor *color1;
+@property (nonatomic, strong) UIColor *color2;
+@property (nonatomic, strong) UIColor *color3;
+@property (nonatomic, strong) UIFont *font;
 
 @end
+
 
 
 @implementation CTApperanceViewController
@@ -51,10 +55,12 @@
 {
     [super viewDidLoad];
     
-    self.primaryColor   = [UIColor colorWithRed:251.0/255.0 green:13.0/255.0 blue:67.0/255.0 alpha:1];
-    self.secondaryColor = [UIColor colorWithWhite:1 alpha:1];
-    self.primaryFont    = [UIFont fontWithName:@"SnellRoundhand-Black" size:24.0];
-    self.secondaryFont  = [UIFont fontWithName:@"SnellRoundhand-Bold" size:18.0];
+    // set appearance
+    // for demo purpose. you might put the code in app delegate's application:didFinishLaunchingWithOptions: method
+    self.color1 = [UIColor colorWithRed:102.0/255.0 green:161.0/255.0 blue:130.0/255.0 alpha:1];
+    self.color2 = [UIColor colorWithRed:60.0/255.0 green:71.0/255.0 blue:75.0/255.0 alpha:1];
+    self.color3 = [UIColor colorWithWhite:0.9 alpha:1];
+    self.font   = [UIFont fontWithName:@"Futura-Medium" size:22.0];
 
     // Navigation Bar apperance
     UINavigationBar *navBar = [UINavigationBar appearanceWhenContainedIn:[CTAssetsPickerController class], nil];
@@ -63,42 +69,76 @@
     navBar.barStyle = UIBarStyleBlack;
     
     // bar tint color
-    navBar.barTintColor = self.primaryColor;
+    navBar.barTintColor = self.color1;
     
     // tint color
-    navBar.tintColor = self.secondaryColor;
+    navBar.tintColor = self.color2;
     
     // title
     navBar.titleTextAttributes =
-    @{NSForegroundColorAttributeName: self.secondaryColor,
-      NSFontAttributeName : self.primaryFont};
+    @{NSForegroundColorAttributeName: self.color2,
+      NSFontAttributeName : self.font};
     
     // bar button item appearance
     UIBarButtonItem *barButtonItem = [UIBarButtonItem appearanceWhenContainedIn:[CTAssetsPickerController class], nil];
-    [barButtonItem setTitleTextAttributes:@{NSFontAttributeName : self.secondaryFont}
+    [barButtonItem setTitleTextAttributes:@{NSFontAttributeName : [self.font fontWithSize:18.0]}
                                  forState:UIControlStateNormal];
+    
+    // albums view
+    UITableView *assetCollectionView = [UITableView appearanceWhenContainedIn:[CTAssetsPickerController class], nil];
+    assetCollectionView.backgroundColor = self.color2;
     
     // asset collection appearance
     CTAssetCollectionViewCell *assetCollectionViewCell = [CTAssetCollectionViewCell appearance];
-    assetCollectionViewCell.titleFont = [self.secondaryFont fontWithSize:16.0];
-    assetCollectionViewCell.titleTextColor = self.primaryColor;
-    assetCollectionViewCell.countFont = [self.secondaryFont fontWithSize:12.0];
-    assetCollectionViewCell.countTextColor = self.primaryColor;
-    assetCollectionViewCell.selectedBackgroundColor = [UIColor colorWithRed:251.0/255.0 green:13.0/255.0 blue:67.0/255.0 alpha:0.2];
+    assetCollectionViewCell.titleFont = [self.font fontWithSize:16.0];
+    assetCollectionViewCell.titleTextColor = self.color1;
+    assetCollectionViewCell.selectedTitleTextColor = self.color2;
+    assetCollectionViewCell.countFont = [self.font fontWithSize:12.0];
+    assetCollectionViewCell.countTextColor = self.color1;
+    assetCollectionViewCell.selectedCountTextColor = self.color2;
+    assetCollectionViewCell.accessoryColor = self.color1;
+    assetCollectionViewCell.selectedAccessoryColor = self.color2;
+    assetCollectionViewCell.backgroundColor = self.color3;
+    assetCollectionViewCell.selectedBackgroundColor = [self.color1 colorWithAlphaComponent:0.4];
 
-   
+    // grid view
+    CTAssetsGridView *assetsGridView = [CTAssetsGridView appearance];
+    assetsGridView.gridBackgroundColor = self.color3;
+    
     // assets grid footer apperance
     CTAssetsGridViewFooter *assetsGridViewFooter = [CTAssetsGridViewFooter appearance];
-    assetsGridViewFooter.font = [self.secondaryFont fontWithSize:16.0];
-    assetsGridViewFooter.textColor = self.primaryColor;
+    assetsGridViewFooter.font = [self.font fontWithSize:16.0];
+    assetsGridViewFooter.textColor = self.color2;
+    
+    // grid view cell
+    CTAssetsGridViewCell *assetsGridViewCell = [CTAssetsGridViewCell appearance];
+    assetsGridViewCell.highlightedColor = [UIColor colorWithWhite:1 alpha:0.3];
+    
+    // selected grid view
+    CTAssetsGridSelectedView *assetsGridSelectedView = [CTAssetsGridSelectedView appearance];
+    assetsGridSelectedView.selectedBackgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
+    assetsGridSelectedView.tintColor = self.color1;
+    assetsGridSelectedView.font = [self.font fontWithSize:18.0];
+    assetsGridSelectedView.textColor = self.color2;
+    assetsGridSelectedView.borderWidth = 1.0;
         
     // check mark
-    [CTAssetCheckmark appearance].tintColor = self.primaryColor;
+    [CTAssetCheckmark appearance].tintColor = self.color1;
+    
+    // page view (preview)
+    CTAssetsPageView *assetsPageView = [CTAssetsPageView appearance];
+    assetsPageView.pageBackgroundColor = self.color3;
+    assetsPageView.fullscreenBackgroundColor = self.color2;
+    
+    // progress view
+    [UIProgressView appearanceWhenContainedIn:[CTAssetsPickerController class], nil].tintColor = self.color1;
+    
 }
 
 - (void)dealloc
 {
     // reset appearance
+    // for demo purpose. it is not necessary to reset appearance in real case.
     UINavigationBar *navBar = [UINavigationBar appearanceWhenContainedIn:[CTAssetsPickerController class], nil];
     
     navBar.barStyle = UIBarStyleDefault;
@@ -113,21 +153,71 @@
     [barButtonItem setTitleTextAttributes:nil
                                       forState:UIControlStateNormal];
     
+    UITableView *assetCollectionView = [UITableView appearanceWhenContainedIn:[CTAssetsPickerController class], nil];
+    assetCollectionView.backgroundColor = [UIColor whiteColor];
+    
     CTAssetCollectionViewCell *assetCollectionViewCell = [CTAssetCollectionViewCell appearance];
     assetCollectionViewCell.titleFont = nil;
     assetCollectionViewCell.titleTextColor = nil;
+    assetCollectionViewCell.selectedTitleTextColor = nil;
     assetCollectionViewCell.countFont = nil;
     assetCollectionViewCell.countTextColor = nil;
+    assetCollectionViewCell.selectedCountTextColor = nil;
+    assetCollectionViewCell.accessoryColor = nil;
+    assetCollectionViewCell.selectedAccessoryColor = nil;
+    assetCollectionViewCell.backgroundColor = nil;
     assetCollectionViewCell.selectedBackgroundColor = nil;
     
+    CTAssetsGridView *assetsGridView = [CTAssetsGridView appearance];
+    assetsGridView.gridBackgroundColor = nil;
     
     CTAssetsGridViewFooter *assetsGridViewFooter = [CTAssetsGridViewFooter appearance];
     assetsGridViewFooter.font = nil;
     assetsGridViewFooter.textColor = nil;
     
+    CTAssetsGridViewCell *assetsGridViewCell = [CTAssetsGridViewCell appearance];
+    assetsGridViewCell.highlightedColor = nil;
     
-    // Check mark
+    CTAssetsGridSelectedView *assetsGridSelectedView = [CTAssetsGridSelectedView appearance];
+    assetsGridSelectedView.selectedBackgroundColor = nil;
+    assetsGridSelectedView.tintColor = nil;
+    assetsGridSelectedView.font = nil;
+    assetsGridSelectedView.textColor = nil;
+    assetsGridSelectedView.borderWidth = 0.0;
+    
     [CTAssetCheckmark appearance].tintColor = nil;
+    
+    CTAssetsPageView *assetsPageView = [CTAssetsPageView appearance];
+    assetsPageView.pageBackgroundColor = nil;
+    assetsPageView.fullscreenBackgroundColor = nil;
+    
+    [UIProgressView appearanceWhenContainedIn:[CTAssetsPickerController class], nil].tintColor = nil;
+}
+
+
+- (void)pickAssets:(id)sender
+{
+    [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status){
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            // init picker
+            CTAssetsPickerController *picker = [[CTAssetsPickerController alloc] init];
+            
+            // set delegate
+            picker.delegate = self;
+            
+            // to show selection order
+            picker.showsSelectionIndex = YES;
+            
+            // to present picker as a form sheet in iPad
+            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+                picker.modalPresentationStyle = UIModalPresentationFormSheet;
+            
+            // present picker
+            [self presentViewController:picker animated:YES completion:nil];
+            
+        });
+    }];
 }
 
 

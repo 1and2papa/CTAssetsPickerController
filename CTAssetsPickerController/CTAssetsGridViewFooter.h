@@ -28,7 +28,7 @@
 #import <Photos/Photos.h>
 
 
-@interface CTAssetsGridViewFooter : UICollectionReusableView <UIAppearance>
+@interface CTAssetsGridViewFooter : UICollectionReusableView
 
 @property (nonatomic, weak) UIFont *font UI_APPEARANCE_SELECTOR;
 @property (nonatomic, weak) UIColor *textColor UI_APPEARANCE_SELECTOR;

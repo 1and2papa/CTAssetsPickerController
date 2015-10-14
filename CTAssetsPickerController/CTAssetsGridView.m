@@ -24,31 +24,63 @@
  
  */
 
-#import <UIKit/UIKit.h>
-#import <Photos/Photos.h>
-#import "CTAssetThumbnailStacks.h"
+#import <PureLayout/PureLayout.h>
+#import "CTAssetsPickerDefines.h"
+#import "CTAssetsGridView.h"
+
+@interface CTAssetsGridView ()
+
+@property (nonatomic, assign) BOOL didSetupConstraints;
+
+@end
 
 
+@implementation CTAssetsGridView
 
-@interface CTAssetCollectionViewCell : UITableViewCell
-
-@property (nonatomic, strong, readonly) CTAssetThumbnailStacks *thumbnailStacks;
-
-@property (nonatomic, weak) UIFont *titleFont UI_APPEARANCE_SELECTOR;
-@property (nonatomic, strong) UIColor *titleTextColor UI_APPEARANCE_SELECTOR;
-@property (nonatomic, strong) UIColor *selectedTitleTextColor UI_APPEARANCE_SELECTOR;
-
-@property (nonatomic, weak) UIFont *countFont UI_APPEARANCE_SELECTOR;
-@property (nonatomic, strong) UIColor *countTextColor UI_APPEARANCE_SELECTOR;
-@property (nonatomic, strong) UIColor *selectedCountTextColor UI_APPEARANCE_SELECTOR;
-
-@property (nonatomic, strong) UIColor *accessoryColor UI_APPEARANCE_SELECTOR;
-@property (nonatomic, strong) UIColor *selectedAccessoryColor UI_APPEARANCE_SELECTOR;
-
-@property (nonatomic, weak) UIColor *selectedBackgroundColor UI_APPEARANCE_SELECTOR;
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    if (self = [super initWithFrame:frame])
+    {
+        [self setupViews];
+    }
+    
+    return self;
+}
 
 
-- (instancetype)initWithThumbnailSize:(CGSize)size reuseIdentifier:(NSString *)reuseIdentifier;
-- (void)bind:(PHAssetCollection *)collection count:(NSUInteger)count;
+#pragma mark - Setup
+
+- (void)setupViews
+{
+    self.backgroundColor = CTAssetsGridViewBackgroundColor;
+}
+
+
+#pragma mark - Apperance
+
+- (UIColor *)gridBackgroundColor
+{
+    return self.backgroundColor;
+}
+
+- (void)setGridBackgroundColor:(UIColor *)backgroundColor
+{
+    UIColor *color = (backgroundColor) ? (backgroundColor) : CTAssetsGridViewBackgroundColor;
+    self.backgroundColor = color;
+}
+
+
+#pragma mark - Update auto layout constraints
+
+- (void)updateConstraints
+{
+    if (!self.didSetupConstraints)
+    {
+        [self autoPinEdgesToSuperviewEdges];
+        self.didSetupConstraints = YES;
+    }
+    
+    [super updateConstraints];
+}
 
 @end

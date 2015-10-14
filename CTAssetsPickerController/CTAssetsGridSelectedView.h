@@ -31,6 +31,9 @@
 @property (nonatomic, assign) BOOL showsSelectionIndex;
 @property (nonatomic, assign) NSUInteger selectionIndex;
 
+@property (nonatomic, weak) UIColor *selectedBackgroundColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, weak) UIFont *font UI_APPEARANCE_SELECTOR;
+@property (nonatomic, weak) UIColor *textColor UI_APPEARANCE_SELECTOR;
 @property (nonatomic, assign) CGFloat borderWidth UI_APPEARANCE_SELECTOR;
 
 @end

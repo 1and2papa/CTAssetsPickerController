@@ -198,13 +198,13 @@
     if (section == 4)
     {
         if (row == 0)
-            title = @"UI Customisation";
+            title = @"UI customisation";
     }
     
     if (section == 5)
     {
         if (row == 0)
-            title = @"Grid view Customisation";
+            title = @"Grid view layout customisation";
     }
     
     

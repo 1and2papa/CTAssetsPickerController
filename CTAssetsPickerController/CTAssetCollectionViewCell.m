@@ -61,11 +61,19 @@
     {
         _thumbnailSize = size;
         
+        _titleTextColor         = CTAssetCollectionViewCellTitleTextColor;
+        _selectedTitleTextColor = CTAssetCollectionViewCellTitleTextColor;
+        _countTextColor         = CTAssetCollectionViewCellCountTextColor;
+        _selectedCountTextColor = CTAssetCollectionViewCellCountTextColor;
+
+        _accessoryColor         = CTAssetCollectionViewCellAccessoryColor;
+        _selectedAccessoryColor = CTAssetCollectionViewCellAccessoryColor;
+
         self.opaque                             = YES;
         self.isAccessibilityElement             = YES;
         self.textLabel.backgroundColor          = self.backgroundColor;
         self.detailTextLabel.backgroundColor    = self.backgroundColor;
-        self.accessoryType                      = UITableViewCellAccessoryDisclosureIndicator;
+        self.accessoryType                      = UITableViewCellAccessoryNone;
         
         [self setupViews];
     }
@@ -82,9 +90,13 @@
     self.thumbnailStacks = thumbnailStacks;
     
     UILabel *titleLabel = [UILabel newAutoLayoutView];
+    titleLabel.font = CTAssetCollectionViewCellTitleFont;
+    titleLabel.textColor = self.titleTextColor;
     self.titleLabel = titleLabel;
     
     UILabel *countLabel = [UILabel newAutoLayoutView];
+    countLabel.font = CTAssetCollectionViewCellCountFont;
+    countLabel.textColor = self.countTextColor;
     self.countLabel = countLabel;
     
     UIView *labelsView = [UIView newAutoLayoutView];
@@ -95,13 +107,11 @@
     [self.contentView addSubview:self.thumbnailStacks];
     [self.contentView addSubview:self.labelsView];
     
-    [self setupFonts];
-}
-
-- (void)setupFonts
-{
-    self.titleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    self.countLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption1];
+    UIImage *accessory = [UIImage ctassetsPickerImageNamed:@"DisclosureArrow"];
+    accessory = [accessory imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    UIImageView *accessoryView = [[UIImageView alloc] initWithImage:accessory];
+    accessoryView.tintColor = self.accessoryColor;
+    self.accessoryView = accessoryView;
 }
 
 - (void)setupPlaceholderImage
@@ -142,23 +152,20 @@
 
 - (void)setTitleFont:(UIFont *)titleFont
 {
-    if (!titleFont)
-        self.titleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    else
-        self.titleLabel.font = titleFont;
-}
-
-- (UIColor *)titleTextColor
-{
-    return self.titleLabel.textColor;
+    UIFont *font = (titleFont) ? titleFont : CTAssetCollectionViewCellTitleFont;
+    self.titleLabel.font = font;
 }
 
 - (void)setTitleTextColor:(UIColor *)titleTextColor
 {
-    if (!titleTextColor)
-        self.titleLabel.textColor = [UIColor darkTextColor];
-    else
-        self.titleLabel.textColor = titleTextColor;
+    UIColor *color = (titleTextColor) ? titleTextColor : CTAssetCollectionViewCellTitleTextColor;
+    _titleTextColor = color;
+}
+
+- (void)setSelectedTitleTextColor:(UIColor *)titleTextColor
+{
+    UIColor *color = (titleTextColor) ? titleTextColor : CTAssetCollectionViewCellTitleTextColor;
+    _selectedTitleTextColor = color;
 }
 
 - (UIFont *)countFont
@@ -168,23 +175,32 @@
 
 - (void)setCountFont:(UIFont *)countFont
 {
-    if (!countFont)
-        self.countLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption1];
-    else
-        self.countLabel.font = countFont;
-}
-
-- (UIColor *)countTextColor
-{
-    return self.countLabel.textColor;
+    UIFont *font = (countFont) ? countFont : CTAssetCollectionViewCellCountFont;
+    self.countLabel.font = font;
 }
 
 - (void)setCountTextColor:(UIColor *)countTextColor
 {
-    if (!countTextColor)
-        self.countLabel.textColor = [UIColor darkTextColor];
-    else
-        self.countLabel.textColor = countTextColor;
+    UIColor *color = (countTextColor) ? countTextColor : CTAssetCollectionViewCellCountTextColor;
+    _countTextColor = color;
+}
+
+- (void)setSelectedCountTextColor:(UIColor *)countTextColor
+{
+    UIColor *color = (countTextColor) ? countTextColor : CTAssetCollectionViewCellCountTextColor;
+    _selectedCountTextColor = color;
+}
+
+- (void)setAccessoryColor:(UIColor *)accessoryColor
+{
+    UIColor *color = (accessoryColor) ? accessoryColor : CTAssetCollectionViewCellAccessoryColor;
+    _accessoryColor = color;
+}
+
+- (void)setSelectedAccessoryColor:(UIColor *)accessoryColor
+{
+    UIColor *color = (accessoryColor) ? accessoryColor : CTAssetCollectionViewCellAccessoryColor;
+    _selectedAccessoryColor = color;
 }
 
 - (UIColor *)selectedBackgroundColor
@@ -211,12 +227,20 @@
 {
     [super setHighlighted:highlighted animated:animated];
     [self.thumbnailStacks setHighlighted:highlighted];
+    
+    self.titleLabel.textColor = (highlighted) ? self.selectedTitleTextColor : self.titleTextColor;
+    self.countLabel.textColor = (highlighted) ? self.selectedCountTextColor : self.countTextColor;
+    self.accessoryView.tintColor = (highlighted) ? self.selectedAccessoryColor : self.accessoryColor;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
     [self.thumbnailStacks setHighlighted:selected];
+    
+    self.titleLabel.textColor = (selected) ? self.selectedTitleTextColor : self.titleTextColor;
+    self.countLabel.textColor = (selected) ? self.selectedCountTextColor : self.countTextColor;
+    self.accessoryView.tintColor = (selected) ? self.selectedAccessoryColor : self.accessoryColor;
 }
 
 #pragma mark - Update auto layout constraints

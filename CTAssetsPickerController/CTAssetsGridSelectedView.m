@@ -25,6 +25,7 @@
  */
 
 #import <PureLayout/PureLayout.h>
+#import "CTAssetsPickerDefines.h"
 #import "CTAssetsGridSelectedView.h"
 #import "CTAssetCheckmark.h"
 
@@ -51,7 +52,7 @@
     if (self = [super initWithFrame:frame])
     {
         [self setupViews];
-        self.showsSelectionIndex = NO;        
+        self.showsSelectionIndex = NO;
     }
     
     return self;
@@ -62,8 +63,8 @@
 
 - (void)setupViews
 {
-    self.backgroundColor    = [UIColor colorWithWhite:1 alpha:0.3];
-    self.layer.borderColor  = self.tintColor.CGColor;
+    self.backgroundColor = CTAssetsGridSelectedViewBackgroundColor;
+    self.layer.borderColor = CTAssetsGridSelectedViewTintColor.CGColor;
     
     CTAssetCheckmark *checkmark = [CTAssetCheckmark newAutoLayoutView];
     self.checkmark = checkmark;
@@ -72,13 +73,48 @@
     UILabel *selectionIndexLabel = [UILabel newAutoLayoutView];
     selectionIndexLabel.textAlignment = NSTextAlignmentCenter;
     selectionIndexLabel.backgroundColor = self.tintColor;
-    selectionIndexLabel.textColor = [UIColor whiteColor];
+    selectionIndexLabel.font = CTAssetsGridSelectedViewFont;
+    selectionIndexLabel.textColor = CTAssetsGridSelectedViewTextColor;
     self.selectionIndexLabel = selectionIndexLabel;
     
     [self addSubview:self.selectionIndexLabel];
 }
 
+
 #pragma mark - Apperance
+
+- (UIColor *)selectedBackgroundColor
+{
+    return self.backgroundColor;
+}
+
+- (void)setSelectedBackgroundColor:(UIColor *)backgroundColor
+{
+    UIColor *color = (backgroundColor) ? backgroundColor : CTAssetsGridSelectedViewBackgroundColor;
+    self.backgroundColor = color;
+}
+
+- (UIFont *)font
+{
+    return self.selectionIndexLabel.font;
+}
+
+- (void)setFont:(UIFont *)font
+{
+    UIFont *labelFont = (font) ? font : CTAssetsGridSelectedViewFont;
+    self.selectionIndexLabel.font = labelFont;
+}
+
+- (UIColor *)textColor
+{
+    return self.selectionIndexLabel.textColor;
+}
+
+- (void)setTextColor:(UIColor *)textColor
+{
+    UIColor *color = (textColor) ? textColor : CTAssetsGridSelectedViewTextColor;
+    self.selectionIndexLabel.textColor = color;
+}
 
 - (CGFloat)borderWidth
 {
@@ -90,6 +126,12 @@
     self.layer.borderWidth = borderWidth;
 }
 
+- (void)setTintColor:(UIColor *)tintColor
+{
+    UIColor *color = (tintColor) ? tintColor : CTAssetsGridSelectedViewTintColor;
+    self.selectionIndexLabel.backgroundColor = color;
+    self.layer.borderColor = color.CGColor;
+}
 
 
 #pragma mark - Accessors
@@ -113,7 +155,7 @@
 - (void)setSelectionIndex:(NSUInteger)selectionIndex;
 {
     _selectionIndex = selectionIndex;
-    self.selectionIndexLabel.text = [NSString stringWithFormat:@"%ld", selectionIndex + 1];
+    self.selectionIndexLabel.text = [NSString stringWithFormat:@"%lu", selectionIndex + 1];
 }
 
 

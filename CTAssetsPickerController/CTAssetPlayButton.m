@@ -121,7 +121,7 @@
 - (void)setupColorView
 {
     UIView *colorView = [UIView newAutoLayoutView];
-    colorView.backgroundColor = [UIColor whiteColor];
+    colorView.backgroundColor = [UIColor colorWithWhite:1 alpha:0.8];
     colorView.userInteractionEnabled = NO;
     self.colorView = colorView;
     

@@ -83,16 +83,15 @@
     disabledImageView.tintColor = CTAssetsPikcerThumbnailTintColor;
     self.disabledImageView = disabledImageView;
     
-    
     UIView *disabledView = [UIView newAutoLayoutView];
-    disabledView.backgroundColor = [UIColor colorWithWhite:1 alpha:0.8];
+    disabledView.backgroundColor = CTAssetsGridViewCellDisabledColor;
     disabledView.hidden = YES;
     [disabledView addSubview:self.disabledImageView];
     self.disabledView = disabledView;
     [self addSubview:self.disabledView];
     
     UIView *highlightedView = [UIView newAutoLayoutView];
-    highlightedView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
+    highlightedView.backgroundColor = CTAssetsGridViewCellHighlightedColor;
     highlightedView.hidden = YES;
     self.highlightedView = highlightedView;
     [self addSubview:self.highlightedView];
@@ -101,6 +100,30 @@
     selectedView.hidden = YES;
     self.selectedView = selectedView;
     [self addSubview:self.selectedView];
+}
+
+#pragma mark - Apperance
+
+- (UIColor *)disabledColor
+{
+    return self.disabledView.backgroundColor;
+}
+
+- (void)setDisabledColor:(UIColor *)disabledColor
+{
+    UIColor *color = (disabledColor) ? disabledColor : CTAssetsGridViewCellDisabledColor;
+    self.disabledView.backgroundColor = color;
+}
+
+- (UIColor *)highlightedColor
+{
+    return self.highlightedView.backgroundColor;
+}
+
+- (void)setHighlightedColor:(UIColor *)highlightedColor
+{
+    UIColor *color = (highlightedColor) ? highlightedColor : CTAssetsGridViewCellHighlightedColor;
+    self.highlightedView.backgroundColor = color;
 }
 
 
