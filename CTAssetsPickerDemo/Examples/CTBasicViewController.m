@@ -130,7 +130,7 @@
 
     PHAsset *asset = [self.assets objectAtIndex:indexPath.row];
     cell.textLabel.text         = [self.dateFormatter stringFromDate:asset.creationDate];
-    cell.detailTextLabel.text   = [NSString stringWithFormat:@"%ld X %ld", (unsigned long)asset.pixelWidth, (unsigned long)asset.pixelHeight];
+    cell.detailTextLabel.text   = [NSString stringWithFormat:@"%ld X %ld", (long)asset.pixelWidth, (long)asset.pixelHeight];
     cell.accessoryType          = UITableViewCellAccessoryDisclosureIndicator;
     cell.clipsToBounds          = YES;
 
