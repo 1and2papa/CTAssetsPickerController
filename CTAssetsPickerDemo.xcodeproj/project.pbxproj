@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		363F8D0A685BF86C60D06D49 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1B2FBB7FD634FB543BB7BB6 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		363F8D0A685BF86C60D06D49 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1B2FBB7FD634FB543BB7BB6 /* Pods.framework */; };
 		AD0786D91B428313003C8863 /* CTBasicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0786D81B428313003C8863 /* CTBasicViewController.m */; };
 		AD0786DF1B42864F003C8863 /* CTSelectedAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0786DE1B42864F003C8863 /* CTSelectedAssetsViewController.m */; };
 		AD0786E21B428A73003C8863 /* CTDefaultAlbumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0786E11B428A73003C8863 /* CTDefaultAlbumViewController.m */; };
@@ -104,6 +104,8 @@
 		ADA0730C1B4625AA009FB7C7 /* CTUITweaksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTUITweaksViewController.m; sourceTree = "<group>"; };
 		ADA0730E1B462C98009FB7C7 /* CTLastWeekViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTLastWeekViewController.h; sourceTree = "<group>"; };
 		ADA0730F1B462C98009FB7C7 /* CTLastWeekViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTLastWeekViewController.m; sourceTree = "<group>"; };
+		ADB0121A1BD9C6B400D985F9 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		ADB0121B1BD9C6B400D985F9 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/CTAssetsPicker.strings; sourceTree = "<group>"; };
 		ADB628801B258708005E9932 /* CTAssetPlayButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CTAssetPlayButton.h; sourceTree = "<group>"; };
 		ADB628811B258708005E9932 /* CTAssetPlayButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CTAssetPlayButton.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		ADC0FAD81BB5015800C049EE /* CTAssetSelectionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetSelectionButton.h; sourceTree = "<group>"; };
@@ -441,6 +443,7 @@
 				"zh-Hant",
 				nl,
 				"nl-NL",
+				sv,
 			);
 			mainGroup = ADD965BD1AAD4C49002A26A2;
 			productRefGroup = ADD965C71AAD4C49002A26A2 /* Products */;
@@ -567,6 +570,7 @@
 				AD0786C61B423B16003C8863 /* he */,
 				A741BBA21B5F7A8C00ED3D7B /* nl */,
 				A741BBA41B5F9AB500ED3D7B /* nl-NL */,
+				ADB0121A1BD9C6B400D985F9 /* sv */,
 			);
 			name = LaunchScreen.xib;
 			sourceTree = "<group>";
@@ -595,6 +599,7 @@
 				ADD9662C1AAD5780002A26A2 /* zh-Hant */,
 				A741BBA31B5F7A8C00ED3D7B /* nl */,
 				A741BBA51B5F9AB500ED3D7B /* nl-NL */,
+				ADB0121B1BD9C6B400D985F9 /* sv */,
 			);
 			name = CTAssetsPicker.strings;
 			sourceTree = "<group>";
