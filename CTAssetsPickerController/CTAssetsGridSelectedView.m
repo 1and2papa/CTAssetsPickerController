@@ -152,7 +152,7 @@
     }
 }
 
-- (void)setSelectionIndex:(NSUInteger)selectionIndex;
+- (void)setSelectionIndex:(NSUInteger)selectionIndex
 {
     _selectionIndex = selectionIndex;
     self.selectionIndexLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)(selectionIndex + 1)];
