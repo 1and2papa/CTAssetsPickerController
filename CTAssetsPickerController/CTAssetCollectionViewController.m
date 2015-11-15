@@ -208,6 +208,7 @@
                 if (isAlbumEmpty) {
                     PHFetchOptions *options = [PHFetchOptions new];
                     options.fetchLimit = 1;
+                    options.predicate = self.picker.assetsFetchOptions.predicate;
                     PHFetchResult *assetFetchResult = [PHAsset fetchAssetsInAssetCollection:assetCollection options:options];
                     isAlbumEmpty = assetFetchResult.count == 0;
                 }
