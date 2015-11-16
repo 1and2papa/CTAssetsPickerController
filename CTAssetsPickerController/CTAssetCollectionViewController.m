@@ -207,7 +207,10 @@
                 //ensure collection is really empty, since estimatedAssetCount may always return NSNotFound sometimes
                 if (isAlbumEmpty) {
                     PHFetchOptions *options = [PHFetchOptions new];
-                    options.fetchLimit = 1;
+                    if ([options respondsToSelector:@selector(setFetchLimit:)]) {
+                        options.fetchLimit = 1;
+                    }
+
                     options.predicate = self.picker.assetsFetchOptions.predicate;
                     PHFetchResult *assetFetchResult = [PHAsset fetchAssetsInAssetCollection:assetCollection options:options];
                     isAlbumEmpty = assetFetchResult.count == 0;
