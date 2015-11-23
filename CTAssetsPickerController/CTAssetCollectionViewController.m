@@ -201,25 +201,23 @@
     {
         for (PHAssetCollection *assetCollection in fetchResult)
         {
-            BOOL isAlbumEmpty = NO;
-            if (!self.picker.showsEmptyAlbums) {
-                isAlbumEmpty = assetCollection.estimatedAssetCount == NSNotFound;
-                //ensure collection is really empty, since estimatedAssetCount may always return NSNotFound sometimes
-                if (isAlbumEmpty) {
-                    PHFetchOptions *options = [PHFetchOptions new];
-                    if ([options respondsToSelector:@selector(setFetchLimit:)]) {
-                        options.fetchLimit = 1;
-                    }
-
-                    options.predicate = self.picker.assetsFetchOptions.predicate;
-                    PHFetchResult *assetFetchResult = [PHAsset fetchAssetsInAssetCollection:assetCollection options:options];
-                    isAlbumEmpty = assetFetchResult.count == 0;
-                }
+            BOOL showsAssetCollection = YES;
+            
+            if (!self.picker.showsEmptyAlbums)
+            {
+                PHFetchOptions *options = [PHFetchOptions new];
+                options.predicate = self.picker.assetsFetchOptions.predicate;
+                
+                if ([options respondsToSelector:@selector(setFetchLimit:)])
+                    options.fetchLimit = 1;
+                
+                NSInteger count = [assetCollection ctassetPikcerCountOfAssetsFetchedWithOptions:options];
+                
+                showsAssetCollection = (count > 0);
             }
-
-            if (!isAlbumEmpty) {
+            
+            if (showsAssetCollection)
                 [assetCollections addObject:assetCollection];
-            }
         }
     }
 
