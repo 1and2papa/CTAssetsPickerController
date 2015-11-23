@@ -196,15 +196,30 @@
 - (void)updateAssetCollections
 {
     NSMutableArray *assetCollections = [NSMutableArray new];
-    
+
     for (PHFetchResult *fetchResult in self.fetchResults)
     {
         for (PHAssetCollection *assetCollection in fetchResult)
         {
-            NSInteger count = (assetCollection.estimatedAssetCount) ? assetCollection.estimatedAssetCount : 0;
-            
-            if (self.picker.showsEmptyAlbums || count > 0)
+            BOOL isAlbumEmpty = NO;
+            if (!self.picker.showsEmptyAlbums) {
+                isAlbumEmpty = assetCollection.estimatedAssetCount == NSNotFound;
+                //ensure collection is really empty, since estimatedAssetCount may always return NSNotFound sometimes
+                if (isAlbumEmpty) {
+                    PHFetchOptions *options = [PHFetchOptions new];
+                    if ([options respondsToSelector:@selector(setFetchLimit:)]) {
+                        options.fetchLimit = 1;
+                    }
+
+                    options.predicate = self.picker.assetsFetchOptions.predicate;
+                    PHFetchResult *assetFetchResult = [PHAsset fetchAssetsInAssetCollection:assetCollection options:options];
+                    isAlbumEmpty = assetFetchResult.count == 0;
+                }
+            }
+
+            if (!isAlbumEmpty) {
                 [assetCollections addObject:assetCollection];
+            }
         }
     }
 
