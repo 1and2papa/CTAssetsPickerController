@@ -24,15 +24,15 @@ CTAssetsPickerController is a highly customisable iOS controller that allows pic
 * [Release Notes](https://github.com/chiunam/CTAssetsPickerController/releases)
 
 ## Minimum Requirement
-iOS 9 SDK, Minimum Deployment Target iOS 8.0
+iOS 9 SDK, Minimum Deployment Target iOS 8.3
 
 ## Adding to your project
     	
 1. [CocoaPods](http://cocoapods.org) Podfile
 
     ````
-    platform :ios, '8.0'
-    pod 'CTAssetsPickerController',  '~> 3.1.0'
+    platform :ios, '8.3'
+    pod 'CTAssetsPickerController',  '~> 3.2.0'
     ````
     	
 2. [Manual Setup](https://github.com/chiunam/CTAssetsPickerController/wiki/Manual-Setup-(v3))
