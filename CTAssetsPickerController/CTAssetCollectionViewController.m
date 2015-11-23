@@ -77,7 +77,6 @@
 {
     [super viewDidLoad];
     [self setupViews];
-    [self setupButtons];
     [self localize];
     [self setupDefaultAssetCollection];
     [self setupFetchResults];
@@ -87,6 +86,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self setupButtons];
     [self updateTitle:self.picker.selectedAssets];
     [self updateButton:self.picker.selectedAssets];
     [self selectDefaultAssetCollection];
@@ -151,17 +151,26 @@
 
 - (void)setupButtons
 {
-    self.cancelButton =
-    [[UIBarButtonItem alloc] initWithTitle:CTAssetsPickerLocalizedString(@"Cancel", nil)
-                                     style:UIBarButtonItemStylePlain
-                                    target:self.picker
-                                    action:@selector(dismiss:)];
-
-    self.doneButton =
-    [[UIBarButtonItem alloc] initWithTitle:CTAssetsPickerLocalizedString(@"Done", nil)
-                                     style:UIBarButtonItemStyleDone
-                                    target:self.picker
-                                    action:@selector(finishPickingAssets:)];
+    if (self.doneButton == nil)
+    {
+        NSString *title = (self.picker.doneButtonTitle) ?
+        self.picker.doneButtonTitle : CTAssetsPickerLocalizedString(@"Done", nil);
+        
+        self.doneButton =
+        [[UIBarButtonItem alloc] initWithTitle:title
+                                         style:UIBarButtonItemStyleDone
+                                        target:self.picker
+                                        action:@selector(finishPickingAssets:)];
+    }
+    
+    if (self.cancelButton == nil)
+    {
+        self.cancelButton =
+        [[UIBarButtonItem alloc] initWithTitle:CTAssetsPickerLocalizedString(@"Cancel", nil)
+                                         style:UIBarButtonItemStylePlain
+                                        target:self.picker
+                                        action:@selector(dismiss:)];
+    }
 }
 
 - (void)localize

@@ -100,7 +100,6 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
 {
     [super viewDidLoad];
     [self setupViews];
-    [self setupButtons];
     [self registerChangeObserver];
     [self addGestureRecognizer];
     [self addNotificationObserver];
@@ -110,6 +109,7 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self setupButtons];
     [self setupAssets];
     [self updateTitle:self.picker.selectedAssets];
     [self updateButton:self.picker.selectedAssets];
@@ -175,11 +175,17 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
 
 - (void)setupButtons
 {
-    self.navigationItem.rightBarButtonItem =
-    [[UIBarButtonItem alloc] initWithTitle:CTAssetsPickerLocalizedString(@"Done", nil)
-                                     style:UIBarButtonItemStyleDone
-                                    target:self.picker
-                                    action:@selector(finishPickingAssets:)];
+    if (self.navigationItem.rightBarButtonItem == nil)
+    {
+        NSString *title = (self.picker.doneButtonTitle) ?
+        self.picker.doneButtonTitle : CTAssetsPickerLocalizedString(@"Done", nil);
+        
+        self.navigationItem.rightBarButtonItem =
+        [[UIBarButtonItem alloc] initWithTitle:title
+                                         style:UIBarButtonItemStyleDone
+                                        target:self.picker
+                                        action:@selector(finishPickingAssets:)];
+    }
 }
 
 - (void)setupAssets

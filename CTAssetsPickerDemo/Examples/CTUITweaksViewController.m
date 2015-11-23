@@ -43,6 +43,8 @@
             // override title
             picker.title = @"📷📷📷";
             
+            picker.doneButtonTitle = @"完成";
+            
             // hide cancel button;
             picker.showsCancelButton = NO;
             
