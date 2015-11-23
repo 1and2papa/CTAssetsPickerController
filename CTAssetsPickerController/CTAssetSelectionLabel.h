@@ -2,7 +2,7 @@
  
  MIT License (MIT)
  
- Copyright (c) 2013 Clement CN Tsang
+ Copyright (c) 2015 Clement CN Tsang
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -26,14 +26,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CTAssetsGridSelectedView : UIView
+@interface CTAssetSelectionLabel : UILabel
 
-@property (nonatomic, assign) BOOL showsSelectionIndex;
-@property (nonatomic, assign) NSUInteger selectionIndex;
-
-@property (nonatomic, weak) UIColor *selectedBackgroundColor UI_APPEARANCE_SELECTOR;
-@property (nonatomic, weak) UIFont *font UI_APPEARANCE_SELECTOR DEPRECATED_MSG_ATTRIBUTE("Set text attributes to CTAssetSelectionLabel instead.");
-@property (nonatomic, weak) UIColor *textColor UI_APPEARANCE_SELECTOR DEPRECATED_MSG_ATTRIBUTE("Set text attributes to CTAssetSelectionLabel instead.");
+@property (nonatomic, assign, getter=isCircular) BOOL circular UI_APPEARANCE_SELECTOR;
 @property (nonatomic, assign) CGFloat borderWidth UI_APPEARANCE_SELECTOR;
+@property (nonatomic, weak) UIColor *borderColor UI_APPEARANCE_SELECTOR;
+
+- (void)setMargin:(CGFloat)margin UI_APPEARANCE_SELECTOR;
+- (void)setTextAttributes:(NSDictionary *)textAttributes UI_APPEARANCE_SELECTOR;
 
 @end

@@ -124,8 +124,6 @@
  *
  *  Only a checkmark is shown on selected assets by default. To shows the order of selection,
  *  set this property’s value to `YES`.
- *
- *  It is also suggested to add border width of the selected grids. Please refer to the demo app on adding border.
  */
 @property (nonatomic, assign) BOOL showsSelectionIndex;
 

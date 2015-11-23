@@ -54,8 +54,12 @@
 
 #define CTAssetsGridSelectedViewBackgroundColor [UIColor colorWithWhite:1 alpha:0.3]
 #define CTAssetsGridSelectedViewTintColor       [UIView new].tintColor
-#define CTAssetsGridSelectedViewFont            [UIFont preferredFontForTextStyle:UIFontTextStyleBody]
-#define CTAssetsGridSelectedViewTextColor       [UIColor whiteColor]
+
+#define CTAssetLabelSize                        CGSizeMake(25.0f, 25.0f)
+#define CTAssetLabelFont                        [UIFont preferredFontForTextStyle:UIFontTextStyleBody]
+#define CTAssetLabelTextColor                   [UIColor whiteColor]
+#define CTAssetLabelBackgroundColor             [UIView new].tintColor
+#define CTAssetLabelBorderColor                 [UIColor whiteColor]
 
 #define CTAssetsGridViewFooterFont              [UIFont preferredFontForTextStyle:UIFontTextStyleBody]
 #define CTAssetsGridViewFooterTextColor         [UIColor darkTextColor]

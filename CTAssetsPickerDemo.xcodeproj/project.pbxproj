@@ -84,8 +84,8 @@
 		AD4B06CA1B44CD5A00D99C5A /* CTSortedAssetsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTSortedAssetsViewController.m; sourceTree = "<group>"; };
 		AD4CC0CB1AD61E0D009C3F45 /* CTAssetsGridViewLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CTAssetsGridViewLayout.h; sourceTree = "<group>"; };
 		AD4CC0CC1AD61E0D009C3F45 /* CTAssetsGridViewLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CTAssetsGridViewLayout.m; sourceTree = "<group>"; };
-		AD55619C1C02BFA300EA2E31 /* CTAssetsGridLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CTAssetsGridLabel.h; sourceTree = "<group>"; };
-		AD55619D1C02BFA300EA2E31 /* CTAssetsGridLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CTAssetsGridLabel.m; sourceTree = "<group>"; };
+		AD55619C1C02BFA300EA2E31 /* CTAssetSelectionLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CTAssetSelectionLabel.h; sourceTree = "<group>"; };
+		AD55619D1C02BFA300EA2E31 /* CTAssetSelectionLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CTAssetSelectionLabel.m; sourceTree = "<group>"; };
 		AD60C0FD1AB67D3A00F3C675 /* CTAssetThumbnailOverlay.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CTAssetThumbnailOverlay.h; sourceTree = "<group>"; };
 		AD60C0FE1AB67D3A00F3C675 /* CTAssetThumbnailOverlay.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CTAssetThumbnailOverlay.m; sourceTree = "<group>"; };
 		AD6CDA481AC55BEE008C6AC2 /* UICollectionView+CTAssetsPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+CTAssetsPickerController.h"; sourceTree = "<group>"; };
@@ -308,12 +308,12 @@
 				ADD966121AAD5780002A26A2 /* CTAssetsGridViewCell.m */,
 				AD18AFD21BCBB856008B507D /* CTAssetsGridSelectedView.h */,
 				AD18AFD31BCBB856008B507D /* CTAssetsGridSelectedView.m */,
-				AD55619C1C02BFA300EA2E31 /* CTAssetsGridLabel.h */,
-				AD55619D1C02BFA300EA2E31 /* CTAssetsGridLabel.m */,
 				ADD9660F1AAD5780002A26A2 /* CTAssetsGridViewFooter.h */,
 				ADD966101AAD5780002A26A2 /* CTAssetsGridViewFooter.m */,
 				AD9BB2481B295EE2001F9809 /* CTAssetCheckmark.h */,
 				AD9BB2491B295EE2001F9809 /* CTAssetCheckmark.m */,
+				AD55619C1C02BFA300EA2E31 /* CTAssetSelectionLabel.h */,
+				AD55619D1C02BFA300EA2E31 /* CTAssetSelectionLabel.m */,
 				ADD9660A1AAD5780002A26A2 /* CTAssetsPageViewController.h */,
 				ADD9660B1AAD5780002A26A2 /* CTAssetsPageViewController.m */,
 				AD7B28F51BCE2C88001EC414 /* CTAssetsPageView.h */,

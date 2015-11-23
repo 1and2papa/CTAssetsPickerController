@@ -28,6 +28,7 @@
 #import "CTAssetsPickerDefines.h"
 #import "CTAssetsGridSelectedView.h"
 #import "CTAssetCheckmark.h"
+#import "CTAssetSelectionLabel.h"
 
 
 
@@ -35,7 +36,7 @@
 @interface CTAssetsGridSelectedView ()
 
 @property (nonatomic, strong) CTAssetCheckmark *checkmark;
-@property (nonatomic, strong) UILabel *selectionIndexLabel;
+@property (nonatomic, strong) CTAssetSelectionLabel *selectionIndexLabel;
 
 @property (nonatomic, assign) BOOL didSetupConstraints;
 
@@ -70,11 +71,7 @@
     self.checkmark = checkmark;
     [self addSubview:checkmark];
     
-    UILabel *selectionIndexLabel = [UILabel newAutoLayoutView];
-    selectionIndexLabel.textAlignment = NSTextAlignmentCenter;
-    selectionIndexLabel.backgroundColor = self.tintColor;
-    selectionIndexLabel.font = CTAssetsGridSelectedViewFont;
-    selectionIndexLabel.textColor = CTAssetsGridSelectedViewTextColor;
+    CTAssetSelectionLabel *selectionIndexLabel = [CTAssetSelectionLabel newAutoLayoutView];
     self.selectionIndexLabel = selectionIndexLabel;
     
     [self addSubview:self.selectionIndexLabel];
@@ -94,28 +91,6 @@
     self.backgroundColor = color;
 }
 
-- (UIFont *)font
-{
-    return self.selectionIndexLabel.font;
-}
-
-- (void)setFont:(UIFont *)font
-{
-    UIFont *labelFont = (font) ? font : CTAssetsGridSelectedViewFont;
-    self.selectionIndexLabel.font = labelFont;
-}
-
-- (UIColor *)textColor
-{
-    return self.selectionIndexLabel.textColor;
-}
-
-- (void)setTextColor:(UIColor *)textColor
-{
-    UIColor *color = (textColor) ? textColor : CTAssetsGridSelectedViewTextColor;
-    self.selectionIndexLabel.textColor = color;
-}
-
 - (CGFloat)borderWidth
 {
     return self.layer.borderWidth;
@@ -129,10 +104,8 @@
 - (void)setTintColor:(UIColor *)tintColor
 {
     UIColor *color = (tintColor) ? tintColor : CTAssetsGridSelectedViewTintColor;
-    self.selectionIndexLabel.backgroundColor = color;
     self.layer.borderColor = color.CGColor;
 }
-
 
 #pragma mark - Accessors
 
@@ -165,15 +138,6 @@
 {
     if (!self.didSetupConstraints)
     {
-        [NSLayoutConstraint autoSetPriority:UILayoutPriorityRequired forConstraints:^{
-            CGFloat height = self.selectionIndexLabel.font.pointSize + self.layoutMargins.top;
-            [self.selectionIndexLabel autoSetDimension:ALDimensionHeight toSize:height];
-            [self.selectionIndexLabel autoConstrainAttribute:ALAttributeWidth toAttribute:ALAttributeHeight ofView:self.selectionIndexLabel];
-        }];
-        
-        [self.selectionIndexLabel autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:0];
-        [self.selectionIndexLabel autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:0];
-        
         [self.checkmark autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:0];
         [self.checkmark autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:0];
         
