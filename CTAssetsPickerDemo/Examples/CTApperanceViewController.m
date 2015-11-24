@@ -119,19 +119,22 @@
     CTAssetsGridSelectedView *assetsGridSelectedView = [CTAssetsGridSelectedView appearance];
     assetsGridSelectedView.selectedBackgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
     assetsGridSelectedView.tintColor = self.color1;
-    assetsGridSelectedView.borderWidth = 1.0;
+    assetsGridSelectedView.borderWidth = 3.0;
     
     // check mark
-    [CTAssetCheckmark appearance].tintColor = self.color1;
+    CTAssetCheckmark *checkmark = [CTAssetCheckmark appearance];
+    checkmark.tintColor = self.color1;
+    [checkmark setMargin:0.0 forVerticalEdge:NSLayoutAttributeRight horizontalEdge:NSLayoutAttributeTop];
     
     // selection label
     CTAssetSelectionLabel *assetSelectionLabel = [CTAssetSelectionLabel appearance];
-    assetSelectionLabel.circular = YES;
     assetSelectionLabel.borderWidth = 1.0;
-    assetSelectionLabel.borderColor = self.color2;
-    [assetSelectionLabel setMargin:2.0];
+    assetSelectionLabel.borderColor = self.color3;
+    [assetSelectionLabel setSize:CGSizeMake(24.0, 24.0)];
+    [assetSelectionLabel setCornerRadius:12.0];
+    [assetSelectionLabel setMargin:4.0 forVerticalEdge:NSLayoutAttributeRight horizontalEdge:NSLayoutAttributeTop];
     [assetSelectionLabel setTextAttributes:@{NSFontAttributeName : [self.font fontWithSize:12.0],
-                                             NSForegroundColorAttributeName : self.color2,
+                                             NSForegroundColorAttributeName : self.color3,
                                              NSBackgroundColorAttributeName : self.color1}];
     
     // page view (preview)
@@ -192,13 +195,16 @@
     assetsGridSelectedView.tintColor = nil;
     assetsGridSelectedView.borderWidth = 0.0;
     
-    [CTAssetCheckmark appearance].tintColor = nil;
+    CTAssetCheckmark *checkmark = [CTAssetCheckmark appearance];
+    checkmark.tintColor = nil;
+    [checkmark setMargin:0.0 forVerticalEdge:NSLayoutAttributeRight horizontalEdge:NSLayoutAttributeBottom];
     
     CTAssetSelectionLabel *assetSelectionLabel = [CTAssetSelectionLabel appearance];
-    assetSelectionLabel.circular = NO;
     assetSelectionLabel.borderWidth = 0.0;
     assetSelectionLabel.borderColor = nil;
-    [assetSelectionLabel setMargin:0.0];
+    [assetSelectionLabel setSize:CGSizeZero];
+    [assetSelectionLabel setCornerRadius:0.0];
+    [assetSelectionLabel setMargin:0.0 forVerticalEdge:NSLayoutAttributeRight horizontalEdge:NSLayoutAttributeBottom];
     [assetSelectionLabel setTextAttributes:nil];
     
     CTAssetsPageView *assetsPageView = [CTAssetsPageView appearance];

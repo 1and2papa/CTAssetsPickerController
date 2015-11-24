@@ -38,8 +38,6 @@
 @property (nonatomic, strong) CTAssetCheckmark *checkmark;
 @property (nonatomic, strong) CTAssetSelectionLabel *selectionIndexLabel;
 
-@property (nonatomic, assign) BOOL didSetupConstraints;
-
 @end
 
 
@@ -78,6 +76,31 @@
 }
 
 
+#pragma mark - Accessors
+
+- (void)setShowsSelectionIndex:(BOOL)showsSelectionIndex
+{
+    _showsSelectionIndex = showsSelectionIndex;
+    
+    if (showsSelectionIndex)
+    {
+        self.checkmark.hidden = YES;
+        self.selectionIndexLabel.hidden = NO;
+    }
+    else
+    {
+        self.checkmark.hidden = NO;
+        self.selectionIndexLabel.hidden = YES;
+    }
+}
+
+- (void)setSelectionIndex:(NSUInteger)selectionIndex
+{
+    _selectionIndex = selectionIndex;
+    self.selectionIndexLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)(selectionIndex + 1)];
+}
+
+
 #pragma mark - Apperance
 
 - (UIColor *)selectedBackgroundColor
@@ -105,46 +128,6 @@
 {
     UIColor *color = (tintColor) ? tintColor : CTAssetsGridSelectedViewTintColor;
     self.layer.borderColor = color.CGColor;
-}
-
-#pragma mark - Accessors
-
-- (void)setShowsSelectionIndex:(BOOL)showsSelectionIndex
-{
-    _showsSelectionIndex = showsSelectionIndex;
-    
-    if (showsSelectionIndex)
-    {
-        self.checkmark.hidden = YES;
-        self.selectionIndexLabel.hidden = NO;
-    }
-    else
-    {
-        self.checkmark.hidden = NO;
-        self.selectionIndexLabel.hidden = YES;
-    }
-}
-
-- (void)setSelectionIndex:(NSUInteger)selectionIndex
-{
-    _selectionIndex = selectionIndex;
-    self.selectionIndexLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)(selectionIndex + 1)];
-}
-
-
-#pragma mark - Update auto layout constraints
-
-- (void)updateConstraints
-{
-    if (!self.didSetupConstraints)
-    {
-        [self.checkmark autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:0];
-        [self.checkmark autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:0];
-        
-        self.didSetupConstraints = YES;
-    }
-    
-    [super updateConstraints];
 }
 
 
