@@ -13,25 +13,26 @@ CTAssetsPickerController is a highly customisable iOS controller that allows pic
 3. Filters assets for picking only photos or videos.
 4. Filters assets or albums by their properties.
 5. Supports assets stored in iCloud. 
-6. Optionally shows selection order.
-7. Achieves average 5x fps.
-8. Conforms UIAppearance Protocol.
-9. Conforms UIAccessibility Protocol.
-10. Highly customisable.
-11. Pure Auto Layout. (Thanks for the great work of [PureLayout](https://github.com/smileyborg/PureLayout))
+6. Supports many [languages](https://github.com/chiunam/CTAssetsPickerController/wiki/Localisation).
+7. Optionally shows selection order.
+8. Achieves average 5x fps.
+9. Conforms UIAppearance protocol.
+10. Conforms UIAccessibility protocol.
+11. Highly customisable.
+12. Pure Auto Layout. (Thanks for the great work of [PureLayout](https://github.com/smileyborg/PureLayout))
 
 ## Release Notes
 * [Release Notes](https://github.com/chiunam/CTAssetsPickerController/releases)
 
 ## Minimum Requirement
-iOS 9 SDK, Minimum Deployment Target iOS 8.3
+iOS 9 SDK, Minimum Deployment Target iOS 8.0
 
 ## Adding to your project
     	
 1. [CocoaPods](http://cocoapods.org) Podfile
 
     ````
-    platform :ios, '8.3'
+    platform :ios, '8.0'
     pod 'CTAssetsPickerController',  '~> 3.2.0'
     ````
     	
