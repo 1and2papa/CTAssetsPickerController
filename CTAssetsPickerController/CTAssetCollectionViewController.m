@@ -33,6 +33,7 @@
 #import "PHAssetCollection+CTAssetsPickerController.h"
 #import "PHAsset+CTAssetsPickerController.h"
 #import "NSBundle+CTAssetsPickerController.h"
+#import "UIViewController+CTAssetsPickerController.h"
 
 
 
@@ -90,12 +91,6 @@
     [self updateTitle:self.picker.selectedAssets];
     [self updateButton:self.picker.selectedAssets];
     [self selectDefaultAssetCollection];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [self resetTitle];
 }
 
 - (void)dealloc
@@ -339,6 +334,11 @@
     [self updateButton:selectedAssets];
 }
 
+- (void)setTitle:(NSString *)title
+{
+    self.ctnavigationItemTitle = title;
+}
+
 - (void)updateTitle:(NSArray *)selectedAssets
 {
     if ([self isTopViewController] && selectedAssets.count > 0)
@@ -492,6 +492,7 @@
     PHAssetCollection *collection = self.assetCollections[indexPath.row];
     
     CTAssetsGridViewController *vc = [CTAssetsGridViewController new];
+    vc.title = self.picker.selectedAssetsString ? : collection.localizedTitle;
     vc.assetCollection = collection;
     vc.delegate = self;
     
@@ -510,6 +511,7 @@
     if (self.defaultAssetCollection && !self.didShowDefaultAssetCollection)
     {
         CTAssetsGridViewController *vc = [CTAssetsGridViewController new];
+        vc.title = self.picker.selectedAssetsString ? : self.defaultAssetCollection.localizedTitle;
         vc.assetCollection = self.defaultAssetCollection;
         vc.delegate = self;
         
