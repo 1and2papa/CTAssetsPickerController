@@ -157,6 +157,12 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
     return (CTAssetsPickerController *)self.splitViewController.parentViewController;
 }
 
+- (void)setAssetCollection:(PHAssetCollection *)assetCollection
+{
+    _assetCollection = assetCollection;
+    [self updateTitle:self.picker.selectedAssets];
+}
+
 - (PHAsset *)assetAtIndexPath:(NSIndexPath *)indexPath
 {
     return (self.fetchResult.count > 0) ? self.fetchResult[indexPath.item] : nil;
