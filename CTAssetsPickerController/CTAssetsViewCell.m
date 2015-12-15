@@ -84,7 +84,7 @@ static UIColor *disabledColor;
 - (void)bind:(ALAsset *)asset
 {
     self.asset  = asset;
-    self.image  = (asset.thumbnail == NULL) ? [UIImage ctassetsPickerControllerImageNamed:@"CTAssetsPickerEmptyCell"] : [UIImage imageWithCGImage:asset.thumbnail];
+    self.image  = (asset.thumbnail == NULL) ? [UIImage ctassetsPickerControllerImageNamed:@"CTAssetsPickerEmptyCell"] : [UIImage imageWithCGImage:asset.aspectRatioThumbnail];
     
     if ([self.asset isVideo])
     {
@@ -120,7 +120,11 @@ static UIColor *disabledColor;
 
 - (void)drawThumbnailInRect:(CGRect)rect
 {
-    [self.image drawInRect:rect];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:rect];
+    imageView.contentMode = UIViewContentModeScaleAspectFill;
+    imageView.image = self.image;
+    imageView.clipsToBounds = YES;
+    [self addSubview:imageView];
 }
 
 - (void)drawVideoMetaInRect:(CGRect)rect
@@ -164,18 +168,20 @@ static UIColor *disabledColor;
 
 - (void)drawDisabledViewInRect:(CGRect)rect
 {
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetFillColorWithColor(context, disabledColor.CGColor);
-    CGContextFillRect(context, rect);
+    UIView *disabledView = [[UIView alloc] initWithFrame:rect];
+    disabledView.backgroundColor = disabledColor;
+    [self addSubview:disabledView];
 }
 
 - (void)drawSelectedViewInRect:(CGRect)rect
 {
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetFillColorWithColor(context, selectedColor.CGColor);
-    CGContextFillRect(context, rect);
-    
-    [checkedIcon drawAtPoint:CGPointMake(CGRectGetMaxX(rect) - checkedIcon.size.width, CGRectGetMinY(rect))];
+    UIView *selectedView = [[UIView alloc] initWithFrame:rect];
+    selectedView.backgroundColor = selectedColor;
+    [self addSubview:selectedView];
+ 
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:checkedIcon];
+    imageView.frame = CGRectMake(CGRectGetMaxX(rect) - checkedIcon.size.width, CGRectGetMinY(rect), imageView.frame.size.width, imageView.frame.size.height);
+    [self addSubview:imageView];
 }
 
 
