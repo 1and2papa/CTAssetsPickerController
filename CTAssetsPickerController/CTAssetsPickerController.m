@@ -37,7 +37,7 @@
 #import "NSBundle+CTAssetsPickerController.h"
 #import "UIImage+CTAssetsPickerController.h"
 #import "NSNumberFormatter+CTAssetsPickerController.h"
-
+#import "CTAssetsNavigationController.h"
 
 
 
@@ -249,12 +249,9 @@ NSString * const CTAssetsPickerDidDeselectAssetNotification = @"CTAssetsPickerDi
 - (void)setupSplitViewController
 {
     CTAssetCollectionViewController *vc = [CTAssetCollectionViewController new];
-    UINavigationController *master = [[UINavigationController alloc] initWithRootViewController:vc];
+    CTAssetsNavigationController *master = [[CTAssetsNavigationController alloc] initWithRootViewController:vc];
     UINavigationController *detail = [self emptyNavigationController];
     UISplitViewController *svc  = [UISplitViewController new];
-    
-    master.interactivePopGestureRecognizer.enabled  = YES;
-    master.interactivePopGestureRecognizer.delegate = nil;
     
     svc.delegate = self;
     svc.viewControllers = @[master, detail];
