@@ -34,7 +34,7 @@
     {
         CGFloat scale = traits.displayScale;
         NSInteger numberOfColumns = [self numberOfColumnsForTraitCollection:traits];
-        CGFloat onePixel = 1 / scale;
+        CGFloat onePixel = (scale == 3.0) ? (2.0 / scale) : (1.0 / scale);
         
         // spacing is as small as possible
         self.minimumInteritemSpacing = onePixel;

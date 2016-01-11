@@ -157,7 +157,7 @@ NSString * const CTAssetsPickerDidDeselectAssetNotification = @"CTAssetsPickerDi
 - (void)initThumbnailRequestOptions
 {
     PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
-    options.resizeMode = PHImageRequestOptionsResizeModeExact;
+    options.resizeMode = PHImageRequestOptionsResizeModeFast;
     options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
  
     _thumbnailRequestOptions = options;
