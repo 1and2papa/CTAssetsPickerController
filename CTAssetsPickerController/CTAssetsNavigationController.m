@@ -36,7 +36,7 @@
 
 - (void)viewDidLoad
 {
-    
+    [super viewDidLoad];
     __weak CTAssetsNavigationController<UIGestureRecognizerDelegate> *weakSelf = self;
     
     if ([self respondsToSelector:@selector(interactivePopGestureRecognizer)])
