@@ -39,7 +39,6 @@
 #import "UICollectionView+CTAssetsPickerController.h"
 #import "NSIndexSet+CTAssetsPickerController.h"
 #import "NSBundle+CTAssetsPickerController.h"
-#import "UIViewController+CTAssetsPickerController.h"
 
 
 
@@ -360,11 +359,6 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
     NSArray *selectedAssets = (NSArray *)notification.object;
     [self updateTitle:selectedAssets];
     [self updateButton:selectedAssets];
-}
-
-- (void)setTitle:(NSString *)title
-{
-    self.ctnavigationItemTitle = title;
 }
 
 - (void)updateTitle:(NSArray *)selectedAssets

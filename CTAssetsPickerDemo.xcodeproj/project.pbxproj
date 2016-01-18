@@ -29,7 +29,6 @@
 		ADFC004C1B54FF740024CBB9 /* CTLayoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADFC004B1B54FF740024CBB9 /* CTLayoutViewController.m */; };
 		ADFE23881B46602400E44353 /* CTProgrammaticViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADFE23871B46602400E44353 /* CTProgrammaticViewController.m */; };
 		ADFE238B1B46868100E44353 /* CTApperanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADFE238A1B46868100E44353 /* CTApperanceViewController.m */; };
-		B0811B9F1C0D36F200342722 /* UIViewController+CTAssetsPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0811B9E1C0D36F200342722 /* UIViewController+CTAssetsPickerController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -181,8 +180,6 @@
 		ADFE23871B46602400E44353 /* CTProgrammaticViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTProgrammaticViewController.m; sourceTree = "<group>"; };
 		ADFE23891B46868100E44353 /* CTApperanceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTApperanceViewController.h; sourceTree = "<group>"; };
 		ADFE238A1B46868100E44353 /* CTApperanceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTApperanceViewController.m; sourceTree = "<group>"; };
-		B0811B9D1C0D36F200342722 /* UIViewController+CTAssetsPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+CTAssetsPickerController.h"; sourceTree = "<group>"; };
-		B0811B9E1C0D36F200342722 /* UIViewController+CTAssetsPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+CTAssetsPickerController.m"; sourceTree = "<group>"; };
 		F1B2FBB7FD634FB543BB7BB6 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD69CDFBA7D07D903CCC8B80 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -363,8 +360,6 @@
 				AD30D7F71AAE9D0400C79E3D /* NSNumberFormatter+CTAssetsPickerController.m */,
 				ADD965FE1AAD5780002A26A2 /* NSDateFormatter+CTAssetsPickerController.h */,
 				ADD965FF1AAD5780002A26A2 /* NSDateFormatter+CTAssetsPickerController.m */,
-				B0811B9D1C0D36F200342722 /* UIViewController+CTAssetsPickerController.h */,
-				B0811B9E1C0D36F200342722 /* UIViewController+CTAssetsPickerController.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -543,7 +538,6 @@
 				ADA073101B462C98009FB7C7 /* CTLastWeekViewController.m in Sources */,
 				AD4B06C81B428EEF00D99C5A /* CTiCloudAlbumsViewController.m in Sources */,
 				AD0786E21B428A73003C8863 /* CTDefaultAlbumViewController.m in Sources */,
-				B0811B9F1C0D36F200342722 /* UIViewController+CTAssetsPickerController.m in Sources */,
 				AD0786D91B428313003C8863 /* CTBasicViewController.m in Sources */,
 				ADA0730D1B4625AA009FB7C7 /* CTUITweaksViewController.m in Sources */,
 				AD18AFD71BCC9BA9008B507D /* CTSelectionOrderViewController.m in Sources */,

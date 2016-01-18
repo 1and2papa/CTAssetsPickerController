@@ -33,7 +33,6 @@
 #import "PHAssetCollection+CTAssetsPickerController.h"
 #import "PHAsset+CTAssetsPickerController.h"
 #import "NSBundle+CTAssetsPickerController.h"
-#import "UIViewController+CTAssetsPickerController.h"
 
 
 
@@ -332,11 +331,6 @@
     NSArray *selectedAssets = (NSArray *)notification.object;
     [self updateTitle:selectedAssets];
     [self updateButton:selectedAssets];
-}
-
-- (void)setTitle:(NSString *)title
-{
-    self.ctnavigationItemTitle = title;
 }
 
 - (void)updateTitle:(NSArray *)selectedAssets
