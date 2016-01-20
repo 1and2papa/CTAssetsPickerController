@@ -64,6 +64,7 @@
 - (void)setPageBackgroundColor:(UIColor *)backgroundColor
 {
     _pageBackgroundColor = (backgroundColor) ? backgroundColor : CTAssetsPageViewPageBackgroundColor;
+    self.backgroundColor = _pageBackgroundColor;
 }
 - (void)setFullscreenBackgroundColor:(UIColor *)backgroundColor
 {

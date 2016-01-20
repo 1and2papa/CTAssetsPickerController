@@ -29,7 +29,7 @@
 #import "CTAssetsPageViewController.h"
 #import "CTAssetItemViewController.h"
 #import "CTAssetScrollView.h"
-
+#import "CTAssetsPageView.h"
 
 
 
@@ -54,7 +54,13 @@
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext
 {
     UIView *containerView           = [transitionContext containerView];
-    containerView.backgroundColor   = [UIColor whiteColor];
+    
+    UIColor *bgColor = [[CTAssetsPageView appearance] pageBackgroundColor];
+    if (bgColor) {
+        containerView.backgroundColor = bgColor;
+    } else {
+        containerView.backgroundColor   = [UIColor whiteColor];
+    }
     
     if (self.operation == UINavigationControllerOperationPush)
     {
@@ -94,7 +100,7 @@
         // Create the mask
         UIView *mask            = [[UIView alloc] initWithFrame:startBounds];
         mask.backgroundColor    = [UIColor whiteColor];
-
+        
         // Prepare transition
         snapshot.transform  = CGAffineTransformMakeScale(startScale, startScale);;
         snapshot.layer.mask = mask.layer;
@@ -137,7 +143,7 @@
         // Scroll to index path
         [toVC.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
         [toVC.collectionView layoutIfNeeded];
-
+        
         UIView *cellView                = [toVC.collectionView cellForItemAtIndexPath:indexPath];
         CTAssetScrollView *scrollView   = iVC.view.subviews[0];
         UIImageView *imageView          = scrollView.imageView;
@@ -158,7 +164,7 @@
         float height        = snapshot.bounds.size.height;
         float length        = MIN(width, height);
         CGRect endBounds    = CGRectMake((width-length)/2, (height-length)/2, length, length);
-
+        
         UIView *mask            = [[UIView alloc] initWithFrame:snapshot.bounds];
         mask.backgroundColor    = [UIColor whiteColor];
         
@@ -221,7 +227,7 @@
     UIGraphicsBeginImageContextWithOptions(size, YES, 0);
     
     [[UIColor whiteColor] set];
-    UIRectFill(CGRectMake(0, 0, size.width, size.height));    
+    UIRectFill(CGRectMake(0, 0, size.width, size.height));
     
     [imageView.image drawInRect:CGRectMake(0, 0, size.width, size.height)];
     UIImage *resized = UIGraphicsGetImageFromCurrentImageContext();
