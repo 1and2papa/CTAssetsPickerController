@@ -43,6 +43,7 @@
 
 
 
+
 NSString * const CTAssetsGridViewCellIdentifier = @"CTAssetsGridViewCellIdentifier";
 NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIdentifier";
 
@@ -311,29 +312,66 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
             }
             else
             {
-                // if we have incremental diffs, tell the collection view to animate insertions and deletions
-                [collectionView performBatchUpdates:^{
-                    NSIndexSet *removedIndexes = [changeDetails removedIndexes];
-                    if ([removedIndexes count])
+                NSArray *removedPaths;
+                NSArray *insertedPaths;
+                NSArray *changedPaths;
+                
+                NSIndexSet *removedIndexes = [changeDetails removedIndexes];
+                removedPaths = [removedIndexes ctassetsPickerIndexPathsFromIndexesWithSection:0];
+                
+                NSIndexSet *insertedIndexes = [changeDetails insertedIndexes];
+                insertedPaths = [insertedIndexes ctassetsPickerIndexPathsFromIndexesWithSection:0];
+                
+                NSIndexSet *changedIndexes = [changeDetails changedIndexes];
+                changedPaths = [changedIndexes ctassetsPickerIndexPathsFromIndexesWithSection:0];
+                
+                BOOL shouldReload = NO;
+                
+                if (changedPaths != nil && removedPaths != nil)
+                {
+                    for (NSIndexPath *changedPath in changedPaths)
                     {
-                        [collectionView deleteItemsAtIndexPaths:[removedIndexes ctassetsPickerIndexPathsFromIndexesWithSection:0]];
+                        if ([removedPaths containsObject:changedPath])
+                        {
+                            shouldReload = YES;
+                            break;
+                        }
                     }
-
-                    NSIndexSet *insertedIndexes = [changeDetails insertedIndexes];
-                    if ([insertedIndexes count])
-                    {
-                        [collectionView insertItemsAtIndexPaths:[insertedIndexes ctassetsPickerIndexPathsFromIndexesWithSection:0]];
-                    }
-
-                    NSIndexSet *changedIndexes = [changeDetails changedIndexes];
-                    if ([changedIndexes count])
-                    {
-                        [collectionView reloadItemsAtIndexPaths:[changedIndexes ctassetsPickerIndexPathsFromIndexesWithSection:0] ];
-                    }
-                } completion:^(BOOL finished){
-                    if (finished)
-                        [self resetCachedAssetImages];
-                }];
+                }
+                
+                if (removedPaths.lastObject && ((NSIndexPath *)removedPaths.lastObject).item >= self.fetchResult.count)
+                {
+                    shouldReload = YES;
+                }
+                
+                if (shouldReload)
+                {
+                    [collectionView reloadData];
+                    
+                }
+                else
+                {
+                    // if we have incremental diffs, tell the collection view to animate insertions and deletions
+                    [collectionView performBatchUpdates:^{
+                        if ([removedPaths count])
+                        {
+                            [collectionView deleteItemsAtIndexPaths:[removedIndexes ctassetsPickerIndexPathsFromIndexesWithSection:0]];
+                        }
+                        
+                        if ([insertedPaths count])
+                        {
+                            [collectionView insertItemsAtIndexPaths:[insertedIndexes ctassetsPickerIndexPathsFromIndexesWithSection:0]];
+                        }
+                        
+                        if ([changedPaths count])
+                        {
+                            [collectionView reloadItemsAtIndexPaths:[changedIndexes ctassetsPickerIndexPathsFromIndexesWithSection:0] ];
+                        }
+                    } completion:^(BOOL finished){
+                        if (finished)
+                            [self resetCachedAssetImages];
+                    }];
+                }
             }
             
             [self.footer bind:self.fetchResult];
