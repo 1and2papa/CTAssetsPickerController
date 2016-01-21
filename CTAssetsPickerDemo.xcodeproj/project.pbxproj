@@ -132,7 +132,7 @@
 		ADD966041AAD5780002A26A2 /* CTAssetScrollView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CTAssetScrollView.h; sourceTree = "<group>"; };
 		ADD966051AAD5780002A26A2 /* CTAssetScrollView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CTAssetScrollView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		ADD966061AAD5780002A26A2 /* CTAssetCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CTAssetCollectionViewCell.h; sourceTree = "<group>"; };
-		ADD966071AAD5780002A26A2 /* CTAssetCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CTAssetCollectionViewCell.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		ADD966071AAD5780002A26A2 /* CTAssetCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CTAssetCollectionViewCell.m; sourceTree = "<group>"; };
 		ADD966081AAD5780002A26A2 /* CTAssetCollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CTAssetCollectionViewController.h; sourceTree = "<group>"; };
 		ADD966091AAD5780002A26A2 /* CTAssetCollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CTAssetCollectionViewController.m; sourceTree = "<group>"; };
 		ADD9660A1AAD5780002A26A2 /* CTAssetsPageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CTAssetsPageViewController.h; sourceTree = "<group>"; };

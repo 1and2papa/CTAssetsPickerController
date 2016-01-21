@@ -25,12 +25,12 @@
  */
 
 #import "CTAssetsViewControllerTransition.h"
+#import "CTAssetsPickerDefines.h"
 #import "CTAssetsGridViewController.h"
 #import "CTAssetsPageViewController.h"
 #import "CTAssetItemViewController.h"
 #import "CTAssetScrollView.h"
 #import "CTAssetsPageView.h"
-
 
 
 
@@ -53,15 +53,11 @@
 
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext
 {
-    UIView *containerView           = [transitionContext containerView];
+    UIView *containerView = [transitionContext containerView];
     
-    UIColor *bgColor = [[CTAssetsPageView appearance] pageBackgroundColor];
-    if (bgColor) {
-        containerView.backgroundColor = bgColor;
-    } else {
-        containerView.backgroundColor   = [UIColor whiteColor];
-    }
-    
+    UIColor *backgroundColor = [[CTAssetsPageView appearance] pageBackgroundColor];
+    containerView.backgroundColor = (backgroundColor) ? backgroundColor : CTAssetsPageViewPageBackgroundColor;
+
     if (self.operation == UINavigationControllerOperationPush)
     {
         CTAssetsGridViewController *fromVC  = (CTAssetsGridViewController *)[transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
