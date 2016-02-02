@@ -31,7 +31,6 @@
 
 
 
-
 extern NSString * const CTAssetScrollViewDidTapNotification;
 extern NSString * const CTAssetScrollViewPlayerWillPlayNotification;
 extern NSString * const CTAssetScrollViewPlayerWillPauseNotification;
@@ -40,6 +39,7 @@ extern NSString * const CTAssetScrollViewPlayerWillPauseNotification;
 @interface CTAssetScrollView : UIScrollView
 
 @property (nonatomic, assign) BOOL allowsSelection;
+@property (nonatomic, assign) BOOL allowsAnimatedImages;
 
 @property (nonatomic, strong, readonly) UIImage *image;
 @property (nonatomic, strong, readonly) AVPlayer *player;

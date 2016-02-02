@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		363F8D0A685BF86C60D06D49 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1B2FBB7FD634FB543BB7BB6 /* Pods.framework */; };
+		6EE2A96C1C61124400A5616C /* CTPlayAnimatedImagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EE2A96B1C61124400A5616C /* CTPlayAnimatedImagesViewController.m */; };
 		AD0786D91B428313003C8863 /* CTBasicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0786D81B428313003C8863 /* CTBasicViewController.m */; };
 		AD0786DF1B42864F003C8863 /* CTSelectedAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0786DE1B42864F003C8863 /* CTSelectedAssetsViewController.m */; };
 		AD0786E21B428A73003C8863 /* CTDefaultAlbumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0786E11B428A73003C8863 /* CTDefaultAlbumViewController.m */; };
@@ -33,6 +34,8 @@
 
 /* Begin PBXFileReference section */
 		408BD0916F5C7C71C93D0E93 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		6EE2A96A1C61124400A5616C /* CTPlayAnimatedImagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTPlayAnimatedImagesViewController.h; sourceTree = "<group>"; };
+		6EE2A96B1C61124400A5616C /* CTPlayAnimatedImagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTPlayAnimatedImagesViewController.m; sourceTree = "<group>"; };
 		A741BBA21B5F7A8C00ED3D7B /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		A741BBA31B5F7A8C00ED3D7B /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/CTAssetsPicker.strings; sourceTree = "<group>"; };
 		A741BBA41B5F9AB500ED3D7B /* nl-NL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nl-NL"; path = "nl-NL.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
@@ -220,6 +223,8 @@
 				AD18AFD61BCC9BA9008B507D /* CTSelectionOrderViewController.m */,
 				ADA0730B1B4625AA009FB7C7 /* CTUITweaksViewController.h */,
 				ADA0730C1B4625AA009FB7C7 /* CTUITweaksViewController.m */,
+				6EE2A96A1C61124400A5616C /* CTPlayAnimatedImagesViewController.h */,
+				6EE2A96B1C61124400A5616C /* CTPlayAnimatedImagesViewController.m */,
 				AD4B06C91B44CD5A00D99C5A /* CTSortedAssetsViewController.h */,
 				AD4B06CA1B44CD5A00D99C5A /* CTSortedAssetsViewController.m */,
 				ADA073051B4515AF009FB7C7 /* CTPhotosViewController.h */,
@@ -536,6 +541,7 @@
 				ADA073041B45118F009FB7C7 /* CTMaxSelectionViewController.m in Sources */,
 				AD4B06CB1B44CD5A00D99C5A /* CTSortedAssetsViewController.m in Sources */,
 				ADA073101B462C98009FB7C7 /* CTLastWeekViewController.m in Sources */,
+				6EE2A96C1C61124400A5616C /* CTPlayAnimatedImagesViewController.m in Sources */,
 				AD4B06C81B428EEF00D99C5A /* CTiCloudAlbumsViewController.m in Sources */,
 				AD0786E21B428A73003C8863 /* CTDefaultAlbumViewController.m in Sources */,
 				AD0786D91B428313003C8863 /* CTBasicViewController.m in Sources */,

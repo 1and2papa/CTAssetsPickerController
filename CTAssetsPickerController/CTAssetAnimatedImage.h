@@ -2,7 +2,7 @@
  
  MIT License (MIT)
  
- Copyright (c) 2015 Clement CN Tsang
+ Copyright (c) 2016 Clement CN Tsang
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -25,28 +25,31 @@
  */
 
 #import <UIKit/UIKit.h>
-#import <Photos/Photos.h>
-
-
-@class CTAssetsGridViewController;
+#import <FLAnimatedImage/FLAnimatedImage.h>
 
 
 
-@protocol CTAssetsGridViewControllerDelegate <NSObject>
 
-- (void)assetsGridViewController:(CTAssetsGridViewController *)picker photoLibraryDidChangeForAssetCollection:(PHAssetCollection *)assetCollection;
+
+/**
+ *  A wrapper class around FLAnimatedImage for using it as a drop-in replacement for UIImage
+ */
+@interface CTAssetAnimatedImage : UIImage
+
+/**
+ *  Original animated image this class was initialized with.
+ */
+@property (nonatomic, readonly) FLAnimatedImage *animatedImage;
+
+
+/**
+ *  Initializes a wrapper with an animated image.
+ *
+ *  @param animatedImage An animated image (GIF) represented by the FLAnimatedImage instance.
+ *
+ *  @return An instance of `CTAssetAnimatedImage` associated with an animated image.
+ */
+- (instancetype)initWithAnimatedImage:(FLAnimatedImage *)animatedImage;
+
 
 @end
-
-
-
-@interface CTAssetsGridViewController : UICollectionViewController
-
-@property (nonatomic, weak) id<CTAssetsGridViewControllerDelegate> delegate;
-@property (nonatomic, strong) PHAssetCollection *assetCollection;
-
-@property (nonatomic, assign) BOOL allowsAnimatedImages;
-
-@end
-
-

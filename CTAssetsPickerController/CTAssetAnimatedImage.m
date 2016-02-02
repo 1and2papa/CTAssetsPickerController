@@ -2,7 +2,7 @@
  
  MIT License (MIT)
  
- Copyright (c) 2015 Clement CN Tsang
+ Copyright (c) 2016 Clement CN Tsang
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -24,29 +24,18 @@
  
  */
 
-#import <UIKit/UIKit.h>
-#import <Photos/Photos.h>
+#import "CTAssetAnimatedImage.h"
 
+@implementation CTAssetAnimatedImage
 
-@class CTAssetsGridViewController;
-
-
-
-@protocol CTAssetsGridViewControllerDelegate <NSObject>
-
-- (void)assetsGridViewController:(CTAssetsGridViewController *)picker photoLibraryDidChangeForAssetCollection:(PHAssetCollection *)assetCollection;
-
-@end
-
-
-
-@interface CTAssetsGridViewController : UICollectionViewController
-
-@property (nonatomic, weak) id<CTAssetsGridViewControllerDelegate> delegate;
-@property (nonatomic, strong) PHAssetCollection *assetCollection;
-
-@property (nonatomic, assign) BOOL allowsAnimatedImages;
+- (instancetype)initWithAnimatedImage:(FLAnimatedImage *)animatedImage
+{
+    // this instance can be used itself as a poster image
+    if (self = [super initWithCGImage:animatedImage.posterImage.CGImage]) {
+        _animatedImage = animatedImage;
+    }
+    
+    return self;
+}
 
 @end
-
-

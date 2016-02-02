@@ -83,6 +83,7 @@
         self.dataSource      = self;
         self.delegate        = self;
         self.allowsSelection = NO;
+        self.allowsAnimatedImages = NO;
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
     
@@ -205,6 +206,7 @@
         
         CTAssetItemViewController *page = [CTAssetItemViewController assetItemViewControllerForAsset:asset];
         page.allowsSelection = self.allowsSelection;
+        page.allowsAnimatedImages = self.allowsAnimatedImages;
         
         [self setViewControllers:@[page]
                        direction:UIPageViewControllerNavigationDirectionForward
@@ -234,6 +236,7 @@
         PHAsset *beforeAsset = [self.assets objectAtIndex:(index - 1)];
         CTAssetItemViewController *page = [CTAssetItemViewController assetItemViewControllerForAsset:beforeAsset];
         page.allowsSelection = self.allowsSelection;
+        page.allowsAnimatedImages = self.allowsAnimatedImages;
         
         return page;
     }
@@ -252,6 +255,7 @@
         PHAsset *afterAsset = [self.assets objectAtIndex:(index + 1)];
         CTAssetItemViewController *page = [CTAssetItemViewController assetItemViewControllerForAsset:afterAsset];
         page.allowsSelection = self.allowsSelection;
+        page.allowsAnimatedImages = self.allowsAnimatedImages;
         
         return page;
     }

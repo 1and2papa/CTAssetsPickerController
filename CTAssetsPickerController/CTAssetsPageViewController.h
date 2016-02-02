@@ -41,6 +41,11 @@
  */
 @property (nonatomic, assign) NSInteger pageIndex;
 
+/**
+ *  Indicates whether animated images (GIFs) can be played in full-screen preview. Animation is implemented by means of FLAnimatedImage high performance engine.
+ */
+@property (nonatomic, assign) BOOL allowsAnimatedImages;
+
 
 /**
  *  @name Creating a Assets Page View Controller

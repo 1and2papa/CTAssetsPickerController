@@ -24,4 +24,5 @@ Pod::Spec.new do |spec|
   spec.ios.frameworks        = 'Photos'
   spec.requires_arc          = true
   spec.dependency            'PureLayout', '~> 3.0.0'
+  spec.dependency            'FLAnimatedImage', '~> 1.0'
 end

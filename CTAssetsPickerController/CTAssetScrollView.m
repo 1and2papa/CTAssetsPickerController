@@ -25,13 +25,13 @@
  */
 
 #import <PureLayout/PureLayout.h>
+#import "FLAnimatedImage.h"
+#import "CTAssetAnimatedImage.h"
 #import "CTAssetScrollView.h"
 #import "CTAssetPlayButton.h"
 #import "PHAsset+CTAssetsPickerController.h"
 #import "NSBundle+CTAssetsPickerController.h"
 #import "UIImage+CTAssetsPickerController.h"
-
-
 
 
 NSString * const CTAssetScrollViewDidTapNotification = @"CTAssetScrollViewDidTapNotification";
@@ -52,7 +52,8 @@ NSString * const CTAssetScrollViewPlayerWillPauseNotification = @"CTAssetScrollV
 
 @property (nonatomic, assign) CGFloat perspectiveZoomScale;
 
-@property (nonatomic, strong) UIImageView *imageView;
+// FLAnimatedImageView is a subclass of UIImageView with support for playing GIFs
+@property (nonatomic, strong) FLAnimatedImageView *imageView;
 
 @property (nonatomic, strong) UIProgressView *progressView;
 @property (nonatomic, strong) UIActivityIndicatorView *activityView;
@@ -79,6 +80,7 @@ NSString * const CTAssetScrollViewPlayerWillPauseNotification = @"CTAssetScrollV
     {
         _shouldUpdateConstraints            = YES;
         self.allowsSelection                = NO;
+        self.allowsAnimatedImages           = NO;
         self.showsVerticalScrollIndicator   = NO;
         self.showsHorizontalScrollIndicator = NO;
         self.bouncesZoom                    = YES;
@@ -104,7 +106,11 @@ NSString * const CTAssetScrollViewPlayerWillPauseNotification = @"CTAssetScrollV
 
 - (void)setupViews
 {
-    UIImageView *imageView = [UIImageView new];
+    FLAnimatedImageView *imageView = [FLAnimatedImageView new];
+    
+    // set content mode to maintain the aspect ratio
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
+    
     imageView.isAccessibilityElement    = YES;
     imageView.accessibilityTraits       = UIAccessibilityTraitImage;
     self.imageView = imageView;
@@ -280,12 +286,16 @@ NSString * const CTAssetScrollViewPlayerWillPauseNotification = @"CTAssetScrollV
     self.playButton.hidden = [asset ctassetsPickerIsPhoto];
     
     BOOL isDegraded = [info[PHImageResultIsDegradedKey] boolValue];
-    
+
     if (self.image == nil || !isDegraded)
     {
         BOOL zoom = (!self.image);
         self.image = image;
-        self.imageView.image = image;
+
+        if([image isKindOfClass:[CTAssetAnimatedImage class]])
+            [(FLAnimatedImageView *)self.imageView  setAnimatedImage: [(CTAssetAnimatedImage *)image animatedImage]];
+        else
+            self.imageView.image = image;
         
         if (isDegraded)
             [self mimicProgress];
@@ -329,7 +339,6 @@ NSString * const CTAssetScrollViewPlayerWillPauseNotification = @"CTAssetScrollV
     
     self.player = nil;
 }
-
 
 
 #pragma mark - Upate zoom scales

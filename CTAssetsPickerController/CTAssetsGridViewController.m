@@ -79,6 +79,7 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
     if (self = [super initWithCollectionViewLayout:layout])
     {
         _imageManager = [PHCachingImageManager new];
+        _allowsAnimatedImages = NO;
         
         self.extendedLayoutIncludesOpaqueBars = YES;
         
@@ -471,6 +472,7 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
         
         CTAssetsPageViewController *vc = [[CTAssetsPageViewController alloc] initWithFetchResult:self.fetchResult];
         vc.allowsSelection = YES;
+        vc.allowsAnimatedImages = self.allowsAnimatedImages;
         vc.pageIndex = indexPath.item;
         
         [self.navigationController pushViewController:vc animated:YES];
