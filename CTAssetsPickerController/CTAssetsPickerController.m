@@ -258,11 +258,9 @@ NSString * const CTAssetsPickerDidDeselectAssetNotification = @"CTAssetsPickerDi
     svc.presentsWithGesture = NO;
     svc.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
     
-    [svc willMoveToParentViewController:self];
-    [svc setViewControllers:@[master, detail]];
+    [self addChildViewController:svc];
     [svc.view setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     [self.view addSubview:svc.view];
-    [self addChildViewController:svc];
     [svc didMoveToParentViewController:self];
 
     [vc reloadUserInterface];
@@ -270,16 +268,16 @@ NSString * const CTAssetsPickerDidDeselectAssetNotification = @"CTAssetsPickerDi
 
 - (void)setupChildViewController:(UIViewController *)vc
 {
-    [vc willMoveToParentViewController:self];
+    [self addChildViewController:vc];
     [vc.view setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     [self.view addSubview:vc.view];
-    [self addChildViewController:vc];
     [vc didMoveToParentViewController:self];
 }
 
 - (void)removeChildViewController
 {
     UIViewController *vc = self.childViewControllers.firstObject;
+    [vc willMoveToParentViewController:nil];
     [vc.view removeFromSuperview];
     [vc removeFromParentViewController];
 }
