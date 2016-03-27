@@ -301,11 +301,11 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
         
         if (changeDetails)
         {
-            self.fetchResult = [changeDetails fetchResultAfterChanges];
+            self.fetchResult = changeDetails.fetchResultAfterChanges;
             
             UICollectionView *collectionView = self.collectionView;
             
-            if (![changeDetails hasIncrementalChanges] || [changeDetails hasMoves])
+            if (!changeDetails.hasIncrementalChanges || changeDetails.hasMoves)
             {
                 [collectionView reloadData];
                 [self resetCachedAssetImages];
@@ -316,13 +316,13 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
                 NSArray *insertedPaths;
                 NSArray *changedPaths;
                 
-                NSIndexSet *removedIndexes = [changeDetails removedIndexes];
+                NSIndexSet *removedIndexes = changeDetails.removedIndexes;
                 removedPaths = [removedIndexes ctassetsPickerIndexPathsFromIndexesWithSection:0];
                 
-                NSIndexSet *insertedIndexes = [changeDetails insertedIndexes];
+                NSIndexSet *insertedIndexes = changeDetails.insertedIndexes;
                 insertedPaths = [insertedIndexes ctassetsPickerIndexPathsFromIndexesWithSection:0];
                 
-                NSIndexSet *changedIndexes = [changeDetails changedIndexes];
+                NSIndexSet *changedIndexes = changeDetails.changedIndexes;
                 changedPaths = [changedIndexes ctassetsPickerIndexPathsFromIndexesWithSection:0];
                 
                 BOOL shouldReload = NO;
@@ -353,17 +353,17 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
                 {
                     // if we have incremental diffs, tell the collection view to animate insertions and deletions
                     [collectionView performBatchUpdates:^{
-                        if ([removedPaths count])
+                        if (removedPaths.count)
                         {
                             [collectionView deleteItemsAtIndexPaths:[removedIndexes ctassetsPickerIndexPathsFromIndexesWithSection:0]];
                         }
                         
-                        if ([insertedPaths count])
+                        if (insertedPaths.count)
                         {
                             [collectionView insertItemsAtIndexPaths:[insertedIndexes ctassetsPickerIndexPathsFromIndexesWithSection:0]];
                         }
                         
-                        if ([changedPaths count])
+                        if (changedPaths.count)
                         {
                             [collectionView reloadItemsAtIndexPaths:[changedIndexes ctassetsPickerIndexPathsFromIndexesWithSection:0] ];
                         }
@@ -504,7 +504,7 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
 
 - (void)updateCachedAssetImages
 {
-    BOOL isViewVisible = [self isViewLoaded] && [[self view] window] != nil;
+    BOOL isViewVisible = [self isViewLoaded] && self.view.window != nil;
     
     if (!isViewVisible)
         return;
