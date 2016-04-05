@@ -250,6 +250,13 @@ NSString * const CTAssetsPickerDidDeselectAssetNotification = @"CTAssetsPickerDi
 {
     CTAssetCollectionViewController *vc = [CTAssetCollectionViewController new];
     CTAssetsNavigationController *master = [[CTAssetsNavigationController alloc] initWithRootViewController:vc];
+    
+    if (self.pickFromFetch) {
+        CTAssetsGridViewController *grid = [CTAssetsGridViewController new];
+        grid.pickFromFetch = self.pickFromFetch;
+        master.viewControllers = @[grid];
+    }
+    
     UINavigationController *detail = [self emptyNavigationController];
     UISplitViewController *svc  = [UISplitViewController new];
     

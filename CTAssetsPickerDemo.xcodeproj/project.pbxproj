@@ -30,6 +30,7 @@
 		ADFC004C1B54FF740024CBB9 /* CTLayoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADFC004B1B54FF740024CBB9 /* CTLayoutViewController.m */; };
 		ADFE23881B46602400E44353 /* CTProgrammaticViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADFE23871B46602400E44353 /* CTProgrammaticViewController.m */; };
 		ADFE238B1B46868100E44353 /* CTApperanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADFE238A1B46868100E44353 /* CTApperanceViewController.m */; };
+		D57946551CB452DE008C14D4 /* CTCustomFetchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D57946541CB452DE008C14D4 /* CTCustomFetchViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -185,6 +186,8 @@
 		ADFE23871B46602400E44353 /* CTProgrammaticViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTProgrammaticViewController.m; sourceTree = "<group>"; };
 		ADFE23891B46868100E44353 /* CTApperanceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTApperanceViewController.h; sourceTree = "<group>"; };
 		ADFE238A1B46868100E44353 /* CTApperanceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTApperanceViewController.m; sourceTree = "<group>"; };
+		D57946531CB452DE008C14D4 /* CTCustomFetchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTCustomFetchViewController.h; sourceTree = "<group>"; };
+		D57946541CB452DE008C14D4 /* CTCustomFetchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTCustomFetchViewController.m; sourceTree = "<group>"; };
 		F1B2FBB7FD634FB543BB7BB6 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD69CDFBA7D07D903CCC8B80 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -225,6 +228,8 @@
 				AD18AFD61BCC9BA9008B507D /* CTSelectionOrderViewController.m */,
 				ADA0730B1B4625AA009FB7C7 /* CTUITweaksViewController.h */,
 				ADA0730C1B4625AA009FB7C7 /* CTUITweaksViewController.m */,
+				D57946531CB452DE008C14D4 /* CTCustomFetchViewController.h */,
+				D57946541CB452DE008C14D4 /* CTCustomFetchViewController.m */,
 				AD4B06C91B44CD5A00D99C5A /* CTSortedAssetsViewController.h */,
 				AD4B06CA1B44CD5A00D99C5A /* CTSortedAssetsViewController.m */,
 				ADA073051B4515AF009FB7C7 /* CTPhotosViewController.h */,
@@ -423,7 +428,6 @@
 				TargetAttributes = {
 					ADD965C51AAD4C49002A26A2 = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = VE5FET45CD;
 					};
 				};
 			};
@@ -552,6 +556,7 @@
 				AD18AFD71BCC9BA9008B507D /* CTSelectionOrderViewController.m in Sources */,
 				ADFE238B1B46868100E44353 /* CTApperanceViewController.m in Sources */,
 				ADE2713C1ACBA6BA0090EFB1 /* NSIndexSet+CTAssetsPickerController.m in Sources */,
+				D57946551CB452DE008C14D4 /* CTCustomFetchViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

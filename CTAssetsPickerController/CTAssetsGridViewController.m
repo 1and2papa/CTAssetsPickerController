@@ -53,7 +53,7 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
 <PHPhotoLibraryChangeObserver>
 
 @property (nonatomic, weak) CTAssetsPickerController *picker;
-@property (nonatomic, strong) PHFetchResult *fetchResult;
+@property (nonatomic, strong) PHFetchResult<PHAsset*> *fetchResult;
 @property (nonatomic, strong) PHCachingImageManager *imageManager;
 
 @property (nonatomic, assign) CGRect previousPreheatRect;
@@ -188,15 +188,28 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
                                         target:self.picker
                                         action:@selector(finishPickingAssets:)];
     }
+    
+    if (self.pickFromFetch && self.picker.showsCancelButton) {
+        self.navigationItem.leftBarButtonItem =
+        [[UIBarButtonItem alloc] initWithTitle:CTAssetsPickerLocalizedString(@"Cancel", nil)
+                                         style:UIBarButtonItemStylePlain
+                                        target:self.picker
+                                        action:@selector(dismiss:)];
+    }
 }
 
 - (void)setupAssets
 {
-    PHFetchResult *fetchResult =
-    [PHAsset fetchAssetsInAssetCollection:self.assetCollection
-                                  options:self.picker.assetsFetchOptions];
+    if (_pickFromFetch) {
+        self.fetchResult = _pickFromFetch;
+    } else {
+        PHFetchResult *fetchResult =
+        [PHAsset fetchAssetsInAssetCollection:self.assetCollection
+                                      options:self.picker.assetsFetchOptions];
+        
+        self.fetchResult = fetchResult;
+    }
     
-    self.fetchResult = fetchResult;
     [self reloadData];
 }
 
