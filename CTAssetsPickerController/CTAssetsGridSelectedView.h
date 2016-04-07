@@ -32,8 +32,10 @@
 @property (nonatomic, assign) NSUInteger selectionIndex;
 
 @property (nonatomic, weak) UIColor *selectedBackgroundColor UI_APPEARANCE_SELECTOR;
-@property (nonatomic, weak) UIFont *font UI_APPEARANCE_SELECTOR DEPRECATED_MSG_ATTRIBUTE("Set text attributes to CTAssetSelectionLabel instead.");
-@property (nonatomic, weak) UIColor *textColor UI_APPEARANCE_SELECTOR DEPRECATED_MSG_ATTRIBUTE("Set text attributes to CTAssetSelectionLabel instead.");
 @property (nonatomic, assign) CGFloat borderWidth UI_APPEARANCE_SELECTOR;
+
+@property (nonatomic, weak) UIFont *font UI_APPEARANCE_SELECTOR DEPRECATED_MSG_ATTRIBUTE("Use setTextAttributes: of CTAssetSelectionLabel instead.");
+@property (nonatomic, weak) UIColor *textColor UI_APPEARANCE_SELECTOR DEPRECATED_MSG_ATTRIBUTE("Use setTextAttributes: of CTAssetSelectionLabel instead.");
+
 
 @end

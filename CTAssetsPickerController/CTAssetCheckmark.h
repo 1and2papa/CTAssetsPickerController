@@ -26,6 +26,25 @@
 
 #import <UIKit/UIKit.h>
 
+
+/**
+ *  The check mark to show selected asset.
+ */
 @interface CTAssetCheckmark : UIView
+
+#pragma mark Customizing Appearance
+
+/**
+ *  @name Customizing Appearance
+ */
+
+/**
+ *  To set margin of the check mark from specific edges.
+ *
+ *  @param margin The margin from the edges.
+ *  @param edgeX  The layout attribute respresents vertical edge that the check mark pins to. Either `NSLayoutAttributeLeft` or `NSLayoutAttributeRight`.
+ *  @param edgeY  The layout attribute respresents horizontal edge that the check mark pins to. Either `NSLayoutAttributeTop` or `NSLayoutAttributeBottom`.
+ */
+- (void)setMargin:(CGFloat)margin forVerticalEdge:(NSLayoutAttribute)edgeX horizontalEdge:(NSLayoutAttribute)edgeY UI_APPEARANCE_SELECTOR;
 
 @end

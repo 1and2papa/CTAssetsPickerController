@@ -33,7 +33,7 @@ iOS 9 SDK, Minimum Deployment Target iOS 8.0
 
     ````
     platform :ios, '8.0'
-    pod 'CTAssetsPickerController',  '~> 3.2.0'
+    pod 'CTAssetsPickerController',  '~> 3.3.0'
     ````
     	
 2. [Manual Setup](https://github.com/chiunam/CTAssetsPickerController/wiki/Manual-Setup-(v3))

@@ -317,33 +317,40 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
                 NSArray *changedPaths;
                 
                 NSIndexSet *removedIndexes = [changeDetails removedIndexes];
-                removedPaths = [self indexPathsFromIndexSet:removedIndexes withSection:0];
+                removedPaths = [removedIndexes ctassetsPickerIndexPathsFromIndexesWithSection:0];
                 
                 NSIndexSet *insertedIndexes = [changeDetails insertedIndexes];
-                insertedPaths = [self indexPathsFromIndexSet:insertedIndexes withSection:0];
+                insertedPaths = [insertedIndexes ctassetsPickerIndexPathsFromIndexesWithSection:0];
                 
                 NSIndexSet *changedIndexes = [changeDetails changedIndexes];
-                changedPaths = [self indexPathsFromIndexSet:changedIndexes withSection:0];
+                changedPaths = [changedIndexes ctassetsPickerIndexPathsFromIndexesWithSection:0];
                 
                 BOOL shouldReload = NO;
                 
-                if (changedPaths != nil && removedPaths != nil) {
-                    for (NSIndexPath *changedPath in changedPaths) {
-                        if ([removedPaths containsObject:changedPath]) {
+                if (changedPaths != nil && removedPaths != nil)
+                {
+                    for (NSIndexPath *changedPath in changedPaths)
+                    {
+                        if ([removedPaths containsObject:changedPath])
+                        {
                             shouldReload = YES;
                             break;
                         }
                     }
                 }
                 
-                if (removedPaths.lastObject && ((NSIndexPath *)removedPaths.lastObject).item >= self.fetchResult.count) {
+                if (removedPaths.lastObject && ((NSIndexPath *)removedPaths.lastObject).item >= self.fetchResult.count)
+                {
                     shouldReload = YES;
                 }
                 
-                if (shouldReload) {
+                if (shouldReload)
+                {
                     [collectionView reloadData];
                     
-                } else {
+                }
+                else
+                {
                     // if we have incremental diffs, tell the collection view to animate insertions and deletions
                     [collectionView performBatchUpdates:^{
                         if ([removedPaths count])
@@ -381,18 +388,6 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
     });
 }
 
-- (NSArray *)indexPathsFromIndexSet:(NSIndexSet *)indexSet withSection:(int)section {
-    if (indexSet == nil) {
-        return nil;
-    }
-    NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
-    
-    [indexSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-        [indexPaths addObject:[NSIndexPath indexPathForItem:idx inSection:section]];
-    }];
-    
-    return indexPaths;
-}
 
 #pragma mark - Selected assets changed
 

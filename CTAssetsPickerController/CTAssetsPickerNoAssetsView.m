@@ -110,8 +110,11 @@
     if (!self.didSetupConstraints)
     {
         [self autoCenterInSuperview];
-        [self autoPinEdgeToSuperviewMargin:ALEdgeLeading];
-        [self autoPinEdgeToSuperviewMargin:ALEdgeTrailing];
+        
+        // suggested solution for issue #176
+        [self autoPinEdgeToSuperviewEdge:ALEdgeLeading withInset:self.layoutMargins.top];
+        [self autoPinEdgeToSuperviewEdge:ALEdgeTrailing withInset:self.layoutMargins.bottom];
+        
         
         [self.title autoAlignAxisToSuperviewAxis:ALAxisVertical];
         [self.title autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeBottom];

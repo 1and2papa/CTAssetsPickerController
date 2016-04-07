@@ -512,7 +512,7 @@
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
         nav.delegate = (id<UINavigationControllerDelegate>)self.picker;
         
-        [self.picker setShouldCollapseDetailViewController:NO];        
+        [self.picker setShouldCollapseDetailViewController:(self.picker.modalPresentationStyle == UIModalPresentationFormSheet)];
         [self.splitViewController showDetailViewController:nav sender:nil];
 
         NSIndexPath *indexPath = [self indexPathForAssetCollection:self.defaultAssetCollection];
