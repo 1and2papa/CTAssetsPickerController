@@ -211,6 +211,13 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
     CGSize contentSize = self.view.bounds.size;
     UICollectionViewLayout *layout;
 
+    NSArray *attributes = [self.collectionView.collectionViewLayout layoutAttributesForElementsInRect:self.collectionView.bounds];
+    UICollectionViewLayoutAttributes *attr = (UICollectionViewLayoutAttributes*)attributes.firstObject;
+    // new content size should be at least of first item size, else ignoring
+    if (contentSize.width < attr.size.width || contentSize.height < attr.size.height) {
+        return;
+    }
+
     if ([self.picker.delegate respondsToSelector:@selector(assetsPickerController:collectionViewLayoutForContentSize:traitCollection:)]) {
         layout = [self.picker.delegate assetsPickerController:self.picker collectionViewLayoutForContentSize:contentSize traitCollection:trait];
     } else {
