@@ -30,7 +30,7 @@
 
 @interface CTAssetThumbnailOverlay : UIView
 
-- (void)bind:(PHAsset *)asset duration:(NSString *)duration;
-- (void)bind:(PHAssetCollection *)assetCollection;
+- (void)bind:(nullable PHAsset *)asset duration:(nullable NSString *)duration;
+- (void)bind:(nullable PHAssetCollection *)assetCollection;
 
 @end

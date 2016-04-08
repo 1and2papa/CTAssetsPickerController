@@ -112,7 +112,7 @@
 
 - (void)setSelected:(BOOL)selected
 {
-    [super setSelected:selected];
+    super.selected = selected;
     self.checkmark.hidden = !selected;
     
     self.accessibilityLabel = (selected) ? CTAssetsPickerLocalizedString(@"Deselect", nil) : CTAssetsPickerLocalizedString(@"Select", nil);

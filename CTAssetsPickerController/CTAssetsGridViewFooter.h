@@ -30,9 +30,9 @@
 
 @interface CTAssetsGridViewFooter : UICollectionReusableView
 
-@property (nonatomic, weak) UIFont *font UI_APPEARANCE_SELECTOR;
-@property (nonatomic, weak) UIColor *textColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, weak, nullable) UIFont *font UI_APPEARANCE_SELECTOR;
+@property (nonatomic, weak, nullable) UIColor *textColor UI_APPEARANCE_SELECTOR;
 
-- (void)bind:(PHFetchResult *)result;
+- (void)bind:(nonnull PHFetchResult *)result;
 
 @end

@@ -197,7 +197,7 @@
                                   
                                   dispatch_async(dispatch_get_main_queue(), ^{
                                   
-                                      NSError *error = [info objectForKey:PHImageErrorKey];
+                                      NSError *error = info[PHImageErrorKey];
                                       
                                       if (error)
                                           [self showRequestImageError:error title:nil];
@@ -242,7 +242,7 @@
                                    resultHandler:^(AVPlayerItem *playerItem, NSDictionary *info) {
                                        dispatch_async(dispatch_get_main_queue(), ^{
                                            
-                                           NSError *error   = [info objectForKey:PHImageErrorKey];
+                                           NSError *error   = info[PHImageErrorKey];
                                            NSString * title = CTAssetsPickerLocalizedString(@"Cannot Play Stream Video", nil);
                                            
                                            if (error)

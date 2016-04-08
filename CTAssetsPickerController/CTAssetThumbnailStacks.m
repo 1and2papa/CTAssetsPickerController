@@ -129,7 +129,7 @@
 
 - (CTAssetThumbnailView *)thumbnailAtIndex:(NSUInteger)index
 {
-    return [self.thumbnailViews objectAtIndex:index];
+    return self.thumbnailViews[index];
 }
 
 - (void)setHighlighted:(BOOL)highlighted

@@ -82,7 +82,7 @@
 
 - (NSString *)deviceModel
 {
-    return [[UIDevice currentDevice] model];
+    return [UIDevice currentDevice].model;
 }
 
 - (BOOL)isCameraDeviceAvailable

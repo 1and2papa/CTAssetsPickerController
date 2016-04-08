@@ -201,7 +201,7 @@
     
     if (pageIndex >= 0 && pageIndex < count)
     {
-        PHAsset *asset = [self.assets objectAtIndex:pageIndex];
+        PHAsset *asset = self.assets[pageIndex];
         
         CTAssetItemViewController *page = [CTAssetItemViewController assetItemViewControllerForAsset:asset];
         page.allowsSelection = self.allowsSelection;
@@ -231,7 +231,7 @@
     
     if (index > 0)
     {
-        PHAsset *beforeAsset = [self.assets objectAtIndex:(index - 1)];
+        PHAsset *beforeAsset = self.assets[(index - 1)];
         CTAssetItemViewController *page = [CTAssetItemViewController assetItemViewControllerForAsset:beforeAsset];
         page.allowsSelection = self.allowsSelection;
         
@@ -249,7 +249,7 @@
     
     if (index < count - 1)
     {
-        PHAsset *afterAsset = [self.assets objectAtIndex:(index + 1)];
+        PHAsset *afterAsset = self.assets[(index + 1)];
         CTAssetItemViewController *page = [CTAssetItemViewController assetItemViewControllerForAsset:afterAsset];
         page.allowsSelection = self.allowsSelection;
         
@@ -373,21 +373,21 @@
     self.statusBarHidden = NO;
     
     [nav setNavigationBarHidden:NO];
-    [nav.navigationBar setAlpha:0.0f];
+    nav.navigationBar.alpha = 0.0f;
     
     if ([self.asset ctassetsPickerIsVideo])
     {
         [nav setToolbarHidden:NO];
-        [nav.toolbar setAlpha:0.0f];
+        nav.toolbar.alpha = 0.0f;
     }
     
     [UIView animateWithDuration:0.2
                      animations:^{
                          [self setNeedsStatusBarAppearanceUpdate];
-                         [nav.navigationBar setAlpha:1.0f];
+                         nav.navigationBar.alpha = 1.0f;
                          
                          if ([self.asset ctassetsPickerIsVideo])
-                             [nav.toolbar setAlpha:1.0f];
+                             nav.toolbar.alpha = 1.0f;
                      }];
 }
 
@@ -400,8 +400,8 @@
                          [self setNeedsStatusBarAppearanceUpdate];
                          [nav setNavigationBarHidden:YES animated:NO];
                          [nav setToolbarHidden:YES animated:NO];
-                         [nav.navigationBar setAlpha:0.0f];
-                         [nav.toolbar setAlpha:0.0f];
+                         nav.navigationBar.alpha = 0.0f;
+                         nav.toolbar.alpha = 0.0f;
                      }];
 }
 

@@ -309,8 +309,7 @@
                 if (!updatedFetchResults)
                     updatedFetchResults = [self.fetchResults mutableCopy];
                 
-                [updatedFetchResults replaceObjectAtIndex:[self.fetchResults indexOfObject:fetchResult]
-                                               withObject:[changeDetails fetchResultAfterChanges]];
+                updatedFetchResults[[self.fetchResults indexOfObject:fetchResult]] = changeDetails.fetchResultAfterChanges;
             }
         }
         

@@ -28,6 +28,6 @@
 
 @interface CTAssetsGridView : UIView
 
-@property (nonatomic, weak) UIColor *gridBackgroundColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, weak, nullable) UIColor *gridBackgroundColor UI_APPEARANCE_SELECTOR;
 
 @end

@@ -188,9 +188,9 @@
  */
 - (void)setTextAttributes:(NSDictionary *)textAttributes
 {
-    self.font  = (textAttributes) ? [textAttributes objectForKey:NSFontAttributeName] : CTAssetLabelFont;
-    self.textColor = (textAttributes) ? [textAttributes objectForKey:NSForegroundColorAttributeName] : CTAssetLabelTextColor;
-    self.backgroundColor = (textAttributes) ? [textAttributes objectForKey:NSBackgroundColorAttributeName] : CTAssetLabelBackgroundColor;
+    self.font  = (textAttributes) ? textAttributes[NSFontAttributeName] : CTAssetLabelFont;
+    self.textColor = (textAttributes) ? textAttributes[NSForegroundColorAttributeName] : CTAssetLabelTextColor;
+    self.backgroundColor = (textAttributes) ? textAttributes[NSBackgroundColorAttributeName] : CTAssetLabelBackgroundColor;
 }
 
 
