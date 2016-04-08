@@ -55,7 +55,7 @@
 {
     UIView *containerView = [transitionContext containerView];
     
-    UIColor *backgroundColor = [[CTAssetsPageView appearance] pageBackgroundColor];
+    UIColor *backgroundColor = [CTAssetsPageView appearance].pageBackgroundColor;
     containerView.backgroundColor = (backgroundColor) ? backgroundColor : CTAssetsPageViewPageBackgroundColor;
 
     if (self.operation == UINavigationControllerOperationPush)

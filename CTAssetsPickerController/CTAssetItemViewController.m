@@ -31,6 +31,7 @@
 #import "CTAssetScrollView.h"
 #import "NSBundle+CTAssetsPickerController.h"
 #import "PHAsset+CTAssetsPickerController.h"
+#import "PHImageManager+CTAssetsPickerController.h"
 
 
 
@@ -185,7 +186,7 @@
     PHImageRequestOptions *options = [self imageRequestOptions];
     
     self.imageRequestID =
-    [self.imageManager requestImageForAsset:self.asset
+    [self.imageManager ctassetsPickerRequestImageForAsset:self.asset
                                  targetSize:targetSize
                                 contentMode:PHImageContentModeAspectFit
                                     options:options
@@ -196,7 +197,7 @@
                                   
                                   dispatch_async(dispatch_get_main_queue(), ^{
                                   
-                                      NSError *error = [info objectForKey:PHImageErrorKey];
+                                      NSError *error = info[PHImageErrorKey];
                                       
                                       if (error)
                                           [self showRequestImageError:error title:nil];
@@ -241,7 +242,7 @@
                                    resultHandler:^(AVPlayerItem *playerItem, NSDictionary *info) {
                                        dispatch_async(dispatch_get_main_queue(), ^{
                                            
-                                           NSError *error   = [info objectForKey:PHImageErrorKey];
+                                           NSError *error   = info[PHImageErrorKey];
                                            NSString * title = CTAssetsPickerLocalizedString(@"Cannot Play Stream Video", nil);
                                            
                                            if (error)

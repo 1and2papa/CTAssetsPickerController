@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B3423A81CB6E9C7003509E0 /* PHImageManager+CTAssetsPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B3423A71CB6E9C7003509E0 /* PHImageManager+CTAssetsPickerController.m */; };
 		363F8D0A685BF86C60D06D49 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1B2FBB7FD634FB543BB7BB6 /* Pods.framework */; };
 		AD0786D91B428313003C8863 /* CTBasicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0786D81B428313003C8863 /* CTBasicViewController.m */; };
 		AD0786DF1B42864F003C8863 /* CTSelectedAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0786DE1B42864F003C8863 /* CTSelectedAssetsViewController.m */; };
@@ -32,7 +33,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0B3423A61CB6E9C7003509E0 /* PHImageManager+CTAssetsPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PHImageManager+CTAssetsPickerController.h"; sourceTree = "<group>"; };
+		0B3423A71CB6E9C7003509E0 /* PHImageManager+CTAssetsPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PHImageManager+CTAssetsPickerController.m"; sourceTree = "<group>"; };
 		408BD0916F5C7C71C93D0E93 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		969CB85D1C9C3ADF002687B5 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		969CB85E1C9C3ADF002687B5 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/CTAssetsPicker.strings; sourceTree = "<group>"; };
 		A741BBA21B5F7A8C00ED3D7B /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		A741BBA31B5F7A8C00ED3D7B /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/CTAssetsPicker.strings; sourceTree = "<group>"; };
 		A741BBA41B5F9AB500ED3D7B /* nl-NL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nl-NL"; path = "nl-NL.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
@@ -360,6 +365,8 @@
 				AD30D7F71AAE9D0400C79E3D /* NSNumberFormatter+CTAssetsPickerController.m */,
 				ADD965FE1AAD5780002A26A2 /* NSDateFormatter+CTAssetsPickerController.h */,
 				ADD965FF1AAD5780002A26A2 /* NSDateFormatter+CTAssetsPickerController.m */,
+				0B3423A61CB6E9C7003509E0 /* PHImageManager+CTAssetsPickerController.h */,
+				0B3423A71CB6E9C7003509E0 /* PHImageManager+CTAssetsPickerController.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -448,6 +455,7 @@
 				nl,
 				"nl-NL",
 				sv,
+				tr,
 			);
 			mainGroup = ADD965BD1AAD4C49002A26A2;
 			productRefGroup = ADD965C71AAD4C49002A26A2 /* Products */;
@@ -538,6 +546,7 @@
 				ADA073101B462C98009FB7C7 /* CTLastWeekViewController.m in Sources */,
 				AD4B06C81B428EEF00D99C5A /* CTiCloudAlbumsViewController.m in Sources */,
 				AD0786E21B428A73003C8863 /* CTDefaultAlbumViewController.m in Sources */,
+				0B3423A81CB6E9C7003509E0 /* PHImageManager+CTAssetsPickerController.m in Sources */,
 				AD0786D91B428313003C8863 /* CTBasicViewController.m in Sources */,
 				ADA0730D1B4625AA009FB7C7 /* CTUITweaksViewController.m in Sources */,
 				AD18AFD71BCC9BA9008B507D /* CTSelectionOrderViewController.m in Sources */,
@@ -575,6 +584,7 @@
 				A741BBA21B5F7A8C00ED3D7B /* nl */,
 				A741BBA41B5F9AB500ED3D7B /* nl-NL */,
 				ADB0121A1BD9C6B400D985F9 /* sv */,
+				969CB85D1C9C3ADF002687B5 /* tr */,
 			);
 			name = LaunchScreen.xib;
 			sourceTree = "<group>";
@@ -604,6 +614,7 @@
 				A741BBA31B5F7A8C00ED3D7B /* nl */,
 				A741BBA51B5F9AB500ED3D7B /* nl-NL */,
 				ADB0121B1BD9C6B400D985F9 /* sv */,
+				969CB85E1C9C3ADF002687B5 /* tr */,
 			);
 			name = CTAssetsPicker.strings;
 			sourceTree = "<group>";
@@ -700,6 +711,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -714,6 +726,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
