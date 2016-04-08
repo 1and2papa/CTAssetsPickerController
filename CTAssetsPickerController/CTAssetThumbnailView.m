@@ -95,9 +95,9 @@
 
 -(void)setBounds:(CGRect)bounds
 {
-    [super setBounds:bounds];
+    super.bounds = bounds;
     
-    [self.overlay setFrame:bounds];
+    self.overlay.frame = bounds;
     [self.overlay setNeedsDisplay];
 }
 

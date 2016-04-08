@@ -25,6 +25,7 @@
  */
 
 #import "CTBasicViewController.h"
+#import "PHImageManager+CTAssetsPickerController.h"
 
 
 #define tableViewRowHeight 80.0f
@@ -138,7 +139,7 @@
     CGFloat scale = UIScreen.mainScreen.scale;
     CGSize targetSize = CGSizeMake(tableViewRowHeight * scale, tableViewRowHeight * scale);
 
-    [manager requestImageForAsset:asset
+    [manager ctassetsPickerRequestImageForAsset:asset
                        targetSize:targetSize
                       contentMode:PHImageContentModeAspectFill
                           options:self.requestOptions

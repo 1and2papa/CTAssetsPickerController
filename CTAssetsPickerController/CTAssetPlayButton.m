@@ -173,7 +173,7 @@
 
 - (void)setHighlighted:(BOOL)highlighted
 {
-    [super setHighlighted:highlighted];
+    super.highlighted = highlighted;
     self.highlightedView.hidden = !highlighted;
 }
 

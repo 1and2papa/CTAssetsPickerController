@@ -29,6 +29,7 @@
 #import <Photos/Photos.h>
 
 
+NS_ASSUME_NONNULL_BEGIN
 
 @protocol CTAssetsPickerControllerDelegate;
 
@@ -48,7 +49,7 @@
  *  You can specify which albums and their order to be shown in the picker by creating an `NSArray` of `NSNumber`
  *  that containing the value of `PHAssetCollectionSubtype`.
  */
-@property (nonatomic, copy) NSArray *assetCollectionSubtypes;
+@property (nonatomic, copy) NSArray<NSNumber*> *assetCollectionSubtypes;
 
 /**
  *  Set the `defaultAssetCollection` to specify which asset collection (album) is the default asset collection.
@@ -202,7 +203,7 @@
  *
  *  @see assetsPickerControllerDidCancel:
  */
-- (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets;
+- (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray<PHAsset*> *)assets;
 
 @optional
 
@@ -376,3 +377,5 @@ extern NSString * const CTAssetsPickerDidDeselectAssetNotification;
 
 
 @end
+
+NS_ASSUME_NONNULL_END

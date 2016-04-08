@@ -94,6 +94,6 @@
  *
  *  @param textAttributes The text attributes used to display the label.
  */
-- (void)setTextAttributes:(NSDictionary *)textAttributes UI_APPEARANCE_SELECTOR;
+- (void)setTextAttributes:(NSDictionary<NSString*, id> *)textAttributes UI_APPEARANCE_SELECTOR;
 
 @end

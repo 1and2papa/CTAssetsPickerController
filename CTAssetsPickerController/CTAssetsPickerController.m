@@ -126,30 +126,30 @@ NSString * const CTAssetsPickerDidDeselectAssetNotification = @"CTAssetsPickerDi
 - (void)initAssetCollectionSubtypes
 {
     _assetCollectionSubtypes =
-    @[[NSNumber numberWithInt:PHAssetCollectionSubtypeSmartAlbumUserLibrary],
-      [NSNumber numberWithInt:PHAssetCollectionSubtypeAlbumMyPhotoStream],
-      [NSNumber numberWithInt:PHAssetCollectionSubtypeSmartAlbumRecentlyAdded],
-      [NSNumber numberWithInt:PHAssetCollectionSubtypeSmartAlbumFavorites],
-      [NSNumber numberWithInt:PHAssetCollectionSubtypeSmartAlbumPanoramas],
-      [NSNumber numberWithInt:PHAssetCollectionSubtypeSmartAlbumVideos],
-      [NSNumber numberWithInt:PHAssetCollectionSubtypeSmartAlbumSlomoVideos],
-      [NSNumber numberWithInt:PHAssetCollectionSubtypeSmartAlbumTimelapses],
-      [NSNumber numberWithInt:PHAssetCollectionSubtypeSmartAlbumBursts],
-      [NSNumber numberWithInt:PHAssetCollectionSubtypeSmartAlbumAllHidden],
-      [NSNumber numberWithInt:PHAssetCollectionSubtypeSmartAlbumGeneric],
-      [NSNumber numberWithInt:PHAssetCollectionSubtypeAlbumRegular],
-      [NSNumber numberWithInt:PHAssetCollectionSubtypeAlbumSyncedAlbum],
-      [NSNumber numberWithInt:PHAssetCollectionSubtypeAlbumSyncedEvent],
-      [NSNumber numberWithInt:PHAssetCollectionSubtypeAlbumSyncedFaces],
-      [NSNumber numberWithInt:PHAssetCollectionSubtypeAlbumImported],
-      [NSNumber numberWithInt:PHAssetCollectionSubtypeAlbumCloudShared]];
+    @[@(PHAssetCollectionSubtypeSmartAlbumUserLibrary),
+      @(PHAssetCollectionSubtypeAlbumMyPhotoStream),
+      @(PHAssetCollectionSubtypeSmartAlbumRecentlyAdded),
+      @(PHAssetCollectionSubtypeSmartAlbumFavorites),
+      @(PHAssetCollectionSubtypeSmartAlbumPanoramas),
+      @(PHAssetCollectionSubtypeSmartAlbumVideos),
+      @(PHAssetCollectionSubtypeSmartAlbumSlomoVideos),
+      @(PHAssetCollectionSubtypeSmartAlbumTimelapses),
+      @(PHAssetCollectionSubtypeSmartAlbumBursts),
+      @(PHAssetCollectionSubtypeSmartAlbumAllHidden),
+      @(PHAssetCollectionSubtypeSmartAlbumGeneric),
+      @(PHAssetCollectionSubtypeAlbumRegular),
+      @(PHAssetCollectionSubtypeAlbumSyncedAlbum),
+      @(PHAssetCollectionSubtypeAlbumSyncedEvent),
+      @(PHAssetCollectionSubtypeAlbumSyncedFaces),
+      @(PHAssetCollectionSubtypeAlbumImported),
+      @(PHAssetCollectionSubtypeAlbumCloudShared)];
     
     // Add iOS 9's new albums
     if ([[PHAsset new] respondsToSelector:@selector(sourceType)])
     {
         NSMutableArray *subtypes = [NSMutableArray arrayWithArray:self.assetCollectionSubtypes];
-        [subtypes insertObject:[NSNumber numberWithInt:PHAssetCollectionSubtypeSmartAlbumSelfPortraits] atIndex:4];
-        [subtypes insertObject:[NSNumber numberWithInt:PHAssetCollectionSubtypeSmartAlbumScreenshots] atIndex:10];
+        [subtypes insertObject:@(PHAssetCollectionSubtypeSmartAlbumSelfPortraits) atIndex:4];
+        [subtypes insertObject:@(PHAssetCollectionSubtypeSmartAlbumScreenshots) atIndex:10];
         
         self.assetCollectionSubtypes = [NSArray arrayWithArray:subtypes];
     }
@@ -261,11 +261,9 @@ NSString * const CTAssetsPickerDidDeselectAssetNotification = @"CTAssetsPickerDi
     svc.presentsWithGesture = NO;
     svc.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
     
-    [svc willMoveToParentViewController:self];
-    [svc setViewControllers:@[master, detail]];
-    [svc.view setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-    [self.view addSubview:svc.view];
     [self addChildViewController:svc];
+    svc.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    [self.view addSubview:svc.view];
     [svc didMoveToParentViewController:self];
 
     [vc reloadUserInterface];
@@ -273,16 +271,16 @@ NSString * const CTAssetsPickerDidDeselectAssetNotification = @"CTAssetsPickerDi
 
 - (void)setupChildViewController:(UIViewController *)vc
 {
-    [vc willMoveToParentViewController:self];
-    [vc.view setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-    [self.view addSubview:vc.view];
     [self addChildViewController:vc];
+    vc.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    [self.view addSubview:vc.view];
     [vc didMoveToParentViewController:self];
 }
 
 - (void)removeChildViewController
 {
     UIViewController *vc = self.childViewControllers.firstObject;
+    [vc willMoveToParentViewController:nil];
     [vc.view removeFromSuperview];
     [vc removeFromParentViewController];
 }
@@ -425,7 +423,7 @@ NSString * const CTAssetsPickerDidDeselectAssetNotification = @"CTAssetsPickerDi
         {
             PHObjectChangeDetails *changeDetails = [changeInstance changeDetailsForObject:asset];
     
-            if ([changeDetails objectWasDeleted])
+            if (changeDetails.objectWasDeleted)
                 [deselectAssets addObject:asset];
         }
         
@@ -491,7 +489,7 @@ NSString * const CTAssetsPickerDidDeselectAssetNotification = @"CTAssetsPickerDi
 
 - (instancetype)objectInSelectedAssetsAtIndex:(NSUInteger)index
 {
-    return [self.selectedAssets objectAtIndex:index];
+    return self.selectedAssets[index];
 }
 
 - (void)insertObject:(id)object inSelectedAssetsAtIndex:(NSUInteger)index
@@ -506,7 +504,7 @@ NSString * const CTAssetsPickerDidDeselectAssetNotification = @"CTAssetsPickerDi
 
 - (void)replaceObjectInSelectedAssetsAtIndex:(NSUInteger)index withObject:(PHAsset *)object
 {
-    [self.selectedAssets replaceObjectAtIndex:index withObject:object];
+    self.selectedAssets[index] = object;
 }
 
 

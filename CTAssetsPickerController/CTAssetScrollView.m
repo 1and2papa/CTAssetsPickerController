@@ -241,10 +241,10 @@ NSString * const CTAssetScrollViewPlayerWillPauseNotification = @"CTAssetScrollV
 - (void)setProgress:(CGFloat)progress
 {
 #if !defined(CT_APP_EXTENSIONS)
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:(progress < 1)];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = progress < 1;
 #endif
     [self.progressView setProgress:progress animated:(progress < 1)];
-    [self.progressView setHidden:(progress == 1)];
+    self.progressView.hidden = progress == 1;
 }
 
 // To mimic image downloading progress
@@ -321,7 +321,7 @@ NSString * const CTAssetScrollViewPlayerWillPauseNotification = @"CTAssetScrollV
 
     CALayer *layer = self.imageView.layer;
     [layer addSublayer:playerLayer];
-    [playerLayer setFrame:layer.bounds];
+    playerLayer.frame = layer.bounds;
     
     self.player = player;
 
@@ -496,11 +496,11 @@ NSString * const CTAssetScrollViewPlayerWillPauseNotification = @"CTAssetScrollV
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapping:)];
     UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapping:)];
     
-    [doubleTap setNumberOfTapsRequired:2.0];
+    doubleTap.numberOfTapsRequired = 2.0;
     [singleTap requireGestureRecognizerToFail:doubleTap];
     
-    [singleTap setDelegate:self];
-    [doubleTap setDelegate:self];
+    singleTap.delegate = self;
+    doubleTap.delegate = self;
     
     [self addGestureRecognizer:singleTap];
     [self addGestureRecognizer:doubleTap];
@@ -532,7 +532,7 @@ NSString * const CTAssetScrollViewPlayerWillPauseNotification = @"CTAssetScrollV
 
 - (void)scrollViewDidZoom:(UIScrollView *)scrollView
 {
-    [self setScrollEnabled:(self.zoomScale != self.perspectiveZoomScale)];
+    self.scrollEnabled = self.zoomScale != self.perspectiveZoomScale;
     
     if (self.shouldUpdateConstraints)
     {
@@ -616,9 +616,9 @@ NSString * const CTAssetScrollViewPlayerWillPauseNotification = @"CTAssetScrollV
 {
     if (object == self.player && [keyPath isEqual:@"currentItem.loadedTimeRanges"])
     {
-        NSArray *timeRanges = [change objectForKey:NSKeyValueChangeNewKey];
+        NSArray *timeRanges = change[NSKeyValueChangeNewKey];
 
-        if (timeRanges && [timeRanges count])
+        if (timeRanges && timeRanges.count)
         {
             CMTimeRange timeRange = [timeRanges.firstObject CMTimeRangeValue];
             

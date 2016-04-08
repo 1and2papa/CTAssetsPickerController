@@ -32,6 +32,7 @@
 #import "CTAssetsGridViewController.h"
 #import "PHAssetCollection+CTAssetsPickerController.h"
 #import "PHAsset+CTAssetsPickerController.h"
+#import "PHImageManager+CTAssetsPickerController.h"
 #import "NSBundle+CTAssetsPickerController.h"
 
 
@@ -310,8 +311,7 @@
                 if (!updatedFetchResults)
                     updatedFetchResults = [self.fetchResults mutableCopy];
                 
-                [updatedFetchResults replaceObjectAtIndex:[self.fetchResults indexOfObject:fetchResult]
-                                               withObject:[changeDetails fetchResultAfterChanges]];
+                updatedFetchResults[[self.fetchResults indexOfObject:fetchResult]] = changeDetails.fetchResultAfterChanges;
             }
         }
         
@@ -442,7 +442,7 @@
         if (index < assets.count)
         {
             PHAsset *asset = assets[index];
-            [self.imageManager requestImageForAsset:asset
+            [self.imageManager ctassetsPickerRequestImageForAsset:asset
                                          targetSize:targetSize
                                         contentMode:PHImageContentModeAspectFill
                                             options:self.picker.thumbnailRequestOptions
@@ -516,7 +516,7 @@
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
         nav.delegate = (id<UINavigationControllerDelegate>)self.picker;
         
-        [self.picker setShouldCollapseDetailViewController:NO];        
+        [self.picker setShouldCollapseDetailViewController:(self.picker.modalPresentationStyle == UIModalPresentationFormSheet)];
         [self.splitViewController showDetailViewController:nav sender:nil];
 
         NSIndexPath *indexPath = [self indexPathForAssetCollection:self.defaultAssetCollection];

@@ -244,7 +244,7 @@ typedef NS_ENUM(NSUInteger, CTAssetRequestAnimatedImageMode) {
     PHImageRequestOptions *options = [self imageRequestOptions];
     
     self.imageRequestID =
-    [self.imageManager requestImageForAsset:self.asset
+    [self.imageManager ctassetsPickerRequestImageForAsset:self.asset
                                  targetSize:targetSize
                                 contentMode:PHImageContentModeAspectFit
                                     options:options
@@ -255,7 +255,7 @@ typedef NS_ENUM(NSUInteger, CTAssetRequestAnimatedImageMode) {
 
                                   dispatch_async(dispatch_get_main_queue(), ^{
                                   
-                                      NSError *error = [info objectForKey:PHImageErrorKey];
+                                      NSError *error = info[PHImageErrorKey];
                                       
                                       if (error)
                                           [self showRequestImageError:error title:nil];
@@ -381,7 +381,7 @@ typedef NS_ENUM(NSUInteger, CTAssetRequestAnimatedImageMode) {
                                    resultHandler:^(AVPlayerItem *playerItem, NSDictionary *info) {
                                        dispatch_async(dispatch_get_main_queue(), ^{
                                            
-                                           NSError *error   = [info objectForKey:PHImageErrorKey];
+                                           NSError *error   = info[PHImageErrorKey];
                                            NSString * title = CTAssetsPickerLocalizedString(@"Cannot Play Stream Video", nil);
                                            
                                            if (error)

@@ -123,7 +123,7 @@
     for (CTAssetThumbnailView *thumbnailView in self.thumbnailStacks.thumbnailViews)
     {
         [thumbnailView bind:nil assetCollection:nil];
-        [thumbnailView setBackgroundImage:image];
+        thumbnailView.backgroundImage = image;
     }
 }
 
@@ -292,12 +292,12 @@
     
     [self setupPlaceholderImage];
 
-    [self.titleLabel setText:collection.localizedTitle];
+    self.titleLabel.text = collection.localizedTitle;
     
     if (count != NSNotFound)
     {
         NSNumberFormatter *nf = [NSNumberFormatter new];
-        [self.countLabel setText:[nf ctassetsPickerStringFromAssetsCount:count]];
+        self.countLabel.text = [nf ctassetsPickerStringFromAssetsCount:count];
     }
     
     [self setNeedsUpdateConstraints];

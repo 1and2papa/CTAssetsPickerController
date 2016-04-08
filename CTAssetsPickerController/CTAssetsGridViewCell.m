@@ -137,13 +137,13 @@
 
 - (void)setHighlighted:(BOOL)highlighted
 {
-    [super setHighlighted:highlighted];
+    super.highlighted = highlighted;
     self.highlightedView.hidden = !highlighted;
 }
 
 - (void)setSelected:(BOOL)selected
 {
-    [super setSelected:selected];
+    super.selected = selected;
     self.selectedView.hidden = !selected;
 }
 

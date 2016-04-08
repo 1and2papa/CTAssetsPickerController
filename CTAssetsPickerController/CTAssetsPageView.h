@@ -28,8 +28,8 @@
 
 @interface CTAssetsPageView : UIView
 
-@property (nonatomic, strong) UIColor *pageBackgroundColor UI_APPEARANCE_SELECTOR;
-@property (nonatomic, strong) UIColor *fullscreenBackgroundColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong, nullable) UIColor *pageBackgroundColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong, nullable) UIColor *fullscreenBackgroundColor UI_APPEARANCE_SELECTOR;
 
 - (void)enterFullscreen;
 - (void)exitFullscreen;

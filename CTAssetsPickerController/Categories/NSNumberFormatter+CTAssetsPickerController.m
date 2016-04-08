@@ -32,7 +32,7 @@
 {
     self.numberStyle = NSNumberFormatterDecimalStyle;
     self.locale = [NSLocale currentLocale];
-    return [self stringFromNumber:[NSNumber numberWithUnsignedInteger:count]];
+    return [self stringFromNumber:@(count)];
 }
 
 @end
