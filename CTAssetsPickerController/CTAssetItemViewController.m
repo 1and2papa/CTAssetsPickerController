@@ -31,6 +31,7 @@
 #import "CTAssetScrollView.h"
 #import "NSBundle+CTAssetsPickerController.h"
 #import "PHAsset+CTAssetsPickerController.h"
+#import "PHImageManager+CTAssetsPickerController.h"
 #import "CTAssetAnimatedImage.h"
 
 

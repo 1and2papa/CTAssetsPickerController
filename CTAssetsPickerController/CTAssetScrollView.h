@@ -29,7 +29,7 @@
 #import "CTAssetPlayButton.h"
 #import "CTAssetSelectionButton.h"
 
-
+NS_ASSUME_NONNULL_BEGIN
 
 extern NSString * const CTAssetScrollViewDidTapNotification;
 extern NSString * const CTAssetScrollViewPlayerWillPlayNotification;

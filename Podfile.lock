@@ -1,6 +1,8 @@
 PODS:
-  - CTAssetsPickerController (3.3.1):
+  - CTAssetsPickerController (3.3.2-alpha):
+    - FLAnimatedImage (~> 1.0)
     - PureLayout (~> 3.0.0)
+  - FLAnimatedImage (1.0.12)
   - PureLayout (3.0.1)
 
 DEPENDENCIES:
@@ -8,10 +10,11 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   CTAssetsPickerController:
-    :path: .
+    :path: "."
 
 SPEC CHECKSUMS:
-  CTAssetsPickerController: b1d1d50ab87cf6b8b13531de5f4530482e7e53ed
+  CTAssetsPickerController: c0cd3a15e83ca87f61dcc95d872040f933b6740e
+  FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   PureLayout: f35f5384c9c4e4479df041dbe33ad7577b71ddfb
 
 COCOAPODS: 0.39.0
