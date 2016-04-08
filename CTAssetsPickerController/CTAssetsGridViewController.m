@@ -39,6 +39,7 @@
 #import "UICollectionView+CTAssetsPickerController.h"
 #import "NSIndexSet+CTAssetsPickerController.h"
 #import "NSBundle+CTAssetsPickerController.h"
+#import "PHImageManager+CTAssetsPickerController.h"
 
 
 
@@ -693,7 +694,7 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
     NSInteger tag = cell.tag + 1;
     cell.tag = tag;
 
-    [self.imageManager requestImageForAsset:asset
+    [self.imageManager ctassetsPickerRequestImageForAsset:asset
                                  targetSize:targetSize
                                 contentMode:PHImageContentModeAspectFill
                                     options:self.picker.thumbnailRequestOptions

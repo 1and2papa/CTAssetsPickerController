@@ -31,6 +31,7 @@
 #import "CTAssetScrollView.h"
 #import "NSBundle+CTAssetsPickerController.h"
 #import "PHAsset+CTAssetsPickerController.h"
+#import "PHImageManager+CTAssetsPickerController.h"
 
 
 
@@ -185,7 +186,7 @@
     PHImageRequestOptions *options = [self imageRequestOptions];
     
     self.imageRequestID =
-    [self.imageManager requestImageForAsset:self.asset
+    [self.imageManager ctassetsPickerRequestImageForAsset:self.asset
                                  targetSize:targetSize
                                 contentMode:PHImageContentModeAspectFit
                                     options:options

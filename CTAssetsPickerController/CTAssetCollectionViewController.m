@@ -32,6 +32,7 @@
 #import "CTAssetsGridViewController.h"
 #import "PHAssetCollection+CTAssetsPickerController.h"
 #import "PHAsset+CTAssetsPickerController.h"
+#import "PHImageManager+CTAssetsPickerController.h"
 #import "NSBundle+CTAssetsPickerController.h"
 
 
@@ -440,7 +441,7 @@
         if (index < assets.count)
         {
             PHAsset *asset = assets[index];
-            [self.imageManager requestImageForAsset:asset
+            [self.imageManager ctassetsPickerRequestImageForAsset:asset
                                          targetSize:targetSize
                                         contentMode:PHImageContentModeAspectFill
                                             options:self.picker.thumbnailRequestOptions
