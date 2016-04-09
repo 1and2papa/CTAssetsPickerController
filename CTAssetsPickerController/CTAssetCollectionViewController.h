@@ -28,8 +28,6 @@
 
 @interface CTAssetCollectionViewController : UITableViewController
 
-@property (nonatomic, assign) BOOL allowsAnimatedImages;
-
 - (void)reloadUserInterface;
 
 @end

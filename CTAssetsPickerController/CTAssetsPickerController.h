@@ -136,13 +136,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL showsSelectionIndex;
 
 /**
- *  Determines whether or not the animated images should be played in full-screen preview. Default value is NO.
- *
- *  @see [CTAssetsPageViewController allowsAnimatedImages]
- */
-@property (nonatomic, assign) BOOL allowsAnimatedImages;
-
-/**
  *  The split view controller of the picker hierarchy. (read-only)
  *
  *  This property contains the child split view controller of the picker.

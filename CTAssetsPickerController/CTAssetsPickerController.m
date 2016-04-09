@@ -77,7 +77,6 @@ NSString * const CTAssetsPickerDidDeselectAssetNotification = @"CTAssetsPickerDi
         _showsNumberOfAssets                = YES;
         _alwaysEnableDoneButton             = NO;
         _showsSelectionIndex                = NO;
-        _allowsAnimatedImages               = NO;
         _defaultAssetCollection             = PHAssetCollectionSubtypeAny;
         
         [self initAssetCollectionSubtypes];
@@ -250,7 +249,6 @@ NSString * const CTAssetsPickerDidDeselectAssetNotification = @"CTAssetsPickerDi
 - (void)setupSplitViewController
 {
     CTAssetCollectionViewController *vc = [CTAssetCollectionViewController new];
-    vc.allowsAnimatedImages = self.allowsAnimatedImages;
 
     CTAssetsNavigationController *master = [[CTAssetsNavigationController alloc] initWithRootViewController:vc];
     UINavigationController *detail = [self emptyNavigationController];

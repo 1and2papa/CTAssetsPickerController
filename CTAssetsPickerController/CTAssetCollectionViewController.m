@@ -68,8 +68,7 @@
     if (self = [super initWithStyle:UITableViewStylePlain])
     {
         _imageManager = [PHCachingImageManager new];
-        _allowsAnimatedImages = NO;
-        
+      
         [self addNotificationObserver];
     }
     
@@ -488,7 +487,6 @@
     PHAssetCollection *collection = self.assetCollections[indexPath.row];
     
     CTAssetsGridViewController *vc = [CTAssetsGridViewController new];
-    vc.allowsAnimatedImages = self.allowsAnimatedImages;
     vc.title = self.picker.selectedAssetsString ? : collection.localizedTitle;
     vc.assetCollection = collection;
     vc.delegate = self;
@@ -508,7 +506,6 @@
     if (self.defaultAssetCollection && !self.didShowDefaultAssetCollection)
     {
         CTAssetsGridViewController *vc = [CTAssetsGridViewController new];
-        vc.allowsAnimatedImages = self.allowsAnimatedImages;
         vc.title = self.picker.selectedAssetsString ? : self.defaultAssetCollection.localizedTitle;
         vc.assetCollection = self.defaultAssetCollection;
         vc.delegate = self;

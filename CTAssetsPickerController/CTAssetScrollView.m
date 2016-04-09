@@ -80,7 +80,6 @@ NSString * const CTAssetScrollViewPlayerWillPauseNotification = @"CTAssetScrollV
     {
         _shouldUpdateConstraints            = YES;
         self.allowsSelection                = NO;
-        self.allowsAnimatedImages           = NO;
         self.showsVerticalScrollIndicator   = NO;
         self.showsHorizontalScrollIndicator = NO;
         self.bouncesZoom                    = YES;

@@ -32,7 +32,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CTAssetItemViewController : UIViewController
 
 @property (nonatomic, assign) BOOL allowsSelection;
-@property (nonatomic, assign) BOOL allowsAnimatedImages;
 @property (nonatomic, strong, readonly) PHAsset *asset;
 @property (nonatomic, strong, readonly, nullable) UIImage *image;
 

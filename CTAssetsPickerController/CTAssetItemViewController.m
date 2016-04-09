@@ -66,7 +66,6 @@
         _imageManager = [PHImageManager defaultManager];
         self.asset = asset;
         self.allowsSelection = NO;
-        self.allowsAnimatedImages = NO;
     }
     
     return self;
@@ -137,8 +136,7 @@
 {
     CTAssetScrollView *scrollView = [CTAssetScrollView newAutoLayoutView];
     scrollView.allowsSelection = self.allowsSelection;
-    scrollView.allowsAnimatedImages = self.allowsAnimatedImages;
-    
+  
     self.scrollView = scrollView;
     [self.view addSubview:self.scrollView];
     [self.view layoutIfNeeded];

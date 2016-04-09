@@ -36,10 +36,7 @@
             
             // init picker
             CTAssetsPickerController *picker = [[CTAssetsPickerController alloc] init];
-            
-            // allow playing the animated images
-            picker.allowsAnimatedImages = YES;
-            
+          
             // set delegate
             picker.delegate = self;
             
