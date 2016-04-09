@@ -24,6 +24,8 @@
  
  */
 
+#ifdef GIF_SUPPORT_ENABLED
+
 #import "CTAssetAnimatedImage.h"
 
 @implementation CTAssetAnimatedImage
@@ -39,3 +41,5 @@
 }
 
 @end
+
+#endif

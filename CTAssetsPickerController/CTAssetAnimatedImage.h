@@ -24,6 +24,8 @@
  
  */
 
+#ifdef GIF_SUPPORT_ENABLED
+
 #import <UIKit/UIKit.h>
 #import <FLAnimatedImage/FLAnimatedImage.h>
 
@@ -49,3 +51,5 @@
 - (nonnull instancetype)initWithAnimatedImage:(nonnull FLAnimatedImage *)animatedImage NS_DESIGNATED_INITIALIZER;
 
 @end
+
+#endif
