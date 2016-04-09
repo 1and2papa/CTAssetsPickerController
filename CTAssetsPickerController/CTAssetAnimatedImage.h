@@ -28,9 +28,6 @@
 #import <FLAnimatedImage/FLAnimatedImage.h>
 
 
-
-
-
 /**
  *  A wrapper class around FLAnimatedImage for using it as a drop-in replacement for UIImage
  */
@@ -39,7 +36,7 @@
 /**
  *  Original animated image this class was initialized with.
  */
-@property (nonatomic, readonly) FLAnimatedImage *animatedImage;
+@property (nonnull, nonatomic, readonly) FLAnimatedImage *animatedImage;
 
 
 /**
@@ -49,7 +46,6 @@
  *
  *  @return An instance of `CTAssetAnimatedImage` associated with an animated image.
  */
-- (instancetype)initWithAnimatedImage:(FLAnimatedImage *)animatedImage;
-
+- (nonnull instancetype)initWithAnimatedImage:(nonnull FLAnimatedImage *)animatedImage NS_DESIGNATED_INITIALIZER;
 
 @end
