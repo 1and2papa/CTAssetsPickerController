@@ -33,7 +33,6 @@
 #import "CTDefaultAlbumViewController.h"
 #import "CTSelectionOrderViewController.h"
 #import "CTUITweaksViewController.h"
-#import "CTPlayAnimatedImagesViewController.h"
 
 #import "CTSortedAssetsViewController.h"
 
@@ -72,7 +71,7 @@
 {
     switch (section) {
         case 0:
-            return 7;
+            return 6;
             break;
 
         case 1:
@@ -167,9 +166,7 @@
         
         if (row == 5)
             title = @"UI tweaks";
-        
-        if (row == 6)
-            title = @"Play animated images";
+      
     }
     
     if (section == 1)
@@ -246,8 +243,6 @@
         if (row == 5)
             vc = (UIViewController *)[CTUITweaksViewController new];
         
-        if (row == 6)
-            vc = (UIViewController *)[CTPlayAnimatedImagesViewController new];
     }
     
     if (section == 1)
