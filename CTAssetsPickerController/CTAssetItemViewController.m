@@ -44,26 +44,12 @@
 
 @property (nonatomic, strong) PHImageManager *imageManager;
 @property (nonatomic, assign) PHImageRequestID imageRequestID;
-@property (nonatomic, assign) PHImageRequestID animatedImageRequestID;
 @property (nonatomic, assign) PHImageRequestID playerItemRequestID;
 @property (nonatomic, strong) CTAssetScrollView *scrollView;
 
 @property (nonatomic, assign) BOOL didSetupConstraints;
 
 @end
-
-
-/**
- *  Compatibility mode for requesting animated images.
- *
- *  @note In iOS 8 just to know whether a current asset is GIF we must download the full-sized image data. Such approach is very inefficient considering that the image could be in iCloud. Therefore, for iOS 8 it's better to use 'CTAssetRequestAnimatedImageLocalFilesOnly' mode which guarantees playing only local GIFs (for iCloud images only poster image will be downloaded).
- */
-typedef NS_ENUM(NSUInteger, CTAssetRequestAnimatedImageMode) {
-    /** Request GIFs for on-device files only. Compatible with iOS 8.*/
-    CTAssetRequestAnimatedImageLocalFilesOnly = 0,
-    /** Request GIFs for both on-device and iCloud files. Native mode in iOS 9+. */
-    CTAssetRequestAnimatedImageNormalMode
-};
 
 
 @implementation CTAssetItemViewController
@@ -97,43 +83,18 @@ typedef NS_ENUM(NSUInteger, CTAssetRequestAnimatedImageMode) {
 {
     [super viewWillAppear:animated];
     [self setupScrollViewButtons];
-
-    // ensure that we are not making the same request multiple times
-    if(self.image == nil)
+  
+    // Get resource objects that describe the data files that an asset represents.
+    NSArray *assetResources = [PHAssetResource assetResourcesForAsset: self.asset];
+    
+    // To determine GIF type only the first asset resource is required.
+    PHAssetResource *firstFoundResource = assetResources[0];
+    
+    if([firstFoundResource.uniformTypeIdentifier isEqualToString:(NSString *)kUTTypeGIF])
     {
-        if (self.allowsAnimatedImages)
-        {
-            // [iOS 9 SECTION BEGINS]
-            // Note: In iOS 9 there is a quick way to determine GIF type using PHAssetResource class
-            if(NSClassFromString(@"PHAssetResource"))
-            {
-                NSArray *assetResources = [PHAssetResource assetResourcesForAsset: self.asset];
-                
-                // to determine GIF type only the first asset resource is required
-                PHAssetResource *firstFoundResource = assetResources[0];
-                
-                if([firstFoundResource.uniformTypeIdentifier isEqualToString:(NSString *)kUTTypeGIF])
-                    [self requestAssetAnimatedImageWithCompatibilityMode:CTAssetRequestAnimatedImageNormalMode];
-                else
-                    [self requestAssetImage];
-            }
-            // [iOS 9 SECTION ENDS]
-            else
-            {
-                // [iOS 8 SECTION BEGINS]
-                // Note: In iOS 8 there is no documented way to detect if the asset type is GIF without request for full-sized image data
-                // the only thing we can do is to filter out non-image media types
-                if (self.asset.mediaType == PHAssetMediaTypeImage &&
-                    (self.asset.mediaSubtypes & PHAssetMediaSubtypeNone) == 0)
-                    
-                    [self requestAssetAnimatedImageWithCompatibilityMode:CTAssetRequestAnimatedImageLocalFilesOnly];
-                else
-                    [self requestAssetImage];
-                // [iOS 8 SECTION ENDS]
-            }
-        }
-        else
-            [self requestAssetImage];
+      [self requestAssetAnimatedImage];
+    } else {
+      [self requestAssetImage];
     }
 }
 
@@ -203,7 +164,6 @@ typedef NS_ENUM(NSUInteger, CTAssetRequestAnimatedImageMode) {
 - (void)cancelRequestAsset
 {
     [self cancelRequestImage];
-    [self cancelRequestAnimatedImage];
     [self cancelRequestPlayerItem];
 }
 
@@ -213,15 +173,6 @@ typedef NS_ENUM(NSUInteger, CTAssetRequestAnimatedImageMode) {
     {
         [self.scrollView setProgress:1];
         [self.imageManager cancelImageRequest:self.imageRequestID];
-    }
-}
-
-- (void)cancelRequestAnimatedImage
-{
-    if (self.animatedImageRequestID)
-    {
-        [self.scrollView setProgress:1];
-        [self.imageManager cancelImageRequest:self.animatedImageRequestID];
     }
 }
 
@@ -289,13 +240,12 @@ typedef NS_ENUM(NSUInteger, CTAssetRequestAnimatedImageMode) {
 
 #pragma mark - Request animated image
 
-- (void)requestAssetAnimatedImageWithCompatibilityMode:(CTAssetRequestAnimatedImageMode)compatibilityMode
-{
+- (void)requestAssetAnimatedImage {
     [self.scrollView setProgress:0];
 
-    PHImageRequestOptions *options = [self animatedImageRequestOptionsWithCompatibilityMode:compatibilityMode];
+    PHImageRequestOptions *options = [self imageRequestOptions];
     
-    self.animatedImageRequestID =
+    self.imageRequestID =
     [self.imageManager requestImageDataForAsset:self.asset
                                         options:options
                                   resultHandler:^(NSData * imageData, NSString * dataUTI, UIImageOrientation orientation, NSDictionary * info) {
@@ -311,60 +261,19 @@ typedef NS_ENUM(NSUInteger, CTAssetRequestAnimatedImageMode) {
                                       }
                                       else
                                       {
-                                          CTAssetAnimatedImage *image;
+                                        CTAssetAnimatedImage *image;
+                                        
+                                        FLAnimatedImage *animatedImage = [FLAnimatedImage animatedImageWithGIFData:imageData];
+                                        
+                                        image = [[CTAssetAnimatedImage alloc]initWithAnimatedImage:animatedImage];
+                                        self.image = image;
+                                        
+                                        dispatch_async(dispatch_get_main_queue(), ^{
                                           
-                                          NSNumber *isInCloud = [info objectForKey:PHImageResultIsInCloudKey];
-                                          
-                                          BOOL isCompatibleWithCurrentOSVersion = (compatibilityMode == CTAssetRequestAnimatedImageLocalFilesOnly) ? !isInCloud.boolValue : YES;
-
-                                          if([dataUTI isEqualToString:(NSString *)kUTTypeGIF] && isCompatibleWithCurrentOSVersion)
-                                          {
-                                              FLAnimatedImage *animatedImage = [FLAnimatedImage animatedImageWithGIFData:imageData];
-                                              image = [[CTAssetAnimatedImage alloc]initWithAnimatedImage:animatedImage];
-                                              self.image = image;
-                                              
-                                              dispatch_async(dispatch_get_main_queue(), ^{
-                                                  
-                                                  [self.scrollView bind:self.asset image:image requestInfo:info];
-                                              });
-                                          }
-                                          else
-                                          {
-                                              // for ordinary images it's much more efficient to decompress by means of requestImageForAsset method
-                                              [self requestAssetImage];
-                                          }
+                                          [self.scrollView bind:self.asset image:image requestInfo:info];
+                                        });
                                       }
-
                                   }];
-}
-
-
-- (PHImageRequestOptions *)animatedImageRequestOptionsWithCompatibilityMode:(CTAssetRequestAnimatedImageMode)compatibilityMode
-{
-    PHImageRequestOptions *options  = [PHImageRequestOptions new];
-
-    switch (compatibilityMode) {
-        case CTAssetRequestAnimatedImageNormalMode:
-            options.networkAccessAllowed = YES;
-            break;
-            
-        case CTAssetRequestAnimatedImageLocalFilesOnly:
-            options.networkAccessAllowed = NO;
-            break;
-
-        default:
-            // don't allow network access if unknown compatibility mode has been received
-            options.networkAccessAllowed = NO;
-            break;
-    }
-    
-    options.progressHandler         = ^(double progress, NSError *error, BOOL *stop, NSDictionary *info) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.scrollView setProgress:progress];
-        });
-    };
-
-    return options;
 }
 
 
