@@ -24,9 +24,8 @@
  
  */
 
+
 #import <PureLayout/PureLayout.h>
-#import "FLAnimatedImage.h"
-#import "CTAssetAnimatedImage.h"
 #import "CTAssetScrollView.h"
 #import "CTAssetPlayButton.h"
 #import "PHAsset+CTAssetsPickerController.h"
@@ -52,8 +51,12 @@ NSString * const CTAssetScrollViewPlayerWillPauseNotification = @"CTAssetScrollV
 
 @property (nonatomic, assign) CGFloat perspectiveZoomScale;
 
-// FLAnimatedImageView is a subclass of UIImageView with support for playing GIFs
-@property (nonatomic, strong) FLAnimatedImageView *imageView;
+#ifdef GIF_SUPPORT_ENABLED
+  // FLAnimatedImageView is a subclass of UIImageView with support for playing GIFs
+  @property (nonatomic, strong) FLAnimatedImageView *imageView;
+#else
+  @property (nonatomic, strong) UIImageView *imageView;
+#endif
 
 @property (nonatomic, strong) UIProgressView *progressView;
 @property (nonatomic, strong) UIActivityIndicatorView *activityView;
@@ -105,11 +108,12 @@ NSString * const CTAssetScrollViewPlayerWillPauseNotification = @"CTAssetScrollV
 
 - (void)setupViews
 {
+#ifdef GIF_SUPPORT_ENABLED
     FLAnimatedImageView *imageView = [FLAnimatedImageView new];
-    
-    // set content mode to maintain the aspect ratio
-    imageView.contentMode = UIViewContentModeScaleAspectFit;
-    
+#else
+    UIImageView *imageView = [UIImageView new];
+#endif
+  
     imageView.isAccessibilityElement    = YES;
     imageView.accessibilityTraits       = UIAccessibilityTraitImage;
     self.imageView = imageView;
@@ -290,12 +294,15 @@ NSString * const CTAssetScrollViewPlayerWillPauseNotification = @"CTAssetScrollV
     {
         BOOL zoom = (!self.image);
         self.image = image;
-
-        if([image isKindOfClass:[CTAssetAnimatedImage class]])
-            [(FLAnimatedImageView *)self.imageView  setAnimatedImage: [(CTAssetAnimatedImage *)image animatedImage]];
-        else
-            self.imageView.image = image;
-        
+      
+#ifdef GIF_SUPPORT_ENABLED
+      if([image isKindOfClass:[CTAssetAnimatedImage class]])
+        [(FLAnimatedImageView *)self.imageView  setAnimatedImage: [(CTAssetAnimatedImage *)image animatedImage]];
+      else
+        self.imageView.image = image;
+#else
+      self.imageView.image = image;
+#endif
         if (isDegraded)
             [self mimicProgress];
         else

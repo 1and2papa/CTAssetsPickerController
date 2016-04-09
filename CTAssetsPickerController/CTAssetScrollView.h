@@ -29,6 +29,15 @@
 #import "CTAssetPlayButton.h"
 #import "CTAssetSelectionButton.h"
 
+#ifdef GIF_SUPPORT_ENABLED
+
+#import <MobileCoreServices/MobileCoreServices.h>
+
+#import "FLAnimatedImage.h"
+#import "CTAssetAnimatedImage.h"
+
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 extern NSString * const CTAssetScrollViewDidTapNotification;

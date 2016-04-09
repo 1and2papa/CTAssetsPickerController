@@ -24,7 +24,6 @@
  
  */
 
-#import <MobileCoreServices/MobileCoreServices.h>
 #import <PureLayout/PureLayout.h>
 #import "CTAssetsPickerController.h"
 #import "CTAssetItemViewController.h"
@@ -32,7 +31,6 @@
 #import "NSBundle+CTAssetsPickerController.h"
 #import "PHAsset+CTAssetsPickerController.h"
 #import "PHImageManager+CTAssetsPickerController.h"
-#import "CTAssetAnimatedImage.h"
 
 
 @interface CTAssetItemViewController ()
@@ -83,18 +81,20 @@
     [super viewWillAppear:animated];
     [self setupScrollViewButtons];
   
-    // Get resource objects that describe the data files that an asset represents.
-    NSArray *assetResources = [PHAssetResource assetResourcesForAsset: self.asset];
-    
-    // To determine GIF type only the first asset resource is required.
-    PHAssetResource *firstFoundResource = assetResources[0];
-    
-    if([firstFoundResource.uniformTypeIdentifier isEqualToString:(NSString *)kUTTypeGIF])
-    {
-      [self requestAssetAnimatedImage];
-    } else {
-      [self requestAssetImage];
-    }
+#ifdef GIF_SUPPORT_ENABLED
+  // Get resource objects that describe the data files that an asset represents.
+  NSArray *assetResources = [PHAssetResource assetResourcesForAsset: self.asset];
+  
+  // To determine GIF type only the first asset resource is required.
+  PHAssetResource *firstFoundResource = assetResources[0];
+  
+  if([firstFoundResource.uniformTypeIdentifier isEqualToString:(NSString *)kUTTypeGIF])
+  {
+    [self requestAssetAnimatedImage];
+    return;
+  }
+#endif
+    [self requestAssetImage];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -235,6 +235,7 @@
     return options;
 }
 
+#ifdef GIF_SUPPORT_ENABLED
 
 #pragma mark - Request animated image
 
@@ -274,6 +275,7 @@
                                   }];
 }
 
+#endif
 
 #pragma mark - Request player item
 
