@@ -24,6 +24,7 @@
  
  */
 
+
 #import <PureLayout/PureLayout.h>
 #import "CTAssetsPickerController.h"
 #import "CTAssetItemViewController.h"
@@ -31,6 +32,8 @@
 #import "NSBundle+CTAssetsPickerController.h"
 #import "PHAsset+CTAssetsPickerController.h"
 #import "PHImageManager+CTAssetsPickerController.h"
+
+
 
 
 @interface CTAssetItemViewController ()
@@ -48,6 +51,9 @@
 @property (nonatomic, assign) BOOL didSetupConstraints;
 
 @end
+
+
+
 
 
 @implementation CTAssetItemViewController
@@ -136,7 +142,7 @@
 {
     CTAssetScrollView *scrollView = [CTAssetScrollView newAutoLayoutView];
     scrollView.allowsSelection = self.allowsSelection;
-  
+    
     self.scrollView = scrollView;
     [self.view addSubview:self.scrollView];
     [self.view layoutIfNeeded];
@@ -202,7 +208,7 @@
 
                                   // this image is set for transition animation
                                   self.image = image;
-
+                                  
                                   dispatch_async(dispatch_get_main_queue(), ^{
                                   
                                       NSError *error = info[PHImageErrorKey];
@@ -231,7 +237,7 @@
             [self.scrollView setProgress:progress];
         });
     };
-
+    
     return options;
 }
 

@@ -205,7 +205,7 @@
         
         CTAssetItemViewController *page = [CTAssetItemViewController assetItemViewControllerForAsset:asset];
         page.allowsSelection = self.allowsSelection;
-      
+        
         [self setViewControllers:@[page]
                        direction:UIPageViewControllerNavigationDirectionForward
                         animated:NO
@@ -234,7 +234,7 @@
         PHAsset *beforeAsset = self.assets[(index - 1)];
         CTAssetItemViewController *page = [CTAssetItemViewController assetItemViewControllerForAsset:beforeAsset];
         page.allowsSelection = self.allowsSelection;
-      
+        
         return page;
     }
 

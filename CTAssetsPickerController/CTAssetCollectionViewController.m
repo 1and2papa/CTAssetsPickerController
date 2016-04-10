@@ -68,7 +68,6 @@
     if (self = [super initWithStyle:UITableViewStylePlain])
     {
         _imageManager = [PHCachingImageManager new];
-      
         [self addNotificationObserver];
     }
     

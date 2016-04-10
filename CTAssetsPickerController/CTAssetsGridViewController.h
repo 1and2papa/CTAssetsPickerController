@@ -45,7 +45,6 @@
 @property (nonatomic, weak) id<CTAssetsGridViewControllerDelegate> delegate;
 @property (nonatomic, strong, nonnull) PHAssetCollection *assetCollection;
 
-
 @end
 
 

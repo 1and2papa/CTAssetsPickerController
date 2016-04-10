@@ -166,7 +166,6 @@
         
         if (row == 5)
             title = @"UI tweaks";
-      
     }
     
     if (section == 1)
@@ -242,7 +241,6 @@
         
         if (row == 5)
             vc = (UIViewController *)[CTUITweaksViewController new];
-        
     }
     
     if (section == 1)

@@ -24,13 +24,14 @@
  
  */
 
-
 #import <PureLayout/PureLayout.h>
 #import "CTAssetScrollView.h"
 #import "CTAssetPlayButton.h"
 #import "PHAsset+CTAssetsPickerController.h"
 #import "NSBundle+CTAssetsPickerController.h"
 #import "UIImage+CTAssetsPickerController.h"
+
+
 
 
 NSString * const CTAssetScrollViewDidTapNotification = @"CTAssetScrollViewDidTapNotification";
@@ -289,7 +290,7 @@ NSString * const CTAssetScrollViewPlayerWillPauseNotification = @"CTAssetScrollV
     self.playButton.hidden = [asset ctassetsPickerIsPhoto];
     
     BOOL isDegraded = [info[PHImageResultIsDegradedKey] boolValue];
-
+    
     if (self.image == nil || !isDegraded)
     {
         BOOL zoom = (!self.image);
@@ -345,6 +346,7 @@ NSString * const CTAssetScrollViewPlayerWillPauseNotification = @"CTAssetScrollV
     
     self.player = nil;
 }
+
 
 
 #pragma mark - Upate zoom scales
