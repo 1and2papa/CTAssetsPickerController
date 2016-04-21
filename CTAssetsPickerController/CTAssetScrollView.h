@@ -32,7 +32,7 @@
 #ifdef CTASSETS_GIF_ENABLED
 
 #import <MobileCoreServices/MobileCoreServices.h>
-#import "YYImage.h"
+#import "YYImage/YYImage.h"
 
 #endif
 
