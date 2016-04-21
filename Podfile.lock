@@ -14,7 +14,7 @@ EXTERNAL SOURCES:
     :path: "."
 
 SPEC CHECKSUMS:
-  CTAssetsPickerController: 23d8b23613c90d136a6e0e2f2b168c64af7271f5
+  CTAssetsPickerController: b88d1ca098a4645399ab25e96b56b7b64550f2e7
   PureLayout: f35f5384c9c4e4479df041dbe33ad7577b71ddfb
 
 COCOAPODS: 0.39.0
