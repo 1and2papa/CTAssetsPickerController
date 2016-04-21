@@ -35,7 +35,7 @@ Pod::Spec.new do |spec|
 
   # subspec for GIF plugin.
   spec.subspec 'GIF' do |gif|
-    gif.xcconfig                = { 'OTHER_CFLAGS' => '$(inherited) -DGIF_SUPPORT_ENABLED' }
+    gif.xcconfig                = { 'OTHER_CFLAGS' => '$(inherited) -DCTASSETS_GIF_ENABLED' }
     gif.dependency              'YYImage'
   end
 end
