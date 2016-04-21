@@ -32,9 +32,7 @@
 #ifdef GIF_SUPPORT_ENABLED
 
 #import <MobileCoreServices/MobileCoreServices.h>
-
-#import "FLAnimatedImage.h"
-#import "CTAssetAnimatedImage.h"
+#import "YYImage.h"
 
 #endif
 

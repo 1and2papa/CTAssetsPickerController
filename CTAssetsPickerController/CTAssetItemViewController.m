@@ -266,16 +266,13 @@
                                       }
                                       else
                                       {
-                                        CTAssetAnimatedImage *image;
+                                        YYImage *animatedImage = [YYImage imageWithData:imageData];
                                         
-                                        FLAnimatedImage *animatedImage = [FLAnimatedImage animatedImageWithGIFData:imageData];
-                                        
-                                        image = [[CTAssetAnimatedImage alloc]initWithAnimatedImage:animatedImage];
-                                        self.image = image;
+                                        self.image = animatedImage;
                                         
                                         dispatch_async(dispatch_get_main_queue(), ^{
                                           
-                                          [self.scrollView bind:self.asset image:image requestInfo:info];
+                                          [self.scrollView bind:self.asset image:animatedImage requestInfo:info];
                                         });
                                       }
                                   }];
