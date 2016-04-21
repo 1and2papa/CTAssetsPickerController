@@ -295,10 +295,9 @@ NSString * const CTAssetScrollViewPlayerWillPauseNotification = @"CTAssetScrollV
     {
         BOOL zoom = (!self.image);
         self.image = image;
-      
-      self.imageView.image = image;
-      
-      if (isDegraded)
+        self.imageView.image = image;
+        
+        if (isDegraded)
             [self mimicProgress];
         else
             [self setProgress:1];
