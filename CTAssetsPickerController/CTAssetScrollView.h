@@ -29,7 +29,7 @@
 #import "CTAssetPlayButton.h"
 #import "CTAssetSelectionButton.h"
 
-#ifdef GIF_SUPPORT_ENABLED
+#ifdef CTASSETS_GIF_ENABLED
 
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "YYImage.h"

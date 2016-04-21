@@ -52,7 +52,7 @@ NSString * const CTAssetScrollViewPlayerWillPauseNotification = @"CTAssetScrollV
 
 @property (nonatomic, assign) CGFloat perspectiveZoomScale;
 
-#ifdef GIF_SUPPORT_ENABLED
+#ifdef CTASSETS_GIF_ENABLED
   // YYAnimatedImageView is a subclass of UIImageView with support for playing GIFs
   @property (nonatomic, strong) YYAnimatedImageView *imageView;
 #else
@@ -109,7 +109,7 @@ NSString * const CTAssetScrollViewPlayerWillPauseNotification = @"CTAssetScrollV
 
 - (void)setupViews
 {
-#ifdef GIF_SUPPORT_ENABLED
+#ifdef CTASSETS_GIF_ENABLED
     YYAnimatedImageView *imageView = [YYAnimatedImageView new];
 #else
     UIImageView *imageView = [UIImageView new];

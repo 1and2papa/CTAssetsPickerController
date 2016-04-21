@@ -87,7 +87,7 @@
     [super viewWillAppear:animated];
     [self setupScrollViewButtons];
   
-#ifdef GIF_SUPPORT_ENABLED
+#ifdef CTASSETS_GIF_ENABLED
   // Get resource objects that describe the data files that an asset represents.
   NSArray *assetResources = [PHAssetResource assetResourcesForAsset: self.asset];
   
@@ -241,7 +241,7 @@
     return options;
 }
 
-#ifdef GIF_SUPPORT_ENABLED
+#ifdef CTASSETS_GIF_ENABLED
 
 #pragma mark - Request animated image
 
