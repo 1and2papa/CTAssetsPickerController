@@ -1,5 +1,9 @@
 # CTAssetsPickerController
 
+## Development Suspended (1 June, 2016)
+
+As I am busy on both of my work and personal life, it seems that I have no more spare time to maintain this project in coming year. The development of this project is suspended. Anyone who would like to keep this project running, just fork it. 
+
 ## Introduction
 
 CTAssetsPickerController is a highly customisable iOS controller that allows picking multiple photos and videos from user's photo library. The usage and look-and-feel are just similar to UIImagePickerController. It uses **ARC** and requires **Photos** framework.
