@@ -29,6 +29,12 @@
 #import "CTAssetPlayButton.h"
 #import "CTAssetSelectionButton.h"
 
+#ifdef CTASSETS_GIF_ENABLED
+
+#import <MobileCoreServices/MobileCoreServices.h>
+#import "YYImage/YYImage.h"
+
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 

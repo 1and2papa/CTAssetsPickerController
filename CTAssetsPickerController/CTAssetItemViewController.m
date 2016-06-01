@@ -86,6 +86,20 @@
 {
     [super viewWillAppear:animated];
     [self setupScrollViewButtons];
+  
+#ifdef CTASSETS_GIF_ENABLED
+  // Get resource objects that describe the data files that an asset represents.
+  NSArray *assetResources = [PHAssetResource assetResourcesForAsset: self.asset];
+  
+  // To determine GIF type only the first asset resource is required.
+  PHAssetResource *firstFoundResource = assetResources[0];
+  
+  if([firstFoundResource.uniformTypeIdentifier isEqualToString:(NSString *)kUTTypeGIF])
+  {
+    [self requestAssetAnimatedImage];
+    return;
+  }
+#endif
     [self requestAssetImage];
 }
 
@@ -227,6 +241,44 @@
     return options;
 }
 
+#ifdef CTASSETS_GIF_ENABLED
+
+#pragma mark - Request animated image
+
+- (void)requestAssetAnimatedImage {
+    [self.scrollView setProgress:0];
+
+    PHImageRequestOptions *options = [self imageRequestOptions];
+    
+    self.imageRequestID =
+    [self.imageManager requestImageDataForAsset:self.asset
+                                        options:options
+                                  resultHandler:^(NSData * imageData, NSString * dataUTI, UIImageOrientation orientation, NSDictionary * info) {
+                                      
+                                      NSError *error = [info objectForKey:PHImageErrorKey];
+                                      
+                                      if(error)
+                                      {
+                                          dispatch_async(dispatch_get_main_queue(), ^{
+                                              
+                                              [self showRequestImageError:error title:nil];
+                                          });
+                                      }
+                                      else
+                                      {
+                                        YYImage *animatedImage = [YYImage imageWithData:imageData];
+                                        
+                                        self.image = animatedImage;
+                                        
+                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                          
+                                          [self.scrollView bind:self.asset image:animatedImage requestInfo:info];
+                                        });
+                                      }
+                                  }];
+}
+
+#endif
 
 #pragma mark - Request player item
 

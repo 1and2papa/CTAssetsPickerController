@@ -24,4 +24,18 @@ Pod::Spec.new do |spec|
   spec.ios.frameworks        = 'Photos'
   spec.requires_arc          = true
   spec.dependency            'PureLayout', '~> 3.0.0'
+
+  # only the core libary is used by default
+  spec.default_subspec = 'Core'
+
+  # subspec for the main functionality.
+  spec.subspec 'Core' do |core|
+
+  end
+
+  # subspec for GIF plugin.
+  spec.subspec 'GIF' do |gif|
+    gif.xcconfig                = { 'OTHER_CFLAGS' => '$(inherited) -DCTASSETS_GIF_ENABLED' }
+    gif.dependency              'YYImage'
+  end
 end
