@@ -109,7 +109,12 @@
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
 
     [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
-        [self.scrollView updateZoomScalesAndZoom:YES];
+      
+      // Ensure that a future call to updateConstraintsIfNeeded calls updateConstraints.
+      [self.scrollView setNeedsUpdateConstraints];
+      [self.scrollView updateConstraintsIfNeeded];
+      
+      [self.scrollView updateZoomScalesAndZoom:YES];
     } completion:nil];
 }
 
