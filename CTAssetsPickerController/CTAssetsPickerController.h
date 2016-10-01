@@ -94,6 +94,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString *doneButtonTitle;
 
 /**
+ *  A right bar button item for album controller
+ *
+ *  It can be usefull to add the item button with camera style for example.
+ */
+@property (nonatomic, strong) UIBarButtonItem *rightBarItemForAlbumsController;
+
+/**
  *  Determines whether or not the cancel button is visible in the picker.
  *
  *  The cancel button is visible by default. To hide the cancel button, (e.g. presenting the picker in `UIPopoverController`)
