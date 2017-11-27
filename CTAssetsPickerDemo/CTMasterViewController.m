@@ -33,6 +33,7 @@
 #import "CTDefaultAlbumViewController.h"
 #import "CTSelectionOrderViewController.h"
 #import "CTUITweaksViewController.h"
+#import "CTCustomFetchViewController.h"
 
 #import "CTSortedAssetsViewController.h"
 
@@ -71,7 +72,7 @@
 {
     switch (section) {
         case 0:
-            return 6;
+            return 7;
             break;
 
         case 1:
@@ -166,6 +167,9 @@
         
         if (row == 5)
             title = @"UI tweaks";
+        
+        if (row == 6)
+            title = @"Custom Fetch";
     }
     
     if (section == 1)
@@ -241,6 +245,8 @@
         
         if (row == 5)
             vc = (UIViewController *)[CTUITweaksViewController new];
+        if (row == 6)
+            vc = (UIViewController *)[CTCustomFetchViewController new];
     }
     
     if (section == 1)

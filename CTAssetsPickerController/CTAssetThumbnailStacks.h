@@ -30,7 +30,7 @@
 @interface CTAssetThumbnailStacks : UIView
 
 @property (nonatomic, assign) CGSize thumbnailSize;
-@property (nonatomic, copy, readonly) NSArray<CTAssetThumbnailView*> *thumbnailViews;
+@property (nonatomic, copy, readonly, nonnull) NSArray<CTAssetThumbnailView*> *thumbnailViews;
 @property (nonatomic, assign, readonly) UIEdgeInsets edgeInsets;
 
 - (nonnull CTAssetThumbnailView *)thumbnailAtIndex:(NSUInteger)index;

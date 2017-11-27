@@ -142,6 +142,12 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, readonly, strong) UISplitViewController *childSplitViewController;
 
+/**
+ *  Displays the picker to pick between the fetch result. Must be a PHAsset type fetch.
+ *  
+ *  It will not display the list of albums, but only the assets in the specified fetch result.
+ */
+@property (strong, nonatomic) PHFetchResult<PHAsset*> *pickFromFetch;
 
 /**
  *  @name Managing Selections

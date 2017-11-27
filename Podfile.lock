@@ -8,7 +8,7 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   CTAssetsPickerController:
-    :path: .
+    :path: "."
 
 SPEC CHECKSUMS:
   CTAssetsPickerController: b1d1d50ab87cf6b8b13531de5f4530482e7e53ed
