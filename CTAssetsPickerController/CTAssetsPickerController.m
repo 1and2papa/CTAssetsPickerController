@@ -34,6 +34,8 @@
 #import "CTAssetScrollView.h"
 #import "CTAssetsPageViewController.h"
 #import "CTAssetsViewControllerTransition.h"
+#import "CTAsset.h"
+#import "CTFetchResult.h"
 #import "NSBundle+CTAssetsPickerController.h"
 #import "UIImage+CTAssetsPickerController.h"
 #import "NSNumberFormatter+CTAssetsPickerController.h"
@@ -249,6 +251,7 @@ NSString * const CTAssetsPickerDidDeselectAssetNotification = @"CTAssetsPickerDi
 - (void)setupSplitViewController
 {
     CTAssetCollectionViewController *vc = [CTAssetCollectionViewController new];
+    vc.customFetchResult = self.customFetchResult;
     CTAssetsNavigationController *master = [[CTAssetsNavigationController alloc] initWithRootViewController:vc];
     UINavigationController *detail = [self emptyNavigationController];
     UISplitViewController *svc  = [UISplitViewController new];
@@ -257,7 +260,7 @@ NSString * const CTAssetsPickerDidDeselectAssetNotification = @"CTAssetsPickerDi
     svc.viewControllers = @[master, detail];
     svc.presentsWithGesture = NO;
     svc.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
-    
+
     [self addChildViewController:svc];
     svc.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     [self.view addSubview:svc.view];
@@ -416,12 +419,14 @@ NSString * const CTAssetsPickerDidDeselectAssetNotification = @"CTAssetsPickerDi
         
         NSMutableArray *deselectAssets = [NSMutableArray new];
         
-        for (PHAsset *asset in self.selectedAssets)
+        for (id<CTAsset> asset in self.selectedAssets)
         {
-            PHObjectChangeDetails *changeDetails = [changeInstance changeDetailsForObject:asset];
+            PHAsset *photosAsset = asset.photosAsset;
+            if (!photosAsset) { continue; }
+            PHObjectChangeDetails *changeDetails = [changeInstance changeDetailsForObject:photosAsset];
     
             if (changeDetails.objectWasDeleted)
-                [deselectAssets addObject:asset];
+                [deselectAssets addObject:photosAsset];
         }
         
         // Deselect asset if it was deleted from library
@@ -499,7 +504,7 @@ NSString * const CTAssetsPickerDidDeselectAssetNotification = @"CTAssetsPickerDi
     [self.selectedAssets removeObjectAtIndex:index];
 }
 
-- (void)replaceObjectInSelectedAssetsAtIndex:(NSUInteger)index withObject:(PHAsset *)object
+- (void)replaceObjectInSelectedAssetsAtIndex:(NSUInteger)index withObject:(id<CTAsset>)object
 {
     self.selectedAssets[index] = object;
 }
@@ -507,13 +512,13 @@ NSString * const CTAssetsPickerDidDeselectAssetNotification = @"CTAssetsPickerDi
 
 #pragma mark - De/Select asset
 
-- (void)selectAsset:(PHAsset *)asset
+- (void)selectAsset:(id<CTAsset>)asset
 {
     [self insertObject:asset inSelectedAssetsAtIndex:self.countOfSelectedAssets];
     [self postDidSelectAssetNotification:asset];
 }
 
-- (void)deselectAsset:(PHAsset *)asset
+- (void)deselectAsset:(id<CTAsset>)asset
 {
     [self removeObjectFromSelectedAssetsAtIndex:[self.selectedAssets indexOfObject:asset]];
     [self postDidDeselectAssetNotification:asset];
@@ -524,7 +529,7 @@ NSString * const CTAssetsPickerDidDeselectAssetNotification = @"CTAssetsPickerDi
 
 - (NSPredicate *)predicateOfMediaType:(PHAssetMediaType)type
 {
-    return [NSPredicate predicateWithBlock:^BOOL(PHAsset *asset, NSDictionary *bindings) {
+    return [NSPredicate predicateWithBlock:^BOOL(id<CTAsset> asset, NSDictionary *bindings) {
         return (asset.mediaType == type);
     }];
 }

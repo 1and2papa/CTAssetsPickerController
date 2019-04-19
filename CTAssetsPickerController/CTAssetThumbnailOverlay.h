@@ -27,10 +27,11 @@
 #import <UIKit/UIKit.h>
 #import <Photos/Photos.h>
 
+@protocol CTAsset;
 
 @interface CTAssetThumbnailOverlay : UIView
 
-- (void)bind:(nullable PHAsset *)asset duration:(nullable NSString *)duration;
+- (void)bind:(nullable id<CTAsset>)asset duration:(nullable NSString *)duration;
 - (void)bind:(nullable PHAssetCollection *)assetCollection;
 
 @end

@@ -27,15 +27,18 @@
 #import <UIKit/UIKit.h>
 #import <Photos/Photos.h>
 
+@protocol CTFetchResult;
+@protocol CTAsset;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CTAssetItemViewController : UIViewController
 
 @property (nonatomic, assign) BOOL allowsSelection;
-@property (nonatomic, strong, readonly) PHAsset *asset;
+@property (nonatomic, strong, readonly) id<CTAsset> asset;
 @property (nonatomic, strong, readonly, nullable) UIImage *image;
 
-+ (CTAssetItemViewController *)assetItemViewControllerForAsset:(PHAsset *)asset;
++ (CTAssetItemViewController *)assetItemViewControllerForAsset:(id<CTAsset>)asset;
 
 - (void)playAsset:(nullable id)sender;
 - (void)pauseAsset:(nullable id)sender;

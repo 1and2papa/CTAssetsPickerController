@@ -27,12 +27,15 @@
 #import <UIKit/UIKit.h>
 #import <Photos/Photos.h>
 
+@protocol CTAsset;
+
 @interface CTAssetThumbnailView : UIView
 
 @property (nonatomic, assign) BOOL showsDuration;
 @property (nonatomic, strong, nullable) UIImage *backgroundImage;
+@property (nonatomic, strong, readonly) UIImageView *imageView;
 
-- (void)bind:(nullable UIImage *)image asset:(nullable PHAsset *)asset;
+- (void)bind:(nullable UIImage *)image asset:(nullable id<CTAsset>)asset;
 - (void)bind:(nullable UIImage *)image assetCollection:(nullable PHAssetCollection *)assetCollection;
 
 @end

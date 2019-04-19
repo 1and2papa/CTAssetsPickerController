@@ -31,7 +31,7 @@
 #import "CTAssetItemViewController.h"
 #import "CTAssetScrollView.h"
 #import "CTAssetsPageView.h"
-
+#import "CTAssetsGridViewCell.h"
 
 
 @interface CTAssetsViewControllerTransition ()
@@ -66,7 +66,16 @@
         NSIndexPath *indexPath              = [NSIndexPath indexPathForItem:toVC.pageIndex inSection:0];
         
         UIView *cellView        = [fromVC.collectionView cellForItemAtIndexPath:indexPath];
-        UIImageView *imageView  = [[UIImageView alloc] initWithImage:iVC.image];
+        UIImage *image = iVC.image;
+
+        // this fixes an issue where CTAssetItemViewController uses a degraded picture when dealing with PHAsset
+        // and it seems it doesn't work with the actual target size requested image, which we return when using other
+        // CTAsset than PHAsset
+        if ([cellView isKindOfClass:[CTAssetsGridViewCell class]] &&
+            [((CTAssetsGridViewCell *)cellView).backgroundView isKindOfClass:[CTAssetThumbnailView class]]) {
+            image = ((CTAssetThumbnailView *)((CTAssetsGridViewCell *)cellView).backgroundView).imageView.image;
+        }
+        UIImageView *imageView  = [[UIImageView alloc] initWithImage:image];
         UIView *snapshot        = [self resizedSnapshot:imageView];
         
         CGPoint cellCenter  = [fromVC.view convertPoint:cellView.center fromView:cellView.superview];
@@ -82,7 +91,7 @@
         float perspectiveScale  = MAX(toVC.view.frame.size.width / snapshot.frame.size.width,
                                       toVC.view.frame.size.height / snapshot.frame.size.height);
         
-        BOOL canPerspectiveZoom = ([self canPerspectiveZoomWithImageSize:iVC.image.size boundsSize:toVC.view.bounds.size]);
+        BOOL canPerspectiveZoom = ([self canPerspectiveZoomWithImageSize:image.size boundsSize:toVC.view.bounds.size]);
         
         float endScale          = (canPerspectiveZoom) ? perspectiveScale : minScale;
         

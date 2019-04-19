@@ -29,6 +29,8 @@
 #import "CTAssetsPickerController.h"
 #import "CTAssetItemViewController.h"
 #import "CTAssetScrollView.h"
+#import "CTAsset.h"
+#import "CTFetchResult.h"
 #import "NSBundle+CTAssetsPickerController.h"
 #import "PHAsset+CTAssetsPickerController.h"
 #import "PHImageManager+CTAssetsPickerController.h"
@@ -40,7 +42,7 @@
 
 @property (nonatomic, weak) CTAssetsPickerController *picker;
 
-@property (nonatomic, strong) PHAsset *asset;
+@property (nonatomic, strong) id<CTAsset> asset;
 @property (nonatomic, strong) UIImage *image;
 
 @property (nonatomic, strong) PHImageManager *imageManager;
@@ -58,12 +60,12 @@
 
 @implementation CTAssetItemViewController
 
-+ (CTAssetItemViewController *)assetItemViewControllerForAsset:(PHAsset *)asset
++ (CTAssetItemViewController *)assetItemViewControllerForAsset:(id<CTAsset>)asset
 {
     return [[self alloc] initWithAsset:asset];
 }
 
-- (instancetype)initWithAsset:(PHAsset *)asset
+- (instancetype)initWithAsset:(id<CTAsset>)asset
 {
     if (self = [super init])
     {
@@ -184,7 +186,7 @@
     
     CGSize targetSize = [self targetImageSize];
     PHImageRequestOptions *options = [self imageRequestOptions];
-    
+
     self.imageRequestID =
     [self.imageManager ctassetsPickerRequestImageForAsset:self.asset
                                  targetSize:targetSize
@@ -233,11 +235,14 @@
 - (void)requestAssetPlayerItem:(id)sender
 {
     [self.scrollView startActivityAnimating];
+
+    PHAsset *asset = self.asset.photosAsset;
+    if (!asset) { return; }
     
     PHVideoRequestOptions *options = [self videoRequestOptions];
     
     self.playerItemRequestID =
-    [self.imageManager requestPlayerItemForVideo:self.asset
+    [self.imageManager requestPlayerItemForVideo:asset
                                          options:options
                                    resultHandler:^(AVPlayerItem *playerItem, NSDictionary *info) {
                                        dispatch_async(dispatch_get_main_queue(), ^{
@@ -322,7 +327,7 @@
 
 - (void)selectionButtonTouchDown:(id)sender
 {
-    PHAsset *asset = self.asset;
+    id<CTAsset> asset = self.asset;
     CTAssetScrollView *scrollView = self.scrollView;
     
     if ([self assetScrollView:scrollView shouldHighlightAsset:asset])
@@ -331,7 +336,7 @@
 
 - (void)selectionButtonTouchUpInside:(id)sender
 {
-    PHAsset *asset = self.asset;
+    id<CTAsset> asset = self.asset;
     CTAssetScrollView *scrollView = self.scrollView;
     CTAssetSelectionButton *selectionButton = scrollView.selectionButton;
     
@@ -362,7 +367,7 @@
 
 #pragma mark - Asset scrollView delegate
 
-- (BOOL)assetScrollView:(CTAssetScrollView *)scrollView shouldEnableAsset:(PHAsset *)asset
+- (BOOL)assetScrollView:(CTAssetScrollView *)scrollView shouldEnableAsset:(id<CTAsset>)asset
 {
     if ([self.picker.delegate respondsToSelector:@selector(assetsPickerController:shouldEnableAsset:)])
         return [self.picker.delegate assetsPickerController:self.picker shouldEnableAsset:asset];
@@ -370,7 +375,7 @@
         return YES;
 }
 
-- (BOOL)assetScrollView:(CTAssetScrollView *)scrollView shouldSelectAsset:(PHAsset *)asset
+- (BOOL)assetScrollView:(CTAssetScrollView *)scrollView shouldSelectAsset:(id<CTAsset>)asset
 {
     if ([self.picker.delegate respondsToSelector:@selector(assetsPickerController:shouldSelectAsset:)])
         return [self.picker.delegate assetsPickerController:self.picker shouldSelectAsset:asset];
@@ -378,13 +383,13 @@
         return YES;
 }
 
-- (void)assetScrollView:(CTAssetScrollView *)scrollView didSelectAsset:(PHAsset *)asset
+- (void)assetScrollView:(CTAssetScrollView *)scrollView didSelectAsset:(id<CTAsset>)asset
 {
     if ([self.picker.delegate respondsToSelector:@selector(assetsPickerController:didSelectAsset:)])
         [self.picker.delegate assetsPickerController:self.picker didSelectAsset:asset];
 }
 
-- (BOOL)assetScrollView:(CTAssetScrollView *)scrollView shouldDeselectAsset:(PHAsset *)asset
+- (BOOL)assetScrollView:(CTAssetScrollView *)scrollView shouldDeselectAsset:(id<CTAsset>)asset
 {
     if ([self.picker.delegate respondsToSelector:@selector(assetsPickerController:shouldDeselectAsset:)])
         return [self.picker.delegate assetsPickerController:self.picker shouldDeselectAsset:asset];
@@ -392,13 +397,13 @@
         return YES;
 }
 
-- (void)assetScrollView:(CTAssetScrollView *)scrollView didDeselectAsset:(PHAsset *)asset
+- (void)assetScrollView:(CTAssetScrollView *)scrollView didDeselectAsset:(id<CTAsset>)asset
 {
     if ([self.picker.delegate respondsToSelector:@selector(assetsPickerController:didDeselectAsset:)])
         [self.picker.delegate assetsPickerController:self.picker didDeselectAsset:asset];
 }
 
-- (BOOL)assetScrollView:(CTAssetScrollView *)scrollView shouldHighlightAsset:(PHAsset *)asset
+- (BOOL)assetScrollView:(CTAssetScrollView *)scrollView shouldHighlightAsset:(id<CTAsset>)asset
 {
     if ([self.picker.delegate respondsToSelector:@selector(assetsPickerController:shouldHighlightAsset:)])
         return [self.picker.delegate assetsPickerController:self.picker shouldHighlightAsset:asset];
@@ -406,13 +411,13 @@
         return YES;
 }
 
-- (void)assetScrollView:(CTAssetScrollView *)scrollView didHighlightAsset:(PHAsset *)asset
+- (void)assetScrollView:(CTAssetScrollView *)scrollView didHighlightAsset:(id<CTAsset>)asset
 {
     if ([self.picker.delegate respondsToSelector:@selector(assetsPickerController:didHighlightAsset:)])
         [self.picker.delegate assetsPickerController:self.picker didHighlightAsset:asset];
 }
 
-- (void)assetScrollView:(CTAssetScrollView *)scrollView didUnhighlightAsset:(PHAsset *)asset
+- (void)assetScrollView:(CTAssetScrollView *)scrollView didUnhighlightAsset:(id<CTAsset>)asset
 {
     if ([self.picker.delegate respondsToSelector:@selector(assetsPickerController:didUnhighlightAsset:)])
         [self.picker.delegate assetsPickerController:self.picker didUnhighlightAsset:asset];

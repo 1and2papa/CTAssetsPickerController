@@ -56,7 +56,7 @@
     NSString *imageName;
     
     if (self.ctassetsPickerIsHighFrameRateVideo)
-        imageName = @"BadgeSlomoSmall";
+        imageName = @"BadgeSloMoSmall";
     
     else if (self.ctassetsPickerIsTimelapseVideo)
         imageName = @"BadgeTimelapseSmall";

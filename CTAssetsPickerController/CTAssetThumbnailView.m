@@ -28,6 +28,8 @@
 #import "CTAssetsPickerDefines.h"
 #import "CTAssetThumbnailView.h"
 #import "CTAssetThumbnailOverlay.h"
+#import "CTAsset.h"
+#import "CTFetchResult.h"
 #import "PHAsset+CTAssetsPickerController.h"
 #import "NSDateFormatter+CTAssetsPickerController.h"
 
@@ -119,7 +121,7 @@
 
 #pragma - Bind asset and image
 
-- (void)bind:(UIImage *)image asset:(PHAsset *)asset;
+- (void)bind:(UIImage *)image asset:(id<CTAsset>)asset;
 {
     [self setupOverlayForAsset:asset];
     
@@ -130,9 +132,9 @@
     [self updateConstraintsIfNeeded];
 }
 
-- (void)setupOverlayForAsset:(PHAsset *)asset
+- (void)setupOverlayForAsset:(id<CTAsset>)asset
 {
-    if (asset.ctassetsPickerIsVideo)
+    if (asset.photosAsset.ctassetsPickerIsVideo)
     {
         if (!self.overlay) {
             self.overlay = [[CTAssetThumbnailOverlay alloc] initWithFrame:self.bounds];
@@ -144,7 +146,7 @@
         if (self.showsDuration)
         {
             NSDateFormatter *df = [NSDateFormatter new];
-            duration = [df ctassetsPickerStringFromTimeInterval:asset.duration];
+            duration = [df ctassetsPickerStringFromTimeInterval:asset.photosAsset.duration];
         }
     
         [self.overlay bind:asset duration:duration];

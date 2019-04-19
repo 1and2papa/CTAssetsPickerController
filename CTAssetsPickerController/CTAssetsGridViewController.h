@@ -29,6 +29,7 @@
 
 
 @class CTAssetsGridViewController;
+@protocol CTFetchResult;
 
 
 
@@ -43,7 +44,8 @@
 @interface CTAssetsGridViewController : UICollectionViewController
 
 @property (nonatomic, weak) id<CTAssetsGridViewControllerDelegate> delegate;
-@property (nonatomic, strong, nonnull) PHAssetCollection *assetCollection;
+@property (nonatomic, strong, nullable) PHAssetCollection *assetCollection;
+@property (nonatomic, strong, nullable) id<CTFetchResult> fetchResult;
 
 @end
 

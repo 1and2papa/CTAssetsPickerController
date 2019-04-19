@@ -27,12 +27,13 @@
 #import <UIKit/UIKit.h>
 #import <Photos/Photos.h>
 
+@protocol CTFetchResult;
 
 @interface CTAssetsGridViewFooter : UICollectionReusableView
 
 @property (nonatomic, weak, nullable) UIFont *font UI_APPEARANCE_SELECTOR;
 @property (nonatomic, weak, nullable) UIColor *textColor UI_APPEARANCE_SELECTOR;
 
-- (void)bind:(nonnull PHFetchResult *)result;
+- (void)bind:(nonnull id<CTFetchResult>)result;
 
 @end

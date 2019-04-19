@@ -8,8 +8,10 @@
 
 #import <Photos/Photos.h>
 
+@protocol CTAsset;
+
 @interface PHImageManager (CTAssetsPickerController)
 
-- (PHImageRequestID)ctassetsPickerRequestImageForAsset:(PHAsset *)asset targetSize:(CGSize)targetSize contentMode:(PHImageContentMode)contentMode options:( PHImageRequestOptions *)options resultHandler:(void (^)(UIImage * result, NSDictionary * info))resultHandler;
+- (PHImageRequestID)ctassetsPickerRequestImageForAsset:(id<CTAsset>)asset targetSize:(CGSize)targetSize contentMode:(PHImageContentMode)contentMode options:( PHImageRequestOptions *)options resultHandler:(void (^)(UIImage * result, NSDictionary * info))resultHandler;
 
 @end

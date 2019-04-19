@@ -32,6 +32,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol CTAssetsPickerControllerDelegate;
+@protocol CTFetchResult;
+@protocol CTAsset;
 
 /**
  *  A controller that allows picking multiple photos and videos from user's photo library.
@@ -136,6 +138,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL showsSelectionIndex;
 
 /**
+ *  Features using non-photos pictures with this framework.
+ */
+@property (nonatomic, strong, nullable) id<CTFetchResult> customFetchResult;
+
+/**
  *  The split view controller of the picker hierarchy. (read-only)
  *
  *  This property contains the child split view controller of the picker.
@@ -154,7 +161,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @see deselectAsset:
  */
-- (void)selectAsset:(PHAsset *)asset;
+- (void)selectAsset:(id<CTAsset>)asset;
 
 /**
  *  Deselects an asset in the picker.
@@ -163,7 +170,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @see selectAsset:
  */
-- (void)deselectAsset:(PHAsset *)asset;
+- (void)deselectAsset:(id<CTAsset>)asset;
 
 @end
 
@@ -196,7 +203,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @see assetsPickerControllerDidCancel:
  */
-- (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray<PHAsset*> *)assets;
+- (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray<id<CTAsset>> *)assets;
 
 @optional
 
@@ -252,7 +259,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @see assetsPickerController:shouldShowAsset:
  */
-- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldEnableAsset:(PHAsset *)asset;
+- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldEnableAsset:(id<CTAsset>)asset;
 
 
 /**
@@ -269,7 +276,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @see assetsPickerController:shouldDeselectAsset:
  */
-- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldSelectAsset:(PHAsset *)asset;
+- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldSelectAsset:(id<CTAsset>)asset;
 
 /**
  *  Tells the delegate that the asset was selected.
@@ -279,7 +286,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @see assetsPickerController:didDeselectAsset:
  */
-- (void)assetsPickerController:(CTAssetsPickerController *)picker didSelectAsset:(PHAsset *)asset;
+- (void)assetsPickerController:(CTAssetsPickerController *)picker didSelectAsset:(id<CTAsset>)asset;
 
 /**
  *  Asks the delegate if the specified asset should be deselected.
@@ -291,7 +298,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @see assetsPickerController:shouldSelectAsset:
  */
-- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldDeselectAsset:(PHAsset *)asset;
+- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldDeselectAsset:(id<CTAsset>)asset;
 
 /**
  *  Tells the delegate that the item at the specified path was deselected.
@@ -301,7 +308,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @see assetsPickerController:didSelectAsset:
  */
-- (void)assetsPickerController:(CTAssetsPickerController *)picker didDeselectAsset:(PHAsset *)asset;
+- (void)assetsPickerController:(CTAssetsPickerController *)picker didDeselectAsset:(id<CTAsset>)asset;
 
 
 
@@ -317,7 +324,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return `YES` if the asset should be highlighted or `NO` if it should not.
  */
-- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldHighlightAsset:(PHAsset *)asset;
+- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldHighlightAsset:(id<CTAsset>)asset;
 
 /**
  *  Tells the delegate that asset was highlighted.
@@ -327,7 +334,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @see assetsPickerController:didUnhighlightAsset:
  */
-- (void)assetsPickerController:(CTAssetsPickerController *)picker didHighlightAsset:(PHAsset *)asset;
+- (void)assetsPickerController:(CTAssetsPickerController *)picker didHighlightAsset:(id<CTAsset>)asset;
 
 
 /**
@@ -338,7 +345,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @see assetsPickerController:didHighlightAsset:
  */
-- (void)assetsPickerController:(CTAssetsPickerController *)picker didUnhighlightAsset:(PHAsset *)asset;
+- (void)assetsPickerController:(CTAssetsPickerController *)picker didUnhighlightAsset:(id<CTAsset>)asset;
 
 
 

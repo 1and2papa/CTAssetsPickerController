@@ -26,7 +26,11 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol CTFetchResult;
+
 @interface CTAssetCollectionViewController : UITableViewController
+
+@property (nonatomic, strong) id<CTFetchResult> customFetchResult;
 
 - (void)reloadUserInterface;
 

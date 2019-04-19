@@ -7,6 +7,8 @@
 //
 
 #import "PHImageManager+CTAssetsPickerController.h"
+#import "CTAsset.h"
+#import "CTFetchResult.h"
 
 @implementation PHImageManager (CTAssetsPickerController)
 
@@ -29,12 +31,16 @@
     return CGSizeMake(width, height);
 }
 
-- (PHImageRequestID)ctassetsPickerRequestImageForAsset:(PHAsset *)asset targetSize:(CGSize)targetSize contentMode:(PHImageContentMode)contentMode options:( PHImageRequestOptions *)options resultHandler:(void (^)(UIImage * result, NSDictionary * info))resultHandler {
+- (PHImageRequestID)ctassetsPickerRequestImageForAsset:(id<CTAsset>)asset targetSize:(CGSize)targetSize contentMode:(PHImageContentMode)contentMode options:( PHImageRequestOptions *)options resultHandler:(void (^)(UIImage * result, NSDictionary * info))resultHandler {
     CGSize size = targetSize;
     if ([[self class] ctassetsPickerNeedsiPadSupportSize]) {
         size = [[self class] ctassetsPickerSizeForSize:targetSize withMinimumDimension:500];
     }
-    return [self requestImageForAsset:asset targetSize:size contentMode:contentMode options:options resultHandler:resultHandler];
+    if (asset.photosAsset) {
+        return [self requestImageForAsset:asset.photosAsset targetSize:size contentMode:contentMode options:options resultHandler:resultHandler];
+    }
+    [asset fetchImageWithTargetSize:size contentMode:contentMode completion:resultHandler];
+    return PHInvalidImageRequestID;
 }
 
 @end

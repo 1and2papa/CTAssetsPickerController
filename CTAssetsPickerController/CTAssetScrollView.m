@@ -27,6 +27,8 @@
 #import <PureLayout/PureLayout.h>
 #import "CTAssetScrollView.h"
 #import "CTAssetPlayButton.h"
+#import "CTAsset.h"
+#import "CTFetchResult.h"
 #import "PHAsset+CTAssetsPickerController.h"
 #import "NSBundle+CTAssetsPickerController.h"
 #import "UIImage+CTAssetsPickerController.h"
@@ -44,7 +46,7 @@ NSString * const CTAssetScrollViewPlayerWillPauseNotification = @"CTAssetScrollV
 @interface CTAssetScrollView ()
 <UIScrollViewDelegate, UIGestureRecognizerDelegate>
 
-@property (nonatomic, strong) PHAsset *asset;
+@property (nonatomic, strong) id<CTAsset> asset;
 @property (nonatomic, strong) UIImage *image;
 @property (nonatomic, strong) AVPlayer *player;
 
@@ -273,11 +275,11 @@ NSString * const CTAssetScrollViewPlayerWillPauseNotification = @"CTAssetScrollV
 
 #pragma mark - Bind asset image
 
-- (void)bind:(PHAsset *)asset image:(UIImage *)image requestInfo:(NSDictionary *)info
+- (void)bind:(id<CTAsset>)asset image:(UIImage *)image requestInfo:(NSDictionary *)info
 {
     self.asset = asset;
-    self.imageView.accessibilityLabel = asset.accessibilityLabel;    
-    self.playButton.hidden = [asset ctassetsPickerIsPhoto];
+    self.imageView.accessibilityLabel = asset.photosAsset.accessibilityLabel;
+    self.playButton.hidden = asset.photosAsset ? [asset.photosAsset ctassetsPickerIsPhoto] : YES;
     
     BOOL isDegraded = [info[PHImageResultIsDegradedKey] boolValue];
     
@@ -348,7 +350,7 @@ NSString * const CTAssetScrollViewPlayerWillPauseNotification = @"CTAssetScrollV
     CGFloat minScale = MIN(xScale, yScale);
     CGFloat maxScale = 3.0 * minScale;
     
-    if ([self.asset ctassetsPickerIsVideo])
+    if ([self.asset.photosAsset ctassetsPickerIsVideo])
     {
         self.minimumZoomScale = minScale;
         self.maximumZoomScale = minScale;

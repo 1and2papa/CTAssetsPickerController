@@ -27,7 +27,7 @@
 #import <UIKit/UIKit.h>
 #import <Photos/Photos.h>
 
-
+@protocol CTFetchResult;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -53,7 +53,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An instance of `CTAssetPageViewController` initialized to show the asset items in `fetchResult`.
  */
-- (instancetype)initWithFetchResult:(PHFetchResult *)fetchResult;
+- (instancetype)initWithFetchResult:(id<CTFetchResult>)fetchResult;
 
 /**
  *  Initializes a newly created view controller with an array of assets.
