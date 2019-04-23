@@ -440,8 +440,8 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
 
 - (void)updateButton:(NSArray *)selectedAssets
 {
-    if (![self.fetchResult isKindOfClass:[PHFetchResult class]]) {
-        self.navigationItem.leftBarButtonItem = (self.picker.showsCancelButton) ? self.cancelButton : nil;
+    if ([self.fetchResult showsCancelButtonInGridViewController]) {
+        self.navigationItem.leftBarButtonItem = self.cancelButton;
     }
     if (self.picker.alwaysEnableDoneButton)
         self.navigationItem.rightBarButtonItem.enabled = YES;

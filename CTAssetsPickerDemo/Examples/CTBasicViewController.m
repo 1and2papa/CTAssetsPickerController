@@ -25,7 +25,7 @@
  */
 
 #import "CTBasicViewController.h"
-#import "PHImageManager+CTAssetsPickerController.h"
+#import <CTAssetsPickerController/PHImageManager+CTAssetsPickerController.h>
 
 
 #define tableViewRowHeight 80.0f

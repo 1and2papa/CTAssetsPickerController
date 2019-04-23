@@ -16,6 +16,8 @@
 
 @property (readonly) NSUInteger count;
 
+@property (readonly) BOOL showsCancelButtonInGridViewController;
+
 - (NSString *)collectionTitleWithCollection:(PHCollection *)collection;
 - (nullable PHFetchResult *)photosFetchResult;
 - (id)objectAtIndex:(NSUInteger)index;

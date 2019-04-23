@@ -60,6 +60,10 @@
     return 0;
 }
 
+- (BOOL)showsCancelButtonInGridViewController {
+    return YES;
+}
+
 @end
 
 @implementation PHFetchResult (Conforming)
@@ -70,6 +74,10 @@
 
 - (PHFetchResult *)photosFetchResult {
     return self;
+}
+
+- (BOOL)showsCancelButtonInGridViewController {
+    return NO;
 }
 
 @end
