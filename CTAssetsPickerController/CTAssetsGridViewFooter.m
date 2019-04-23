@@ -27,6 +27,8 @@
 #import <PureLayout/PureLayout.h>
 #import "CTAssetsPickerDefines.h"
 #import "CTAssetsGridViewFooter.h"
+#import "CTAsset.h"
+#import "CTFetchResult.h"
 #import "NSNumberFormatter+CTAssetsPickerController.h"
 #import "NSBundle+CTAssetsPickerController.h"
 
@@ -112,7 +114,7 @@
     [super updateConstraints];
 }
 
-- (void)bind:(PHFetchResult *)result
+- (void)bind:(id<CTFetchResult>)result
 {
     NSNumberFormatter *nf = [NSNumberFormatter new];
     

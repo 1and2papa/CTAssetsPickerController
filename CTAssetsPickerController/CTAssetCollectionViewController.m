@@ -30,6 +30,8 @@
 #import "CTAssetCollectionViewController.h"
 #import "CTAssetCollectionViewCell.h"
 #import "CTAssetsGridViewController.h"
+#import "CTAsset.h"
+#import "CTFetchResult.h"
 #import "PHAssetCollection+CTAssetsPickerController.h"
 #import "PHAsset+CTAssetsPickerController.h"
 #import "PHImageManager+CTAssetsPickerController.h"
@@ -502,11 +504,12 @@
 
 - (void)showDefaultAssetCollection
 {
-    if (self.defaultAssetCollection && !self.didShowDefaultAssetCollection)
+    if ((self.defaultAssetCollection || self.customFetchResult) && !self.didShowDefaultAssetCollection)
     {
         CTAssetsGridViewController *vc = [CTAssetsGridViewController new];
         vc.title = self.picker.selectedAssetsString ? : self.defaultAssetCollection.localizedTitle;
         vc.assetCollection = self.defaultAssetCollection;
+        vc.fetchResult = self.customFetchResult;
         vc.delegate = self;
         
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];

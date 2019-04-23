@@ -24,6 +24,8 @@
  
  */
 
+#import "CTAssetsPickerController.h"
+
 @interface CTAssetsPickerController (Internal)
 
 - (void)dismiss:(id)sender;

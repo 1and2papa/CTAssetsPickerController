@@ -36,6 +36,8 @@
 #import "CTAssetsPageViewController.h"
 #import "CTAssetsPageViewController+Internal.h"
 #import "CTAssetsViewControllerTransition.h"
+#import "CTAsset.h"
+#import "CTFetchResult.h"
 #import "UICollectionView+CTAssetsPickerController.h"
 #import "NSIndexSet+CTAssetsPickerController.h"
 #import "NSBundle+CTAssetsPickerController.h"
@@ -53,7 +55,6 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
 <PHPhotoLibraryChangeObserver>
 
 @property (nonatomic, weak) CTAssetsPickerController *picker;
-@property (nonatomic, strong) PHFetchResult *fetchResult;
 @property (nonatomic, strong) PHCachingImageManager *imageManager;
 
 @property (nonatomic, assign) CGRect previousPreheatRect;
@@ -61,6 +62,7 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
 
 @property (nonatomic, strong) CTAssetsGridViewFooter *footer;
 @property (nonatomic, strong) CTAssetsPickerNoAssetsView *noAssetsView;
+@property (nonatomic, strong) UIBarButtonItem *cancelButton;
 
 @property (nonatomic, assign) BOOL didLayoutSubviews;
 
@@ -121,6 +123,12 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
 {
     [super viewDidAppear:animated];
     [self updateCachedAssetImages];
+    PHFetchResult *fetchResult = self.fetchResult.photosFetchResult;
+    if (!fetchResult) {
+        // we don't want to show the master/primary when using a custom fetch
+        // also, doing it at this point fixes a bug where the status bar appears with a different color if done sooner
+        self.picker.splitViewController.preferredDisplayMode = UISplitViewControllerDisplayModePrimaryHidden;
+    }
 }
 
 - (void)viewWillLayoutSubviews
@@ -159,7 +167,7 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
     return (CTAssetsPickerController *)self.splitViewController.parentViewController;
 }
 
-- (PHAsset *)assetAtIndexPath:(NSIndexPath *)indexPath
+- (id<CTAsset>)assetAtIndexPath:(NSIndexPath *)indexPath
 {
     return (self.fetchResult.count > 0) ? self.fetchResult[indexPath.item] : nil;
 }
@@ -188,15 +196,28 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
                                         target:self.picker
                                         action:@selector(finishPickingAssets:)];
     }
+    if (self.cancelButton == nil)
+    {
+        self.cancelButton =
+        [[UIBarButtonItem alloc] initWithTitle:CTAssetsPickerLocalizedString(@"Cancel", nil)
+                                         style:UIBarButtonItemStylePlain
+                                        target:self.picker
+                                        action:@selector(dismiss:)];
+    }
 }
 
 - (void)setupAssets
 {
-    PHFetchResult *fetchResult =
-    [PHAsset fetchAssetsInAssetCollection:self.assetCollection
-                                  options:self.picker.assetsFetchOptions];
-    
-    self.fetchResult = fetchResult;
+    // in no-photos mode, we don't have a value for self.assetCollection, so only build a fetch result
+    // if we have one.. note that in this mode the client should provide a custom fetch result when instantiating
+    // CTAssetsPickerController
+    if (self.assetCollection) {
+        PHFetchResult *fetchResult =
+        [PHAsset fetchAssetsInAssetCollection:self.assetCollection
+                                      options:self.picker.assetsFetchOptions];
+
+        self.fetchResult = fetchResult;
+    }
     [self reloadData];
 }
 
@@ -302,10 +323,13 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
 
 - (void)photoLibraryDidChange:(PHChange *)changeInstance
 {
+    PHFetchResult *fetchResult = self.fetchResult.photosFetchResult;
+    if (!fetchResult) { return; }
+
     // Call might come on any background queue. Re-dispatch to the main queue to handle it.
     dispatch_async(dispatch_get_main_queue(), ^{
-        
-        PHFetchResultChangeDetails *changeDetails = [changeInstance changeDetailsForFetchResult:self.fetchResult];
+
+        PHFetchResultChangeDetails *changeDetails = [changeInstance changeDetailsForFetchResult:fetchResult];
         
         if (changeDetails)
         {
@@ -411,11 +435,14 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
     if (selectedAssets.count > 0)
         self.title = self.picker.selectedAssetsString;
     else
-        self.title = self.assetCollection.localizedTitle;
+        self.title = [self.fetchResult collectionTitleWithCollection:self.assetCollection];
 }
 
 - (void)updateButton:(NSArray *)selectedAssets
 {
+    if ([self.fetchResult showsCancelButtonInGridViewController]) {
+        self.navigationItem.leftBarButtonItem = self.cancelButton;
+    }
     if (self.picker.alwaysEnableDoneButton)
         self.navigationItem.rightBarButtonItem.enabled = YES;
     else
@@ -427,7 +454,7 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
 
 - (void)assetsPickerDidSelectAsset:(NSNotification *)notification
 {
-    PHAsset *asset = (PHAsset *)notification.object;
+    id<CTAsset> asset = (id<CTAsset>)notification.object;
     NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[self.fetchResult indexOfObject:asset] inSection:0];
     [self.collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
     
@@ -436,7 +463,7 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
 
 - (void)assetsPickerDidDeselectAsset:(NSNotification *)notification
 {
-    PHAsset *asset = (PHAsset *)notification.object;
+    id<CTAsset> asset = (id<CTAsset>)notification.object;
     NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[self.fetchResult indexOfObject:asset] inSection:0];
     [self.collectionView deselectItemAtIndexPath:indexPath animated:NO];
     
@@ -450,7 +477,7 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
 {
     for (NSIndexPath *indexPath in [self.collectionView indexPathsForSelectedItems])
     {
-        PHAsset *asset = [self assetAtIndexPath:indexPath];
+        id<CTAsset> asset = [self assetAtIndexPath:indexPath];
         CTAssetsGridViewCell *cell = (CTAssetsGridViewCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
         cell.selectionIndex = [self.picker.selectedAssets indexOfObject:asset];
     }
@@ -551,7 +578,7 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
 {
     for (NSIndexPath *indexPath in indexPaths)
     {
-        PHAsset *asset = [self assetAtIndexPath:indexPath];
+        PHAsset *asset = [self assetAtIndexPath:indexPath].photosAsset;
         
         if (!asset) break;
         
@@ -571,7 +598,7 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
 {
     for (NSIndexPath *indexPath in indexPaths)
     {
-        PHAsset *asset = [self assetAtIndexPath:indexPath];
+        PHAsset *asset = [self assetAtIndexPath:indexPath].photosAsset;
         
         if (!asset) break;
 
@@ -665,7 +692,7 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
     [collectionView dequeueReusableCellWithReuseIdentifier:CTAssetsGridViewCellIdentifier
                                               forIndexPath:indexPath];
     
-    PHAsset *asset = [self assetAtIndexPath:indexPath];
+    id<CTAsset> asset = [self assetAtIndexPath:indexPath];
     
     if ([self.picker.delegate respondsToSelector:@selector(assetsPickerController:shouldEnableAsset:)])
         cell.enabled = [self.picker.delegate assetsPickerController:self.picker shouldEnableAsset:asset];
@@ -696,7 +723,7 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
     return cell;
 }
 
-- (void)requestThumbnailForCell:(CTAssetsGridViewCell *)cell targetSize:(CGSize)targetSize asset:(PHAsset *)asset
+- (void)requestThumbnailForCell:(CTAssetsGridViewCell *)cell targetSize:(CGSize)targetSize asset:(id<CTAsset>)asset
 {
     NSInteger tag = cell.tag + 1;
     cell.tag = tag;
@@ -731,7 +758,7 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    PHAsset *asset = [self assetAtIndexPath:indexPath];
+    id<CTAsset> asset = [self assetAtIndexPath:indexPath];
     
     CTAssetsGridViewCell *cell = (CTAssetsGridViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     
@@ -745,7 +772,7 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    PHAsset *asset = [self assetAtIndexPath:indexPath];
+    id<CTAsset> asset = [self assetAtIndexPath:indexPath];
     
     [self.picker selectAsset:asset];
     
@@ -755,7 +782,7 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldDeselectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    PHAsset *asset = [self assetAtIndexPath:indexPath];
+    id<CTAsset> asset = [self assetAtIndexPath:indexPath];
     
     if ([self.picker.delegate respondsToSelector:@selector(assetsPickerController:shouldDeselectAsset:)])
         return [self.picker.delegate assetsPickerController:self.picker shouldDeselectAsset:asset];
@@ -765,7 +792,7 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    PHAsset *asset = [self assetAtIndexPath:indexPath];
+    id<CTAsset> asset = [self assetAtIndexPath:indexPath];
     
     [self.picker deselectAsset:asset];
     
@@ -775,7 +802,7 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    PHAsset *asset = [self assetAtIndexPath:indexPath];
+    id<CTAsset> asset = [self assetAtIndexPath:indexPath];
     
     if ([self.picker.delegate respondsToSelector:@selector(assetsPickerController:shouldHighlightAsset:)])
         return [self.picker.delegate assetsPickerController:self.picker shouldHighlightAsset:asset];
@@ -785,7 +812,7 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
 
 - (void)collectionView:(UICollectionView *)collectionView didHighlightItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    PHAsset *asset = [self assetAtIndexPath:indexPath];
+    id<CTAsset> asset = [self assetAtIndexPath:indexPath];
     
     if ([self.picker.delegate respondsToSelector:@selector(assetsPickerController:didHighlightAsset:)])
         [self.picker.delegate assetsPickerController:self.picker didHighlightAsset:asset];
@@ -793,7 +820,7 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
 
 - (void)collectionView:(UICollectionView *)collectionView didUnhighlightItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    PHAsset *asset = [self assetAtIndexPath:indexPath];
+    id<CTAsset> asset = [self assetAtIndexPath:indexPath];
     
     if ([self.picker.delegate respondsToSelector:@selector(assetsPickerController:didUnhighlightAsset:)])
         [self.picker.delegate assetsPickerController:self.picker didUnhighlightAsset:asset];

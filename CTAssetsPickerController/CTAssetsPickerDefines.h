@@ -52,7 +52,7 @@
 #define CTAssetsGridViewCellDisabledColor           [UIColor colorWithWhite:1 alpha:0.8]
 #define CTAssetsGridViewCellHighlightedColor        [UIColor colorWithWhite:0 alpha:0.5]
 
-#define CTAssetsGridSelectedViewBackgroundColor     [UIColor colorWithWhite:1 alpha:0.3]
+#define CTAssetsGridSelectedViewBackgroundColor     [UIColor clearColor]
 #define CTAssetsGridSelectedViewTintColor           [UIView new].tintColor
 
 #define CTAssetLabelSize                            CGSizeMake(25.0f, 25.0f)

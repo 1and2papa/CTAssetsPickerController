@@ -28,6 +28,8 @@
 #import "CTAssetsPickerDefines.h"
 #import "CTAssetsGridViewCell.h"
 #import "CTAssetsGridSelectedView.h"
+#import "CTAsset.h"
+#import "CTFetchResult.h"
 #import "PHAsset+CTAssetsPickerController.h"
 #import "NSDateFormatter+CTAssetsPickerController.h"
 #import "UIImage+CTAssetsPickerController.h"
@@ -36,7 +38,7 @@
 
 @interface CTAssetsGridViewCell ()
 
-@property (nonatomic, strong) PHAsset *asset;
+@property (nonatomic, strong) id<CTAsset> asset;
 
 @property (nonatomic, strong) UIImageView *disabledImageView;
 @property (nonatomic, strong) UIView *disabledView;
@@ -182,7 +184,7 @@
 }
 
 
-- (void)bind:(PHAsset *)asset
+- (void)bind:(id<CTAsset>)asset
 {
     self.asset = asset;
     
@@ -196,9 +198,9 @@
 - (NSString *)accessibilityLabel
 {
     if (self.selectedView.accessibilityLabel)
-        return [NSString stringWithFormat:@"%@, %@", self.selectedView.accessibilityLabel, self.asset.accessibilityLabel];
+        return [NSString stringWithFormat:@"%@, %@", self.selectedView.accessibilityLabel, self.asset.photosAsset.accessibilityLabel];
     else
-        return self.asset.accessibilityLabel;
+        return self.asset.photosAsset.accessibilityLabel;
 }
 
 @end

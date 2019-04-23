@@ -36,6 +36,7 @@ extern NSString * const CTAssetScrollViewDidTapNotification;
 extern NSString * const CTAssetScrollViewPlayerWillPlayNotification;
 extern NSString * const CTAssetScrollViewPlayerWillPauseNotification;
 
+@protocol CTAsset;
 
 @interface CTAssetScrollView : UIScrollView
 
@@ -54,7 +55,7 @@ extern NSString * const CTAssetScrollViewPlayerWillPauseNotification;
 
 - (void)setProgress:(CGFloat)progress;
 
-- (void)bind:(PHAsset *)asset image:(nullable UIImage *)image requestInfo:(nullable NSDictionary<NSString*, id> *)info;
+- (void)bind:(id<CTAsset>)asset image:(nullable UIImage *)image requestInfo:(nullable NSDictionary<NSString*, id> *)info;
 - (void)bind:(AVPlayerItem *)playerItem requestInfo:(nullable NSDictionary *)info;
 
 - (void)updateZoomScalesAndZoom:(BOOL)zoom;

@@ -29,6 +29,8 @@
 #import "UIImage+CTAssetsPickerController.h"
 #import "PHAsset+CTAssetsPickerController.h"
 #import "PHAssetCollection+CTAssetsPickerController.h"
+#import "CTAsset.h"
+#import "CTFetchResult.h"
 
 
 
@@ -110,9 +112,9 @@
 
 #pragma - Bind asset and duration
 
-- (void)bind:(PHAsset *)asset duration:(NSString *)duration;
+- (void)bind:(id<CTAsset>)asset duration:(NSString *)duration;
 {
-    self.badge.image = [asset badgeImage];
+    self.badge.image = [asset.photosAsset badgeImage];
     self.badge.layoutMargins = [self layoutMarginsForAsset:asset];
     self.duration.text = duration;
     
@@ -120,15 +122,15 @@
     [self updateConstraintsIfNeeded];
 }
 
-- (UIEdgeInsets)layoutMarginsForAsset:(PHAsset *)asset
+- (UIEdgeInsets)layoutMarginsForAsset:(id<CTAsset>)asset
 {
-    if (asset.ctassetsPickerIsHighFrameRateVideo)
+    if (asset.photosAsset.ctassetsPickerIsHighFrameRateVideo)
         return UIEdgeInsetsMake(2.5, 2.5, 2.5, 2.5);
     
-    else if (asset.ctassetsPickerIsTimelapseVideo)
+    else if (asset.photosAsset.ctassetsPickerIsTimelapseVideo)
         return UIEdgeInsetsMake(2.5, 2.5, 2.5, 2.5);
     
-    else if (asset.ctassetsPickerIsVideo)
+    else if (asset.photosAsset.ctassetsPickerIsVideo)
         return UIEdgeInsetsMake(4.5, 4.5, 4.5, 4.5);
     
     else

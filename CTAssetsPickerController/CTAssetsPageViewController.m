@@ -28,6 +28,8 @@
 #import "CTAssetsPageView.h"
 #import "CTAssetItemViewController.h"
 #import "CTAssetScrollView.h"
+#import "CTAsset.h"
+#import "CTFetchResult.h"
 #import "NSNumberFormatter+CTAssetsPickerController.h"
 #import "NSBundle+CTAssetsPickerController.h"
 #import "UIImage+CTAssetsPickerController.h"
@@ -46,7 +48,7 @@
 @property (nonatomic, assign, getter = isStatusBarHidden) BOOL statusBarHidden;
 
 @property (nonatomic, copy) NSArray *assets;
-@property (nonatomic, strong, readonly) PHAsset *asset;
+@property (nonatomic, strong, readonly) id<CTAsset> asset;
 
 @property (nonatomic, strong) CTAssetsPageView *pageView;
 
@@ -61,12 +63,18 @@
 
 @implementation CTAssetsPageViewController
 
-- (instancetype)initWithFetchResult:(PHFetchResult *)fetchResult
+- (instancetype)initWithFetchResult:(id<CTFetchResult>)fetchResult
 {
     NSMutableArray *assets = [NSMutableArray new];
-    
-    for (PHAsset *asset in fetchResult)
-        [assets addObject:asset];
+
+    if (fetchResult.photosFetchResult) {
+        for (PHAsset *asset in fetchResult.photosFetchResult)
+            [assets addObject:asset];
+    } else {
+        for (NSUInteger i = 0; i < fetchResult.count; i++) {
+            [assets addObject:fetchResult[i]];
+        }
+    }
     
     return [self initWithAssets:[NSArray arrayWithArray:assets]];
 }
@@ -166,7 +174,7 @@
 {
     [self setupButtons];
     
-    if ([self.asset ctassetsPickerIsVideo])
+    if ([self.asset.photosAsset ctassetsPickerIsVideo])
         self.toolbarItems = @[[self toolbarSpace], self.playButton, [self toolbarSpace]];
     else
         self.toolbarItems = nil;
@@ -201,7 +209,7 @@
     
     if (pageIndex >= 0 && pageIndex < count)
     {
-        PHAsset *asset = self.assets[pageIndex];
+        id<CTAsset> asset = self.assets[pageIndex];
         
         CTAssetItemViewController *page = [CTAssetItemViewController assetItemViewControllerForAsset:asset];
         page.allowsSelection = self.allowsSelection;
@@ -216,7 +224,7 @@
     }
 }
 
-- (PHAsset *)asset
+- (id<CTAsset>)asset
 {
     return ((CTAssetItemViewController *)self.viewControllers[0]).asset;
 }
@@ -226,12 +234,12 @@
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
 {
-    PHAsset *asset = ((CTAssetItemViewController *)viewController).asset;
+    id<CTAsset> asset = ((CTAssetItemViewController *)viewController).asset;
     NSInteger index = [self.assets indexOfObject:asset];
     
     if (index > 0)
     {
-        PHAsset *beforeAsset = self.assets[(index - 1)];
+        id<CTAsset> beforeAsset = self.assets[(index - 1)];
         CTAssetItemViewController *page = [CTAssetItemViewController assetItemViewControllerForAsset:beforeAsset];
         page.allowsSelection = self.allowsSelection;
         
@@ -243,13 +251,13 @@
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
 {
-    PHAsset *asset  = ((CTAssetItemViewController *)viewController).asset;
+    id<CTAsset> asset  = ((CTAssetItemViewController *)viewController).asset;
     NSInteger index = [self.assets indexOfObject:asset];
     NSInteger count = self.assets.count;
     
     if (index < count - 1)
     {
-        PHAsset *afterAsset = self.assets[(index + 1)];
+        id<CTAsset> afterAsset = self.assets[(index + 1)];
         CTAssetItemViewController *page = [CTAssetItemViewController assetItemViewControllerForAsset:afterAsset];
         page.allowsSelection = self.allowsSelection;
         
@@ -375,7 +383,7 @@
     [nav setNavigationBarHidden:NO];
     nav.navigationBar.alpha = 0.0f;
     
-    if ([self.asset ctassetsPickerIsVideo])
+    if ([self.asset.photosAsset ctassetsPickerIsVideo])
     {
         [nav setToolbarHidden:NO];
         nav.toolbar.alpha = 0.0f;
@@ -386,7 +394,7 @@
                          [self setNeedsStatusBarAppearanceUpdate];
                          nav.navigationBar.alpha = 1.0f;
                          
-                         if ([self.asset ctassetsPickerIsVideo])
+                         if ([self.asset.photosAsset ctassetsPickerIsVideo])
                              nav.toolbar.alpha = 1.0f;
                      }];
 }
