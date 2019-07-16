@@ -19,7 +19,8 @@
     PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
 
     // make sure the call is asynchronous and only calls once the completion handler
-    options.synchronous = NO;
+    options.synchronous = YES;
+    options.networkAccessAllowed = YES;
     options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
     [PHImageManager.defaultManager requestImageForAsset:self
                                              targetSize:targetSize
